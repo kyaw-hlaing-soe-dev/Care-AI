@@ -2,7 +2,7 @@ import { CheckCircle2, AlertTriangle, Lightbulb } from "lucide-react";
 import { GlassCard } from "@/components/glass/GlassCard";
 import { cn } from "@/lib/utils";
 
-type ListProps = { items: string[]; delay?: number };
+type ListProps = { items: string[]; delay?: number | undefined };
 
 function AnalysisList({
   items,

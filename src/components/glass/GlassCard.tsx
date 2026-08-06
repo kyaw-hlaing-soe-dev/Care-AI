@@ -7,7 +7,7 @@ type GlassCardProps = HTMLAttributes<HTMLDivElement> & {
   /** Enable the hover lift micro-interaction. */
   interactive?: boolean;
   /** Stagger index for the entrance animation. */
-  delay?: number;
+  delay?: number | undefined;
 };
 
 export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
