@@ -50,8 +50,8 @@ const WIDGETS = [
   },
   {
     Icon: Brain,
-    label: "AI Health Score",
-    value: "Excellent",
+    label: "Health Score",
+    value: "92 / 100",
     tint: "from-violet/85 to-primary/85",
     pos: "right-[6%] bottom-[5%]",
     mobile: true,
@@ -155,7 +155,11 @@ export function Hero() {
         className="relative mx-auto h-[350px] w-full max-w-[560px] sm:h-[470px] lg:h-[clamp(430px,61dvh,560px)] [perspective:1400px]"
       >
         <motion.div
-          style={reducedMotion ? { transformStyle: "preserve-3d" } : { rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}
+          style={
+            reducedMotion
+              ? { transformStyle: "preserve-3d" }
+              : { rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }
+          }
           className="absolute inset-0"
         >
           <div className="absolute left-1/2 top-1/2 h-[84%] w-[74%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-primary/22 via-cyan/24 to-sky-100/40 blur-2xl" />
@@ -177,7 +181,9 @@ export function Hero() {
             <motion.div
               key={w.label}
               initial={{ opacity: 0, scale: 0.85 }}
-              animate={reducedMotion ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1, y: [0, -4, 0] }}
+              animate={
+                reducedMotion ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1, y: [0, -4, 0] }
+              }
               transition={{
                 opacity: { duration: 0.6, delay: 0.3 + w.delay * 0.3 },
                 scale: { duration: 0.6, delay: 0.3 + w.delay * 0.3 },

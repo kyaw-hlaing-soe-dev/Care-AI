@@ -4,8 +4,9 @@ import { LandingNav } from "@/components/landing/LandingNav";
 import { Hero } from "@/components/landing/Hero";
 import { Features } from "@/components/landing/Features";
 import { DashboardPreview } from "@/components/landing/DashboardPreview";
+import { HowItWorks } from "@/components/landing/HowItWorks";
+import { HealthTrends } from "@/components/landing/HealthTrends";
 import { AiAnalysis } from "@/components/landing/AiAnalysis";
-import { Testimonials } from "@/components/landing/Testimonials";
 import { CtaSection } from "@/components/landing/CtaSection";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 
@@ -28,15 +29,16 @@ export const Route = createFileRoute("/")({
 
 function LandingPage() {
   return (
-    <div className="landing-page min-h-dvh">
+    <div className="landing-page min-h-dvh overflow-x-clip">
       <AmbientBackground />
       <LandingNav />
       <main>
         <Hero />
-        <Features />
         <DashboardPreview />
+        <Features />
+        <HowItWorks />
+        <HealthTrends />
         <AiAnalysis />
-        <Testimonials />
         <CtaSection />
       </main>
       <LandingFooter />

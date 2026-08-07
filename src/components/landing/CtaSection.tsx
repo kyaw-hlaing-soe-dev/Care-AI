@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "motion/react";
-import { HeartPulse, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import type { ReactNode } from "react";
 import { GlassButton } from "@/components/glass/GlassButton";
 import { Reveal } from "./Reveal";
@@ -31,7 +31,12 @@ function SupportCard({
           ? { duration: 0.2, delay }
           : {
               opacity: { duration: 0.4, delay },
-              y: { duration: 7.2 + delay, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay },
+              y: {
+                duration: 7.2 + delay,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+                delay,
+              },
             }
       }
     >
@@ -39,7 +44,9 @@ function SupportCard({
         {icon}
       </span>
       <span className="leading-tight">
-        <span className="block text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">{label}</span>
+        <span className="block text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">
+          {label}
+        </span>
         <span className="mt-0.5 block text-sm font-extrabold text-slate-950">{value}</span>
       </span>
     </motion.div>
@@ -62,7 +69,7 @@ export function CtaSection() {
                 Start Your Health Journey Today
               </h2>
               <p className="mt-4 text-pretty text-base leading-relaxed text-primary-foreground/85 sm:text-lg">
-                Join thousands of users using AI to stay healthy.
+                Track your vitals and understand your health with CareAI.
               </p>
               <Link to="/login" className="mt-8 inline-block w-full sm:w-auto">
                 <GlassButton
@@ -111,17 +118,10 @@ export function CtaSection() {
               />
 
               <SupportCard
-                icon={<HeartPulse className="size-4" aria-hidden="true" />}
-                label="Heart rate"
-                value="72 BPM"
-                className="right-[0%] top-[16%]"
-                delay={0.2}
-              />
-              <SupportCard
                 icon={<Sparkles className="size-4" aria-hidden="true" />}
-                label="AI health score"
-                value="92"
-                className="bottom-[15%] left-[0%]"
+                label="Health score"
+                value="92 / 100"
+                className="right-[0%] top-[22%]"
                 delay={0.45}
               />
             </div>

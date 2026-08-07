@@ -7,9 +7,9 @@ import { CareAILogo } from "@/components/auth/CareAILogo";
 
 const LINKS = [
   { href: "#features", label: "Features" },
-  { href: "#dashboard", label: "Dashboard" },
-  { href: "#ai", label: "How it works" },
-  { href: "#stories", label: "Stories" },
+  { href: "#dashboard", label: "Dashboard Preview" },
+  { href: "#how-it-works", label: "How It Works" },
+  { href: "#insights", label: "Insights" },
 ];
 
 export function LandingNav() {

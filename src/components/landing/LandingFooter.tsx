@@ -1,4 +1,5 @@
-import { Activity, Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin, Twitter } from "lucide-react";
+import { CareAILogo } from "@/components/auth/CareAILogo";
 
 const LINKS = [
   { label: "Privacy", href: "#" },
@@ -17,12 +18,7 @@ export function LandingFooter() {
   return (
     <footer className="mx-auto max-w-6xl px-5 pb-12">
       <div className="glass-surface glass-glare flex flex-col items-center gap-6 rounded-3xl px-6 py-8 sm:flex-row sm:justify-between">
-        <span className="flex items-center gap-2.5">
-          <span className="grid size-9 place-items-center rounded-full bg-gradient-to-br from-primary to-cyan text-primary-foreground">
-            <Activity className="size-4.5" />
-          </span>
-          <span className="text-base font-extrabold tracking-tight">CareAI</span>
-        </span>
+        <CareAILogo compact />
 
         <nav aria-label="Footer">
           <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">

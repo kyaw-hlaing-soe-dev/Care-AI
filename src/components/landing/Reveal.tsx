@@ -48,7 +48,7 @@ export function SectionHeading({
   className,
 }: {
   eyebrow?: string;
-  title: string;
+  title: ReactNode;
   subtitle?: string;
   className?: string;
 }) {
