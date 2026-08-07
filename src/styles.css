@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Care AI design system — blue / cyan clinical palette with an
+ * CareAI design system — blue / cyan clinical palette with an
  * Apple "Liquid Glass" surface language. Light mode only.
  */
 
@@ -167,6 +167,40 @@
 }
 
 /* ---------- Liquid glass primitives ---------- */
+
+.app-shell {
+  position: relative;
+  isolation: isolate;
+  color: #0f172a;
+  background:
+    radial-gradient(circle at 8% 8%, rgba(59, 130, 246, 0.09), transparent 27rem),
+    radial-gradient(circle at 92% 12%, rgba(34, 211, 238, 0.09), transparent 25rem),
+    #f8fbff;
+}
+
+.app-shell::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(59, 130, 246, 0.14) 0.6px, transparent 0.75px);
+  background-size: 34px 34px;
+  opacity: 0.12;
+  mask-image: linear-gradient(120deg, #000, transparent 68%);
+}
+
+.app-card {
+  border-color: rgba(226, 232, 240, 0.82);
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: var(--shadow-ui-md);
+  backdrop-filter: blur(16px) saturate(135%);
+}
+
+.app-card.glass-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 48px rgba(44, 83, 130, 0.14);
+}
 
 @utility glass-surface {
   position: relative;

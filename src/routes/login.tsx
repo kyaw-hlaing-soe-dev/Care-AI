@@ -8,15 +8,15 @@ import { LoadingSpinner } from "@/components/LoadingSpinner";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Sign in — AICare" },
+      { title: "Sign in — CareAI" },
       {
         name: "description",
-        content: "Sign in to AICare to log vitals and view your AI health analysis.",
+        content: "Sign in to CareAI to log vitals and view your AI health analysis.",
       },
-      { property: "og:title", content: "Sign in — AICare" },
+      { property: "og:title", content: "Sign in — CareAI" },
       {
         property: "og:description",
-        content: "Sign in to AICare to log vitals and view your AI health analysis.",
+        content: "Sign in to CareAI to log vitals and view your AI health analysis.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -33,7 +33,7 @@ export function CtaSection() {
 
             <motion.img
               src={doctor}
-              alt="Care AI doctor mascot"
+              alt="CareAI doctor mascot"
               width={512}
               height={512}
               loading="lazy"

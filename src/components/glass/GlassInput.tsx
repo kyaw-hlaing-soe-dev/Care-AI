@@ -3,51 +3,59 @@ import { cn } from "@/lib/utils";
 
 type GlassInputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
-  hint?: string;
-  invalid?: boolean;
+  hint?: string | undefined;
+  error?: string | undefined;
+  unit?: string | undefined;
+  invalid?: boolean | undefined;
 };
 
 export const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
-  ({ label, hint, invalid, className, id, ...props }, ref) => {
+  ({ label, hint, error, unit, invalid, className, id, ...props }, ref) => {
     const autoId = useId();
     const inputId = id ?? autoId;
+    const hasError = Boolean(invalid || error);
+    const descriptions = [hint ? `${inputId}-hint` : null, error ? `${inputId}-error` : null]
+      .filter(Boolean)
+      .join(" ");
 
     return (
-      <div className="space-y-1.5">
-        <label
-          htmlFor={inputId}
-          className="block text-sm font-semibold text-foreground"
-        >
+      <div className="min-w-0">
+        <label htmlFor={inputId} className="mb-2 block text-[13px] font-bold text-slate-700">
           {label}
         </label>
-        <input
-          ref={ref}
-          id={inputId}
-          aria-invalid={invalid || undefined}
-          aria-describedby={hint ? `${inputId}-hint` : undefined}
-          className={cn(
-            "h-12 w-full rounded-xl border px-4 text-[15px] font-medium text-foreground",
-            "border-white/50 bg-white/45 backdrop-blur-xl placeholder:font-normal placeholder:text-muted-foreground",
-            "shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] transition-all duration-500 spring",
-            "focus:border-primary/60 focus:bg-white/70 focus:outline-none focus:ring-4 focus:ring-primary/15",
-            "dark:border-white/15 dark:bg-white/8 dark:focus:bg-white/12",
-            invalid &&
-              "border-urgent/50 bg-urgent-bg/70 text-urgent-text focus:border-urgent/70 focus:ring-urgent/15",
-            className,
-          )}
-          {...props}
-        />
-        {hint && (
-          <p
-            id={`${inputId}-hint`}
+        <div className="relative">
+          <input
+            ref={ref}
+            id={inputId}
+            aria-invalid={hasError || undefined}
+            aria-describedby={descriptions || undefined}
             className={cn(
-              "text-xs font-medium",
-              invalid ? "text-urgent" : "text-muted-foreground",
+              "h-[54px] w-full rounded-[14px] border border-slate-200 bg-white px-4 text-base font-medium text-slate-950 outline-none",
+              "placeholder:font-normal placeholder:text-slate-400",
+              "shadow-[0_5px_18px_rgba(44,83,130,0.045)] transition-[border-color,box-shadow] duration-200",
+              "hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-cyan-100/80",
+              unit && "pr-16",
+              hasError && "border-rose-300 focus:border-rose-400 focus:ring-rose-100",
+              className,
             )}
-          >
+            {...props}
+          />
+          {unit ? (
+            <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-sm font-semibold text-slate-500">
+              {unit}
+            </span>
+          ) : null}
+        </div>
+        {hint ? (
+          <p id={`${inputId}-hint`} className="mt-1.5 text-[11px] font-medium leading-5 text-slate-500 sm:text-xs">
             {hint}
           </p>
-        )}
+        ) : null}
+        {error ? (
+          <p id={`${inputId}-error`} className="mt-1.5 text-xs font-semibold leading-5 text-rose-600" role="alert">
+            {error}
+          </p>
+        ) : null}
       </div>
     );
   },

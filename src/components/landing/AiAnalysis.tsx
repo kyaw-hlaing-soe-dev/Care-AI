@@ -12,7 +12,7 @@ const STEPS = [
   {
     Icon: TrendingUp,
     title: "AI analyzes trends",
-    body: "Care AI compares today against your history and flags anything drifting.",
+    body: "CareAI compares today against your history and flags anything drifting.",
     tint: "from-cyan to-teal",
   },
   {

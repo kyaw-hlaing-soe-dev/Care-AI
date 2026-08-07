@@ -81,12 +81,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "AICare — AI Health Vitals" },
+      { title: "CareAI — AI Health Vitals" },
       {
         name: "description",
         content: "Log your vital signs and get AI-powered health insights in seconds.",
       },
-      { property: "og:title", content: "AICare — AI Health Vitals" },
+      { property: "og:title", content: "CareAI — AI Health Vitals" },
       {
         property: "og:description",
         content: "Log your vital signs and get AI-powered health insights in seconds.",

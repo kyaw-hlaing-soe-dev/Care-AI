@@ -9,7 +9,7 @@ const STORIES = [
     initials: "AO",
     tint: "from-primary to-sky",
     quote:
-      "Care AI caught a slow climb in my resting heart rate two weeks before I felt anything. It reads like a friend, not a chart.",
+      "CareAI caught a slow climb in my resting heart rate two weeks before I felt anything. It reads like a friend, not a chart.",
   },
   {
     name: "Daniel Reyes",
@@ -35,7 +35,7 @@ export function Testimonials() {
       <SectionHeading
         eyebrow="Stories"
         title="Trusted in Everyday Life"
-        subtitle="People use Care AI between appointments — the long stretch where health actually happens."
+        subtitle="People use CareAI between appointments — the long stretch where health actually happens."
       />
 
       <ul className="mt-14 grid gap-5 md:grid-cols-3">

@@ -25,11 +25,11 @@ export type VitalRecord = VitalInput & {
 };
 
 export const RANGES = {
-  temperature: { min: 36.1, max: 37.2, hint: "Normal: 36.1°C – 37.2°C", unit: "°C" },
-  systolic: { min: 90, max: 120, hint: "Normal: 90 – 120 mmHg", unit: "mmHg" },
-  diastolic: { min: 60, max: 80, hint: "Normal: 60 – 80 mmHg", unit: "mmHg" },
-  heartRate: { min: 60, max: 100, hint: "Normal: 60 – 100 bpm", unit: "bpm" },
-  oxygen: { min: 95, max: 100, hint: "Normal: 95% – 100%", unit: "%" },
+  temperature: { min: 36.1, max: 37.2, hint: "Typical reference: 36.1°C – 37.2°C", unit: "°C" },
+  systolic: { min: 90, max: 120, hint: "Typical reference: 90 – 120 mmHg", unit: "mmHg" },
+  diastolic: { min: 60, max: 80, hint: "Typical reference: 60 – 80 mmHg", unit: "mmHg" },
+  heartRate: { min: 60, max: 100, hint: "Typical reference: 60 – 100 bpm", unit: "bpm" },
+  oxygen: { min: 95, max: 100, hint: "Typical reference: 95% – 100%", unit: "%" },
 } as const;
 
 export type VitalKey = keyof typeof RANGES;
@@ -62,11 +62,11 @@ export function analyzeVitals(v: VitalInput): VitalAnalysis {
     const value = v[key];
     const { min, max, unit } = RANGES[key];
     if (value >= min && value <= max) {
-      good.push(`${LABELS[key]} is within the normal range at ${value}${unit}.`);
+      good.push(`${LABELS[key]} is within the typical range at ${value}${unit}.`);
     } else {
       deviations += 1;
       const direction = value < min ? "below" : "above";
-      concerns.push(`${LABELS[key]} is ${direction} the normal range at ${value}${unit}.`);
+      concerns.push(`${LABELS[key]} is ${direction} the typical range at ${value}${unit}.`);
     }
   });
 
@@ -97,7 +97,7 @@ export function analyzeVitals(v: VitalInput): VitalAnalysis {
   const summary = emergency
     ? "One or more readings are far outside the safe range. This needs immediate medical attention rather than home monitoring."
     : deviations === 0
-      ? "All five readings sit comfortably inside their normal ranges. Your vitals look stable and healthy today."
+      ? "All five readings sit inside their typical ranges. Your latest vitals look consistent today."
       : `${deviations} of your readings fall outside the typical range. Nothing looks alarming, but it's worth watching over the next few days.`;
 
   return { status, emergency, score, summary, good, concerns, recommendations };

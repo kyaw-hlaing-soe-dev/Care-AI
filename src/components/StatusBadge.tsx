@@ -19,6 +19,7 @@ export function StatusBadge({
   className?: string;
 }) {
   const { cls, Icon } = MAP[status];
+  const label = status === "Attention Needed" ? "Needs Attention" : status;
   return (
     <span
       className={cn(
@@ -29,7 +30,7 @@ export function StatusBadge({
       )}
     >
       <Icon className={size === "lg" ? "size-5" : "size-3.5"} />
-      {status}
+      {label}
     </span>
   );
 }

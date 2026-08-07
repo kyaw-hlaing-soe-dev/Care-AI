@@ -8,10 +8,10 @@ import { useProfile } from "@/lib/profile-context";
 export const Route = createFileRoute("/create-profile")({
   head: () => ({
     meta: [
-      { title: "Create your profile — AICare" },
+      { title: "Create your profile — CareAI" },
       {
         name: "description",
-        content: "Create your AICare health profile for a more personalized experience.",
+        content: "Create your CareAI health profile for a more personalized experience.",
       },
       { name: "robots", content: "noindex, nofollow" },
     ],

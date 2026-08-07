@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 import { ArrowLeft, Check, Droplets, HeartPulse, LockKeyhole, Sparkles } from "lucide-react";
-import { AICareLogo } from "@/components/auth/AICareLogo";
+import { CareAILogo } from "@/components/auth/CareAILogo";
 import doctorImage from "../../assets/login-doctor-seated.png";
 
 export type LoginExperienceProps = {
@@ -87,7 +87,7 @@ function DoctorImage({ className }: { className: string }) {
   return (
     <motion.img
       src={doctorImage}
-      alt="Friendly 3D AICare doctor sitting on a stool and reviewing health data on a tablet"
+      alt="Friendly 3D CareAI doctor sitting on a stool and reviewing health data on a tablet"
       className={`doctor-image-blend relative z-10 h-full w-auto max-w-none select-none object-contain ${className}`}
       draggable="false"
       loading="eager"
@@ -291,7 +291,7 @@ export function LoginPanel({ onSignIn, pending, error }: LoginExperienceProps) {
     >
       <div className="mx-auto w-full max-w-[440px] md:max-w-[620px] lg:max-w-[440px]">
         <div className="md:mx-auto md:max-w-[440px] lg:max-w-none">
-          <AICareLogo />
+          <CareAILogo />
 
           <div className="mt-4 inline-flex rounded-full border border-cyan-200/75 bg-white/75 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-700 shadow-[0_8px_18px_rgba(14,165,233,0.07)] sm:mt-5">
             Private by design
@@ -328,7 +328,7 @@ export function LoginPanel({ onSignIn, pending, error }: LoginExperienceProps) {
 
         <div className="mt-5 border-t border-slate-200/80 pt-4 md:mx-auto md:max-w-[440px] lg:max-w-none">
           <p className="text-[12px] leading-[1.55] text-slate-600">
-            AICare provides informational health insights only and is not a substitute for
+            CareAI provides informational health insights only and is not a substitute for
             professional medical advice.
           </p>
 

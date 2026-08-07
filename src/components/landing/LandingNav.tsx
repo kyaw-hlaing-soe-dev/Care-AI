@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { GlassButton } from "@/components/glass/GlassButton";
-import { AICareLogo } from "@/components/auth/AICareLogo";
+import { CareAILogo } from "@/components/auth/CareAILogo";
 
 const LINKS = [
   { href: "#features", label: "Features" },
@@ -19,7 +19,7 @@ export function LandingNav() {
     <header className="sticky top-0 z-50 px-4 pt-3 sm:pt-4">
       <nav className="glass-surface glass-glare glass-strong mx-auto flex max-w-[1380px] items-center justify-between gap-4 rounded-[22px] border-white/80 px-3 py-2 shadow-[0_14px_42px_rgba(31,72,116,0.10)] sm:px-5">
         <Link to="/" className="flex min-w-0 items-center gap-2.5">
-          <AICareLogo compact className="gap-2.5" />
+          <CareAILogo compact className="gap-2.5" />
         </Link>
 
         <ul className="hidden items-center gap-7 md:flex">

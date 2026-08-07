@@ -3,8 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useAuth } from "@/lib/auth-context";
 import { useProfile } from "@/lib/profile-context";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { TopBar } from "@/components/TopBar";
-import { DisclaimerFooter } from "@/components/DisclaimerFooter";
+import { AppShell } from "@/components/app/AppShell";
 
 export function ProtectedRoute({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
@@ -21,11 +20,5 @@ export function ProtectedRoute({ children }: { children: ReactNode }) {
     return <LoadingSpinner fullscreen label="Checking your session…" />;
   }
 
-  return (
-    <div className="min-h-dvh">
-      <TopBar />
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6">{children}</main>
-      <DisclaimerFooter />
-    </div>
-  );
+  return <AppShell>{children}</AppShell>;
 }

@@ -10,7 +10,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import { AICareLogo } from "@/components/auth/AICareLogo";
+import { CareAILogo } from "@/components/auth/CareAILogo";
 import { useAuth, type AppUser } from "@/lib/auth-context";
 import {
   useProfile,
@@ -100,7 +100,7 @@ function FieldLabel({ children, optional }: { children: ReactNode; optional?: bo
   );
 }
 
-function FieldError({ id, message }: { id: string; message?: string }) {
+function FieldError({ id, message }: { id: string; message?: string | undefined }) {
   if (!message) return null;
   return (
     <p id={id} className="mt-1.5 text-[13px] font-medium text-rose-600" role="alert">
@@ -125,7 +125,7 @@ function ProfileInput({
   label: string;
   value: string;
   onChange: (value: string) => void;
-  error?: string;
+  error?: string | undefined;
   type?: "text" | "date";
   placeholder?: string;
   max?: string;
@@ -171,7 +171,7 @@ function UnitInput({
   value: string;
   unit: string;
   placeholder: string;
-  error?: string;
+  error?: string | undefined;
   onChange: (value: string) => void;
   decimal?: boolean;
   onBlur: () => void;
@@ -213,7 +213,7 @@ function SexSelector({
 }: {
   value: ProfileSex | "";
   onChange: (value: ProfileSex) => void;
-  error?: string;
+  error?: string | undefined;
 }) {
   return (
     <fieldset id="sex" tabIndex={-1} className="min-w-0" aria-describedby={error ? "sex-error" : undefined}>
@@ -369,7 +369,7 @@ function DoctorIllustration({ mobile = false }: { mobile?: boolean }) {
     <motion.img
       data-profile-doctor
       src={profileDoctor}
-      alt="AICare doctor welcoming you to create your health profile"
+      alt="CareAI doctor welcoming you to create your health profile"
       draggable="false"
       loading="eager"
       className={
@@ -404,7 +404,7 @@ function ProfileVisual() {
           <span className="text-gradient">know you.</span>
         </h1>
         <p className="mt-5 max-w-[430px] text-[15px] leading-7 text-slate-600 xl:text-base">
-          A few details help AICare personalize your health insights and experience.
+          A few details help CareAI personalize your health insights and experience.
         </p>
       </div>
 
@@ -470,7 +470,7 @@ function ProfileSuccess() {
         <Check className="size-9" strokeWidth={2.5} />
       </motion.div>
       <h2 className="mt-7 text-3xl font-extrabold tracking-[-0.04em] text-slate-950">Profile created!</h2>
-      <p className="mt-2 text-base text-slate-500">Welcome to AICare.</p>
+      <p className="mt-2 text-base text-slate-500">Welcome to CareAI.</p>
       <div className="mt-8 h-1.5 w-32 overflow-hidden rounded-full bg-sky-100">
         <motion.div
           className="h-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-400"
@@ -522,7 +522,9 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
     setSubmitError(null);
     if (Object.keys(validationErrors).length > 0) {
       const firstInvalid = Object.keys(validationErrors)[0];
-      window.requestAnimationFrame(() => document.getElementById(firstInvalid)?.focus());
+      if (firstInvalid) {
+        window.requestAnimationFrame(() => document.getElementById(firstInvalid)?.focus());
+      }
       return;
     }
 
@@ -554,7 +556,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
       transition={{ duration: reducedMotion ? 0.15 : 0.5, ease: "easeOut" }}
     >
       <div className="flex items-center justify-between gap-4">
-        <AICareLogo compact />
+        <CareAILogo compact />
         <p className="rounded-full border border-cyan-100 bg-cyan-50/70 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.17em] text-blue-600">
           Profile setup
         </p>
@@ -567,7 +569,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
         <p className="mt-2.5 max-w-[500px] text-sm leading-6 text-slate-500 sm:text-[15px] lg:mt-1.5">
           <span className="lg:hidden">Let&apos;s personalize your experience.</span>
           <span className="hidden lg:inline">
-            Tell us a little about yourself so we can personalize your AICare experience.
+            Tell us a little about yourself so we can personalize your CareAI experience.
           </span>
         </p>
       </div>
@@ -667,7 +669,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
           <p className="mt-3.5 flex items-start justify-center gap-2 px-1 text-center text-[11px] leading-[1.55] text-slate-500 sm:text-xs">
             <LockKeyhole className="mt-0.5 size-3.5 shrink-0 text-blue-500" />
             <span>
-              Your information is used to personalize your AICare experience and is handled according to our privacy practices.
+              Your information is used to personalize your CareAI experience and is handled according to our privacy practices.
             </span>
           </p>
         </div>
@@ -694,7 +696,7 @@ export function CreateProfileExperience({ onComplete }: { onComplete: () => void
         <ProfileVisual />
         <section
           className="profile-form-panel relative mx-auto w-full max-w-[620px] rounded-[24px] border border-white/85 bg-white/[0.84] p-5 shadow-[0_24px_70px_rgba(44,83,130,0.13)] backdrop-blur-xl sm:rounded-[28px] sm:p-8 lg:p-7 xl:p-8"
-          aria-label="Create your AICare profile"
+          aria-label="Create your CareAI profile"
         >
           {success ? <ProfileSuccess /> : <ProfileForm user={user} onSuccess={() => setSuccess(true)} />}
         </section>

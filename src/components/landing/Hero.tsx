@@ -167,7 +167,7 @@ export function Hero() {
             width={1024}
             height={1024}
             loading="eager"
-            animate={reducedMotion ? undefined : { y: [0, -4, 0] }}
+            {...(!reducedMotion ? { animate: { y: [0, -4, 0] } } : {})}
             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
             className="absolute inset-x-[14%] bottom-[3%] top-[2%] m-auto h-[96%] w-auto object-contain drop-shadow-[0_34px_44px_rgba(30,64,140,0.22)]"
             style={{ transform: "translateZ(60px)" }}

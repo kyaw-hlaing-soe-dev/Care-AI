@@ -10,14 +10,14 @@ import { CtaSection } from "@/components/landing/CtaSection";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 
 const DESC =
-  "Care AI is your personal AI healthcare companion — track vitals, monitor heart rate, blood pressure, oxygen and temperature, and get intelligent AI health insights.";
+  "CareAI is your personal AI healthcare companion — track vitals, monitor heart rate, blood pressure, oxygen and temperature, and get intelligent AI health insights.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Care AI — Your Personal AI Healthcare Companion" },
+      { title: "CareAI — Your Personal AI Healthcare Companion" },
       { name: "description", content: DESC },
-      { property: "og:title", content: "Care AI — Your Personal AI Healthcare Companion" },
+      { property: "og:title", content: "CareAI — Your Personal AI Healthcare Companion" },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

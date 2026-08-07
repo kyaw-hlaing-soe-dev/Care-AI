@@ -21,7 +21,7 @@ export function LandingFooter() {
           <span className="grid size-9 place-items-center rounded-full bg-gradient-to-br from-primary to-cyan text-primary-foreground">
             <Activity className="size-4.5" />
           </span>
-          <span className="text-base font-extrabold tracking-tight">Care AI</span>
+          <span className="text-base font-extrabold tracking-tight">CareAI</span>
         </span>
 
         <nav aria-label="Footer">
@@ -55,7 +55,7 @@ export function LandingFooter() {
       </div>
 
       <p className="mx-auto mt-6 max-w-2xl text-center text-xs leading-relaxed text-muted-foreground">
-        © {new Date().getFullYear()} Care AI. Informational insights only — not a substitute for
+        © {new Date().getFullYear()} CareAI. Informational insights only — not a substitute for
         professional medical advice, diagnosis, or treatment.
       </p>
     </footer>
