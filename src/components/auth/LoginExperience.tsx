@@ -1,542 +1,357 @@
-import type { ComponentType } from "react";
-import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "motion/react";
-import {
-  Activity,
-  ArrowLeft,
-  Check,
-  Droplets,
-  HeartPulse,
-  LockKeyhole,
-  Lungs,
-  ShieldCheck,
-  Sparkles,
-} from "lucide-react";
-import doctorImage from "@/assets/login-doctor-seated.png";
+import type { ReactNode } from "react";
+import { ArrowLeft, Check, Droplets, HeartPulse, LockKeyhole, ShieldCheck, Sparkles } from "lucide-react";
+import doctorImage from "../../assets/login-doctor-seated.png";
 
-type VitalCardProps = {
-  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
-  label: string;
-  value: string;
-  status: string;
-  tone: "rose" | "cyan" | "blue" | "violet";
-  className?: string;
-  delay?: number;
-  float?: number;
-  rotate?: number;
-  compact?: boolean;
+export type LoginExperienceProps = {
+  onSignIn: () => void;
+  pending?: boolean | undefined;
+  error?: string | null | undefined;
 };
 
-const vitalCards: Array<Omit<VitalCardProps, "className"> & { position: string }> = [
-  {
-    icon: HeartPulse,
-    label: "Heart rate",
-    value: "72 BPM",
-    status: "Normal",
-    tone: "rose",
-    position: "left-[1%] top-[28%] xl:left-[5%]",
-    delay: 0.22,
-    float: 5,
-    rotate: -1,
-  },
-  {
-    icon: Lungs,
-    label: "Oxygen",
-    value: "98%",
-    status: "Excellent",
-    tone: "cyan",
-    position: "right-[0%] top-[22%] xl:right-[2%]",
-    delay: 0.36,
-    float: -4,
-    rotate: 0.6,
-  },
-  {
-    icon: Droplets,
-    label: "Blood pressure",
-    value: "120/80",
-    status: "Normal",
-    tone: "blue",
-    position: "bottom-[20%] left-[0%] xl:left-[4%]",
-    delay: 0.5,
-    float: -5,
-    rotate: 0.8,
-  },
-  {
-    icon: Sparkles,
-    label: "AI health score",
-    value: "92",
-    status: "Great",
-    tone: "violet",
-    position: "bottom-[39%] right-[-1%] xl:right-[2%]",
-    delay: 0.64,
-    float: 4,
-    rotate: -0.7,
-  },
-];
-
-const toneClasses = {
-  rose: "bg-rose-50 text-rose-500 ring-rose-100",
-  cyan: "bg-cyan-50 text-cyan-600 ring-cyan-100",
-  blue: "bg-blue-50 text-blue-600 ring-blue-100",
-  violet: "bg-violet-50 text-violet-600 ring-violet-100",
-};
-
-export function BrandLogo({ compact = false }: { compact?: boolean }) {
+function BrandLogo() {
   return (
-    <div className="inline-flex items-center gap-3" aria-label="AICare">
-      <span
-        className={`${compact ? "size-10 rounded-[13px]" : "size-11 rounded-[15px]"} brand-logo-mark relative grid shrink-0 place-items-center`}
-        aria-hidden="true"
-      >
-        <Activity className={compact ? "size-5" : "size-[22px]"} strokeWidth={2.5} />
-      </span>
-      <span
-        className={`${compact ? "text-[1.15rem]" : "text-xl"} font-extrabold tracking-[-0.04em] text-slate-900`}
-      >
-        AI<span className="text-primary">Care</span>
-      </span>
+    <div className="flex items-center gap-3">
+      <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 via-sky-500 to-blue-500 text-white shadow-[0_18px_40px_rgba(56,189,248,0.25)]">
+        <HeartPulse className="h-5 w-5" aria-hidden="true" />
+      </div>
+      <div className="leading-tight">
+        <div className="text-[13px] font-semibold uppercase tracking-[0.3em] text-cyan-500">AICare</div>
+        <div className="text-lg font-semibold text-slate-900">AICare</div>
+      </div>
     </div>
   );
 }
 
-export function FloatingVitalCard({
-  icon: Icon,
-  label,
+function FloatingVitalCard({
+  title,
   value,
-  status,
-  tone,
-  className = "",
-  delay = 0,
-  float = 4,
-  rotate = 0,
-  compact = false,
-}: VitalCardProps) {
-  const reduceMotion = useReducedMotion();
-
+  detail,
+  icon,
+  className,
+}: {
+  title: string;
+  value: string;
+  detail: string;
+  icon: ReactNode;
+  className?: string;
+}) {
   return (
     <motion.div
-      initial={reduceMotion ? false : { opacity: 0, y: 12, scale: 0.94 }}
-      animate={
-        reduceMotion
-          ? undefined
-          : {
-              opacity: 1,
-              y: [0, float, 0],
-              rotate: [rotate, rotate * -0.65, rotate],
-              scale: 1,
-            }
-      }
-      transition={{
-        opacity: { duration: 0.55, delay },
-        scale: { duration: 0.55, delay },
-        y: { duration: 5.8 + delay * 2, repeat: Infinity, ease: "easeInOut", delay },
-        rotate: { duration: 7.2 + delay, repeat: Infinity, ease: "easeInOut", delay },
-      }}
-      className={`vital-card absolute z-30 flex items-center ${
-        compact
-          ? "mobile-vital-card min-h-[56px] min-w-[116px] gap-2 rounded-[15px] px-2.5 py-2"
-          : "min-w-[148px] gap-2.5 rounded-[19px] px-3 py-2.5"
-      } ${className}`}
+      className={[
+        "absolute rounded-[18px] border border-white/70 bg-white/[0.78] px-3 py-2 text-slate-900 shadow-[0_18px_48px_rgba(125,166,202,0.18)] backdrop-blur-md",
+        className ?? "",
+      ].join(" ")}
+      initial={{ opacity: 0, y: 8, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.5 }}
     >
-      <span
-        className={`grid shrink-0 place-items-center rounded-xl ring-1 ${compact ? "size-[30px]" : "size-9"} ${toneClasses[tone]}`}
-      >
-        <Icon className={compact ? "size-4" : "size-[17px]"} strokeWidth={2.3} />
-      </span>
-      <span className="min-w-0 leading-none">
-        <span
-          className={`block font-bold uppercase tracking-[0.08em] text-slate-500 ${compact ? "text-[9px]" : "text-[9px]"}`}
-        >
-          {label}
-        </span>
-        {compact ? (
-          <span className="mt-1 block whitespace-nowrap">
-            <span className="block text-sm font-extrabold tracking-tight text-slate-800 tabular-nums">
-              {value}
-            </span>
-            <span className="mt-0.5 block text-[9px] font-semibold text-emerald-600">{status}</span>
-          </span>
-        ) : (
-          <span className="mt-1.5 flex items-baseline gap-1.5 whitespace-nowrap">
-            <span className="text-sm font-extrabold tracking-tight text-slate-800 tabular-nums">
-              {value}
-            </span>
-            <span className="text-[9px] font-semibold text-emerald-600">{status}</span>
-          </span>
-        )}
-      </span>
+      <div className="flex items-start gap-2">
+        <div className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full bg-cyan-50 text-cyan-600 shadow-inner">
+          {icon}
+        </div>
+        <div className="min-w-0">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">{title}</div>
+          <div className="text-sm font-semibold text-slate-900">{value}</div>
+          <div className="text-[10px] text-slate-500">{detail}</div>
+        </div>
+      </div>
     </motion.div>
   );
 }
 
-export function DoctorIllustration({ compact = false }: { compact?: boolean }) {
-  const reduceMotion = useReducedMotion();
-
+function DoctorIllustration({ reducedMotion }: { reducedMotion: boolean }) {
   return (
-    <div className="relative h-full w-full">
-      <div
-        className={`${compact ? "mobile-doctor-halo size-[176px]" : "size-[62%]"} absolute left-1/2 top-[53%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/25 blur-[52px]`}
-        aria-hidden="true"
+    <motion.div
+      className="relative mx-auto w-full max-w-[560px]"
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+    >
+      <motion.div
+        className="absolute left-1/2 top-[28%] h-[310px] w-[310px] -translate-x-1/2 rounded-full bg-cyan-300/16 blur-3xl"
+        animate={reducedMotion ? undefined : { scale: [1, 1.03, 1], opacity: [0.65, 0.8, 0.65] }}
+        transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
       />
-      <div
-        className={`${compact ? "bottom-[8%] h-4 w-[130px]" : "bottom-[4%] h-10 w-[46%]"} absolute left-1/2 -translate-x-1/2 rounded-[50%] bg-blue-950/10 blur-xl`}
-        aria-hidden="true"
+      <motion.div
+        className="absolute left-1/2 top-[40%] h-[180px] w-[180px] -translate-x-1/2 rounded-full bg-sky-400/12 blur-2xl"
+        animate={reducedMotion ? undefined : { y: [0, -3, 0] }}
+        transition={{ duration: 9, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
       />
+
+      <FloatingVitalCard
+        title="Heart rate"
+        value="72 BPM"
+        detail="Normal"
+        icon={<HeartPulse className="h-4 w-4" aria-hidden="true" />}
+        className="left-2 top-[24%] hidden lg:block"
+      />
+      <FloatingVitalCard
+        title="Oxygen"
+        value="98%"
+        detail="Excellent"
+        icon={<Droplets className="h-4 w-4" aria-hidden="true" />}
+        className="right-4 top-[20%] hidden xl:block"
+      />
+      <FloatingVitalCard
+        title="AI health score"
+        value="92"
+        detail="Great"
+        icon={<Sparkles className="h-4 w-4" aria-hidden="true" />}
+        className="right-2 top-[48%] hidden lg:block"
+      />
+      <FloatingVitalCard
+        title="Blood pressure"
+        value="120/80"
+        detail="Normal"
+        icon={<ShieldCheck className="h-4 w-4" aria-hidden="true" />}
+        className="left-10 bottom-[12%] hidden xl:block"
+      />
+
       <motion.img
         src={doctorImage}
-        alt="Friendly AICare 3D doctor using a health tablet"
-        width={1694}
-        height={928}
+        alt="Friendly 3D cartoon doctor holding a tablet"
+        className="relative z-10 mx-auto h-auto w-[78%] select-none object-contain drop-shadow-[0_28px_50px_rgba(71,122,161,0.18)] sm:w-[74%] lg:w-[70%]"
+        draggable="false"
         loading="eager"
-        decoding="async"
-        initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.985 }}
-        animate={reduceMotion ? undefined : { opacity: 1, y: [0, -5, 0], scale: 1 }}
-        transition={{
-          opacity: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
-          scale: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
-          y: { duration: 7.5, repeat: Infinity, ease: "easeInOut", delay: 0.75 },
-        }}
-        className={`${compact ? "mobile-doctor-image h-[184px]" : "h-[92%]"} login-doctor-image absolute bottom-0 left-1/2 z-20 w-auto max-w-none -translate-x-1/2 object-contain`}
+        initial={{ opacity: 0, y: 16, scale: 0.98 }}
+        animate={reducedMotion ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, y: [0, -4, 0], scale: 1 }}
+        transition={reducedMotion ? { duration: 0.4 } : { duration: 6.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
       />
-      <div
-        className={`${compact ? "bottom-[43%] left-[43%] size-10 blur-xl" : "bottom-[43%] left-[42%] size-24 blur-2xl"} pointer-events-none absolute z-20 rounded-full bg-cyan-300/40`}
-        aria-hidden="true"
-      />
-    </div>
-  );
-}
-
-function DecorativeField() {
-  const reduceMotion = useReducedMotion();
-
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      <motion.span
-        animate={reduceMotion ? undefined : { x: [0, 8, 0], y: [0, -7, 0] }}
-        transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute left-[7%] top-[19%] size-7 rounded-full border border-white/80 bg-gradient-to-br from-white/70 to-cyan-200/30 shadow-[0_10px_24px_rgba(45,135,190,.12)]"
-      />
-      <motion.span
-        animate={reduceMotion ? undefined : { x: [0, -10, 0], y: [0, 8, 0] }}
-        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}
-        className="absolute bottom-[12%] right-[7%] size-12 rounded-full border border-white/70 bg-gradient-to-br from-blue-100/50 to-violet-200/20 blur-[1px]"
-      />
-      <span className="absolute left-[13%] top-[48%] text-xl font-light text-cyan-500/20">+</span>
-      <span className="absolute right-[10%] top-[44%] text-2xl font-light text-blue-500/15">+</span>
-      <span className="absolute bottom-[17%] left-[25%] size-1.5 rounded-full bg-cyan-400/30" />
-      <span className="absolute right-[20%] top-[14%] size-1 rounded-full bg-blue-400/30" />
-    </div>
-  );
-}
-
-export function LoginVisual() {
-  const reduceMotion = useReducedMotion();
-
-  return (
-    <section
-      className="auth-visual relative hidden min-h-dvh overflow-hidden lg:block"
-      aria-label="AICare health insights preview"
-    >
-      <DecorativeField />
 
       <motion.div
-        initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-        animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute left-[7%] top-[5.5%] z-40 max-w-[430px]"
+        className="pointer-events-none absolute left-1/2 top-[51%] z-20 h-14 w-28 -translate-x-1/2 rounded-full bg-cyan-300/25 blur-xl"
+        animate={reducedMotion ? undefined : { opacity: [0.45, 0.72, 0.45], scale: [1, 1.05, 1] }}
+        transition={{ duration: 4.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+      />
+    </motion.div>
+  );
+}
+
+function LoginVisual() {
+  const reducedMotion = useReducedMotion();
+
+  return (
+    <section className="relative hidden min-h-[760px] overflow-hidden bg-[radial-gradient(circle_at_50%_35%,rgba(34,211,238,0.14),rgba(59,130,246,0.06)_42%,transparent_70%),linear-gradient(180deg,#ffffff_0%,#f8fbff_100%)] px-8 py-10 lg:flex lg:flex-col lg:justify-between">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(125,211,252,0.18),transparent_28%),radial-gradient(circle_at_82%_72%,rgba(96,165,250,0.12),transparent_24%),radial-gradient(circle_at_50%_86%,rgba(147,197,253,0.10),transparent_28%)]" />
+      <div className="absolute inset-0 opacity-[0.18] [background-image:radial-gradient(rgba(148,163,184,0.45)_1px,transparent_1px)] [background-size:28px_28px]" />
+
+      <motion.div
+        className="relative z-10 max-w-[400px]"
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
       >
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-white/80 bg-white/60 px-3 py-1.5 text-[11px] font-bold tracking-wide text-primary-dark shadow-sm backdrop-blur-md">
-          <Sparkles className="size-3.5 text-cyan-500" />
+        <div className="inline-flex items-center rounded-full border border-cyan-200/70 bg-white/70 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-cyan-600 shadow-[0_10px_30px_rgba(56,189,248,0.12)] backdrop-blur">
           AI-powered health companion
-        </span>
-        <h2 className="mt-4 text-[clamp(2rem,3.1vw,3.35rem)] font-extrabold leading-[1.02] tracking-[-0.055em] text-slate-900">
-          Your health,
-          <br />
-          <span className="text-gradient">understood.</span>
-        </h2>
-        <p className="mt-3 max-w-[385px] text-[13px] leading-6 text-slate-500 xl:text-sm">
+        </div>
+        <h1 className="mt-6 max-w-[12ch] text-[clamp(3.25rem,4.5vw,5.3rem)] font-semibold leading-[0.96] tracking-[-0.05em] text-slate-900">
+          Your health, <span className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">understood.</span>
+        </h1>
+        <p className="mt-5 max-w-[34rem] text-[17px] leading-8 text-slate-600">
           Track your vitals and get AI-powered insights that help you understand your health better.
         </p>
       </motion.div>
 
-      <div className="absolute inset-x-[4%] bottom-[2%] top-[18%] z-10 mx-auto max-w-[760px]">
-        <svg
-          viewBox="0 0 760 680"
-          fill="none"
-          className="absolute inset-0 z-10 h-full w-full opacity-60"
-          aria-hidden="true"
-        >
-          <path
-            d="M352 365C267 350 204 320 156 286"
-            stroke="url(#line-a)"
-            strokeWidth="1.2"
-            strokeDasharray="4 7"
-          />
-          <path
-            d="M385 360C477 348 530 303 584 259"
-            stroke="url(#line-b)"
-            strokeWidth="1.2"
-            strokeDasharray="4 7"
-          />
-          <defs>
-            <linearGradient
-              id="line-a"
-              x1="352"
-              y1="438"
-              x2="156"
-              y2="286"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#22D3EE" stopOpacity=".7" />
-              <stop offset="1" stopColor="#60A5FA" stopOpacity=".08" />
-            </linearGradient>
-            <linearGradient
-              id="line-b"
-              x1="385"
-              y1="432"
-              x2="584"
-              y2="259"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#22D3EE" stopOpacity=".7" />
-              <stop offset="1" stopColor="#60A5FA" stopOpacity=".08" />
-            </linearGradient>
-          </defs>
-        </svg>
-
-        <DoctorIllustration />
-
-        {vitalCards.map((card, index) => (
-          <FloatingVitalCard
-            key={card.label}
-            {...card}
-            className={`${card.position} ${index === 2 ? "hidden xl:flex" : ""}`}
-          />
-        ))}
-
-        <div className="absolute bottom-[44%] left-[39%] z-30 size-1.5 rounded-full bg-cyan-400 shadow-[0_0_10px_3px_rgba(34,211,238,.35)]" />
-        <div className="absolute bottom-[48%] left-[35%] z-30 size-1 rounded-full bg-blue-400/80" />
-        <div className="absolute bottom-[50%] right-[37%] z-30 size-1 rounded-full bg-cyan-400/70" />
+      <div className="relative z-10 flex items-end justify-center pb-2">
+        <DoctorIllustration reducedMotion={Boolean(reducedMotion)} />
       </div>
-
-      <motion.figure
-        initial={reduceMotion ? false : { opacity: 0, x: -10 }}
-        animate={reduceMotion ? undefined : { opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
-        className="testimonial-chip absolute bottom-[4.5%] left-[6%] z-40 hidden max-w-[260px] rounded-2xl px-4 py-3 2xl:block"
-      >
-        <blockquote className="text-[11px] font-medium leading-[1.55] text-slate-600">
-          “Understanding my daily health has never been this simple.”
-        </blockquote>
-        <figcaption
-          className="mt-1.5 text-[10px] tracking-[0.18em] text-amber-400"
-          aria-label="5 out of 5 stars"
-        >
-          ★★★★★
-        </figcaption>
-      </motion.figure>
     </section>
   );
 }
 
-export function MobileDoctorVisual() {
+function MobileDoctorVisual() {
+  const reducedMotion = useReducedMotion();
+
   return (
-    <section
-      className="login-mobile-visual relative mx-auto mt-4 h-[208px] w-full max-w-[330px] lg:hidden"
-      aria-label="AICare doctor analyzing live health information"
-    >
-      <DoctorIllustration compact />
+    <section className="relative mx-auto mt-1 flex h-[220px] w-full max-w-[360px] items-center justify-center overflow-hidden sm:h-[240px]">
+      <motion.div
+        className="absolute left-1/2 top-[42%] h-[190px] w-[190px] -translate-x-1/2 rounded-full bg-cyan-300/18 blur-3xl sm:h-[220px] sm:w-[220px]"
+        animate={reducedMotion ? undefined : { opacity: [0.6, 0.86, 0.6], scale: [1, 1.03, 1] }}
+        transition={{ duration: 8.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+      />
+      <motion.img
+        src={doctorImage}
+        alt="Friendly 3D cartoon doctor holding a tablet"
+        className="relative z-10 h-[176px] w-auto select-none object-contain sm:h-[188px]"
+        draggable="false"
+        loading="eager"
+        initial={{ opacity: 0, y: 14, scale: 0.97 }}
+        animate={reducedMotion ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, y: [0, -3, 0], scale: 1 }}
+        transition={reducedMotion ? { duration: 0.45 } : { duration: 6.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+      />
+
       <FloatingVitalCard
-        icon={HeartPulse}
-        label="Heart rate"
+        title="Heart rate"
         value="72 BPM"
-        status="Normal"
-        tone="rose"
-        className="mobile-heart-card left-0 top-[24%]"
-        float={3}
-        delay={0.2}
-        compact
+        detail="Normal"
+        icon={<HeartPulse className="h-4 w-4" aria-hidden="true" />}
+        className="left-[2%] top-[30%] w-[120px] px-2 py-2 sm:left-[6%] sm:w-[124px]"
       />
       <FloatingVitalCard
-        icon={Sparkles}
-        label="AI health score"
+        title="AI health score"
         value="92"
-        status="Great"
-        tone="violet"
-        className="mobile-score-card right-0 top-[45%]"
-        float={-3}
-        delay={0.35}
-        compact
+        detail="Great"
+        icon={<Sparkles className="h-4 w-4" aria-hidden="true" />}
+        className="right-[1%] top-[48%] w-[120px] px-2 py-2 sm:right-[6%] sm:w-[124px]"
       />
-      <FloatingVitalCard
-        icon={Lungs}
-        label="Oxygen"
-        value="98%"
-        status="Excellent"
-        tone="cyan"
-        className="tablet-oxygen-card hidden right-[5%] top-[11%] md:flex"
-        float={-3}
-        delay={0.5}
-        compact
-      />
-      <span className="mobile-particle absolute left-[34%] top-[29%] size-1.5 rounded-full bg-cyan-400/50 shadow-[0_0_9px_rgba(34,211,238,.55)]" />
-      <span className="mobile-particle absolute right-[34%] top-[41%] size-1 rounded-full bg-blue-400/50" />
+      <motion.div
+        className="absolute bottom-[10%] left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/70 bg-white/[0.82] px-3 py-1.5 text-[10px] font-medium text-slate-500 shadow-[0_16px_30px_rgba(125,166,202,0.16)] backdrop-blur"
+        animate={reducedMotion ? undefined : { y: [0, -2, 0] }}
+        transition={{ duration: 7.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+      >
+        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-cyan-50 text-cyan-600">
+          <LockKeyhole className="h-3 w-3" aria-hidden="true" />
+        </span>
+        AI analyzing vitals
+      </motion.div>
     </section>
   );
 }
 
-function GoogleIcon() {
-  return (
-    <svg className="size-5 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        fill="#4285F4"
-        d="M21.6 12.23c0-.71-.06-1.4-.18-2.06H12v3.9h5.38a4.6 4.6 0 0 1-2 3.02v2.53h3.24c1.9-1.75 2.98-4.33 2.98-7.39Z"
-      />
-      <path
-        fill="#34A853"
-        d="M12 22c2.7 0 4.98-.9 6.63-2.43l-3.25-2.52c-.9.6-2.05.96-3.38.96-2.61 0-4.82-1.76-5.61-4.13H3.04v2.6A10 10 0 0 0 12 22Z"
-      />
-      <path
-        fill="#FBBC05"
-        d="M6.39 13.88A6.02 6.02 0 0 1 6.08 12c0-.65.11-1.28.31-1.88v-2.6H3.04A10 10 0 0 0 2 12c0 1.61.38 3.14 1.04 4.48l3.35-2.6Z"
-      />
-      <path
-        fill="#EA4335"
-        d="M12 5.99c1.47 0 2.79.5 3.83 1.5l2.87-2.87A9.64 9.64 0 0 0 12 2a10 10 0 0 0-8.96 5.52l3.35 2.6C7.18 7.75 9.39 5.99 12 5.99Z"
-      />
-    </svg>
-  );
-}
-
-export function GoogleSignInButton({
-  onClick,
+function GoogleSignInButton({
   pending,
+  onSignIn,
 }: {
-  onClick: () => void;
-  pending: boolean;
+  pending?: boolean | undefined;
+  onSignIn: () => void;
 }) {
   return (
     <button
       type="button"
-      onClick={onClick}
+      onClick={onSignIn}
       disabled={pending}
-      aria-label={pending ? "Signing you in with Google" : "Continue with Google"}
-      aria-busy={pending}
-      className="google-sign-in group relative flex h-14 w-full touch-manipulation items-center justify-center rounded-2xl border border-slate-200/90 bg-white px-5 text-[15px] font-semibold text-slate-700 shadow-[0_8px_28px_-12px_rgba(26,73,119,.28),0_2px_6px_rgba(36,76,120,.04)] transition-[transform,box-shadow,border-color,background-color] duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-[0_16px_34px_-14px_rgba(37,99,235,.3),0_4px_9px_rgba(36,76,120,.06)] active:scale-[.98] disabled:pointer-events-none disabled:opacity-70 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
+      className="inline-flex h-14 w-full items-center justify-center gap-3 rounded-[16px] border border-slate-200 bg-white px-5 text-[15px] font-semibold text-slate-900 shadow-[0_12px_30px_rgba(15,23,42,0.06)] transition duration-200 hover:-translate-y-0.5 hover:border-sky-300 hover:shadow-[0_18px_36px_rgba(56,189,248,0.14)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-300/40 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70 motion-reduce:transition-none"
     >
-      <span className="absolute left-5 grid size-6 place-items-center">
-        {pending ? (
-          <span
-            className="size-[18px] animate-spin rounded-full border-2 border-blue-100 border-t-primary motion-reduce:animate-none"
-            aria-hidden="true"
-          />
-        ) : (
-          <GoogleIcon />
-        )}
-      </span>
-      {pending ? "Signing you in..." : "Continue with Google"}
+      <svg aria-hidden="true" viewBox="0 0 48 48" className="h-5 w-5">
+        <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303C33.655 32.657 29.27 36 24 36c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.967 3.038l5.657-5.657C34.012 6.053 29.253 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.651-.389-3.917Z" />
+        <path fill="#FF3D00" d="M6.306 14.691 12.876 19.5C14.655 15.091 18.977 12 24 12c3.059 0 5.842 1.154 7.967 3.038l5.657-5.657C34.012 6.053 29.253 4 24 4c-7.682 0-14.328 4.337-17.694 10.691Z" />
+        <path fill="#4CAF50" d="M24 44c5.182 0 9.876-1.982 13.412-5.202l-6.19-5.238C29.173 35.091 26.7 36 24 36c-5.248 0-9.623-3.313-11.295-7.946l-6.52 5.02C9.508 39.537 16.227 44 24 44Z" />
+        <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-1.027 2.95-3.022 5.34-5.081 7.02l.002-.001 6.19 5.238C35.974 39.953 44 34 44 24c0-1.341-.138-2.651-.389-3.917Z" />
+      </svg>
+      {pending ? (
+        <span className="inline-flex items-center gap-2">
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-cyan-500 motion-reduce:animate-none" />
+          Signing you in...
+        </span>
+      ) : (
+        "Continue with Google"
+      )}
     </button>
   );
 }
 
-export function TrustIndicators() {
+function TrustIndicators() {
   return (
-    <div className="mt-5">
-      <p className="flex items-center justify-center gap-1.5 text-center text-[11px] font-medium text-slate-600 min-[360px]:text-[12px]">
-        <LockKeyhole className="size-3.5 text-primary" aria-hidden="true" />
-        <span>
-          Secure sign-in <span aria-hidden="true">•</span> Your health data stays private
-        </span>
+    <div className="space-y-4">
+      <p className="flex items-center justify-center gap-2 text-[12px] text-slate-600">
+        <LockKeyhole className="h-3.5 w-3.5 text-cyan-500" aria-hidden="true" />
+        Secure sign-in • Your health data stays private
       </p>
-      <ul
-        className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2"
-        aria-label="Sign-in benefits"
-      >
-        {["Secure", "Private", "Fast"].map((item) => (
-          <li
-            key={item}
-            className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500"
-          >
-            <span className="grid size-4 place-items-center rounded-full bg-emerald-50 text-emerald-600">
-              <Check className="size-2.5" strokeWidth={3} aria-hidden="true" />
-            </span>
-            {item}
-          </li>
-        ))}
-      </ul>
+      <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[12px] font-medium text-slate-600">
+        <span className="inline-flex items-center gap-1.5">
+          <Check className="h-3.5 w-3.5 text-emerald-500" aria-hidden="true" />
+          Secure
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <Check className="h-3.5 w-3.5 text-emerald-500" aria-hidden="true" />
+          Private
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <Check className="h-3.5 w-3.5 text-emerald-500" aria-hidden="true" />
+          Fast
+        </span>
+      </div>
     </div>
   );
 }
 
-export function LoginPanel({
+function LoginPanel({
   onSignIn,
   pending,
   error,
-}: {
-  onSignIn: () => void;
-  pending: boolean;
-  error: string | null;
-}) {
-  const reduceMotion = useReducedMotion();
-
+}: LoginExperienceProps) {
   return (
-    <section
-      className="auth-panel relative z-40 flex min-h-dvh items-center justify-center border-white/70 lg:border-l"
-      aria-labelledby="login-heading"
-    >
-      <motion.div
-        initial={reduceMotion ? false : { opacity: 0, x: 22 }}
-        animate={reduceMotion ? undefined : { opacity: 1, x: 0 }}
-        transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-        className="auth-panel-content flex min-h-dvh w-full max-w-[460px] flex-col px-5 py-6 sm:px-8 lg:min-h-0 lg:px-10 lg:py-7"
-      >
-        <BrandLogo />
+    <section className="flex min-h-dvh flex-col justify-center px-5 py-6 sm:px-8 sm:py-8 lg:px-10 lg:py-10">
+      <div className="mx-auto flex w-full max-w-[460px] flex-1 flex-col lg:max-w-[440px]">
+        <div className="mb-6 lg:hidden">
+          <BrandLogo />
+        </div>
 
-        <div className="login-heading-block mt-7 sm:mt-9 lg:mt-11">
-          <p className="mb-2 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] text-primary">
-            <ShieldCheck className="size-4" aria-hidden="true" />
+        <div className="lg:hidden">
+          <div className="inline-flex rounded-full border border-cyan-200/70 bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-600 shadow-[0_10px_20px_rgba(56,189,248,0.08)] backdrop-blur">
             Private by design
-          </p>
-          <h1
-            id="login-heading"
-            className="text-[clamp(1.8rem,8vw,2.25rem)] font-extrabold leading-[1.08] tracking-[-0.045em] text-slate-900 lg:text-[2.35rem]"
-          >
+          </div>
+          <h1 className="mt-4 text-[clamp(2rem,8vw,2.25rem)] font-semibold leading-[1.06] tracking-[-0.05em] text-slate-900">
             Welcome back
           </h1>
-          <p className="mt-2 text-[14px] leading-6 text-slate-500 sm:text-[15px]">
+          <p className="mt-3 max-w-[26rem] text-[15px] leading-7 text-slate-600">
             Sign in to continue your health journey.
           </p>
         </div>
 
-        <MobileDoctorVisual />
+        <div className="mt-5 lg:hidden">
+          <MobileDoctorVisual />
+        </div>
 
-        <div className="login-actions mt-5 sm:mt-6 lg:mt-10">
-          <GoogleSignInButton onClick={onSignIn} pending={pending} />
-          {error && (
-            <p
-              role="alert"
-              className="mt-3 rounded-xl border border-rose-100 bg-rose-50/80 px-3 py-2.5 text-center text-xs font-medium text-rose-700"
-            >
-              {error}
+        <motion.div
+          className="mt-5 space-y-5 lg:mt-0"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+        >
+          <div className="hidden lg:block">
+            <BrandLogo />
+            <div className="mt-6 inline-flex rounded-full border border-cyan-200/70 bg-white/70 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-cyan-600 shadow-[0_10px_20px_rgba(56,189,248,0.08)] backdrop-blur">
+              Private by design
+            </div>
+            <h2 className="mt-4 text-[clamp(2.75rem,4vw,3.6rem)] font-semibold leading-[1.02] tracking-[-0.05em] text-slate-900">
+              Welcome back
+            </h2>
+            <p className="mt-3 max-w-[26rem] text-[16px] leading-7 text-slate-600">
+              Sign in to continue your health journey.
             </p>
-          )}
-          <TrustIndicators />
-        </div>
+          </div>
 
-        <div className="login-footer mt-auto border-t border-slate-200/80 pt-4 lg:mt-8 lg:pt-5">
-          <p className="text-[11px] leading-[1.6] text-slate-500 sm:text-xs">
-            AICare provides informational health insights only and is not a substitute for
-            professional medical advice.
-          </p>
-          <Link
-            to="/"
-            className="-ml-2 mt-2 inline-flex min-h-11 touch-manipulation items-center gap-1.5 rounded-xl px-2 text-xs font-semibold text-slate-600 transition-[color,transform] hover:text-primary active:scale-[.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/20 lg:mt-3"
+          <div className="space-y-4 rounded-[28px] border border-white/70 bg-white/70 p-5 shadow-[0_24px_70px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:p-6 lg:rounded-[30px] lg:p-7">
+            <GoogleSignInButton pending={pending} onSignIn={onSignIn} />
+
+            {error ? <p className="text-sm text-rose-600">{error}</p> : null}
+
+            <TrustIndicators />
+
+            <div className="h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+
+            <p className="text-[12px] leading-6 text-slate-500 sm:text-sm">
+              AICare provides informational health insights only and is not a substitute for professional medical advice.
+            </p>
+          </div>
+        </motion.div>
+
+        <div className="mt-auto pt-5">
+          <a
+            href="/"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full px-1 py-2 text-[13px] font-medium text-slate-600 transition hover:text-slate-900 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-300/40 active:scale-[0.98]"
           >
-            <ArrowLeft className="size-3.5" aria-hidden="true" />
+            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             Back to home
-          </Link>
+          </a>
         </div>
-      </motion.div>
+      </div>
     </section>
+  );
+}
+
+export function LoginExperience({ onSignIn, pending, error }: LoginExperienceProps) {
+  return (
+    <div className="relative min-h-dvh overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f8fbff_50%,#f4faff_100%)] text-slate-900">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_14%,rgba(125,211,252,0.16),transparent_30%),radial-gradient(circle_at_74%_44%,rgba(96,165,250,0.10),transparent_28%),radial-gradient(circle_at_50%_86%,rgba(167,139,250,0.06),transparent_24%)]" />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:radial-gradient(rgba(148,163,184,0.45)_1px,transparent_1px)] [background-size:26px_26px]" />
+
+      <div className="relative mx-auto grid min-h-dvh w-full max-w-[1600px] lg:grid-cols-[minmax(0,1.18fr)_minmax(420px,.82fr)]">
+        <LoginVisual />
+        <LoginPanel onSignIn={onSignIn} pending={pending} error={error} />
+      </div>
+    </div>
   );
 }
