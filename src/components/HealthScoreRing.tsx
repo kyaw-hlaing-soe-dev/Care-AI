@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { cn } from "@/lib/utils";
 
 export function HealthScoreRing({
@@ -13,10 +14,17 @@ export function HealthScoreRing({
   const r = (size - stroke) / 2;
   const c = 2 * Math.PI * r;
   const pct = hasData ? Math.min(100, Math.max(0, score)) : 0;
+  const gradientId = `score-gradient-${useId().replace(/:/g, "")}`;
 
   return (
     <div className="relative shrink-0" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
+        <defs>
+          <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#2563eb" />
+            <stop offset="100%" stopColor="#22d3ee" />
+          </linearGradient>
+        </defs>
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -34,14 +42,15 @@ export function HealthScoreRing({
           strokeLinecap="round"
           strokeDasharray={c}
           strokeDashoffset={c - (c * pct) / 100}
-          className="stroke-primary transition-[stroke-dashoffset] duration-1000 spring"
+          stroke={`url(#${gradientId})`}
+          className="transition-[stroke-dashoffset] duration-1000 spring"
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span
           className={cn(
             "text-2xl font-bold tabular-nums",
-            hasData ? "text-primary" : "text-muted-foreground",
+            hasData ? "text-slate-950" : "text-muted-foreground",
           )}
         >
           {hasData ? score : 0}
