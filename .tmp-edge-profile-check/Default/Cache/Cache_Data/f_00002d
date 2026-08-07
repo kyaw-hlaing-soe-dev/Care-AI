@@ -1,0 +1,412 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/routes/__root.tsx");const useEffect = __vite__cjsImport2_react["useEffect"];const _jsxDEV = __vite__cjsImport8_react_jsxDevRuntime["jsxDEV"];import { QueryClientProvider } from "/node_modules/.vite/deps/@tanstack_react-query.js?v=848d1445";
+import { Outlet, Link, createRootRouteWithContext, useRouter, HeadContent, Scripts } from "/node_modules/@tanstack/react-router/dist/esm/index.dev.js?v=1010c80d";
+import __vite__cjsImport2_react from "/node_modules/.vite/deps/react.js?v=be70e81b";
+import appCss from "/src/styles.css?url";
+import { reportLovableError } from "/src/lib/lovable-error-reporting.ts";
+import { AuthProvider } from "/src/lib/auth-context.tsx";
+import { ProfileProvider } from "/src/lib/profile-context.tsx";
+import { Toaster } from "/src/components/ui/sonner.tsx";
+var _jsxFileName = "C:/Users/DELL/Desktop/care-ai/vitals-glass/src/routes/__root.tsx";
+import __vite__cjsImport8_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=be70e81b";
+var _s = $RefreshSig$(), _s2 = $RefreshSig$();
+function NotFoundComponent() {
+	return /* @__PURE__ */ _jsxDEV("div", {
+		className: "flex min-h-screen items-center justify-center bg-background px-4",
+		"data-tsd-source": "/src/routes/__root.tsx:21:5",
+		children: /* @__PURE__ */ _jsxDEV("div", {
+			className: "max-w-md text-center",
+			"data-tsd-source": "/src/routes/__root.tsx:22:7",
+			children: [
+				/* @__PURE__ */ _jsxDEV("h1", {
+					className: "text-7xl font-bold text-foreground",
+					"data-tsd-source": "/src/routes/__root.tsx:23:9",
+					children: "404"
+				}, void 0, false, {
+					fileName: _jsxFileName,
+					lineNumber: 12,
+					columnNumber: 9
+				}, this),
+				/* @__PURE__ */ _jsxDEV("h2", {
+					className: "mt-4 text-xl font-semibold text-foreground",
+					"data-tsd-source": "/src/routes/__root.tsx:24:9",
+					children: "Page not found"
+				}, void 0, false, {
+					fileName: _jsxFileName,
+					lineNumber: 13,
+					columnNumber: 9
+				}, this),
+				/* @__PURE__ */ _jsxDEV("p", {
+					className: "mt-2 text-sm text-muted-foreground",
+					"data-tsd-source": "/src/routes/__root.tsx:25:9",
+					children: "The page you're looking for doesn't exist or has been moved."
+				}, void 0, false, {
+					fileName: _jsxFileName,
+					lineNumber: 14,
+					columnNumber: 9
+				}, this),
+				/* @__PURE__ */ _jsxDEV("div", {
+					className: "mt-6",
+					"data-tsd-source": "/src/routes/__root.tsx:28:9",
+					children: /* @__PURE__ */ _jsxDEV(Link, {
+						to: "/",
+						className: "inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90",
+						"data-tsd-source": "/src/routes/__root.tsx:29:11",
+						children: "Go home"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 18,
+						columnNumber: 11
+					}, this)
+				}, void 0, false, {
+					fileName: _jsxFileName,
+					lineNumber: 17,
+					columnNumber: 9
+				}, this)
+			]
+		}, void 0, true, {
+			fileName: _jsxFileName,
+			lineNumber: 11,
+			columnNumber: 7
+		}, this)
+	}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 10,
+		columnNumber: 10
+	}, this);
+}
+_c = NotFoundComponent;
+function ErrorComponent({ error, reset }) {
+	_s();
+	console.error(error);
+	const router = useRouter();
+	useEffect(() => {
+		reportLovableError(error, { boundary: "tanstack_root_error_component" });
+	}, [error]);
+	return /* @__PURE__ */ _jsxDEV("div", {
+		className: "flex min-h-screen items-center justify-center bg-background px-4",
+		"data-tsd-source": "/src/routes/__root.tsx:49:5",
+		children: /* @__PURE__ */ _jsxDEV("div", {
+			className: "max-w-md text-center",
+			"data-tsd-source": "/src/routes/__root.tsx:50:7",
+			children: [
+				/* @__PURE__ */ _jsxDEV("h1", {
+					className: "text-xl font-semibold tracking-tight text-foreground",
+					"data-tsd-source": "/src/routes/__root.tsx:51:9",
+					children: "This page didn't load"
+				}, void 0, false, {
+					fileName: _jsxFileName,
+					lineNumber: 41,
+					columnNumber: 9
+				}, this),
+				/* @__PURE__ */ _jsxDEV("p", {
+					className: "mt-2 text-sm text-muted-foreground",
+					"data-tsd-source": "/src/routes/__root.tsx:54:9",
+					children: "Something went wrong on our end. You can try refreshing or head back home."
+				}, void 0, false, {
+					fileName: _jsxFileName,
+					lineNumber: 44,
+					columnNumber: 9
+				}, this),
+				/* @__PURE__ */ _jsxDEV("div", {
+					className: "mt-6 flex flex-wrap justify-center gap-2",
+					"data-tsd-source": "/src/routes/__root.tsx:57:9",
+					children: [/* @__PURE__ */ _jsxDEV("button", {
+						onClick: () => {
+							router.invalidate();
+							reset();
+						},
+						className: "inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90",
+						"data-tsd-source": "/src/routes/__root.tsx:58:11",
+						children: "Try again"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 48,
+						columnNumber: 11
+					}, this), /* @__PURE__ */ _jsxDEV("a", {
+						href: "/",
+						className: "inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent",
+						"data-tsd-source": "/src/routes/__root.tsx:67:11",
+						children: "Go home"
+					}, void 0, false, {
+						fileName: _jsxFileName,
+						lineNumber: 54,
+						columnNumber: 11
+					}, this)]
+				}, void 0, true, {
+					fileName: _jsxFileName,
+					lineNumber: 47,
+					columnNumber: 9
+				}, this)
+			]
+		}, void 0, true, {
+			fileName: _jsxFileName,
+			lineNumber: 40,
+			columnNumber: 7
+		}, this)
+	}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 39,
+		columnNumber: 10
+	}, this);
+}
+_s(ErrorComponent, "g4BU1bO32KZmjSq/EmV92VkGdF0=", false, function() {
+	return [useRouter];
+});
+_c2 = ErrorComponent;
+export const Route = createRootRouteWithContext()({
+	head: () => ({
+		meta: [
+			{ charSet: "utf-8" },
+			{
+				name: "viewport",
+				content: "width=device-width, initial-scale=1"
+			},
+			{ title: "AICare — AI Health Vitals" },
+			{
+				name: "description",
+				content: "Log your vital signs and get AI-powered health insights in seconds."
+			},
+			{
+				property: "og:title",
+				content: "AICare — AI Health Vitals"
+			},
+			{
+				property: "og:description",
+				content: "Log your vital signs and get AI-powered health insights in seconds."
+			},
+			{
+				property: "og:type",
+				content: "website"
+			},
+			{
+				name: "twitter:card",
+				content: "summary_large_image"
+			}
+		],
+		links: [
+			{
+				rel: "preconnect",
+				href: "https://fonts.googleapis.com"
+			},
+			{
+				rel: "preconnect",
+				href: "https://fonts.gstatic.com",
+				crossOrigin: "anonymous"
+			},
+			{
+				rel: "stylesheet",
+				href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+			},
+			{
+				rel: "stylesheet",
+				href: appCss
+			},
+			{
+				rel: "icon",
+				href: "/favicon.ico",
+				type: "image/x-icon"
+			}
+		]
+	}),
+	shellComponent: RootShell,
+	component: RootComponent,
+	notFoundComponent: NotFoundComponent,
+	errorComponent: ErrorComponent
+});
+function RootShell({ children }) {
+	return /* @__PURE__ */ _jsxDEV("html", {
+		lang: "en",
+		"data-tsd-source": "/src/routes/__root.tsx:120:5",
+		children: [/* @__PURE__ */ _jsxDEV("head", {
+			"data-tsd-source": "/src/routes/__root.tsx:121:7",
+			children: /* @__PURE__ */ _jsxDEV(HeadContent, { "data-tsd-source": "/src/routes/__root.tsx:122:9" }, void 0, false, {
+				fileName: _jsxFileName,
+				lineNumber: 119,
+				columnNumber: 9
+			}, this)
+		}, void 0, false, {
+			fileName: _jsxFileName,
+			lineNumber: 118,
+			columnNumber: 7
+		}, this), /* @__PURE__ */ _jsxDEV("body", {
+			"data-tsd-source": "/src/routes/__root.tsx:124:7",
+			children: [children, /* @__PURE__ */ _jsxDEV(Scripts, { "data-tsd-source": "/src/routes/__root.tsx:126:9" }, void 0, false, {
+				fileName: _jsxFileName,
+				lineNumber: 123,
+				columnNumber: 9
+			}, this)]
+		}, void 0, true, {
+			fileName: _jsxFileName,
+			lineNumber: 121,
+			columnNumber: 7
+		}, this)]
+	}, void 0, true, {
+		fileName: _jsxFileName,
+		lineNumber: 117,
+		columnNumber: 10
+	}, this);
+}
+_c3 = RootShell;
+function RootComponent() {
+	_s2();
+	const { queryClient } = Route.useRouteContext();
+	return /* @__PURE__ */ _jsxDEV(QueryClientProvider, {
+		client: queryClient,
+		"data-tsd-source": "/src/routes/__root.tsx:136:5",
+		children: /* @__PURE__ */ _jsxDEV(AuthProvider, {
+			"data-tsd-source": "/src/routes/__root.tsx:137:7",
+			children: /* @__PURE__ */ _jsxDEV(ProfileProvider, {
+				"data-tsd-source": "/src/routes/__root.tsx:138:9",
+				children: [/* @__PURE__ */ _jsxDEV(Outlet, { "data-tsd-source": "/src/routes/__root.tsx:140:11" }, void 0, false, {
+					fileName: _jsxFileName,
+					lineNumber: 135,
+					columnNumber: 11
+				}, this), /* @__PURE__ */ _jsxDEV(Toaster, {
+					position: "top-center",
+					richColors: true,
+					closeButton: true,
+					"data-tsd-source": "/src/routes/__root.tsx:141:11"
+				}, void 0, false, {
+					fileName: _jsxFileName,
+					lineNumber: 136,
+					columnNumber: 11
+				}, this)]
+			}, void 0, true, {
+				fileName: _jsxFileName,
+				lineNumber: 133,
+				columnNumber: 9
+			}, this)
+		}, void 0, false, {
+			fileName: _jsxFileName,
+			lineNumber: 132,
+			columnNumber: 7
+		}, this)
+	}, void 0, false, {
+		fileName: _jsxFileName,
+		lineNumber: 131,
+		columnNumber: 10
+	}, this);
+}
+_s2(RootComponent, "EkpmuaZ32AlZfsV2op4k1rQaTfI=", false, function() {
+	return [Route.useRouteContext];
+});
+_c4 = RootComponent;
+const hot = import.meta.hot;
+if (hot && typeof window !== "undefined") {
+	hot.data ??= {};
+	const tsrReactRefresh = window.__TSR_REACT_REFRESH__ ??= (() => {
+		const ignoredExportsById = new Map();
+		const previousGetIgnoredExports = window.__getReactRefreshIgnoredExports;
+		window.__getReactRefreshIgnoredExports = (ctx) => {
+			const ignoredExports = previousGetIgnoredExports?.(ctx) ?? [];
+			const moduleIgnored = ignoredExportsById.get(ctx.id) ?? [];
+			return [...ignoredExports, ...moduleIgnored];
+		};
+		return { ignoredExportsById };
+	})();
+	tsrReactRefresh.ignoredExportsById.set("C:/Users/DELL/Desktop/care-ai/vitals-glass/src/routes/__root.tsx", ["Route"]);
+}
+export function TSRFastRefreshAnchor() {
+	return null;
+}
+_c5 = TSRFastRefreshAnchor;
+if (import.meta.hot) {
+	const hot = import.meta.hot;
+	const hotData = hot.data ??= {};
+	const handleRouteUpdate = function handleRouteUpdate(routeId, newRoute) {
+		const router = window.__TSR_ROUTER__;
+		const oldRoute = router.routesById[routeId];
+		if (!oldRoute) return;
+		const generatedRouteOptionKeys = new Set([
+			"id",
+			"path",
+			"getParentRoute"
+		]);
+		const generatedRouteOptions = {};
+		generatedRouteOptionKeys.forEach((key) => {
+			if (key in oldRoute.options) generatedRouteOptions[key] = oldRoute.options[key];
+		});
+		const preserveComponentIdentity = "shellComponent" in oldRoute.options === "shellComponent" in newRoute.options;
+		const componentKeys = [
+			"component",
+			"shellComponent",
+			"pendingComponent",
+			"errorComponent",
+			"notFoundComponent"
+		];
+		if (preserveComponentIdentity) componentKeys.forEach((key) => {
+			if (key in oldRoute.options && key in newRoute.options) newRoute.options[key] = oldRoute.options[key];
+		});
+		const nextOptions = {
+			...newRoute.options,
+			...generatedRouteOptions
+		};
+		oldRoute.options = nextOptions;
+		oldRoute.update(nextOptions);
+		router._replaceRouteChunk(oldRoute, newRoute.lazyFn);
+		router.setRoutes(router.buildRouteTree());
+		syncHotRouteExport(oldRoute);
+		router.resolvePathCache.clear();
+		router._refreshRoute?.();
+		function syncHotRouteExport(liveRoute) {
+			newRoute.options = liveRoute.options;
+			newRoute.parentRoute = liveRoute.parentRoute;
+			newRoute._path = liveRoute._path;
+			newRoute._id = liveRoute._id;
+			newRoute._fullPath = liveRoute._fullPath;
+			newRoute._to = liveRoute._to;
+		}
+	};
+	const initialRouteId = "__root__" ?? hotData["tsr-route-id"];
+	if (initialRouteId) {
+		hotData["tsr-route-id"] = initialRouteId;
+	}
+	const existingRoute = typeof window !== "undefined" && initialRouteId ? window.__TSR_ROUTER__?.routesById?.[initialRouteId] : undefined;
+	if (initialRouteId && existingRoute && existingRoute !== Route) {
+		handleRouteUpdate(initialRouteId, Route);
+		hotData["tsr-route-update-handled"] = Route;
+	}
+	hot.accept((newModule) => {
+		if (Route && newModule && newModule.Route) {
+			const routeId = hotData["tsr-route-id"] ?? "__root__";
+			if (routeId) {
+				hotData["tsr-route-id"] = routeId;
+			}
+			if (hotData["tsr-route-update-handled"] === newModule.Route) {
+				delete hotData["tsr-route-update-handled"];
+				return;
+			}
+			handleRouteUpdate(routeId, newModule.Route);
+		}
+	});
+}
+var _c, _c2, _c3, _c4, _c5;
+$RefreshReg$(_c, "NotFoundComponent");
+$RefreshReg$(_c2, "ErrorComponent");
+$RefreshReg$(_c3, "RootShell");
+$RefreshReg$(_c4, "RootComponent");
+$RefreshReg$(_c5, "TSRFastRefreshAnchor");
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope;
+import * as __vite_react_currentExports from "/src/routes/__root.tsx";
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+
+  const currentExports = __vite_react_currentExports;
+  queueMicrotask(() => {
+    RefreshRuntime.registerExportsForReactRefresh("C:/Users/DELL/Desktop/care-ai/vitals-glass/src/routes/__root.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("C:/Users/DELL/Desktop/care-ai/vitals-glass/src/routes/__root.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+function $RefreshReg$(type, id) { return RefreshRuntime.register(type, "C:/Users/DELL/Desktop/care-ai/vitals-glass/src/routes/__root.tsx" + ' ' + id); }
+function $RefreshSig$() { return RefreshRuntime.createSignatureFunctionForTransform(); }
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBQUEsU0FBQUEsMkJBQUE7QUFDQSxTQUNBQyxRQUNBQyxNQUNBQyw0QkFDQUMsV0FDQUMsYUFDQUMsZUFDQTtBQUNBLFNBQUFDLGlCQUFBO0FBRUEsT0FBQUMsWUFBQTtBQUNBLFNBQUFDLDBCQUFBO0FBQ0EsU0FBQUMsb0JBQUE7QUFDQSxTQUFBQyx1QkFBQTtBQUNBLFNBQUFDLGVBQUE7Ozs7QUFHQSxTQUFBQyxvQkFBQTtDQUNBLE9BQ0E7RUFBQTtFQUFBO1lBQ0E7R0FBQTtHQUFBO2FBQUE7SUFDQTtLQUFBO0tBQUE7ZUFBMEQ7SUFBQTs7Ozs7SUFDMUQ7S0FBQTtLQUFBO2VBQWtFO0lBQUE7Ozs7O0lBQ2xFO0tBQUE7S0FBQTtlQUF5RDtJQUV6RDs7Ozs7SUFDQTtLQUFBO0tBQUE7ZUFDQTtNQUNBO01BQ0E7TUFDQTtnQkFBVTtLQUVWOzs7OztJQUNBOzs7OztHQUNBOzs7Ozs7Q0FDQTs7Ozs7QUFFQTs7QUFFQSxTQUFBQyxlQUFBLEVBQUFDLE9BQUFDLFNBQUE7O0NBQ0FDLFFBQUFGLFdBQUE7Q0FDQSxNQUFBRyxTQUFBZCxVQUFBO0NBQ0FHLGdCQUFBO0VBQ0FFLG1CQUFBTSxPQUFBLEVBQUFJLFVBQUE7Q0FDQSxJQUFBSixLQUFBO0NBRUEsT0FDQTtFQUFBO0VBQUE7WUFDQTtHQUFBO0dBQUE7YUFBQTtJQUNBO0tBQUE7S0FBQTtlQUE0RTtJQUU1RTs7Ozs7SUFDQTtLQUFBO0tBQUE7ZUFBeUQ7SUFFekQ7Ozs7O0lBQ0E7S0FBQTtLQUFBO2VBQUEsQ0FDQTtNQUNBO09BQ0FHLE9BQUFFLFdBQUE7T0FDQUosTUFBQTtNQUNBO01BQ0E7TUFDQTtnQkFBVTtLQUVWOzs7O2VBQ0E7TUFDQTtNQUNBO01BQ0E7Z0JBQVU7S0FFVjs7OzthQUNBOzs7Ozs7R0FDQTs7Ozs7O0NBQ0E7Ozs7O0FBRUE7Ozs7O0FBRUEsYUFBQUssUUFBQWxCLDJCQUFBO0NBQ0FtQixhQUFBO0VBQ0FDLE1BQUE7R0FDQSxFQUFBQyxTQUFBO0dBQ0E7SUFBQUMsTUFBQTtJQUFBQyxTQUFBO0dBQUE7R0FDQSxFQUFBQyxPQUFBO0dBQ0E7SUFDQUYsTUFBQTtJQUNBQyxTQUFBO0dBQ0E7R0FDQTtJQUFBRSxVQUFBO0lBQUFGLFNBQUE7R0FBQTtHQUNBO0lBQ0FFLFVBQUE7SUFDQUYsU0FBQTtHQUNBO0dBQ0E7SUFBQUUsVUFBQTtJQUFBRixTQUFBO0dBQUE7R0FDQTtJQUFBRCxNQUFBO0lBQUFDLFNBQUE7R0FBQTtFQUFBO0VBRUFHLE9BQUE7R0FDQTtJQUFBQyxLQUFBO0lBQUFDLE1BQUE7R0FBQTtHQUNBO0lBQUFELEtBQUE7SUFBQUMsTUFBQTtJQUFBQyxhQUFBO0dBQUE7R0FDQTtJQUNBRixLQUFBO0lBQ0FDLE1BQUE7R0FDQTtHQUNBO0lBQ0FELEtBQUE7SUFDQUMsTUFBQXZCO0dBQ0E7R0FDQTtJQUFBc0IsS0FBQTtJQUFBQyxNQUFBO0lBQUFFLE1BQUE7R0FBQTtFQUFBO0NBRUE7Q0FFQUMsZ0JBQUFDO0NBQ0FDLFdBQUFDO0NBQ0FDLG1CQUFBekI7Q0FDQTBCLGdCQUFBekI7QUFDQTtBQUVBLFNBQUFxQixVQUFBLEVBQUFLLFlBQUE7Q0FDQSxPQUNBO0VBQUE7RUFBQTtZQUFBLENBQ0E7R0FBQTthQUNBLHlGQUFxQjs7Ozs7RUFDckI7Ozs7WUFDQTtHQUFBO2FBQUEsQ0FDQUEsVUFDQSxxRkFBaUI7Ozs7V0FDakI7Ozs7O1VBQ0E7Ozs7OztBQUVBOztBQUVBLFNBQUFILGdCQUFBOztDQUNBLFFBQUFJLGdCQUFBcEIsTUFBQXFCLGdCQUFBO0NBRUEsT0FDQTtFQUFBLFFBQUFEO0VBQUE7WUFDQTtHQUFBO2FBQ0E7SUFBQTtjQUFBLENBRUEscUZBQWtCOzs7O2NBQ2xCO0tBQUE7S0FBQTtLQUFBO0tBQUE7SUFBZ0U7Ozs7WUFDaEU7Ozs7OztFQUNBOzs7OztDQUNBOzs7OztBQUdBOzs7OztBQUFBLE1BQUFFLE1BQUFDLFlBQUFEO0FBQUEsSUFBQUEsT0FBQSxPQUFBRSxXQUFBO0NBQUFGLElBQUFHLFNBQUE7Q0FBQSxNQUFBQyxrQkFBQUYsT0FBQUcsaUNBQUE7RUFBQSxNQUFBQyxxQkFBQSxJQUFBQyxJQUFBO0VBQUEsTUFBQUMsNEJBQUFOLE9BQUFPO0VBQUFQLE9BQUFPLG1DQUFBQyxRQUFBO0dBQUEsTUFBQUMsaUJBQUFILDRCQUFBRSxHQUFBO0dBQUEsTUFBQUUsZ0JBQUFOLG1CQUFBTyxJQUFBSCxJQUFBSSxFQUFBO0dBQUEsV0FBQUgsZ0JBQUEsR0FBQUMsYUFBQTtFQUFBO0VBQUEsU0FBQU4sbUJBQUE7Q0FBQTtDQUFBRixnQkFBQUUsbUJBQUFTLElBQUE7QUFBQTtBQUFBLGdCQUFBQyx1QkFBQTtDQUFBO0FBQUE7O0FBQUEsSUFBQWYsWUFBQUQsS0FBQTtDQUFBLE1BQUFBLE1BQUFDLFlBQUFEO0NBQUEsTUFBQWlCLFVBQUFqQixJQUFBRyxTQUFBO0NBQUEsTUFBQWUsb0JBQUEsU0FBQUEsa0JBQUFDLFNBQUFDLFVBQUE7RUFBQSxNQUFBN0MsU0FBQTJCLE9BQUFtQjtFQUFBLE1BQUFDLFdBQUEvQyxPQUFBZ0QsV0FBQUo7RUFBQSxLQUFBRyxVQUFBO0VBQUEsTUFBQUUsMkJBQUEsSUFBQUMsSUFBQTtHQUFBO0dBQUE7R0FBQTtFQUFBO0VBQUEsTUFBQUMsd0JBQUE7RUFBQUYseUJBQUFHLFNBQUFDLFFBQUE7R0FBQSxJQUFBQSxPQUFBTixTQUFBTyxTQUFBSCxzQkFBQUUsT0FBQU4sU0FBQU8sUUFBQUQ7RUFBQTtFQUFBLE1BQUFFLDRCQUFBLG9CQUFBUixTQUFBTyxZQUFBLG9CQUFBVCxTQUFBUztFQUFBLE1BQUFFLGdCQUFBO0dBQUE7R0FBQTtHQUFBO0dBQUE7R0FBQTtFQUFBO0VBQUEsSUFBQUQsMkJBQUFDLGNBQUFKLFNBQUFDLFFBQUE7R0FBQSxJQUFBQSxPQUFBTixTQUFBTyxXQUFBRCxPQUFBUixTQUFBUyxTQUFBVCxTQUFBUyxRQUFBRCxPQUFBTixTQUFBTyxRQUFBRDtFQUFBO0VBQUEsTUFBQUksY0FBQTtHQUFBLEdBQUFaLFNBQUFTO0dBQUEsR0FBQUg7RUFBQTtFQUFBSixTQUFBTyxVQUFBRztFQUFBVixTQUFBVyxPQUFBRCxXQUFBO0VBQUF6RCxPQUFBMkQsbUJBQUFaLFVBQUFGLFNBQUFlLE1BQUE7RUFBQTVELE9BQUE2RCxVQUFBN0QsT0FBQThELGVBQUE7RUFBQUMsbUJBQUFoQixRQUFBO0VBQUEvQyxPQUFBZ0UsaUJBQUFDLE1BQUE7RUFBQWpFLE9BQUFrRSxnQkFBQTtFQUFBLFNBQUFILG1CQUFBSSxXQUFBO0dBQUF0QixTQUFBUyxVQUFBYSxVQUFBYjtHQUFBVCxTQUFBdUIsY0FBQUQsVUFBQUM7R0FBQXZCLFNBQUF3QixRQUFBRixVQUFBRTtHQUFBeEIsU0FBQXlCLE1BQUFILFVBQUFHO0dBQUF6QixTQUFBMEIsWUFBQUosVUFBQUk7R0FBQTFCLFNBQUEyQixNQUFBTCxVQUFBSztFQUFBO0NBQUE7Q0FBQSxNQUFBQyxpQkFBQSxjQUFBL0IsUUFBQTtDQUFBLElBQUErQixnQkFBQTtFQUFBL0IsUUFBQSxrQkFBQStCO0NBQUE7Q0FBQSxNQUFBQyxnQkFBQSxPQUFBL0MsV0FBQSxlQUFBOEMsaUJBQUE5QyxPQUFBbUIsZ0JBQUFFLGFBQUF5QixrQkFBQUU7Q0FBQSxJQUFBRixrQkFBQUMsbUNBQUF2RSxPQUFBO0VBQUF3QyxrQkFBQThCLGdCQUFBdEUsS0FBQTtFQUFBdUMsUUFBQSw4QkFBQXZDO0NBQUE7Q0FBQXNCLElBQUFtRCxRQUFBQyxjQUFBO0VBQUEsSUFBQTFFLFNBQUEwRSx1QkFBQTFFLE9BQUE7R0FBQSxNQUFBeUMsVUFBQUYsUUFBQTtHQUFBLElBQUFFLFNBQUE7SUFBQUYsUUFBQSxrQkFBQUU7R0FBQTtHQUFBLElBQUFGLFFBQUEsZ0NBQUFtQyxVQUFBMUUsT0FBQTtJQUFBLE9BQUF1QyxRQUFBO0lBQUE7R0FBQTtHQUFBQyxrQkFBQUMsU0FBQWlDLFVBQUExRSxLQUFBO0VBQUE7Q0FBQTtBQUFBIiwibmFtZXMiOlsiUXVlcnlDbGllbnRQcm92aWRlciIsIk91dGxldCIsIkxpbmsiLCJjcmVhdGVSb290Um91dGVXaXRoQ29udGV4dCIsInVzZVJvdXRlciIsIkhlYWRDb250ZW50IiwiU2NyaXB0cyIsInVzZUVmZmVjdCIsImFwcENzcyIsInJlcG9ydExvdmFibGVFcnJvciIsIkF1dGhQcm92aWRlciIsIlByb2ZpbGVQcm92aWRlciIsIlRvYXN0ZXIiLCJOb3RGb3VuZENvbXBvbmVudCIsIkVycm9yQ29tcG9uZW50IiwiZXJyb3IiLCJyZXNldCIsImNvbnNvbGUiLCJyb3V0ZXIiLCJib3VuZGFyeSIsImludmFsaWRhdGUiLCJSb3V0ZSIsImhlYWQiLCJtZXRhIiwiY2hhclNldCIsIm5hbWUiLCJjb250ZW50IiwidGl0bGUiLCJwcm9wZXJ0eSIsImxpbmtzIiwicmVsIiwiaHJlZiIsImNyb3NzT3JpZ2luIiwidHlwZSIsInNoZWxsQ29tcG9uZW50IiwiUm9vdFNoZWxsIiwiY29tcG9uZW50IiwiUm9vdENvbXBvbmVudCIsIm5vdEZvdW5kQ29tcG9uZW50IiwiZXJyb3JDb21wb25lbnQiLCJjaGlsZHJlbiIsInF1ZXJ5Q2xpZW50IiwidXNlUm91dGVDb250ZXh0IiwiaG90IiwiaW1wb3J0Iiwid2luZG93IiwiZGF0YSIsInRzclJlYWN0UmVmcmVzaCIsIl9fVFNSX1JFQUNUX1JFRlJFU0hfXyIsImlnbm9yZWRFeHBvcnRzQnlJZCIsIk1hcCIsInByZXZpb3VzR2V0SWdub3JlZEV4cG9ydHMiLCJfX2dldFJlYWN0UmVmcmVzaElnbm9yZWRFeHBvcnRzIiwiY3R4IiwiaWdub3JlZEV4cG9ydHMiLCJtb2R1bGVJZ25vcmVkIiwiZ2V0IiwiaWQiLCJzZXQiLCJUU1JGYXN0UmVmcmVzaEFuY2hvciIsImhvdERhdGEiLCJoYW5kbGVSb3V0ZVVwZGF0ZSIsInJvdXRlSWQiLCJuZXdSb3V0ZSIsIl9fVFNSX1JPVVRFUl9fIiwib2xkUm91dGUiLCJyb3V0ZXNCeUlkIiwiZ2VuZXJhdGVkUm91dGVPcHRpb25LZXlzIiwiU2V0IiwiZ2VuZXJhdGVkUm91dGVPcHRpb25zIiwiZm9yRWFjaCIsImtleSIsIm9wdGlvbnMiLCJwcmVzZXJ2ZUNvbXBvbmVudElkZW50aXR5IiwiY29tcG9uZW50S2V5cyIsIm5leHRPcHRpb25zIiwidXBkYXRlIiwiX3JlcGxhY2VSb3V0ZUNodW5rIiwibGF6eUZuIiwic2V0Um91dGVzIiwiYnVpbGRSb3V0ZVRyZWUiLCJzeW5jSG90Um91dGVFeHBvcnQiLCJyZXNvbHZlUGF0aENhY2hlIiwiY2xlYXIiLCJfcmVmcmVzaFJvdXRlIiwibGl2ZVJvdXRlIiwicGFyZW50Um91dGUiLCJfcGF0aCIsIl9pZCIsIl9mdWxsUGF0aCIsIl90byIsImluaXRpYWxSb3V0ZUlkIiwiZXhpc3RpbmdSb3V0ZSIsInVuZGVmaW5lZCIsImFjY2VwdCIsIm5ld01vZHVsZSJdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJfX3Jvb3QudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IFF1ZXJ5Q2xpZW50LCBRdWVyeUNsaWVudFByb3ZpZGVyIH0gZnJvbSBcIkB0YW5zdGFjay9yZWFjdC1xdWVyeVwiO1xyXG5pbXBvcnQge1xyXG4gIE91dGxldCxcclxuICBMaW5rLFxyXG4gIGNyZWF0ZVJvb3RSb3V0ZVdpdGhDb250ZXh0LFxyXG4gIHVzZVJvdXRlcixcclxuICBIZWFkQ29udGVudCxcclxuICBTY3JpcHRzLFxyXG59IGZyb20gXCJAdGFuc3RhY2svcmVhY3Qtcm91dGVyXCI7XHJcbmltcG9ydCB7IHVzZUVmZmVjdCwgdHlwZSBSZWFjdE5vZGUgfSBmcm9tIFwicmVhY3RcIjtcclxuXHJcbmltcG9ydCBhcHBDc3MgZnJvbSBcIi4uL3N0eWxlcy5jc3M/dXJsXCI7XHJcbmltcG9ydCB7IHJlcG9ydExvdmFibGVFcnJvciB9IGZyb20gXCIuLi9saWIvbG92YWJsZS1lcnJvci1yZXBvcnRpbmdcIjtcclxuaW1wb3J0IHsgQXV0aFByb3ZpZGVyIH0gZnJvbSBcIkAvbGliL2F1dGgtY29udGV4dFwiO1xuaW1wb3J0IHsgUHJvZmlsZVByb3ZpZGVyIH0gZnJvbSBcIkAvbGliL3Byb2ZpbGUtY29udGV4dFwiO1xuaW1wb3J0IHsgVG9hc3RlciB9IGZyb20gXCJAL2NvbXBvbmVudHMvdWkvc29ubmVyXCI7XHJcblxyXG5cclxuZnVuY3Rpb24gTm90Rm91bmRDb21wb25lbnQoKSB7XHJcbiAgcmV0dXJuIChcclxuICAgIDxkaXYgY2xhc3NOYW1lPVwiZmxleCBtaW4taC1zY3JlZW4gaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIGJnLWJhY2tncm91bmQgcHgtNFwiPlxyXG4gICAgICA8ZGl2IGNsYXNzTmFtZT1cIm1heC13LW1kIHRleHQtY2VudGVyXCI+XHJcbiAgICAgICAgPGgxIGNsYXNzTmFtZT1cInRleHQtN3hsIGZvbnQtYm9sZCB0ZXh0LWZvcmVncm91bmRcIj40MDQ8L2gxPlxyXG4gICAgICAgIDxoMiBjbGFzc05hbWU9XCJtdC00IHRleHQteGwgZm9udC1zZW1pYm9sZCB0ZXh0LWZvcmVncm91bmRcIj5QYWdlIG5vdCBmb3VuZDwvaDI+XHJcbiAgICAgICAgPHAgY2xhc3NOYW1lPVwibXQtMiB0ZXh0LXNtIHRleHQtbXV0ZWQtZm9yZWdyb3VuZFwiPlxyXG4gICAgICAgICAgVGhlIHBhZ2UgeW91J3JlIGxvb2tpbmcgZm9yIGRvZXNuJ3QgZXhpc3Qgb3IgaGFzIGJlZW4gbW92ZWQuXHJcbiAgICAgICAgPC9wPlxyXG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwibXQtNlwiPlxyXG4gICAgICAgICAgPExpbmtcclxuICAgICAgICAgICAgdG89XCIvXCJcclxuICAgICAgICAgICAgY2xhc3NOYW1lPVwiaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIHJvdW5kZWQtbWQgYmctcHJpbWFyeSBweC00IHB5LTIgdGV4dC1zbSBmb250LW1lZGl1bSB0ZXh0LXByaW1hcnktZm9yZWdyb3VuZCB0cmFuc2l0aW9uLWNvbG9ycyBob3ZlcjpiZy1wcmltYXJ5LzkwXCJcclxuICAgICAgICAgID5cclxuICAgICAgICAgICAgR28gaG9tZVxyXG4gICAgICAgICAgPC9MaW5rPlxyXG4gICAgICAgIDwvZGl2PlxyXG4gICAgICA8L2Rpdj5cclxuICAgIDwvZGl2PlxyXG4gICk7XHJcbn1cclxuXHJcbmZ1bmN0aW9uIEVycm9yQ29tcG9uZW50KHsgZXJyb3IsIHJlc2V0IH06IHsgZXJyb3I6IEVycm9yOyByZXNldDogKCkgPT4gdm9pZCB9KSB7XHJcbiAgY29uc29sZS5lcnJvcihlcnJvcik7XHJcbiAgY29uc3Qgcm91dGVyID0gdXNlUm91dGVyKCk7XHJcbiAgdXNlRWZmZWN0KCgpID0+IHtcclxuICAgIHJlcG9ydExvdmFibGVFcnJvcihlcnJvciwgeyBib3VuZGFyeTogXCJ0YW5zdGFja19yb290X2Vycm9yX2NvbXBvbmVudFwiIH0pO1xyXG4gIH0sIFtlcnJvcl0pO1xyXG5cclxuICByZXR1cm4gKFxyXG4gICAgPGRpdiBjbGFzc05hbWU9XCJmbGV4IG1pbi1oLXNjcmVlbiBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXIgYmctYmFja2dyb3VuZCBweC00XCI+XHJcbiAgICAgIDxkaXYgY2xhc3NOYW1lPVwibWF4LXctbWQgdGV4dC1jZW50ZXJcIj5cclxuICAgICAgICA8aDEgY2xhc3NOYW1lPVwidGV4dC14bCBmb250LXNlbWlib2xkIHRyYWNraW5nLXRpZ2h0IHRleHQtZm9yZWdyb3VuZFwiPlxyXG4gICAgICAgICAgVGhpcyBwYWdlIGRpZG4ndCBsb2FkXHJcbiAgICAgICAgPC9oMT5cclxuICAgICAgICA8cCBjbGFzc05hbWU9XCJtdC0yIHRleHQtc20gdGV4dC1tdXRlZC1mb3JlZ3JvdW5kXCI+XHJcbiAgICAgICAgICBTb21ldGhpbmcgd2VudCB3cm9uZyBvbiBvdXIgZW5kLiBZb3UgY2FuIHRyeSByZWZyZXNoaW5nIG9yIGhlYWQgYmFjayBob21lLlxyXG4gICAgICAgIDwvcD5cclxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIm10LTYgZmxleCBmbGV4LXdyYXAganVzdGlmeS1jZW50ZXIgZ2FwLTJcIj5cclxuICAgICAgICAgIDxidXR0b25cclxuICAgICAgICAgICAgb25DbGljaz17KCkgPT4ge1xyXG4gICAgICAgICAgICAgIHJvdXRlci5pbnZhbGlkYXRlKCk7XHJcbiAgICAgICAgICAgICAgcmVzZXQoKTtcclxuICAgICAgICAgICAgfX1cclxuICAgICAgICAgICAgY2xhc3NOYW1lPVwiaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIHJvdW5kZWQtbWQgYmctcHJpbWFyeSBweC00IHB5LTIgdGV4dC1zbSBmb250LW1lZGl1bSB0ZXh0LXByaW1hcnktZm9yZWdyb3VuZCB0cmFuc2l0aW9uLWNvbG9ycyBob3ZlcjpiZy1wcmltYXJ5LzkwXCJcclxuICAgICAgICAgID5cclxuICAgICAgICAgICAgVHJ5IGFnYWluXHJcbiAgICAgICAgICA8L2J1dHRvbj5cclxuICAgICAgICAgIDxhXHJcbiAgICAgICAgICAgIGhyZWY9XCIvXCJcclxuICAgICAgICAgICAgY2xhc3NOYW1lPVwiaW5saW5lLWZsZXggaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIHJvdW5kZWQtbWQgYm9yZGVyIGJvcmRlci1pbnB1dCBiZy1iYWNrZ3JvdW5kIHB4LTQgcHktMiB0ZXh0LXNtIGZvbnQtbWVkaXVtIHRleHQtZm9yZWdyb3VuZCB0cmFuc2l0aW9uLWNvbG9ycyBob3ZlcjpiZy1hY2NlbnRcIlxyXG4gICAgICAgICAgPlxyXG4gICAgICAgICAgICBHbyBob21lXHJcbiAgICAgICAgICA8L2E+XHJcbiAgICAgICAgPC9kaXY+XHJcbiAgICAgIDwvZGl2PlxyXG4gICAgPC9kaXY+XHJcbiAgKTtcclxufVxyXG5cclxuZXhwb3J0IGNvbnN0IFJvdXRlID0gY3JlYXRlUm9vdFJvdXRlV2l0aENvbnRleHQ8eyBxdWVyeUNsaWVudDogUXVlcnlDbGllbnQgfT4oKSh7XHJcbiAgaGVhZDogKCkgPT4gKHtcclxuICAgIG1ldGE6IFtcclxuICAgICAgeyBjaGFyU2V0OiBcInV0Zi04XCIgfSxcclxuICAgICAgeyBuYW1lOiBcInZpZXdwb3J0XCIsIGNvbnRlbnQ6IFwid2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTFcIiB9LFxyXG4gICAgICB7IHRpdGxlOiBcIkFJQ2FyZSDigJQgQUkgSGVhbHRoIFZpdGFsc1wiIH0sXHJcbiAgICAgIHtcclxuICAgICAgICBuYW1lOiBcImRlc2NyaXB0aW9uXCIsXHJcbiAgICAgICAgY29udGVudDogXCJMb2cgeW91ciB2aXRhbCBzaWducyBhbmQgZ2V0IEFJLXBvd2VyZWQgaGVhbHRoIGluc2lnaHRzIGluIHNlY29uZHMuXCIsXHJcbiAgICAgIH0sXHJcbiAgICAgIHsgcHJvcGVydHk6IFwib2c6dGl0bGVcIiwgY29udGVudDogXCJBSUNhcmUg4oCUIEFJIEhlYWx0aCBWaXRhbHNcIiB9LFxyXG4gICAgICB7XHJcbiAgICAgICAgcHJvcGVydHk6IFwib2c6ZGVzY3JpcHRpb25cIixcclxuICAgICAgICBjb250ZW50OiBcIkxvZyB5b3VyIHZpdGFsIHNpZ25zIGFuZCBnZXQgQUktcG93ZXJlZCBoZWFsdGggaW5zaWdodHMgaW4gc2Vjb25kcy5cIixcclxuICAgICAgfSxcclxuICAgICAgeyBwcm9wZXJ0eTogXCJvZzp0eXBlXCIsIGNvbnRlbnQ6IFwid2Vic2l0ZVwiIH0sXHJcbiAgICAgIHsgbmFtZTogXCJ0d2l0dGVyOmNhcmRcIiwgY29udGVudDogXCJzdW1tYXJ5X2xhcmdlX2ltYWdlXCIgfSxcclxuICAgIF0sXHJcbiAgICBsaW5rczogW1xyXG4gICAgICB7IHJlbDogXCJwcmVjb25uZWN0XCIsIGhyZWY6IFwiaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbVwiIH0sXHJcbiAgICAgIHsgcmVsOiBcInByZWNvbm5lY3RcIiwgaHJlZjogXCJodHRwczovL2ZvbnRzLmdzdGF0aWMuY29tXCIsIGNyb3NzT3JpZ2luOiBcImFub255bW91c1wiIH0sXHJcbiAgICAgIHtcclxuICAgICAgICByZWw6IFwic3R5bGVzaGVldFwiLFxyXG4gICAgICAgIGhyZWY6IFwiaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3MyP2ZhbWlseT1JbnRlcjp3Z2h0QDQwMDs1MDA7NjAwOzcwMDs4MDAmZGlzcGxheT1zd2FwXCIsXHJcbiAgICAgIH0sXHJcbiAgICAgIHtcclxuICAgICAgICByZWw6IFwic3R5bGVzaGVldFwiLFxyXG4gICAgICAgIGhyZWY6IGFwcENzcyxcclxuICAgICAgfSxcclxuICAgICAgeyByZWw6IFwiaWNvblwiLCBocmVmOiBcIi9mYXZpY29uLmljb1wiLCB0eXBlOiBcImltYWdlL3gtaWNvblwiIH0sXHJcbiAgICBdLFxyXG4gIH0pLFxyXG5cclxuICBzaGVsbENvbXBvbmVudDogUm9vdFNoZWxsLFxyXG4gIGNvbXBvbmVudDogUm9vdENvbXBvbmVudCxcclxuICBub3RGb3VuZENvbXBvbmVudDogTm90Rm91bmRDb21wb25lbnQsXHJcbiAgZXJyb3JDb21wb25lbnQ6IEVycm9yQ29tcG9uZW50LFxyXG59KTtcclxuXHJcbmZ1bmN0aW9uIFJvb3RTaGVsbCh7IGNoaWxkcmVuIH06IHsgY2hpbGRyZW46IFJlYWN0Tm9kZSB9KSB7XHJcbiAgcmV0dXJuIChcclxuICAgIDxodG1sIGxhbmc9XCJlblwiPlxyXG4gICAgICA8aGVhZD5cclxuICAgICAgICA8SGVhZENvbnRlbnQgLz5cclxuICAgICAgPC9oZWFkPlxyXG4gICAgICA8Ym9keT5cclxuICAgICAgICB7Y2hpbGRyZW59XHJcbiAgICAgICAgPFNjcmlwdHMgLz5cclxuICAgICAgPC9ib2R5PlxyXG4gICAgPC9odG1sPlxyXG4gICk7XHJcbn1cclxuXHJcbmZ1bmN0aW9uIFJvb3RDb21wb25lbnQoKSB7XHJcbiAgY29uc3QgeyBxdWVyeUNsaWVudCB9ID0gUm91dGUudXNlUm91dGVDb250ZXh0KCk7XHJcblxyXG4gIHJldHVybiAoXHJcbiAgICA8UXVlcnlDbGllbnRQcm92aWRlciBjbGllbnQ9e3F1ZXJ5Q2xpZW50fT5cclxuICAgICAgPEF1dGhQcm92aWRlcj5cbiAgICAgICAgPFByb2ZpbGVQcm92aWRlcj5cbiAgICAgICAgICB7LyogUmVxdWlyZWQ6IG5lc3RlZCByb3V0ZXMgcmVuZGVyIGhlcmUuIFJlbW92aW5nIDxPdXRsZXQgLz4gYnJlYWtzIGFsbCBjaGlsZCByb3V0ZXMuICovfVxuICAgICAgICAgIDxPdXRsZXQgLz5cbiAgICAgICAgICA8VG9hc3RlciBwb3NpdGlvbj1cInRvcC1jZW50ZXJcIiByaWNoQ29sb3JzIGNsb3NlQnV0dG9uIC8+XG4gICAgICAgIDwvUHJvZmlsZVByb3ZpZGVyPlxuICAgICAgPC9BdXRoUHJvdmlkZXI+XG4gICAgPC9RdWVyeUNsaWVudFByb3ZpZGVyPlxyXG5cclxuICApO1xyXG59XHJcbiJdLCJmaWxlIjoiQzovVXNlcnMvREVMTC9EZXNrdG9wL2NhcmUtYWkvdml0YWxzLWdsYXNzL3NyYy9yb3V0ZXMvX19yb290LnRzeCJ9

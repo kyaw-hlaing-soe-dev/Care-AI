@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AddRouteImport } from './routes/add'
+import { Route as CreateProfileRouteImport } from './routes/create-profile'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as HistoryIndexRouteImport } from './routes/history.index'
@@ -24,6 +25,11 @@ const IndexRoute = IndexRouteImport.update({
 const AddRoute = AddRouteImport.update({
   id: '/add',
   path: '/add',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreateProfileRoute = CreateProfileRouteImport.update({
+  id: '/create-profile',
+  path: '/create-profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -50,6 +56,7 @@ const HistoryIdRoute = HistoryIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/add': typeof AddRoute
+  '/create-profile': typeof CreateProfileRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/history/$id': typeof HistoryIdRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/add': typeof AddRoute
+  '/create-profile': typeof CreateProfileRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/history/$id': typeof HistoryIdRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/add': typeof AddRoute
+  '/create-profile': typeof CreateProfileRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/history/$id': typeof HistoryIdRoute
@@ -75,13 +84,27 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/add' | '/dashboard' | '/login' | '/history/$id' | '/history/'
+    | '/'
+    | '/add'
+    | '/create-profile'
+    | '/dashboard'
+    | '/login'
+    | '/history/$id'
+    | '/history/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/add' | '/dashboard' | '/login' | '/history/$id' | '/history'
+  to:
+    | '/'
+    | '/add'
+    | '/create-profile'
+    | '/dashboard'
+    | '/login'
+    | '/history/$id'
+    | '/history'
   id:
     | '__root__'
     | '/'
     | '/add'
+    | '/create-profile'
     | '/dashboard'
     | '/login'
     | '/history/$id'
@@ -91,6 +114,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AddRoute: typeof AddRoute
+  CreateProfileRoute: typeof CreateProfileRoute
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
   HistoryIdRoute: typeof HistoryIdRoute
@@ -111,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/add'
       fullPath: '/add'
       preLoaderRoute: typeof AddRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/create-profile': {
+      id: '/create-profile'
+      path: '/create-profile'
+      fullPath: '/create-profile'
+      preLoaderRoute: typeof CreateProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -147,6 +178,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AddRoute: AddRoute,
+  CreateProfileRoute: CreateProfileRoute,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
   HistoryIdRoute: HistoryIdRoute,
@@ -155,3 +187,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

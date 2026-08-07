@@ -335,6 +335,7 @@ function ProfileBenefitCard({
   const reducedMotion = Boolean(useReducedMotion());
   return (
     <motion.div
+      data-profile-benefit={title}
       className={`absolute z-20 flex w-[168px] items-center gap-2.5 rounded-[16px] border border-white/90 bg-white/85 px-3 py-2.5 text-slate-900 shadow-[0_14px_34px_rgba(50,95,145,0.12)] backdrop-blur-lg ${className} ${primary ? "ring-1 ring-cyan-100" : ""}`}
       initial={{ opacity: 0, y: 7 }}
       animate={reducedMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -3, 0] }}
@@ -366,6 +367,7 @@ function DoctorIllustration({ mobile = false }: { mobile?: boolean }) {
   const reducedMotion = Boolean(useReducedMotion());
   return (
     <motion.img
+      data-profile-doctor
       src={profileDoctor}
       alt="AICare doctor welcoming you to create your health profile"
       draggable="false"
@@ -433,12 +435,14 @@ function MobileWelcomeVisual() {
   return (
     <div className="profile-mobile-scene relative mt-3 flex h-[178px] items-end justify-center overflow-hidden rounded-[20px] lg:hidden">
       <div className="profile-doctor-glow pointer-events-none absolute left-1/2 top-1/2 size-[220px] -translate-x-1/2 -translate-y-1/2" />
-      <DoctorIllustration mobile />
+      <div className="translate-x-[18%]">
+        <DoctorIllustration mobile />
+      </div>
       <ProfileBenefitCard
         icon={<Sparkles className="size-3.5" />}
         title="Personalized for you"
         detail="A healthier experience"
-        className="right-[1%] top-[6%] scale-[0.9]"
+        className="left-[1%] top-[4%] origin-top-left scale-[0.84]"
         primary
         delay={0.15}
       />

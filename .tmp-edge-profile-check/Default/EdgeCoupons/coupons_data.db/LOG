@@ -1,0 +1,5 @@
+2026/08/07-20:16:59.676 f98 Creating DB C:\Users\DELL\Desktop\care-ai\vitals-glass\.tmp-edge-profile-check\Default\EdgeCoupons/coupons_data.db since it was missing.
+2026/08/07-20:16:59.734 f98 Reusing MANIFEST C:\Users\DELL\Desktop\care-ai\vitals-glass\.tmp-edge-profile-check\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/08/07-20:17:21.974 4b68 Level-0 table #5: started
+2026/08/07-20:17:21.982 4b68 Level-0 table #5: 683172 bytes OK
+2026/08/07-20:17:21.985 4b68 Delete type=0 #3

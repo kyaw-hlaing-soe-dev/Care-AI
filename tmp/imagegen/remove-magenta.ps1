@@ -45,26 +45,28 @@ public static class MagentaAlphaRemover
                 int blue = pixels[i];
                 int green = pixels[i + 1];
                 int red = pixels[i + 2];
-                int distance = Math.Max(Math.Abs(255 - red), Math.Max(Math.Abs(green), Math.Abs(255 - blue)));
                 int alpha;
 
-                if (distance <= 28)
+                bool isMagenta = red > 175 && blue > 165 && green < 120 && (red + blue - (green * 2)) > 260;
+                bool isMagentaEdge = red > 145 && blue > 135 && green < 155 && (red + blue - (green * 2)) > 170;
+
+                if (isMagenta)
                 {
                     alpha = 0;
                     transparent++;
                 }
-                else if (distance >= 120)
+                else if (!isMagentaEdge)
                 {
                     alpha = 255;
                     opaque++;
                 }
                 else
                 {
-                    alpha = Math.Min(255, Math.Max(0, (distance - 28) * 255 / 92));
+                    alpha = 96;
                 }
 
                 pixels[i + 3] = (byte)alpha;
-                if (alpha > 10)
+                if (alpha > 100)
                 {
                     int y = i / rowBytes;
                     int x = (i % rowBytes) / 4;

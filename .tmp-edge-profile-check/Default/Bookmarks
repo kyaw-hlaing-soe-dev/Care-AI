@@ -1,0 +1,161 @@
+{
+   "checksum": "7222912e8fdb7ab3529decb705ed2ead",
+   "roots": {
+      "bookmark_bar": {
+         "children": [ {
+            "date_added": "13315770152862832",
+            "date_last_used": "0",
+            "guid": "e994e47b-80e9-4cd8-b660-57b88fd7ccfc",
+            "id": "7",
+            "name": "Professional-Web-Developer-4th-Edition-by-Ei-Maung.pdf",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "file:///D:/pdf/Professional-Web-Developer-4th-Edition-by-Ei-Maung.pdf",
+            "visit_count": 0
+         }, {
+            "date_added": "13326951617496911",
+            "date_last_used": "0",
+            "guid": "f6adce7f-51b6-460e-bf9d-7cd35ce87e45",
+            "id": "8",
+            "name": "Document",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "http://127.0.0.1:5500/CSS.html/15_libray.html",
+            "visit_count": 0
+         }, {
+            "date_added": "13303190756696346",
+            "date_last_used": "13410101008489593",
+            "guid": "db59cc5b-5b14-41ef-a3cf-97be7c2ca3cd",
+            "id": "9",
+            "name": "Gmail",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://accounts.google.com/b/0/AddMailService",
+            "visit_count": 3
+         }, {
+            "date_added": "13303190756697640",
+            "date_last_used": "0",
+            "guid": "ec20c57c-e8d7-4a63-8bd0-e9875f5c03c8",
+            "id": "10",
+            "name": "Maps",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://maps.google.com/",
+            "visit_count": 0
+         }, {
+            "date_added": "13303190756697105",
+            "date_last_used": "0",
+            "guid": "0e6e6358-571f-4167-9bb6-5808bdb34594",
+            "id": "11",
+            "name": "YouTube",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://youtube.com/",
+            "visit_count": 0
+         }, {
+            "date_added": "13324097622350475",
+            "date_last_used": "0",
+            "guid": "0684823b-f8b6-47d9-88dd-dd992601535c",
+            "id": "12",
+            "name": "Kisscartoon - Watch cartoon online free in High Quality kisscartoon.online",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www1.kisscartoon.online/",
+            "visit_count": 0
+         }, {
+            "date_added": "13324099974001943",
+            "date_last_used": "0",
+            "guid": "caf0eb12-4e8d-47b5-bc86-be4a28d33c5c",
+            "id": "13",
+            "name": "Watch Free Movies Online - Watch And Download Full Movies - Vumoo.To",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://vumoo.to/",
+            "visit_count": 0
+         }, {
+            "date_added": "13326469024973966",
+            "date_last_used": "0",
+            "guid": "e6d96d31-1866-480b-ad5d-afdd85e5b7ae",
+            "id": "14",
+            "name": "Flexbox Froggy - A game for learning CSS flexbox",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://flexboxfroggy.com/",
+            "visit_count": 0
+         }, {
+            "date_added": "13326801348307207",
+            "date_last_used": "0",
+            "guid": "729c2f86-8086-4602-8bcc-2a9a804f0abd",
+            "id": "15",
+            "name": "CSS basics - Learn web development | MDN",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics",
+            "visit_count": 0
+         }, {
+            "date_added": "13327382499702210",
+            "date_last_used": "0",
+            "guid": "1884360d-2fa3-4c39-b121-3dd1ad01056f",
+            "id": "16",
+            "name": "Top 10 Projects For Beginners To Practice HTML and CSS Skills - GeeksforGeeks",
+            "show_icon": false,
+            "source": "sync",
+            "type": "url",
+            "url": "https://www.geeksforgeeks.org/top-10-projects-for-beginners-to-practice-html-and-css-skills/",
+            "visit_count": 0
+         } ],
+         "date_added": "13430584014668043",
+         "date_last_used": "0",
+         "date_modified": "13327382499702210",
+         "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+         "id": "1",
+         "name": "Favorites bar",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "other": {
+         "children": [  ],
+         "date_added": "13430584014668043",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+         "id": "2",
+         "name": "Other favorites",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "synced": {
+         "children": [  ],
+         "date_added": "13430584014668043",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+         "id": "3",
+         "name": "Mobile favorites",
+         "source": "unknown",
+         "type": "folder"
+      },
+      "workspaces_v2": {
+         "children": [  ],
+         "date_added": "13430584014668043",
+         "date_last_used": "0",
+         "date_modified": "0",
+         "guid": "75aa6670-344f-549d-b742-660f029506ab",
+         "id": "5",
+         "name": "Workspaces",
+         "source": "unknown",
+         "type": "folder"
+      }
+   },
+   "sync_metadata": "CkEKHgiIgQISCETgddyfAQAAKg4QABgBIAAoBTAAOABAABIAKhhLKyt4YXVpdDBVSnhkem11L0tnUld3PT1IA6AGDBKOAQgDEokBChxuamdEdTg4ZUNydlhwODZwRDdmSEdjcUZwODg9EiRmYTFhZTQ0MC04NmNiLTUzYWYtYjc3Ny01ODRmNDc4OWEzMzYYACAAKAAw55mc5sswOIeenObLMECHnpzmyzBKHHl6TkIwMWNuNTRBN2NSVTB1VCsvUGdtVHRVbz1aAGUAAAAAwj4CYAASrgEIDxKpAQocdTRlcUI5ejltZFkxTWhFOWk4T3g4cnUrZTRVPRIkNzI5YzJmODYtODA4Ni00NjAyLThiY2MtMmE5YTgwNGYwYWJkGAAgACgAMM7UgsaKMTib14LGijFAm9eCxooxShxrOWJqcFRIZTVTMGRmQ3FUbzNPWldlcWFvclU9WiAiHv/2czhqNmlIQjVsamthQ2RJV2llclc4UWFqY0xnPWVtoJ/1wj4CYAUSrgEIEBKpAQocMXNrbW51OHR4TnZnNWZJVVpBL1RlUEhwRm9jPRIkMTg4NDM2MGQtMmZhMy00YzM5LWIxMjEtM2RkMWFkMDEwNTZmGAAgACgAMM3UgsaKMTiF14LGijFAhdeCxooxShxrN2MwSlFlVEMrbkJscnc5QmVKTnFOOC93Znc9WiAiHv/7QTE1TFNTUkQrcFNqN3RTdEU5U21oVmpLYTJ3PWX4JccIwj4CYAUSrgEIDhKpAQocdGc2NXpFYmF0UTFyNWpVYmxOWVZCYk9MdTg0PRIkZTZkOTZkMzEtMTg2Ni00ODBiLWFkNWQtYWZkZDg1ZTViN2FlGAAgACgAMMXUgsaKMTip1YLGijFAqdWCxooxShxsaElkM2hFcU4rdFpScHFlN0pyNkJGMGFVTVE9WiAiHv/sTit0MkRJZ1JhV3dEZVdZclIrMDJoemxyb1dRPWVKcJsEwj4CYAUSrQEIDRKoAQocOHd6TzBJK1g4QWdrQ0lwU2Ixc3lZL3RnS2RjPRIkY2FmMGViMTItNGU4ZC00N2I1LWJjODYtYmU0YTI4ZDMzYzVjGAAgACgAMMTy8vvEMTj+1YLGijFA/tWCxooxShxaTXRZaVV5bWoyVHNhbTRKaE10NmdNUm9BOEU9Wh8iHf1rSklCeE9WY3Q1WUkvRXZZM0VGNWpObWUwc0k9ZYs0GPPCPgJgBRKtAQgMEqgBChxnU20xZCtnekdQRUhlWVB2OTh0ZklXMEMraUU9EiQwNjg0ODIzYi1mOGI2LTQ3ZDktODhkZC1kZDk5MjYwMTUzNWMYACAAKAAwzNSCxooxOO/WgsaKMUDv1oLGijFKHFNVZGpweGV2Qml2Zjk0UFZEa1ZUaWZEcHRqaz1aHyId+2pYbG9ZdEIvMzR5SmlhZVNNVUNEeGtWRFRqZz1lZosSycI+AmAFEq0BCAsSqAEKHEwxcFZrb3AxelMyYlZLak9QamVFRSs2bHpxTT0SJDBlNmU2MzU4LTU3MWYtNDE2Ny05YmI2LTU4MDhiZGIzNDU5NBgAIAAoADDH1ILGijE46NWCxooxQOjVgsaKMUocZm4vUjZsZi82TDFKOXpnNHpwdWZ3VG5TVW9nPVofIh32NEpvZU8rdllKTHRXamh1Q0g5UHRZMUhLRjhVPWU4+Tkzwj4CYAUSrQEIChKoAQocb0txNU5Bb2VPZzM3QmxNYTNPMzkvWHFSZ1FFPRIkZWMyMGM1N2MtZThkNy00YTYzLThiZDAtZTk4NzVmNWMwM2M4GAAgACgAMMbUgsaKMTjA1YLGijFAwNWCxooxShxWbjZCbDl2NEtETkQ2RWdjRFMyelI0MjBtZ3M9Wh8iHe11M1R3VExVSkZqTnlNc3ZaR3JIdHpDNmt6UHc9ZT1shRHCPgJgBRKtAQgJEqgBChxqYzVYV2ZVQTlMVS91ODhRSzBpWHlpeGc5S009EiRkYjU5Y2M1Yi01YjE0LTQxZWYtYTNjZi05N2JlN2MyY2EzY2QYACAAKAAwpc3gvLEzOO3UgsaKMUDt1ILGijFKHFB0ZGZwN2xTZGgxVjIzMitET2R5alpEWGxJVT1aHyId22x3QUVMSHA3bUpNV1c0K2xSbXNBNmREaGk0TT1lIjmYNsI+AmAFEo4BCAUSiQEKHHdSQnJaTCs2UEE5YXZLZ2pOUDdKWERMY2Z2cz0SJDAyNmU5Mjg3LTgzYTMtNTViNS1hMTE4LTFlNThkOWE0OThiYxgAIAAoADC48J3XqzM4hvKd16szQIbynderM0ocbm14NjVzUUR2eEk4VGdFZXYrQStudHRvU240PVoAZQAAAADCPgJgABKsAQgHEqcBChxhL0o2aXEyTDRTSXZ6ZUk2Yk85SE5uOEYzUVE9EiRlOTk0ZTQ3Yi04MGU5LTRjZDgtYjY2MC01N2I4OGZkN2NjZmMYACAAKAAwvqqmiNIwOIOrpojSMECDq6aI0jBKHHFzdUtwNFp3eGlCRmNXTnR2MlFwYTlZL3ZTVT1aHiIcbEhWVFRLcWxqdlNVaGVOR2duZEdaZzNITzAwPWV3cGyjwj4CYAUSjgEIAhKJAQocWWNTVG9udkVTUHdxQ3M0TDJjclZodjY4TDk4PRIkYmUyYjIxODgtZmQzNy01NGVhLWFlNzktZWJlYWQyZDBiYjZmGAAgACgAMOKZnObLMDjLnJzmyzBAy5yc5sswShxvUFZraHdCUmJWNjVLQ1dSMitJT05IV29PdTg9WgBlAAAAAMI+AmAAEq0BCAgSqAEKHEEyVXB4U2ZHQnJJdldsUVNjY29KdWoyY1FQYz0SJGY2YWRjZTdmLTUxYjYtNDYwZS1iZjlkLTdjZDM1Y2U4N2U0NRgAIAAoADCc44Tc+zA44OOE3PswQODjhNz7MEocdDJmZU1uQjBzVW9OY0VaRWJsSGhKRWUyekR3PVofIh22SGtlaWUrMFEvN01DYnY5QU8wMCtqN2RTMHNjPWUAAAAAwj4CYAUSjgEIARKJAQoceXhKLzZmdmtlY3I3a3A1RVF6QjR0V0xwZGJFPRIkZGZkOTUyYjQtNzVlMS01MTFhLWI5N2EtYTIwMDQyNjM3YzA1GAAgACgAMOGZnObLMDicnJzmyzBAnJyc5sswShxhUkNXTGdoRjliNUlucUtJRHZ1Si9qdlFrRmM9WgBlAAAAAMI+AmAAMAA4AA==",
+   "version": 1
+}
