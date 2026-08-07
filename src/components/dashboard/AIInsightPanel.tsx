@@ -4,9 +4,27 @@ import type { VitalAnalysis } from "@/lib/vitals";
 import { cn } from "@/lib/utils";
 
 const GROUPS = [
-  { key: "good", title: "What looks good", Icon: CheckCircle2, tone: "text-emerald-600", dot: "bg-emerald-500" },
-  { key: "concerns", title: "Areas to watch", Icon: AlertTriangle, tone: "text-amber-600", dot: "bg-amber-500" },
-  { key: "recommendations", title: "Recommendations", Icon: Lightbulb, tone: "text-blue-600", dot: "bg-blue-500" },
+  {
+    key: "good",
+    title: "What looks good",
+    Icon: CheckCircle2,
+    tone: "text-emerald-600",
+    dot: "bg-emerald-500",
+  },
+  {
+    key: "concerns",
+    title: "Areas to watch",
+    Icon: AlertTriangle,
+    tone: "text-amber-600",
+    dot: "bg-amber-500",
+  },
+  {
+    key: "recommendations",
+    title: "Recommendations",
+    Icon: Lightbulb,
+    tone: "text-blue-600",
+    dot: "bg-blue-500",
+  },
 ] as const;
 
 export function AIInsightPanel({
@@ -51,7 +69,10 @@ export function AIInsightPanel({
               <ul className="mt-3 space-y-2.5">
                 {items.map((item) => (
                   <li key={item} className="flex gap-2.5 text-sm leading-6 text-slate-600">
-                    <span className={cn("mt-2.5 size-1.5 shrink-0 rounded-full", dot)} aria-hidden="true" />
+                    <span
+                      className={cn("mt-2.5 size-1.5 shrink-0 rounded-full", dot)}
+                      aria-hidden="true"
+                    />
                     <span>{item}</span>
                   </li>
                 ))}

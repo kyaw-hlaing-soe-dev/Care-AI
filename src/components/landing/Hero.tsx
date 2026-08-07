@@ -94,8 +94,8 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
           className="mx-auto mt-5 max-w-[580px] text-pretty text-base leading-7 text-muted-foreground sm:text-lg lg:mx-0"
         >
-          Track your vital signs, understand your trends, and receive clear AI-powered health insights
-          — all in one place.
+          Track your vital signs, understand your trends, and receive clear AI-powered health
+          insights — all in one place.
         </motion.p>
 
         <motion.div

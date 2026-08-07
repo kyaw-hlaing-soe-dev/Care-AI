@@ -3,10 +3,18 @@ import { Reveal, SectionHeading } from "./Reveal";
 
 export function HealthTrends() {
   return (
-    <section id="trends" className="mx-auto max-w-[1200px] scroll-mt-28 px-5 py-20 sm:py-24 lg:py-28">
+    <section
+      id="trends"
+      className="mx-auto max-w-[1200px] scroll-mt-28 px-5 py-20 sm:py-24 lg:py-28"
+    >
       <SectionHeading
         eyebrow="See the bigger picture"
-        title={<>See the bigger picture,<br className="hidden sm:block" /> not just today&apos;s numbers.</>}
+        title={
+          <>
+            See the bigger picture,
+            <br className="hidden sm:block" /> not just today&apos;s numbers.
+          </>
+        }
         subtitle="Follow changes across your readings with the same calm, focused charts used in your CareAI dashboard."
       />
 
@@ -27,9 +35,27 @@ export function HealthTrends() {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
-              <MiniTrend Icon={Droplets} title="Blood Pressure" value="120/76" color="#3b82f6" path="M4 48 C34 43, 48 30, 78 39 S124 50, 150 36 S198 30, 232 42 S270 35, 296 40" />
-              <MiniTrend Icon={Activity} title="Oxygen" value="98%" color="#14b8a6" path="M4 34 C35 50, 56 50, 82 27 S125 48, 154 35 S205 27, 232 43 S270 47, 296 25" />
-              <MiniTrend Icon={Thermometer} title="Temperature" value="39.2°C" color="#8b5cf6" path="M4 54 C35 51, 64 48, 92 46 S149 39, 176 34 S236 22, 296 14" />
+              <MiniTrend
+                Icon={Droplets}
+                title="Blood Pressure"
+                value="120/76"
+                color="#3b82f6"
+                path="M4 48 C34 43, 48 30, 78 39 S124 50, 150 36 S198 30, 232 42 S270 35, 296 40"
+              />
+              <MiniTrend
+                Icon={Activity}
+                title="Oxygen"
+                value="98%"
+                color="#14b8a6"
+                path="M4 34 C35 50, 56 50, 82 27 S125 48, 154 35 S205 27, 232 43 S270 47, 296 25"
+              />
+              <MiniTrend
+                Icon={Thermometer}
+                title="Temperature"
+                value="39.2°C"
+                color="#8b5cf6"
+                path="M4 54 C35 51, 64 48, 92 46 S149 39, 176 34 S236 22, 296 14"
+              />
             </div>
           </div>
         </div>

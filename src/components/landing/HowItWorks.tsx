@@ -1,4 +1,12 @@
-import { Activity, AlertTriangle, ArrowDown, Check, CheckCircle2, Lightbulb, Sparkles } from "lucide-react";
+import {
+  Activity,
+  AlertTriangle,
+  ArrowDown,
+  Check,
+  CheckCircle2,
+  Lightbulb,
+  Sparkles,
+} from "lucide-react";
 import { HealthScoreRing } from "@/components/HealthScoreRing";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Reveal, SectionHeading } from "./Reveal";
@@ -19,7 +27,12 @@ export function HowItWorks() {
     <section id="how-it-works" className="mx-auto max-w-6xl scroll-mt-28 px-5 py-20 sm:py-28">
       <SectionHeading
         eyebrow="How it works"
-        title={<>From a reading to an insight<br className="hidden sm:block" /> in three simple steps.</>}
+        title={
+          <>
+            From a reading to an insight
+            <br className="hidden sm:block" /> in three simple steps.
+          </>
+        }
         subtitle="Enter your readings, let CareAI organize the result, then review your score and structured insight."
       />
 
@@ -68,7 +81,10 @@ function StoryStep({
   reverse?: boolean;
 }) {
   return (
-    <div id={`how-step-${number}`} className="grid scroll-mt-28 items-center gap-8 lg:grid-cols-2 lg:gap-14">
+    <div
+      id={`how-step-${number}`}
+      className="grid scroll-mt-28 items-center gap-8 lg:grid-cols-2 lg:gap-14"
+    >
       <Reveal className={reverse ? "lg:order-2" : ""}>
         <div className="mx-auto max-w-lg text-center lg:mx-0 lg:text-left">
           <span className="text-sm font-extrabold tracking-[0.18em] text-primary">
@@ -156,7 +172,9 @@ function AnalysisPreview() {
           <p className="text-[10px] font-extrabold uppercase tracking-[0.14em] text-primary">
             Health Score
           </p>
-          <div className="mt-2"><StatusBadge status="Attention Needed" /></div>
+          <div className="mt-2">
+            <StatusBadge status="Attention Needed" />
+          </div>
         </div>
       </div>
     </div>
@@ -222,7 +240,10 @@ function InsightPreview() {
           </div>
         ))}
       </div>
-      <a href="#dashboard" className="flex min-h-12 items-center justify-center border-t border-blue-100/70 bg-blue-50/55 text-sm font-extrabold text-blue-600 transition-colors hover:bg-blue-50">
+      <a
+        href="#dashboard"
+        className="flex min-h-12 items-center justify-center border-t border-blue-100/70 bg-blue-50/55 text-sm font-extrabold text-blue-600 transition-colors hover:bg-blue-50"
+      >
         View Dashboard →
       </a>
     </div>
@@ -233,7 +254,9 @@ function JourneyConnector({ label }: { label: string }) {
   return (
     <div aria-hidden="true" className="-my-8 flex flex-col items-center text-blue-400 sm:-my-10">
       <span className="h-8 w-px bg-gradient-to-b from-blue-200 to-cyan-300" />
-      <span className="my-2 rounded-full border border-blue-100 bg-white/75 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.12em] text-blue-500 backdrop-blur-sm">{label}</span>
+      <span className="my-2 rounded-full border border-blue-100 bg-white/75 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.12em] text-blue-500 backdrop-blur-sm">
+        {label}
+      </span>
       <ArrowDown className="size-4" />
     </div>
   );

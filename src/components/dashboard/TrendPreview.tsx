@@ -1,4 +1,12 @@
-import { Activity, Droplets, HeartPulse, Minus, Thermometer, TrendingDown, TrendingUp } from "lucide-react";
+import {
+  Activity,
+  Droplets,
+  HeartPulse,
+  Minus,
+  Thermometer,
+  TrendingDown,
+  TrendingUp,
+} from "lucide-react";
 import { GlassCard } from "@/components/glass/GlassCard";
 import type { VitalRecord } from "@/lib/vitals";
 
@@ -17,29 +25,61 @@ function Sparkline({ values }: { values: number[] }) {
     .join(" ");
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} className="h-12 w-full" role="img" aria-label={`Trend values: ${values.join(", ")}`}>
+    <svg
+      viewBox={`0 0 ${width} ${height}`}
+      className="h-12 w-full"
+      role="img"
+      aria-label={`Trend values: ${values.join(", ")}`}
+    >
       <defs>
         <linearGradient id="trend-line" x1="0" x2="1">
           <stop stopColor="#2563eb" />
           <stop offset="1" stopColor="#22d3ee" />
         </linearGradient>
       </defs>
-      <polyline points={points} fill="none" stroke="url(#trend-line)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      <polyline
+        points={points}
+        fill="none"
+        stroke="url(#trend-line)"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
       {values.map((value, index) => {
         const [x, y] = points.split(" ")[index]?.split(",").map(Number) ?? [0, 0];
-        return <circle key={`${value}-${index}`} cx={x} cy={y} r="2.5" fill="#fff" stroke="#2563eb" strokeWidth="2" />;
+        return (
+          <circle
+            key={`${value}-${index}`}
+            cx={x}
+            cy={y}
+            r="2.5"
+            fill="#fff"
+            stroke="#2563eb"
+            strokeWidth="2"
+          />
+        );
       })}
     </svg>
   );
 }
 
-function Delta({ current, previous, suffix = "" }: { current: number; previous: number; suffix?: string }) {
+function Delta({
+  current,
+  previous,
+  suffix = "",
+}: {
+  current: number;
+  previous: number;
+  suffix?: string;
+}) {
   const difference = Number((current - previous).toFixed(1));
   const Icon = difference > 0 ? TrendingUp : difference < 0 ? TrendingDown : Minus;
   return (
     <span className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500">
       <Icon className="size-3.5 text-blue-500" aria-hidden="true" />
-      {difference === 0 ? "No change" : `${difference > 0 ? "+" : ""}${difference}${suffix} from prior`}
+      {difference === 0
+        ? "No change"
+        : `${difference > 0 ? "+" : ""}${difference}${suffix} from prior`}
     </span>
   );
 }
@@ -95,10 +135,15 @@ export function TrendPreview({ records, limit = 4 }: { records: VitalRecord[]; l
     <section aria-labelledby="trends-heading">
       <div className="mb-4 flex items-end justify-between gap-4">
         <div>
-          <h2 id="trends-heading" className="text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]">
+          <h2
+            id="trends-heading"
+            className="text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]"
+          >
             Your Trends
           </h2>
-          <p className="mt-1 text-sm text-slate-500">A quick look across your last {recent.length} readings.</p>
+          <p className="mt-1 text-sm text-slate-500">
+            A quick look across your last {recent.length} readings.
+          </p>
         </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
