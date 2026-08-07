@@ -61,7 +61,7 @@ function StoryStep({
   reverse?: boolean;
 }) {
   return (
-    <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
+    <div id={`how-step-${number}`} className="grid scroll-mt-28 items-center gap-8 lg:grid-cols-2 lg:gap-14">
       <Reveal className={reverse ? "lg:order-2" : ""}>
         <div className="mx-auto max-w-lg text-center lg:mx-0 lg:text-left">
           <span className="text-sm font-extrabold tracking-[0.18em] text-primary">
