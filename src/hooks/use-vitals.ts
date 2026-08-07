@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { listVitals, subscribeVitals } from "@/lib/vitals-store";
 import type { VitalRecord } from "@/lib/vitals";
 
@@ -6,23 +6,13 @@ import type { VitalRecord } from "@/lib/vitals";
 export function useVitals(limit?: number) {
   const [records, setRecords] = useState<VitalRecord[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  const sync = useCallback(() => {
-    try {
-      setRecords(listVitals(limit));
-      setError(null);
-    } catch {
-      setError("We couldn't load your health overview.");
-    } finally {
-      setLoading(false);
-    }
-  }, [limit]);
 
   useEffect(() => {
+    const sync = () => setRecords(listVitals(limit));
     sync();
+    setLoading(false);
     return subscribeVitals(sync);
-  }, [sync]);
+  }, [limit]);
 
-  return { records, loading, latest: records[0], error, refresh: sync };
+  return { records, loading, latest: records[0] };
 }
