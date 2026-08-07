@@ -128,7 +128,7 @@ function DoctorIllustration({ reducedMotion }: { reducedMotion: boolean }) {
   );
 }
 
-function LoginVisual() {
+export function LoginVisual() {
   const reducedMotion = useReducedMotion();
 
   return (
@@ -266,7 +266,7 @@ function TrustIndicators() {
   );
 }
 
-function LoginPanel({
+export function LoginPanel({
   onSignIn,
   pending,
   error,
