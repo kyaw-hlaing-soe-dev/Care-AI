@@ -8,6 +8,7 @@ import {
   Droplets,
   HeartPulse,
   LockKeyhole,
+  Lungs,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
@@ -39,7 +40,7 @@ const vitalCards: Array<Omit<VitalCardProps, "className"> & { position: string }
     rotate: -1,
   },
   {
-    icon: Activity,
+    icon: Lungs,
     label: "Oxygen",
     value: "98%",
     status: "Excellent",
@@ -133,33 +134,36 @@ export function FloatingVitalCard({
       }}
       className={`vital-card absolute z-30 flex items-center ${
         compact
-          ? "mobile-vital-card min-w-[112px] gap-2 rounded-2xl px-2 py-2"
+          ? "mobile-vital-card min-h-[56px] min-w-[116px] gap-2 rounded-[15px] px-2.5 py-2"
           : "min-w-[148px] gap-2.5 rounded-[19px] px-3 py-2.5"
       } ${className}`}
     >
       <span
-        className={`grid shrink-0 place-items-center rounded-xl ring-1 ${compact ? "size-8" : "size-9"} ${toneClasses[tone]}`}
+        className={`grid shrink-0 place-items-center rounded-xl ring-1 ${compact ? "size-[30px]" : "size-9"} ${toneClasses[tone]}`}
       >
-        <Icon className={compact ? "size-3.5" : "size-[17px]"} strokeWidth={2.3} />
+        <Icon className={compact ? "size-4" : "size-[17px]"} strokeWidth={2.3} />
       </span>
       <span className="min-w-0 leading-none">
         <span
-          className={`block font-bold uppercase tracking-[0.1em] text-slate-400 ${compact ? "text-[7px]" : "text-[9px]"}`}
+          className={`block font-bold uppercase tracking-[0.08em] text-slate-500 ${compact ? "text-[9px]" : "text-[9px]"}`}
         >
           {label}
         </span>
-        <span className="mt-1.5 flex items-baseline gap-1.5 whitespace-nowrap">
-          <span
-            className={`${compact ? "text-xs" : "text-sm"} font-extrabold tracking-tight text-slate-800 tabular-nums`}
-          >
-            {value}
+        {compact ? (
+          <span className="mt-1 block whitespace-nowrap">
+            <span className="block text-sm font-extrabold tracking-tight text-slate-800 tabular-nums">
+              {value}
+            </span>
+            <span className="mt-0.5 block text-[9px] font-semibold text-emerald-600">{status}</span>
           </span>
-          <span
-            className={`${compact ? "text-[7px]" : "text-[9px]"} font-semibold text-emerald-600`}
-          >
-            {status}
+        ) : (
+          <span className="mt-1.5 flex items-baseline gap-1.5 whitespace-nowrap">
+            <span className="text-sm font-extrabold tracking-tight text-slate-800 tabular-nums">
+              {value}
+            </span>
+            <span className="text-[9px] font-semibold text-emerald-600">{status}</span>
           </span>
-        </span>
+        )}
       </span>
     </motion.div>
   );
@@ -169,9 +173,9 @@ export function DoctorIllustration({ compact = false }: { compact?: boolean }) {
   const reduceMotion = useReducedMotion();
 
   return (
-    <div className={compact ? "relative h-full w-full" : "relative h-full w-full"}>
+    <div className="relative h-full w-full">
       <div
-        className={`${compact ? "size-[150px]" : "size-[62%]"} absolute left-1/2 top-[53%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/30 blur-[52px]`}
+        className={`${compact ? "mobile-doctor-halo size-[176px]" : "size-[62%]"} absolute left-1/2 top-[53%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/25 blur-[52px]`}
         aria-hidden="true"
       />
       <div
@@ -192,7 +196,7 @@ export function DoctorIllustration({ compact = false }: { compact?: boolean }) {
           scale: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
           y: { duration: 7.5, repeat: Infinity, ease: "easeInOut", delay: 0.75 },
         }}
-        className={`${compact ? "h-[154px]" : "h-[92%]"} login-doctor-image absolute bottom-0 left-1/2 z-20 w-auto max-w-none -translate-x-1/2 object-contain`}
+        className={`${compact ? "mobile-doctor-image h-[184px]" : "h-[92%]"} login-doctor-image absolute bottom-0 left-1/2 z-20 w-auto max-w-none -translate-x-1/2 object-contain`}
       />
       <div
         className={`${compact ? "bottom-[43%] left-[43%] size-10 blur-xl" : "bottom-[43%] left-[42%] size-24 blur-2xl"} pointer-events-none absolute z-20 rounded-full bg-cyan-300/40`}
@@ -337,34 +341,47 @@ export function LoginVisual() {
 
 export function MobileDoctorVisual() {
   return (
-    <div
-      className="login-mobile-visual relative mx-auto mt-4 h-[168px] w-full max-w-[300px] lg:hidden"
-      aria-hidden="true"
+    <section
+      className="login-mobile-visual relative mx-auto mt-4 h-[208px] w-full max-w-[330px] lg:hidden"
+      aria-label="AICare doctor analyzing live health information"
     >
       <DoctorIllustration compact />
       <FloatingVitalCard
         icon={HeartPulse}
         label="Heart rate"
-        value="72"
+        value="72 BPM"
         status="Normal"
         tone="rose"
-        className="left-0 top-[24%]"
+        className="mobile-heart-card left-0 top-[24%]"
         float={3}
         delay={0.2}
         compact
       />
       <FloatingVitalCard
         icon={Sparkles}
-        label="Health score"
+        label="AI health score"
         value="92"
         status="Great"
         tone="violet"
-        className="right-0 top-[44%]"
+        className="mobile-score-card right-0 top-[45%]"
         float={-3}
         delay={0.35}
         compact
       />
-    </div>
+      <FloatingVitalCard
+        icon={Lungs}
+        label="Oxygen"
+        value="98%"
+        status="Excellent"
+        tone="cyan"
+        className="tablet-oxygen-card hidden right-[5%] top-[11%] md:flex"
+        float={-3}
+        delay={0.5}
+        compact
+      />
+      <span className="mobile-particle absolute left-[34%] top-[29%] size-1.5 rounded-full bg-cyan-400/50 shadow-[0_0_9px_rgba(34,211,238,.55)]" />
+      <span className="mobile-particle absolute right-[34%] top-[41%] size-1 rounded-full bg-blue-400/50" />
+    </section>
   );
 }
 
@@ -405,12 +422,12 @@ export function GoogleSignInButton({
       disabled={pending}
       aria-label={pending ? "Signing you in with Google" : "Continue with Google"}
       aria-busy={pending}
-      className="google-sign-in group relative flex h-14 w-full items-center justify-center rounded-2xl border border-slate-200/90 bg-white px-5 text-[15px] font-semibold text-slate-700 shadow-[0_8px_28px_-12px_rgba(26,73,119,.28),0_2px_6px_rgba(36,76,120,.04)] transition-[transform,box-shadow,border-color,background-color] duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-[0_16px_34px_-14px_rgba(37,99,235,.3),0_4px_9px_rgba(36,76,120,.06)] active:scale-[.98] disabled:pointer-events-none disabled:opacity-70 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
+      className="google-sign-in group relative flex h-14 w-full touch-manipulation items-center justify-center rounded-2xl border border-slate-200/90 bg-white px-5 text-[15px] font-semibold text-slate-700 shadow-[0_8px_28px_-12px_rgba(26,73,119,.28),0_2px_6px_rgba(36,76,120,.04)] transition-[transform,box-shadow,border-color,background-color] duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-[0_16px_34px_-14px_rgba(37,99,235,.3),0_4px_9px_rgba(36,76,120,.06)] active:scale-[.98] disabled:pointer-events-none disabled:opacity-70 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/20 focus-visible:border-blue-500"
     >
       <span className="absolute left-5 grid size-6 place-items-center">
         {pending ? (
           <span
-            className="size-[18px] animate-spin rounded-full border-2 border-blue-100 border-t-primary"
+            className="size-[18px] animate-spin rounded-full border-2 border-blue-100 border-t-primary motion-reduce:animate-none"
             aria-hidden="true"
           />
         ) : (
@@ -425,11 +442,16 @@ export function GoogleSignInButton({
 export function TrustIndicators() {
   return (
     <div className="mt-5">
-      <p className="flex items-center justify-center gap-1.5 text-center text-[12px] font-medium text-slate-500">
+      <p className="flex items-center justify-center gap-1.5 text-center text-[11px] font-medium text-slate-600 min-[360px]:text-[12px]">
         <LockKeyhole className="size-3.5 text-primary" aria-hidden="true" />
-        Secure sign-in <span aria-hidden="true">•</span> Your health data stays private
+        <span>
+          Secure sign-in <span aria-hidden="true">•</span> Your health data stays private
+        </span>
       </p>
-      <ul className="mt-4 flex items-center justify-center gap-5" aria-label="Sign-in benefits">
+      <ul
+        className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2"
+        aria-label="Sign-in benefits"
+      >
         {["Secure", "Private", "Fast"].map((item) => (
           <li
             key={item}
@@ -466,18 +488,18 @@ export function LoginPanel({
         initial={reduceMotion ? false : { opacity: 0, x: 22 }}
         animate={reduceMotion ? undefined : { opacity: 1, x: 0 }}
         transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-        className="auth-panel-content w-full max-w-[460px] px-5 py-7 sm:px-8 lg:px-10"
+        className="auth-panel-content flex min-h-dvh w-full max-w-[460px] flex-col px-5 py-6 sm:px-8 lg:min-h-0 lg:px-10 lg:py-7"
       >
         <BrandLogo />
 
-        <div className="login-heading-block mt-9 sm:mt-11">
+        <div className="login-heading-block mt-7 sm:mt-9 lg:mt-11">
           <p className="mb-2 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] text-primary">
             <ShieldCheck className="size-4" aria-hidden="true" />
             Private by design
           </p>
           <h1
             id="login-heading"
-            className="text-[2rem] font-extrabold leading-tight tracking-[-0.045em] text-slate-900 sm:text-[2.35rem]"
+            className="text-[clamp(1.8rem,8vw,2.25rem)] font-extrabold leading-[1.08] tracking-[-0.045em] text-slate-900 lg:text-[2.35rem]"
           >
             Welcome back
           </h1>
@@ -488,7 +510,7 @@ export function LoginPanel({
 
         <MobileDoctorVisual />
 
-        <div className="login-actions mt-8 lg:mt-10">
+        <div className="login-actions mt-5 sm:mt-6 lg:mt-10">
           <GoogleSignInButton onClick={onSignIn} pending={pending} />
           {error && (
             <p
@@ -501,14 +523,14 @@ export function LoginPanel({
           <TrustIndicators />
         </div>
 
-        <div className="login-footer mt-8 border-t border-slate-200/70 pt-5">
-          <p className="text-[11px] leading-[1.65] text-slate-400">
+        <div className="login-footer mt-auto border-t border-slate-200/80 pt-4 lg:mt-8 lg:pt-5">
+          <p className="text-[11px] leading-[1.6] text-slate-500 sm:text-xs">
             AICare provides informational health insights only and is not a substitute for
             professional medical advice.
           </p>
           <Link
             to="/"
-            className="mt-5 inline-flex items-center gap-1.5 rounded-lg text-xs font-semibold text-slate-500 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/20"
+            className="-ml-2 mt-2 inline-flex min-h-11 touch-manipulation items-center gap-1.5 rounded-xl px-2 text-xs font-semibold text-slate-600 transition-[color,transform] hover:text-primary active:scale-[.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/20 lg:mt-3"
           >
             <ArrowLeft className="size-3.5" aria-hidden="true" />
             Back to home

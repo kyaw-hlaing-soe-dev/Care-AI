@@ -439,6 +439,69 @@
   }
 }
 
+@media (min-width: 640px) and (max-width: 767px) {
+  .login-mobile-visual {
+    height: 235px;
+    max-width: 430px;
+  }
+
+  .mobile-doctor-image {
+    height: 210px;
+  }
+
+  .mobile-doctor-halo {
+    width: 210px;
+    height: 210px;
+  }
+
+  .mobile-heart-card {
+    left: 6%;
+  }
+
+  .mobile-score-card {
+    right: 6%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .auth-panel-content {
+    max-width: 620px;
+  }
+
+  .login-mobile-visual {
+    height: 292px;
+    max-width: 580px;
+  }
+
+  .mobile-doctor-image {
+    height: 260px;
+  }
+
+  .mobile-doctor-halo {
+    width: 260px;
+    height: 260px;
+  }
+
+  .mobile-heart-card {
+    left: 14%;
+    top: 27%;
+  }
+
+  .mobile-score-card {
+    right: 13%;
+    top: 52%;
+  }
+
+  .tablet-oxygen-card {
+    right: 13%;
+    top: 16%;
+  }
+
+  .mobile-vital-card {
+    min-width: 124px;
+  }
+}
+
 @media (max-width: 480px) {
   .auth-panel {
     align-items: flex-start;
@@ -447,6 +510,38 @@
   .auth-panel-content {
     padding-top: max(1.5rem, env(safe-area-inset-top));
     padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 359px) {
+  .auth-panel-content {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .login-mobile-visual {
+    height: 190px;
+  }
+
+  .mobile-doctor-image {
+    height: 164px;
+  }
+
+  .mobile-doctor-halo {
+    width: 154px;
+    height: 154px;
+  }
+
+  .mobile-vital-card {
+    min-width: 108px;
+    gap: 0.375rem;
+    padding-right: 0.45rem;
+    padding-left: 0.45rem;
+  }
+
+  .mobile-vital-card > span:first-child {
+    width: 28px;
+    height: 28px;
   }
 }
 
@@ -461,16 +556,25 @@
   }
 
   .login-mobile-visual {
-    height: 116px;
+    height: 148px;
     margin-top: 0.5rem;
   }
 
-  .login-mobile-visual img {
-    height: 112px;
+  .mobile-doctor-image {
+    height: 142px;
   }
 
-  .mobile-vital-card {
-    display: none;
+  .mobile-doctor-halo {
+    width: 140px;
+    height: 140px;
+  }
+
+  .mobile-heart-card {
+    top: 18%;
+  }
+
+  .mobile-score-card {
+    top: 43%;
   }
 
   .login-actions {
@@ -478,13 +582,25 @@
   }
 
   .login-footer {
-    margin-top: 1.25rem;
+    margin-top: auto;
     padding-top: 0.85rem;
+  }
+
+  .mobile-particle {
+    display: none;
   }
 }
 
-@media (max-height: 565px) and (max-width: 1023px) {
+@media (max-height: 700px) and (min-width: 768px) and (max-width: 1023px) {
   .login-mobile-visual {
+    height: 180px;
+  }
+
+  .mobile-doctor-image {
+    height: 174px;
+  }
+
+  .tablet-oxygen-card {
     display: none;
   }
 }
