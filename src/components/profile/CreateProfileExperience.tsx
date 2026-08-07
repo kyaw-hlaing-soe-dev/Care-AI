@@ -50,7 +50,7 @@ const BLOOD_TYPES: Array<{ value: BloodType; label: string }> = [
 ];
 
 const fieldClassName =
-  "h-[50px] w-full rounded-[13px] border border-slate-200 bg-white px-4 text-base font-medium text-slate-950 outline-none transition-[border-color,box-shadow] placeholder:font-normal placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-cyan-100/80 disabled:cursor-not-allowed disabled:bg-slate-50";
+  "h-[52px] w-full rounded-[13px] border border-slate-200 bg-white px-4 text-base font-medium text-slate-950 outline-none transition-[border-color,box-shadow] placeholder:font-normal placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-cyan-100/80 disabled:cursor-not-allowed disabled:bg-slate-50";
 
 function validateProfile(draft: ProfileDraft): FieldErrors {
   const errors: FieldErrors = {};
@@ -336,7 +336,7 @@ function ProfileBenefitCard({
   return (
     <motion.div
       data-profile-benefit={title}
-      className={`absolute z-20 flex w-[168px] items-center gap-2.5 rounded-[16px] border border-white/90 bg-white/85 px-3 py-2.5 text-slate-900 shadow-[0_14px_34px_rgba(50,95,145,0.12)] backdrop-blur-lg ${className} ${primary ? "ring-1 ring-cyan-100" : ""}`}
+      className={`absolute z-20 flex w-[168px] items-center gap-2.5 rounded-[18px] border border-white/90 bg-white/88 px-3 py-2.5 text-slate-900 shadow-[0_14px_34px_rgba(50,95,145,0.12)] backdrop-blur-lg ${className} ${primary ? "ring-1 ring-cyan-100" : ""}`}
       initial={{ opacity: 0, y: 7 }}
       animate={reducedMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -3, 0] }}
       transition={
@@ -374,8 +374,8 @@ function DoctorIllustration({ mobile = false }: { mobile?: boolean }) {
       loading="eager"
       className={
         mobile
-          ? "relative z-10 h-[170px] w-auto max-w-[80%] select-none object-contain"
-          : "relative z-10 h-[clamp(350px,43vh,405px)] w-auto max-h-full max-w-full select-none object-contain"
+          ? "relative z-10 h-[160px] w-auto max-w-[80%] select-none object-contain sm:h-[170px]"
+          : "relative z-10 h-[clamp(375px,46dvh,420px)] w-auto max-h-full max-w-full select-none object-contain"
       }
       initial={{ opacity: 0, y: 8 }}
       animate={reducedMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -4, 0] }}
@@ -391,13 +391,13 @@ function DoctorIllustration({ mobile = false }: { mobile?: boolean }) {
 function ProfileVisual() {
   return (
     <section className="hidden min-w-0 flex-col justify-center lg:flex" aria-labelledby="profile-welcome-title">
-      <div className="max-w-[480px]">
+      <div className="max-w-[500px]">
         <span className="inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-white/75 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-[0.16em] text-blue-600 shadow-sm backdrop-blur-md">
           <Sparkles className="size-3.5 text-cyan-500" /> Personalized for you
         </span>
         <h1
           id="profile-welcome-title"
-          className="mt-5 text-[clamp(42px,4vw,58px)] font-extrabold leading-[0.98] tracking-[-0.055em] text-slate-950"
+          className="mt-5 text-[clamp(48px,4.2vw,56px)] font-extrabold leading-[0.98] tracking-[-0.055em] text-slate-950"
         >
           Let&apos;s get to
           <br />
@@ -408,14 +408,14 @@ function ProfileVisual() {
         </p>
       </div>
 
-      <div className="profile-doctor-scene relative mt-3 flex h-[410px] max-w-[560px] items-center justify-center overflow-visible pl-[8%]">
-        <div className="profile-doctor-glow pointer-events-none absolute left-1/2 top-1/2 h-[390px] w-[440px] -translate-x-1/2 -translate-y-1/2" />
+      <div className="profile-doctor-scene relative mt-2 flex h-[430px] max-w-[580px] items-center justify-center overflow-visible pl-[7%]">
+        <div className="profile-doctor-glow pointer-events-none absolute left-[54%] top-1/2 h-[410px] w-[470px] -translate-x-1/2 -translate-y-1/2" />
         <DoctorIllustration />
         <ProfileBenefitCard
           icon={<Sparkles className="size-4" />}
           title="Personalized insights"
           detail="Tailored to you"
-          className="left-[0%] top-[7%]"
+          className="right-[0%] top-[1%]"
           primary
           delay={0.15}
         />
@@ -423,7 +423,7 @@ function ProfileVisual() {
           icon={<ShieldCheck className="size-4" />}
           title="Private & secure"
           detail="Your data, protected"
-          className="bottom-[7%] right-[0%]"
+          className="bottom-[3%] right-[0%]"
           delay={0.3}
         />
       </div>
@@ -435,14 +435,14 @@ function MobileWelcomeVisual() {
   return (
     <div className="profile-mobile-scene relative mt-3 flex h-[178px] items-end justify-center overflow-hidden rounded-[20px] lg:hidden">
       <div className="profile-doctor-glow pointer-events-none absolute left-1/2 top-1/2 size-[220px] -translate-x-1/2 -translate-y-1/2" />
-      <div className="translate-x-[32%]">
+      <div className="translate-x-[24%]">
         <DoctorIllustration mobile />
       </div>
       <ProfileBenefitCard
         icon={<Sparkles className="size-3.5" />}
         title="Personalized for you"
         detail="A healthier experience"
-        className="left-[1%] top-[4%] origin-top-left scale-[0.84]"
+        className="left-[1%] top-[8%] origin-top-left scale-[0.82]"
         primary
         delay={0.15}
       />
@@ -553,12 +553,11 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: reducedMotion ? 0.15 : 0.5, ease: "easeOut" }}
     >
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-center justify-between gap-4">
         <AICareLogo compact />
-        <div className="pt-1 text-right">
-          <p className="text-[10px] font-extrabold uppercase tracking-[0.17em] text-blue-600">Profile setup</p>
-          <p className="mt-1 text-[11px] font-semibold text-slate-400">Step 1 of 1</p>
-        </div>
+        <p className="rounded-full border border-cyan-100 bg-cyan-50/70 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.17em] text-blue-600">
+          Profile setup
+        </p>
       </div>
 
       <div className="profile-form-heading mt-6 lg:mt-4">
@@ -579,7 +578,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
         <GoogleAccountPreview user={user} />
       </div>
 
-      <form onSubmit={(event) => void handleSubmit(event)} noValidate className="mt-5 space-y-4 lg:mt-3 lg:space-y-3">
+      <form onSubmit={(event) => void handleSubmit(event)} noValidate className="profile-form mt-5 space-y-4 lg:mt-3 lg:space-y-3">
         <ProfileInput
           id="displayName"
           label="Display name"
@@ -652,7 +651,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
           <button
             type="submit"
             disabled={submitting}
-            className="group flex h-14 w-full items-center justify-center gap-2 rounded-[15px] bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 px-5 text-[15px] font-bold text-white shadow-[0_14px_32px_rgba(37,99,235,0.24)] transition-[transform,box-shadow,filter] duration-200 hover:-translate-y-px hover:shadow-[0_18px_38px_rgba(37,99,235,0.3)] hover:brightness-[1.02] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-75"
+            className="group flex h-14 w-full items-center justify-center gap-2 rounded-[15px] bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 px-5 text-[15px] font-bold text-white shadow-[0_14px_32px_rgba(37,99,235,0.24)] transition-[transform,box-shadow,filter] duration-200 hover:-translate-y-px hover:shadow-[0_18px_38px_rgba(37,99,235,0.3)] hover:brightness-[1.02] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-75 motion-reduce:transform-none motion-reduce:transition-none"
           >
             {submitting ? (
               <>
@@ -690,11 +689,11 @@ export function CreateProfileExperience({ onComplete }: { onComplete: () => void
   if (!user) return null;
 
   return (
-    <main className="profile-page min-h-[100dvh] overflow-x-clip">
-      <div className="mx-auto grid min-h-[100dvh] max-w-[1400px] grid-cols-1 items-center gap-10 px-4 py-5 sm:px-7 sm:py-7 md:px-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 lg:px-8 lg:py-6 xl:gap-16 xl:px-12">
+    <main className="profile-page min-h-[100dvh]">
+      <div className="mx-auto grid min-h-[100dvh] max-w-[1380px] grid-cols-1 items-center gap-10 px-4 py-5 sm:px-7 sm:py-7 md:px-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-14 lg:px-8 lg:py-4 xl:gap-[72px] xl:px-12">
         <ProfileVisual />
         <section
-          className="profile-form-panel relative mx-auto w-full max-w-[600px] rounded-[24px] border border-white/85 bg-white/[0.82] p-5 shadow-[0_24px_70px_rgba(44,83,130,0.13)] backdrop-blur-xl sm:rounded-[28px] sm:p-8 lg:p-7"
+          className="profile-form-panel relative mx-auto w-full max-w-[620px] rounded-[24px] border border-white/85 bg-white/[0.84] p-5 shadow-[0_24px_70px_rgba(44,83,130,0.13)] backdrop-blur-xl sm:rounded-[28px] sm:p-8 lg:p-7 xl:p-8"
           aria-label="Create your AICare profile"
         >
           {success ? <ProfileSuccess /> : <ProfileForm user={user} onSuccess={() => setSuccess(true)} />}

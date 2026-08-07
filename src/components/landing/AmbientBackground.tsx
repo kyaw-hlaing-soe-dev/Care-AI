@@ -10,7 +10,7 @@ export function AmbientBackground() {
         style={{ animationDelay: "-6s" }}
       />
       <div
-        className="animate-blob absolute left-1/3 top-[70%] size-[34rem] rounded-full bg-violet/20 blur-[140px]"
+        className="animate-blob absolute left-1/3 top-[70%] size-[34rem] rounded-full bg-sky/18 blur-[140px]"
         style={{ animationDelay: "-11s" }}
       />
 

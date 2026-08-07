@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 import { ArrowLeft, Check, Droplets, HeartPulse, LockKeyhole, Sparkles } from "lucide-react";
+import { AICareLogo } from "@/components/auth/AICareLogo";
 import doctorImage from "../../assets/login-doctor-seated.png";
 
 export type LoginExperienceProps = {
@@ -21,17 +22,6 @@ type FloatingVitalCardProps = {
   duration?: number;
   delay?: number;
 };
-
-function BrandLogo() {
-  return (
-    <div className="flex items-center gap-3" aria-label="AICare">
-      <span className="flex size-10 shrink-0 items-center justify-center rounded-[14px] bg-gradient-to-br from-cyan-400 via-sky-500 to-blue-500 text-white shadow-[0_14px_32px_rgba(14,165,233,0.24)] sm:size-11">
-        <HeartPulse className="size-5" aria-hidden="true" />
-      </span>
-      <span className="text-xl font-bold tracking-[-0.035em] text-slate-950">AICare</span>
-    </div>
-  );
-}
 
 function FloatingVitalCard({
   title,
@@ -78,7 +68,7 @@ function FloatingVitalCard({
           {icon}
         </span>
         <span className="min-w-0 leading-tight">
-          <span className="block truncate text-[10px] font-bold uppercase tracking-[0.12em] text-slate-500">
+          <span className="block whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.1em] text-slate-500 sm:text-[10px]">
             {title}
           </span>
           <span className="mt-0.5 block text-[15px] font-bold tracking-[-0.02em] text-slate-950">
@@ -98,7 +88,7 @@ function DoctorImage({ className }: { className: string }) {
     <motion.img
       src={doctorImage}
       alt="Friendly 3D AICare doctor sitting on a stool and reviewing health data on a tablet"
-      className={`doctor-image-blend relative z-10 h-full w-full select-none object-cover object-center ${className}`}
+      className={`doctor-image-blend relative z-10 h-full w-auto max-w-none select-none object-contain ${className}`}
       draggable="false"
       loading="eager"
       initial={{ opacity: 0, y: 10 }}
@@ -117,8 +107,8 @@ function DoctorImage({ className }: { className: string }) {
 
 function DesktopDoctorScene() {
   return (
-    <div className="relative ml-auto h-[clamp(320px,42dvh,440px)] w-full max-w-[640px] bg-[radial-gradient(circle_at_52%_53%,rgba(34,211,238,0.15),rgba(59,130,246,0.06)_43%,transparent_72%)]">
-      <div className="relative z-10 mx-auto h-full w-full max-w-[540px]">
+    <div className="login-desktop-scene relative h-[clamp(340px,45dvh,410px)] w-full max-w-[620px] bg-[radial-gradient(circle_at_52%_53%,rgba(34,211,238,0.15),rgba(59,130,246,0.06)_43%,transparent_72%)]">
+      <div className="relative z-10 mx-auto flex h-full w-full items-center justify-center overflow-hidden">
         <DoctorImage className="" />
       </div>
 
@@ -128,7 +118,7 @@ function DesktopDoctorScene() {
         detail="Normal"
         icon={<HeartPulse className="size-4" />}
         accentClassName="bg-rose-50 text-rose-500"
-        className="left-[2%] top-[27%] w-[150px]"
+        className="left-[1%] top-[32%] w-[150px]"
         floatY={-5}
         duration={7.2}
         delay={0.12}
@@ -139,7 +129,7 @@ function DesktopDoctorScene() {
         detail="Excellent"
         icon={<Droplets className="size-4" />}
         accentClassName="bg-sky-50 text-sky-500"
-        className="right-[2%] top-[16%] w-[142px]"
+        className="right-[1%] top-[18%] w-[142px]"
         floatY={4}
         duration={8.4}
         delay={0.24}
@@ -150,7 +140,7 @@ function DesktopDoctorScene() {
         detail="Great · trending up"
         icon={<Sparkles className="size-4" />}
         accentClassName="bg-cyan-50 text-cyan-600"
-        className="bottom-[16%] right-[1%] w-[168px] rounded-[18px] p-3"
+        className="bottom-[10%] right-[0%] w-[172px] rounded-[18px] p-3"
         floatY={-6}
         duration={7.8}
         delay={0.36}
@@ -162,7 +152,7 @@ function DesktopDoctorScene() {
 function MobileDoctorScene() {
   return (
     <div className="login-mobile-scene relative mx-auto w-full max-w-[390px] bg-[radial-gradient(circle_at_50%_52%,rgba(34,211,238,0.16),rgba(59,130,246,0.055)_46%,transparent_72%)] md:max-w-[580px]">
-      <div className="relative z-10 mx-auto h-full w-full max-w-[340px] md:max-w-[480px]">
+      <div className="relative z-10 mx-auto flex h-full w-full items-center justify-center overflow-hidden">
         <DoctorImage className="" />
       </div>
 
@@ -195,20 +185,20 @@ function MobileDoctorScene() {
 export function LoginVisual() {
   return (
     <motion.section
-      className="hidden min-w-0 flex-col justify-center gap-5 lg:flex"
+      className="hidden min-w-0 flex-col justify-center gap-3 lg:flex"
       aria-labelledby="login-visual-heading"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="max-w-[520px]">
+      <div className="max-w-[540px]">
         <div className="inline-flex items-center gap-2 rounded-full border border-cyan-200/75 bg-white/75 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-700 shadow-[0_8px_22px_rgba(14,165,233,0.08)]">
           <Sparkles className="size-3.5" aria-hidden="true" />
           AI-powered health companion
         </div>
         <h1
           id="login-visual-heading"
-          className="mt-4 max-w-[11ch] text-[clamp(3rem,5vw,4.5rem)] font-bold leading-[0.98] tracking-[-0.055em] text-slate-950"
+          className="mt-4 max-w-[11ch] text-[clamp(3rem,4.8vw,4.25rem)] font-extrabold leading-[0.98] tracking-[-0.055em] text-slate-950"
         >
           Your health,{" "}
           <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
@@ -236,7 +226,7 @@ function GoogleSignInButton({
       disabled={pending}
       aria-label={pending ? "Signing you in with Google" : "Continue with Google"}
       aria-busy={pending}
-      className="relative inline-flex h-[54px] w-full items-center justify-center rounded-[14px] border border-slate-200 bg-white px-12 text-[15px] font-semibold text-slate-900 shadow-[0_10px_28px_rgba(15,23,42,0.07)] transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-sky-300 hover:shadow-[0_16px_34px_rgba(14,165,233,0.13)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-400/35 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-65 motion-reduce:transform-none motion-reduce:transition-none"
+      className="relative inline-flex h-[54px] w-full items-center justify-center rounded-[15px] border border-slate-200 bg-white px-12 text-[15px] font-semibold text-slate-900 shadow-[0_10px_28px_rgba(15,23,42,0.07)] transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-px hover:border-sky-300 hover:shadow-[0_16px_34px_rgba(14,165,233,0.13)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-65 motion-reduce:transform-none motion-reduce:transition-none"
     >
       <svg aria-hidden="true" viewBox="0 0 48 48" className="absolute left-5 size-5">
         <path
@@ -301,7 +291,7 @@ export function LoginPanel({ onSignIn, pending, error }: LoginExperienceProps) {
     >
       <div className="mx-auto w-full max-w-[440px] md:max-w-[620px] lg:max-w-[440px]">
         <div className="md:mx-auto md:max-w-[440px] lg:max-w-none">
-          <BrandLogo />
+          <AICareLogo />
 
           <div className="mt-4 inline-flex rounded-full border border-cyan-200/75 bg-white/75 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-700 shadow-[0_8px_18px_rgba(14,165,233,0.07)] sm:mt-5">
             Private by design
@@ -322,7 +312,7 @@ export function LoginPanel({ onSignIn, pending, error }: LoginExperienceProps) {
           <MobileDoctorScene />
         </div>
 
-        <div className="mt-3 rounded-[24px] border border-white/85 bg-white/[0.74] p-5 shadow-[0_18px_58px_rgba(31,72,116,0.09)] backdrop-blur-lg sm:mt-5 sm:p-6 md:mx-auto md:max-w-[440px] lg:mt-7 lg:max-w-none lg:p-7">
+        <div className="mt-3 rounded-[26px] border border-white/85 bg-white/[0.78] p-5 shadow-[0_18px_58px_rgba(31,72,116,0.10)] backdrop-blur-lg sm:mt-5 sm:p-6 md:mx-auto md:max-w-[440px] lg:mt-6 lg:max-w-none lg:p-7">
           <GoogleSignInButton pending={pending} onSignIn={onSignIn} />
 
           {error ? (
@@ -358,7 +348,7 @@ export function LoginPanel({ onSignIn, pending, error }: LoginExperienceProps) {
 export function LoginExperience({ onSignIn, pending, error }: LoginExperienceProps) {
   return (
     <main className="login-page min-h-dvh text-slate-900">
-      <div className="mx-auto grid min-h-dvh w-full max-w-[1440px] items-center px-4 py-4 sm:px-5 sm:py-6 md:px-8 md:py-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(420px,.85fr)] lg:gap-12 lg:px-10 lg:py-6 xl:gap-16 xl:px-12">
+      <div className="mx-auto grid min-h-dvh w-full max-w-[1400px] items-center px-4 py-4 sm:px-5 sm:py-6 md:px-8 md:py-8 lg:grid-cols-[minmax(0,1.12fr)_minmax(420px,.88fr)] lg:gap-12 lg:px-10 lg:py-6 xl:gap-16 xl:px-12">
         <LoginVisual />
         <LoginPanel onSignIn={onSignIn} pending={pending} error={error} />
       </div>

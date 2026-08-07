@@ -4,12 +4,12 @@ import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const glassButtonVariants = cva(
-  "relative inline-flex items-center justify-center gap-2 rounded-full font-semibold whitespace-nowrap select-none outline-none transition-[transform,box-shadow,background-color,border-color] duration-500 spring focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-60 active:scale-[0.97]",
+  "relative inline-flex items-center justify-center gap-2 rounded-[15px] font-semibold whitespace-nowrap select-none outline-none transition-[transform,box-shadow,background-color,border-color,filter] duration-200 focus-visible:ring-4 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-60 active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none",
   {
     variants: {
       variant: {
         primary:
-          "bg-primary text-primary-foreground border border-white/25 shadow-[0_14px_34px_-14px_rgba(22,163,74,0.85)] hover:-translate-y-0.5 hover:bg-primary-dark hover:shadow-[0_22px_46px_-16px_rgba(22,163,74,0.9)]",
+          "border border-white/25 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 text-primary-foreground shadow-[0_14px_32px_rgba(37,99,235,0.24)] hover:-translate-y-px hover:brightness-[1.02] hover:shadow-[0_18px_38px_rgba(37,99,235,0.30)]",
         glass:
           "glass-surface glass-glare glass-hover text-foreground",
         ghost:
@@ -18,9 +18,9 @@ const glassButtonVariants = cva(
           "bg-destructive text-destructive-foreground border border-white/20 hover:-translate-y-0.5",
       },
       size: {
-        sm: "h-9 px-4 text-sm",
-        md: "h-11 px-5 text-sm",
-        lg: "h-13 px-7 text-base",
+        sm: "h-11 px-4 text-sm",
+        md: "h-12 px-5 text-sm",
+        lg: "h-[54px] px-7 text-base",
       },
     },
     defaultVariants: { variant: "primary", size: "md" },

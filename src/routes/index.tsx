@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
 
 function LandingPage() {
   return (
-    <div className="min-h-dvh overflow-x-clip">
+    <div className="landing-page min-h-dvh">
       <AmbientBackground />
       <LandingNav />
       <main>
