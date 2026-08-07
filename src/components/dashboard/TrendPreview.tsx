@@ -44,7 +44,7 @@ function Delta({ current, previous, suffix = "" }: { current: number; previous: 
   );
 }
 
-export function TrendPreview({ records }: { records: VitalRecord[] }) {
+export function TrendPreview({ records, limit = 4 }: { records: VitalRecord[]; limit?: number }) {
   if (records.length < 2) return null;
 
   const recent = records.slice(0, 7).reverse();
@@ -102,7 +102,7 @@ export function TrendPreview({ records }: { records: VitalRecord[] }) {
         </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {trends.map((trend, index) => (
+        {trends.slice(0, limit).map((trend, index) => (
           <GlassCard key={trend.label} delay={index * 45} className="app-card p-4">
             <div className="flex items-center justify-between gap-3">
               <span className="inline-flex items-center gap-2 text-sm font-bold text-slate-700">

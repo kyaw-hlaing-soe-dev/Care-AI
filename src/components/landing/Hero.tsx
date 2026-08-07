@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
-import { Activity, Brain, Check, Droplets, HeartPulse, Play, Thermometer } from "lucide-react";
+import { Activity, ArrowDown, Brain, Check, Droplets, HeartPulse, Thermometer } from "lucide-react";
 import { GlassButton } from "@/components/glass/GlassButton";
 import doctor from "@/assets/ai-doctor-cutout.png";
 
-const PROOF = ["Google Login", "AI Health Analysis", "Real-Time Monitoring", "100% Secure"];
+const PROOF = ["Google Sign-In", "Clear Health Insights", "Vital Trend History"];
 
 const WIDGETS = [
   {
@@ -21,10 +21,10 @@ const WIDGETS = [
   {
     Icon: Droplets,
     label: "Blood Pressure",
-    value: "120 / 80",
+    value: "120 / 76",
     tint: "from-primary/85 to-sky/85",
     pos: "right-[1%] top-[13%]",
-    mobile: false,
+    mobile: true,
     delay: 0.8,
     rotate: 6,
   },
@@ -47,16 +47,6 @@ const WIDGETS = [
     mobile: true,
     delay: 0.4,
     rotate: -5,
-  },
-  {
-    Icon: Brain,
-    label: "Health Score",
-    value: "92 / 100",
-    tint: "from-violet/85 to-primary/85",
-    pos: "right-[6%] bottom-[5%]",
-    mobile: true,
-    delay: 1.1,
-    rotate: -2,
   },
 ];
 
@@ -86,7 +76,7 @@ export function Hero() {
           className="glass-surface glass-glare inline-flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-primary-dark"
         >
           <Brain className="size-3.5" />
-          Your Personal AI Healthcare Companion
+          Your Personal AI Health Companion
         </motion.span>
 
         <motion.h1
@@ -95,7 +85,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
           className="mt-5 text-balance text-[clamp(2.65rem,12vw,3.75rem)] font-extrabold leading-[1.01] tracking-[-0.055em] sm:text-[clamp(3.5rem,8vw,4.25rem)] lg:text-[clamp(3.65rem,5.2vw,4.5rem)]"
         >
-          Your <span className="text-gradient">AI Doctor</span> That Cares About You
+          Understand Your Health. <span className="text-gradient">One Reading at a Time.</span>
         </motion.h1>
 
         <motion.p
@@ -104,8 +94,8 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
           className="mx-auto mt-5 max-w-[580px] text-pretty text-base leading-7 text-muted-foreground sm:text-lg lg:mx-0"
         >
-          Track your health, monitor vital signs, and receive intelligent AI-powered health insights
-          anytime, anywhere.
+          Track your vital signs, understand your trends, and receive clear AI-powered health insights
+          — all in one place.
         </motion.p>
 
         <motion.div
@@ -116,13 +106,13 @@ export function Hero() {
         >
           <Link to="/login" className="sm:w-auto">
             <GlassButton size="lg" className="w-full sm:w-auto">
-              Get Started Free
+              Start Tracking Free
             </GlassButton>
           </Link>
-          <a href="#dashboard" className="sm:w-auto">
+          <a href="#how-it-works" className="sm:w-auto">
             <GlassButton variant="glass" size="lg" className="w-full sm:w-auto">
-              <Play className="size-4" />
-              Watch Demo
+              <ArrowDown className="size-4" />
+              See How It Works
             </GlassButton>
           </a>
         </motion.div>
@@ -131,7 +121,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mx-auto mt-7 grid max-w-[460px] grid-cols-2 gap-x-5 gap-y-3 text-left lg:mx-0"
+          className="mx-auto mt-7 flex max-w-[560px] flex-wrap justify-center gap-x-5 gap-y-3 text-left lg:mx-0 lg:justify-start"
         >
           {PROOF.map((p) => (
             <li key={p} className="flex items-center gap-2 text-sm font-medium text-foreground/80">
@@ -167,7 +157,7 @@ export function Hero() {
 
           <motion.img
             src={doctor}
-            alt="Friendly 3D AI doctor mascot waving"
+            alt="Friendly CareAI health companion"
             width={1024}
             height={1024}
             loading="eager"

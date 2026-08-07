@@ -1,23 +1,26 @@
-import { Activity, AlertTriangle, Check, CheckCircle2, Lightbulb, Sparkles } from "lucide-react";
+import { Activity, AlertTriangle, ArrowDown, Check, CheckCircle2, Lightbulb, Sparkles } from "lucide-react";
+import { HealthScoreRing } from "@/components/HealthScoreRing";
+import { StatusBadge } from "@/components/StatusBadge";
 import { Reveal, SectionHeading } from "./Reveal";
+import { LANDING_TRACKER_DEMO } from "./demo-data";
 
 const READINGS = [
-  ["Systolic", "120", "mmHg"],
-  ["Diastolic", "80", "mmHg"],
-  ["Heart Rate", "72", "bpm"],
-  ["Oxygen", "98", "%"],
-  ["Temperature", "36.7", "°C"],
+  ["Systolic", String(LANDING_TRACKER_DEMO.systolic), "mmHg"],
+  ["Diastolic", String(LANDING_TRACKER_DEMO.diastolic), "mmHg"],
+  ["Heart Rate", String(LANDING_TRACKER_DEMO.heartRate), "bpm"],
+  ["Oxygen", String(LANDING_TRACKER_DEMO.oxygen), "%"],
+  ["Temperature", String(LANDING_TRACKER_DEMO.temperature), "°C"],
 ];
 
-const ANALYSIS_ROWS = ["Heart Rate", "Oxygen", "Blood Pressure", "Temperature"];
+const ANALYSIS_ROWS = ["Blood Pressure", "Heart Rate", "Oxygen", "Temperature"];
 
 export function HowItWorks() {
   return (
     <section id="how-it-works" className="mx-auto max-w-6xl scroll-mt-28 px-5 py-20 sm:py-28">
       <SectionHeading
         eyebrow="How it works"
-        title="From vital signs to a clearer next step"
-        subtitle="CareAI follows the same simple workflow as the real Vital Tracker—log, analyze, and understand."
+        title={<>From a reading to an insight<br className="hidden sm:block" /> in three simple steps.</>}
+        subtitle="Enter your readings, let CareAI organize the result, then review your score and structured insight."
       />
 
       <div className="mt-14 space-y-16 sm:space-y-20 lg:space-y-24">
@@ -28,6 +31,8 @@ export function HowItWorks() {
           visual={<VitalTrackerPreview />}
         />
 
+        <JourneyConnector label="CareAI analyzes" />
+
         <StoryStep
           number="02"
           title="CareAI analyzes your readings"
@@ -35,6 +40,8 @@ export function HowItWorks() {
           visual={<AnalysisPreview />}
           reverse
         />
+
+        <JourneyConnector label="Clear insight" />
 
         <StoryStep
           number="03"
@@ -121,7 +128,7 @@ function AnalysisPreview() {
             <Sparkles className="size-5" />
           </span>
           <div>
-            <p className="font-extrabold">CareAI analyzing...</p>
+            <p className="font-extrabold">Checking readings...</p>
             <p className="mt-0.5 text-xs text-muted-foreground">
               Turning readings into a clear overview
             </p>
@@ -135,14 +142,8 @@ function AnalysisPreview() {
               className="flex items-center justify-between rounded-[14px] border border-white bg-white/85 px-4 py-3"
             >
               <span className="text-sm font-semibold">{row}</span>
-              <span
-                className={`grid size-6 place-items-center rounded-full ${row === "Blood Pressure" ? "bg-amber-50 text-amber-600" : "bg-emerald-50 text-emerald-600"}`}
-              >
-                {row === "Blood Pressure" ? (
-                  <AlertTriangle className="size-3.5" />
-                ) : (
-                  <Check className="size-3.5" strokeWidth={3} />
-                )}
+              <span className="grid size-6 place-items-center rounded-full bg-emerald-50 text-emerald-600">
+                <Check className="size-3.5" strokeWidth={3} />
               </span>
             </div>
           ))}
@@ -150,22 +151,12 @@ function AnalysisPreview() {
       </div>
 
       <div className="flex items-center gap-5 border-t border-blue-100/80 bg-white/85 p-5 sm:px-7">
-        <div className="grid size-[94px] shrink-0 place-items-center rounded-full bg-[conic-gradient(from_0deg,#22d3ee_0_92%,#dbeafe_92%_100%)] p-2.5">
-          <div className="grid size-full place-items-center rounded-full bg-white text-center">
-            <span>
-              <span className="block text-2xl font-extrabold tabular-nums">92</span>
-              <span className="block text-[9px] font-bold text-muted-foreground">/ 100</span>
-            </span>
-          </div>
-        </div>
+        <HealthScoreRing score={88} hasData size={94} />
         <div>
           <p className="text-[10px] font-extrabold uppercase tracking-[0.14em] text-primary">
             Health Score
           </p>
-          <p className="mt-1 text-lg font-extrabold text-emerald-700">Excellent</p>
-          <p className="mt-1 text-xs leading-5 text-muted-foreground">
-            Your latest readings are within their typical ranges.
-          </p>
+          <div className="mt-2"><StatusBadge status="Attention Needed" /></div>
         </div>
       </div>
     </div>
@@ -186,14 +177,14 @@ function InsightPreview() {
       title: "Areas to watch",
       tone: "text-amber-600",
       bg: "bg-amber-50",
-      items: ["Blood pressure is slightly elevated."],
+      items: ["Temperature is above the typical range."],
     },
     {
       Icon: Lightbulb,
       title: "Recommendations",
       tone: "text-primary",
       bg: "bg-blue-50",
-      items: ["Consider rechecking while seated and calm."],
+      items: ["Rest, stay hydrated, and re-check your temperature later."],
     },
   ];
 
@@ -231,6 +222,19 @@ function InsightPreview() {
           </div>
         ))}
       </div>
+      <a href="#dashboard" className="flex min-h-12 items-center justify-center border-t border-blue-100/70 bg-blue-50/55 text-sm font-extrabold text-blue-600 transition-colors hover:bg-blue-50">
+        View Dashboard →
+      </a>
+    </div>
+  );
+}
+
+function JourneyConnector({ label }: { label: string }) {
+  return (
+    <div aria-hidden="true" className="-my-8 flex flex-col items-center text-blue-400 sm:-my-10">
+      <span className="h-8 w-px bg-gradient-to-b from-blue-200 to-cyan-300" />
+      <span className="my-2 rounded-full border border-blue-100 bg-white/75 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.12em] text-blue-500 backdrop-blur-sm">{label}</span>
+      <ArrowDown className="size-4" />
     </div>
   );
 }

@@ -9,9 +9,15 @@ const GROUPS = [
   { key: "recommendations", title: "Recommendations", Icon: Lightbulb, tone: "text-blue-600", dot: "bg-blue-500" },
 ] as const;
 
-export function AIInsightPanel({ analysis }: { analysis: VitalAnalysis }) {
+export function AIInsightPanel({
+  analysis,
+  panelId = "careai-insight",
+}: {
+  analysis: VitalAnalysis;
+  panelId?: string;
+}) {
   return (
-    <GlassCard id="careai-insight" strong className="app-card scroll-mt-24 overflow-hidden p-0">
+    <GlassCard id={panelId} strong className="app-card scroll-mt-24 overflow-hidden p-0">
       <div className="border-b border-blue-100/80 bg-gradient-to-r from-blue-50/80 via-white/60 to-cyan-50/75 px-5 py-5 sm:px-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="inline-flex items-center gap-2.5 text-xl font-extrabold tracking-[-0.025em] text-slate-950 sm:text-[22px]">

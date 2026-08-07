@@ -7,18 +7,19 @@ import { DashboardPreview } from "@/components/landing/DashboardPreview";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import { HealthTrends } from "@/components/landing/HealthTrends";
 import { AiAnalysis } from "@/components/landing/AiAnalysis";
+import { TrustSection } from "@/components/landing/TrustSection";
 import { CtaSection } from "@/components/landing/CtaSection";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 
 const DESC =
-  "CareAI is your personal AI healthcare companion — track vitals, monitor heart rate, blood pressure, oxygen and temperature, and get intelligent AI health insights.";
+  "CareAI helps you track vital signs, understand health trends, and review clear AI-powered informational insights.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "CareAI — Your Personal AI Healthcare Companion" },
+      { title: "CareAI — Understand Your Health, One Reading at a Time" },
       { name: "description", content: DESC },
-      { property: "og:title", content: "CareAI — Your Personal AI Healthcare Companion" },
+      { property: "og:title", content: "CareAI — Understand Your Health, One Reading at a Time" },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -37,8 +38,9 @@ function LandingPage() {
         <DashboardPreview />
         <Features />
         <HowItWorks />
-        <HealthTrends />
         <AiAnalysis />
+        <HealthTrends />
+        <TrustSection />
         <CtaSection />
       </main>
       <LandingFooter />

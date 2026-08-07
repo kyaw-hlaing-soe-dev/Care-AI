@@ -18,7 +18,12 @@ export function LandingFooter() {
   return (
     <footer className="mx-auto max-w-6xl px-5 pb-12">
       <div className="glass-surface glass-glare flex flex-col items-center gap-6 rounded-3xl px-6 py-8 sm:flex-row sm:justify-between">
-        <CareAILogo compact />
+        <div className="text-center sm:text-left">
+          <CareAILogo compact className="justify-center sm:justify-start" />
+          <p className="mt-2 max-w-[260px] text-xs leading-5 text-muted-foreground">
+            Simple vital tracking and AI-powered health insights.
+          </p>
+        </div>
 
         <nav aria-label="Footer">
           <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
@@ -51,8 +56,8 @@ export function LandingFooter() {
       </div>
 
       <p className="mx-auto mt-6 max-w-2xl text-center text-xs leading-relaxed text-muted-foreground">
-        © {new Date().getFullYear()} CareAI. Informational insights only — not a substitute for
-        professional medical advice, diagnosis, or treatment.
+        © 2026 CareAI. CareAI provides informational health insights and is not a substitute for
+        professional medical advice.
       </p>
     </footer>
   );

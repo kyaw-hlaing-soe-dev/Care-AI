@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "motion/react";
-import { Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import type { ReactNode } from "react";
 import { GlassButton } from "@/components/glass/GlassButton";
 import { Reveal } from "./Reveal";
@@ -66,10 +66,10 @@ export function CtaSection() {
           <div className="relative grid items-center gap-7 md:grid-cols-[minmax(0,1.1fr)_minmax(280px,.9fr)] md:gap-4 lg:gap-8">
             <div className="text-center md:text-left">
               <h2 className="text-balance text-4xl font-extrabold tracking-tight text-primary-foreground sm:text-5xl">
-                Start Your Health Journey Today
+                Start understanding your health today.
               </h2>
               <p className="mt-4 text-pretty text-base leading-relaxed text-primary-foreground/85 sm:text-lg">
-                Track your vitals and understand your health with CareAI.
+                Track your vitals and turn everyday readings into clear, useful insights.
               </p>
               <Link to="/login" className="mt-8 inline-block w-full sm:w-auto">
                 <GlassButton
@@ -77,7 +77,7 @@ export function CtaSection() {
                   size="lg"
                   className="w-full bg-white/90 text-primary-dark hover:bg-white sm:w-auto"
                 >
-                  Start Tracking Free
+                  Start Tracking Free <ArrowRight className="size-4" />
                 </GlassButton>
               </Link>
             </div>
@@ -107,7 +107,7 @@ export function CtaSection() {
 
               <motion.img
                 src={doctor}
-                alt="CareAI doctor mascot welcoming you to start your health journey"
+                alt="CareAI 3D health companion"
                 width={512}
                 height={512}
                 loading="lazy"
@@ -120,7 +120,7 @@ export function CtaSection() {
               <SupportCard
                 icon={<Sparkles className="size-4" aria-hidden="true" />}
                 label="Health score"
-                value="92 / 100"
+                value="88 / 100"
                 className="right-[0%] top-[22%]"
                 delay={0.45}
               />

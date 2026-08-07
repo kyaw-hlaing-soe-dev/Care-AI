@@ -1,113 +1,49 @@
-import { AlertTriangle, CheckCircle2, Lightbulb, Sparkles } from "lucide-react";
-import { Reveal, SectionHeading } from "./Reveal";
+import { AlertTriangle, CheckCircle2, Lightbulb } from "lucide-react";
+import { AIInsightPanel } from "@/components/dashboard/AIInsightPanel";
+import { Reveal } from "./Reveal";
+import { LANDING_DEMO_ANALYSIS } from "./demo-data";
 
-const GROUPS = [
-  {
-    Icon: CheckCircle2,
-    title: "What Looks Good",
-    tone: "text-emerald-700",
-    iconBg: "bg-emerald-50",
-    dot: "bg-emerald-500",
-    items: [
-      "Heart rate is within the typical range at 72 bpm.",
-      "Oxygen saturation is steady at 98%.",
-    ],
-  },
-  {
-    Icon: AlertTriangle,
-    title: "Areas to Watch",
-    tone: "text-amber-700",
-    iconBg: "bg-amber-50",
-    dot: "bg-amber-500",
-    items: [
-      "Watch for meaningful changes in your blood pressure over time.",
-      "One reading matters less than a consistent trend.",
-    ],
-  },
-  {
-    Icon: Lightbulb,
-    title: "Recommendations",
-    tone: "text-blue-700",
-    iconBg: "bg-blue-50",
-    dot: "bg-blue-500",
-    items: [
-      "Keep logging at a similar time each day for clearer trends.",
-      "Discuss unexpected or concerning readings with a healthcare professional.",
-    ],
-  },
+const BENEFITS = [
+  { Icon: CheckCircle2, label: "What looks good", tone: "text-emerald-600", bg: "bg-emerald-50" },
+  { Icon: AlertTriangle, label: "Areas to watch", tone: "text-amber-600", bg: "bg-amber-50" },
+  { Icon: Lightbulb, label: "Practical recommendations", tone: "text-blue-600", bg: "bg-blue-50" },
 ];
 
 export function AiAnalysis() {
   return (
-    <section id="insights" className="mx-auto max-w-6xl scroll-mt-28 px-5 py-20 sm:py-28">
-      <SectionHeading
-        eyebrow="CareAI Insight"
-        title={
-          <>
-            Health data is useful.
-            <br className="hidden sm:block" /> Understanding it is better.
-          </>
-        }
-        subtitle="CareAI turns your vital readings into clear, simple insights."
-      />
+    <section id="insights" className="mx-auto max-w-[1200px] scroll-mt-28 px-5 py-20 sm:py-24 lg:py-28">
+      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,.72fr)_minmax(0,1.28fr)] lg:gap-14">
+        <Reveal>
+          <div className="mx-auto max-w-lg text-center lg:mx-0 lg:text-left">
+            <span className="glass-surface inline-flex rounded-full px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">
+              CareAI Insight
+            </span>
+            <h2 className="mt-5 text-balance text-4xl font-extrabold tracking-[-0.045em] text-slate-950 sm:text-5xl">
+              Health data shouldn&apos;t feel complicated.
+            </h2>
+            <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
+              CareAI converts your latest readings into understandable observations, so you can quickly see what looks typical and what may be worth monitoring.
+            </p>
 
-      <Reveal delay={0.1} className="mt-12 sm:mt-14">
-        <div className="overflow-hidden rounded-[30px] border border-white/90 bg-white/88 shadow-[0_34px_84px_-42px_rgba(35,79,137,0.44)] backdrop-blur-xl">
-          <div className="border-b border-blue-100/80 bg-gradient-to-r from-blue-50/90 via-white/80 to-cyan-50/85 p-5 sm:px-7 sm:py-6">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <span className="grid size-11 shrink-0 place-items-center rounded-[15px] bg-gradient-to-br from-primary to-cyan text-white shadow-[0_12px_26px_-12px_rgba(37,99,235,0.7)]">
-                  <Sparkles className="size-5" />
-                </span>
-                <div>
-                  <h3 className="text-lg font-extrabold tracking-tight sm:text-xl">
-                    CareAI Health Insight
-                  </h3>
-                  <p className="mt-0.5 text-xs text-muted-foreground">
-                    Informational analysis of your latest readings
-                  </p>
-                </div>
-              </div>
-              <span className="rounded-full border border-blue-100 bg-white/85 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.12em] text-primary">
-                Health Score 92
-              </span>
-            </div>
-            <p className="mt-4 max-w-4xl text-sm leading-6 text-foreground/75">
-              Your latest values are generally within their typical ranges. Continue tracking
-              regularly so CareAI can help you see meaningful changes over time.
+            <ul className="mx-auto mt-7 max-w-md space-y-3 text-left lg:mx-0">
+              {BENEFITS.map(({ Icon, label, tone, bg }) => (
+                <li key={label} className="flex items-center gap-3 rounded-[16px] border border-white/80 bg-white/65 px-4 py-3 shadow-[0_10px_28px_rgba(44,83,130,0.06)] backdrop-blur-sm">
+                  <span className={`grid size-8 shrink-0 place-items-center rounded-[11px] ${bg} ${tone}`}><Icon className="size-4" /></span>
+                  <span className="text-sm font-bold text-slate-700">{label}</span>
+                </li>
+              ))}
+            </ul>
+
+            <p className="mt-6 text-xs leading-5 text-slate-500">
+              Informational insights only—not a diagnosis or replacement for professional medical advice.
             </p>
           </div>
+        </Reveal>
 
-          <div className="grid lg:grid-cols-3">
-            {GROUPS.map(({ Icon, title, tone, iconBg, dot, items }, index) => (
-              <article
-                key={title}
-                className={`p-5 sm:p-7 ${index > 0 ? "border-t border-blue-100/70 lg:border-l lg:border-t-0" : ""}`}
-              >
-                <h4 className={`flex items-center gap-2.5 text-sm font-extrabold ${tone}`}>
-                  <span className={`grid size-8 place-items-center rounded-[11px] ${iconBg}`}>
-                    <Icon className="size-4" />
-                  </span>
-                  {title}
-                </h4>
-                <ul className="mt-4 space-y-3">
-                  {items.map((item) => (
-                    <li key={item} className="flex gap-2.5 text-sm leading-6 text-muted-foreground">
-                      <span className={`mt-2.5 size-1.5 shrink-0 rounded-full ${dot}`} />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-        </div>
-      </Reveal>
-
-      <p className="mx-auto mt-6 max-w-3xl text-center text-xs leading-5 text-muted-foreground">
-        CareAI provides informational health insights and is not a substitute for professional
-        medical advice.
-      </p>
+        <Reveal delay={0.08}>
+          <AIInsightPanel analysis={LANDING_DEMO_ANALYSIS} />
+        </Reveal>
+      </div>
     </section>
   );
 }

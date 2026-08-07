@@ -1,90 +1,36 @@
-import { Activity, CalendarDays, Droplets, HeartPulse } from "lucide-react";
+import { Activity, Droplets, Thermometer } from "lucide-react";
 import { Reveal, SectionHeading } from "./Reveal";
-
-const HISTORY = [
-  { when: "Today, 10:40 PM", score: 92, status: "Excellent" },
-  { when: "Yesterday, 9:15 PM", score: 88, status: "Good" },
-];
 
 export function HealthTrends() {
   return (
-    <section id="trends" className="mx-auto max-w-6xl scroll-mt-28 px-5 py-20 sm:py-28">
+    <section id="trends" className="mx-auto max-w-[1200px] scroll-mt-28 px-5 py-20 sm:py-24 lg:py-28">
       <SectionHeading
         eyebrow="See the bigger picture"
-        title="Your health is more than one reading."
-        subtitle="Track changes over time and review every reading you've logged."
+        title={<>See the bigger picture,<br className="hidden sm:block" /> not just today&apos;s numbers.</>}
+        subtitle="Follow changes across your readings with the same calm, focused charts used in your CareAI dashboard."
       />
 
       <Reveal delay={0.1} className="mt-12 sm:mt-14">
         <div className="rounded-[30px] border border-white/90 bg-white/86 p-4 shadow-[0_32px_80px_-42px_rgba(35,79,137,0.42)] backdrop-blur-xl sm:p-6 lg:p-8">
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(300px,.65fr)] lg:gap-5">
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,.55fr)] lg:gap-5">
             <div className="rounded-[22px] border border-blue-100/75 bg-white/80 p-4 sm:p-5">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <p className="text-sm font-extrabold">Heart Rate trend</p>
+                  <p className="text-sm font-extrabold">Heart Rate — 7 day trend</p>
                   <p className="mt-1 text-xs text-muted-foreground">Last 7 readings</p>
                 </div>
-                <span className="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-extrabold text-emerald-700">
-                  Stable
+                <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-extrabold text-slate-950">
+                  72 bpm
                 </span>
               </div>
               <TrendChart />
             </div>
 
-            <div className="rounded-[22px] border border-blue-100/75 bg-white/80 p-4 sm:p-5">
-              <div className="flex items-center gap-2">
-                <CalendarDays className="size-4 text-primary" />
-                <p className="text-sm font-extrabold">Recent history</p>
-              </div>
-              <div className="mt-4 space-y-3">
-                {HISTORY.map((item) => (
-                  <div
-                    key={item.when}
-                    className="flex items-center justify-between gap-3 rounded-[16px] bg-blue-50/65 p-3.5"
-                  >
-                    <div className="min-w-0">
-                      <p className="truncate text-xs font-bold">{item.when}</p>
-                      <p className="mt-1 text-[11px] font-semibold text-emerald-700">
-                        {item.status}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-[9px] font-bold uppercase tracking-wide text-muted-foreground">
-                        Score
-                      </p>
-                      <p className="text-xl font-extrabold tabular-nums text-primary">
-                        {item.score}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+              <MiniTrend Icon={Droplets} title="Blood Pressure" value="120/76" color="#3b82f6" path="M4 48 C34 43, 48 30, 78 39 S124 50, 150 36 S198 30, 232 42 S270 35, 296 40" />
+              <MiniTrend Icon={Activity} title="Oxygen" value="98%" color="#14b8a6" path="M4 34 C35 50, 56 50, 82 27 S125 48, 154 35 S205 27, 232 43 S270 47, 296 25" />
+              <MiniTrend Icon={Thermometer} title="Temperature" value="39.2°C" color="#8b5cf6" path="M4 54 C35 51, 64 48, 92 46 S149 39, 176 34 S236 22, 296 14" />
             </div>
-          </div>
-
-          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
-            <MiniTrend
-              Icon={Droplets}
-              title="Blood Pressure"
-              value="120/80"
-              color="#3b82f6"
-              path="M4 48 C34 43, 48 30, 78 39 S124 50, 150 36 S198 30, 232 42 S270 35, 296 40"
-            />
-            <MiniTrend
-              Icon={Activity}
-              title="Oxygen Saturation"
-              value="98%"
-              color="#14b8a6"
-              path="M4 34 C35 50, 56 50, 82 27 S125 48, 154 35 S205 27, 232 43 S270 47, 296 25"
-            />
-            <MiniTrend
-              Icon={HeartPulse}
-              title="Heart Rate"
-              value="72 bpm"
-              color="#8b5cf6"
-              path="M4 46 C30 31, 59 37, 84 42 S130 25, 154 38 S200 49, 229 33 S267 34, 296 39"
-              className="sm:col-span-2 lg:col-span-1"
-            />
           </div>
         </div>
       </Reveal>

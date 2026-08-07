@@ -9,7 +9,7 @@ const LINKS = [
   { href: "#features", label: "Features" },
   { href: "#dashboard", label: "Dashboard Preview" },
   { href: "#how-it-works", label: "How It Works" },
-  { href: "#insights", label: "Insights" },
+  { href: "#insights", label: "AI Insights" },
 ];
 
 export function LandingNav() {
