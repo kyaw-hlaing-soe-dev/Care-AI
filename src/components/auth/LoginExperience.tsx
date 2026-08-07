@@ -11,7 +11,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import doctorImage from "@/assets/ai-doctor-cutout.png";
+import doctorImage from "@/assets/login-doctor-seated.png";
 
 type VitalCardProps = {
   icon: ComponentType<{ className?: string; strokeWidth?: number }>;
@@ -66,7 +66,7 @@ const vitalCards: Array<Omit<VitalCardProps, "className"> & { position: string }
     value: "92",
     status: "Great",
     tone: "violet",
-    position: "bottom-[27%] right-[-1%] xl:right-[2%]",
+    position: "bottom-[39%] right-[-1%] xl:right-[2%]",
     delay: 0.64,
     float: 4,
     rotate: -0.7,
@@ -181,8 +181,8 @@ export function DoctorIllustration({ compact = false }: { compact?: boolean }) {
       <motion.img
         src={doctorImage}
         alt="Friendly AICare 3D doctor using a health tablet"
-        width={1024}
-        height={1024}
+        width={1694}
+        height={928}
         loading="eager"
         decoding="async"
         initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.985 }}
@@ -192,10 +192,10 @@ export function DoctorIllustration({ compact = false }: { compact?: boolean }) {
           scale: { duration: 0.75, ease: [0.16, 1, 0.3, 1] },
           y: { duration: 7.5, repeat: Infinity, ease: "easeInOut", delay: 0.75 },
         }}
-        className={`${compact ? "h-[154px]" : "h-[92%]"} absolute bottom-0 left-1/2 z-20 w-auto max-w-none -translate-x-1/2 object-contain drop-shadow-[0_30px_34px_rgba(28,77,135,0.17)]`}
+        className={`${compact ? "h-[154px]" : "h-[92%]"} login-doctor-image absolute bottom-0 left-1/2 z-20 w-auto max-w-none -translate-x-1/2 object-contain`}
       />
       <div
-        className={`${compact ? "bottom-[38%] left-[43%] size-10 blur-xl" : "bottom-[36%] left-[42%] size-24 blur-2xl"} pointer-events-none absolute z-20 rounded-full bg-cyan-300/40`}
+        className={`${compact ? "bottom-[43%] left-[43%] size-10 blur-xl" : "bottom-[43%] left-[42%] size-24 blur-2xl"} pointer-events-none absolute z-20 rounded-full bg-cyan-300/40`}
         aria-hidden="true"
       />
     </div>
@@ -263,13 +263,13 @@ export function LoginVisual() {
           aria-hidden="true"
         >
           <path
-            d="M352 438C267 408 204 343 156 286"
+            d="M352 365C267 350 204 320 156 286"
             stroke="url(#line-a)"
             strokeWidth="1.2"
             strokeDasharray="4 7"
           />
           <path
-            d="M385 432C477 389 530 322 584 259"
+            d="M385 360C477 348 530 303 584 259"
             stroke="url(#line-b)"
             strokeWidth="1.2"
             strokeDasharray="4 7"
@@ -310,9 +310,9 @@ export function LoginVisual() {
           />
         ))}
 
-        <div className="absolute bottom-[34%] left-[39%] z-30 size-1.5 rounded-full bg-cyan-400 shadow-[0_0_10px_3px_rgba(34,211,238,.35)]" />
-        <div className="absolute bottom-[40%] left-[35%] z-30 size-1 rounded-full bg-blue-400/80" />
-        <div className="absolute bottom-[42%] right-[37%] z-30 size-1 rounded-full bg-cyan-400/70" />
+        <div className="absolute bottom-[44%] left-[39%] z-30 size-1.5 rounded-full bg-cyan-400 shadow-[0_0_10px_3px_rgba(34,211,238,.35)]" />
+        <div className="absolute bottom-[48%] left-[35%] z-30 size-1 rounded-full bg-blue-400/80" />
+        <div className="absolute bottom-[50%] right-[37%] z-30 size-1 rounded-full bg-cyan-400/70" />
       </div>
 
       <motion.figure

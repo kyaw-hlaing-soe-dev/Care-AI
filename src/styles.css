@@ -365,6 +365,12 @@
   pointer-events: none;
 }
 
+.login-doctor-image {
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+
 .auth-panel {
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.72), rgba(248, 252, 255, 0.88));
   box-shadow: -28px 0 70px -58px rgba(38, 93, 155, 0.28);
