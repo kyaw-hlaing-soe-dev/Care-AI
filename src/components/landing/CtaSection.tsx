@@ -50,7 +50,7 @@ export function CtaSection() {
   const reducedMotion = Boolean(useReducedMotion());
 
   return (
-    <section className="mx-auto max-w-6xl px-5 pb-24">
+    <section id="start" className="mx-auto max-w-6xl scroll-mt-24 px-5 pb-24">
       <Reveal>
         <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary via-sky to-cyan p-8 shadow-[0_50px_90px_-40px_rgba(30,64,140,0.75)] sm:p-10 lg:px-12 lg:py-10">
           <div className="pointer-events-none absolute -left-16 -top-24 size-80 rounded-full bg-white/20 blur-3xl" />
