@@ -724,21 +724,23 @@
 }
 
 @media (max-width: 360px) {
-  .profile-measurement-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
   .profile-mobile-scene {
     height: 170px;
   }
 }
 
+@media (min-width: 390px) and (max-width: 767px) {
+  .profile-measurement-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-height: 760px) and (min-width: 1024px) {
   .profile-doctor-scene {
-    min-height: 340px;
+    height: 360px;
   }
 
   .profile-doctor-scene img {
-    height: 330px;
+    height: 340px;
   }
 }

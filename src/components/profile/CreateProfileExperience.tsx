@@ -9,7 +9,6 @@ import {
   LoaderCircle,
   ShieldCheck,
   Sparkles,
-  UserRound,
 } from "lucide-react";
 import { AICareLogo } from "@/components/auth/AICareLogo";
 import { useAuth, type AppUser } from "@/lib/auth-context";
@@ -19,7 +18,7 @@ import {
   type ProfileInput,
   type ProfileSex,
 } from "@/lib/profile-context";
-import profileDoctor from "@/assets/ai-doctor-cutout.png";
+import profileDoctor from "@/assets/profile-doctor-clipboard.png";
 
 type FieldErrors = Partial<Record<keyof ProfileDraft, string>>;
 
@@ -51,7 +50,7 @@ const BLOOD_TYPES: Array<{ value: BloodType; label: string }> = [
 ];
 
 const fieldClassName =
-  "h-[52px] w-full rounded-[13px] border border-slate-200 bg-white px-4 text-base font-medium text-slate-950 outline-none transition-[border-color,box-shadow] placeholder:font-normal placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-cyan-100/80 disabled:cursor-not-allowed disabled:bg-slate-50";
+  "h-[50px] w-full rounded-[13px] border border-slate-200 bg-white px-4 text-base font-medium text-slate-950 outline-none transition-[border-color,box-shadow] placeholder:font-normal placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-cyan-100/80 disabled:cursor-not-allowed disabled:bg-slate-50";
 
 function validateProfile(draft: ProfileDraft): FieldErrors {
   const errors: FieldErrors = {};
@@ -120,6 +119,7 @@ function ProfileInput({
   placeholder,
   max,
   autoComplete,
+  onBlur,
 }: {
   id: keyof ProfileDraft;
   label: string;
@@ -130,6 +130,7 @@ function ProfileInput({
   placeholder?: string;
   max?: string;
   autoComplete?: string;
+  onBlur: () => void;
 }) {
   const errorId = `${id}-error`;
   return (
@@ -141,6 +142,7 @@ function ProfileInput({
         type={type}
         value={value}
         onChange={(event) => onChange(event.target.value)}
+        onBlur={onBlur}
         placeholder={placeholder}
         max={max}
         autoComplete={autoComplete}
@@ -162,6 +164,7 @@ function UnitInput({
   error,
   onChange,
   decimal = false,
+  onBlur,
 }: {
   id: "heightCm" | "weightKg";
   label: string;
@@ -171,6 +174,7 @@ function UnitInput({
   error?: string;
   onChange: (value: string) => void;
   decimal?: boolean;
+  onBlur: () => void;
 }) {
   const errorId = `${id}-error`;
   return (
@@ -187,6 +191,7 @@ function UnitInput({
           max={id === "heightCm" ? "250" : "500"}
           value={value}
           onChange={(event) => onChange(event.target.value)}
+          onBlur={onBlur}
           placeholder={placeholder}
           aria-invalid={Boolean(error)}
           aria-describedby={error ? errorId : undefined}
@@ -213,7 +218,7 @@ function SexSelector({
   return (
     <fieldset className="min-w-0" aria-describedby={error ? "sex-error" : undefined}>
       <legend className="mb-2 text-[13px] font-bold uppercase tracking-[0.09em] text-slate-600">Sex</legend>
-      <div className="grid grid-cols-3 gap-1.5 rounded-[14px] border border-slate-200 bg-slate-50/90 p-1.5">
+      <div className="flex flex-wrap gap-1.5 rounded-[14px] border border-slate-200 bg-slate-50/90 p-1.5">
         {SEX_OPTIONS.map((option) => {
           const selected = value === option.value;
           return (
@@ -222,10 +227,10 @@ function SexSelector({
               type="button"
               onClick={() => onChange(option.value)}
               aria-pressed={selected}
-              className={`min-h-[38px] rounded-[10px] px-2 text-[12px] font-semibold leading-tight transition-[background-color,color,box-shadow,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 active:scale-[0.98] ${
+              className={`min-h-[36px] min-w-[82px] flex-1 rounded-[10px] border px-2 text-[12px] font-semibold leading-tight transition-[background-color,border-color,color,box-shadow,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 active:scale-[0.98] ${
                 selected
-                  ? "bg-white text-blue-600 shadow-[0_2px_10px_rgba(59,130,246,0.13)] ring-1 ring-blue-100"
-                  : "text-slate-600 hover:bg-white/70 hover:text-slate-900"
+                  ? "border-blue-200 bg-blue-50 text-slate-900 shadow-[0_2px_10px_rgba(59,130,246,0.11)]"
+                  : "border-transparent text-slate-600 hover:bg-white/70 hover:text-slate-900"
               }`}
             >
               {option.label}
@@ -330,7 +335,7 @@ function ProfileBenefitCard({
   const reducedMotion = Boolean(useReducedMotion());
   return (
     <motion.div
-      className={`absolute z-20 flex items-center gap-2.5 rounded-[16px] border border-white/90 bg-white/80 px-3 py-2.5 text-slate-900 shadow-[0_14px_34px_rgba(50,95,145,0.12)] backdrop-blur-lg ${className} ${primary ? "ring-1 ring-cyan-100" : ""}`}
+      className={`absolute z-20 flex w-[168px] items-center gap-2.5 rounded-[16px] border border-white/90 bg-white/85 px-3 py-2.5 text-slate-900 shadow-[0_14px_34px_rgba(50,95,145,0.12)] backdrop-blur-lg ${className} ${primary ? "ring-1 ring-cyan-100" : ""}`}
       initial={{ opacity: 0, y: 7 }}
       animate={reducedMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -3, 0] }}
       transition={
@@ -367,8 +372,8 @@ function DoctorIllustration({ mobile = false }: { mobile?: boolean }) {
       loading="eager"
       className={
         mobile
-          ? "relative z-10 h-[160px] w-auto max-w-[74%] select-none object-contain"
-          : "relative z-10 h-[clamp(330px,42vh,410px)] w-auto max-w-[86%] select-none object-contain"
+          ? "relative z-10 h-[158px] w-auto max-w-[80%] select-none object-contain"
+          : "relative z-10 h-[clamp(350px,43vh,405px)] w-auto max-h-full max-w-full select-none object-contain"
       }
       initial={{ opacity: 0, y: 8 }}
       animate={reducedMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -4, 0] }}
@@ -401,39 +406,24 @@ function ProfileVisual() {
         </p>
       </div>
 
-      <div className="profile-doctor-scene relative mt-1 flex min-h-[390px] items-end justify-end pr-[3%] xl:min-h-[420px]">
-        <div className="profile-doctor-glow pointer-events-none absolute bottom-0 right-[-2%] h-[390px] w-[440px]" />
+      <div className="profile-doctor-scene relative mt-3 flex h-[410px] max-w-[560px] items-center justify-center overflow-visible pl-[8%]">
+        <div className="profile-doctor-glow pointer-events-none absolute left-1/2 top-1/2 h-[390px] w-[440px] -translate-x-1/2 -translate-y-1/2" />
         <DoctorIllustration />
-        <ProfileBenefitCard
-          icon={<UserRound className="size-4" />}
-          title="Personal profile"
-          detail="Basic information"
-          className="bottom-[18%] left-[0%]"
-          delay={0.1}
-        />
         <ProfileBenefitCard
           icon={<Sparkles className="size-4" />}
           title="Personalized insights"
           detail="Tailored to you"
-          className="right-[1%] top-[21%]"
+          className="left-[0%] top-[7%]"
           primary
-          delay={0.25}
+          delay={0.15}
         />
         <ProfileBenefitCard
           icon={<ShieldCheck className="size-4" />}
           title="Private & secure"
           detail="Your data, protected"
-          className="bottom-[7%] right-[1%]"
-          delay={0.4}
+          className="bottom-[7%] right-[0%]"
+          delay={0.3}
         />
-        <motion.div
-          className="absolute right-[-3%] top-[50%] z-30 flex items-center gap-2 rounded-full border border-cyan-100 bg-white/90 px-3 py-2 text-xs font-bold text-blue-600 shadow-[0_10px_26px_rgba(14,165,233,0.14)] backdrop-blur-md"
-          initial={{ opacity: 0, x: -6 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.45, delay: 0.55 }}
-        >
-          <Sparkles className="size-3.5 text-cyan-500" /> Your profile <ArrowRight className="size-3.5" />
-        </motion.div>
       </div>
     </section>
   );
@@ -441,14 +431,14 @@ function ProfileVisual() {
 
 function MobileWelcomeVisual() {
   return (
-    <div className="profile-mobile-scene relative mt-3 flex h-[180px] items-end justify-center overflow-hidden rounded-[20px] lg:hidden">
+    <div className="profile-mobile-scene relative mt-3 flex h-[178px] items-end justify-center overflow-hidden rounded-[20px] lg:hidden">
       <div className="profile-doctor-glow pointer-events-none absolute left-1/2 top-1/2 size-[220px] -translate-x-1/2 -translate-y-1/2" />
       <DoctorIllustration mobile />
       <ProfileBenefitCard
         icon={<Sparkles className="size-3.5" />}
         title="Personalized for you"
         detail="A healthier experience"
-        className="right-[5%] top-[18%]"
+        className="right-[1%] top-[6%] scale-[0.9]"
         primary
         delay={0.15}
       />
@@ -500,26 +490,34 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
     weightKg: "",
     bloodType: "",
   });
-  const [errors, setErrors] = useState<FieldErrors>({});
+  const [touched, setTouched] = useState<Partial<Record<keyof ProfileDraft, boolean>>>({});
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const submitLock = useRef(false);
   const today = new Date().toISOString().slice(0, 10);
+  const validationErrors = useMemo(() => validateProfile(draft), [draft]);
 
   function updateField<K extends keyof ProfileDraft>(field: K, value: ProfileDraft[K]) {
     setDraft((current) => ({ ...current, [field]: value }));
-    if (errors[field]) setErrors((current) => ({ ...current, [field]: undefined }));
+  }
+
+  function markTouched(field: keyof ProfileDraft) {
+    setTouched((current) => ({ ...current, [field]: true }));
+  }
+
+  function visibleError(field: keyof ProfileDraft) {
+    return touched[field] || hasSubmitted ? validationErrors[field] : undefined;
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (submitLock.current) return;
 
-    const nextErrors = validateProfile(draft);
-    setErrors(nextErrors);
+    setHasSubmitted(true);
     setSubmitError(null);
-    if (Object.keys(nextErrors).length > 0) {
-      const firstInvalid = Object.keys(nextErrors)[0];
+    if (Object.keys(validationErrors).length > 0) {
+      const firstInvalid = Object.keys(validationErrors)[0];
       window.requestAnimationFrame(() => document.getElementById(firstInvalid)?.focus());
       return;
     }
@@ -559,7 +557,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
         </div>
       </div>
 
-      <div className="mt-7 sm:mt-8">
+      <div className="mt-6">
         <h1 className="text-[30px] font-extrabold leading-tight tracking-[-0.045em] text-slate-950 sm:text-[34px] lg:text-[36px]">
           Create your profile
         </h1>
@@ -573,19 +571,20 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
 
       <MobileWelcomeVisual />
 
-      <div className="mt-5 sm:mt-6">
+      <div className="mt-4">
         <GoogleAccountPreview user={user} />
       </div>
 
-      <form onSubmit={(event) => void handleSubmit(event)} noValidate className="mt-6 space-y-5">
+      <form onSubmit={(event) => void handleSubmit(event)} noValidate className="mt-5 space-y-4">
         <ProfileInput
           id="displayName"
           label="Display name"
           value={draft.displayName}
           onChange={(value) => updateField("displayName", value)}
+          onBlur={() => markTouched("displayName")}
           placeholder="How should we address you?"
           autoComplete="name"
-          error={errors.displayName}
+          error={visibleError("displayName")}
         />
 
         <div className="grid gap-5 md:grid-cols-[0.78fr_1.22fr]">
@@ -594,19 +593,23 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
             label="Date of birth"
             value={draft.dateOfBirth}
             onChange={(value) => updateField("dateOfBirth", value)}
+            onBlur={() => markTouched("dateOfBirth")}
             type="date"
             max={today}
             autoComplete="bday"
-            error={errors.dateOfBirth}
+            error={visibleError("dateOfBirth")}
           />
           <SexSelector
             value={draft.sex}
-            onChange={(value) => updateField("sex", value)}
-            error={errors.sex}
+            onChange={(value) => {
+              updateField("sex", value);
+              markTouched("sex");
+            }}
+            error={visibleError("sex")}
           />
         </div>
 
-        <div className="profile-measurement-grid grid grid-cols-2 gap-3 sm:gap-4">
+        <div className="profile-measurement-grid grid grid-cols-1 gap-4 md:grid-cols-2">
           <UnitInput
             id="heightCm"
             label="Height"
@@ -614,7 +617,8 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
             unit="cm"
             placeholder="170"
             onChange={(value) => updateField("heightCm", value)}
-            error={errors.heightCm}
+            onBlur={() => markTouched("heightCm")}
+            error={visibleError("heightCm")}
           />
           <UnitInput
             id="weightKg"
@@ -624,7 +628,8 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
             placeholder="65"
             decimal
             onChange={(value) => updateField("weightKg", value)}
-            error={errors.weightKg}
+            onBlur={() => markTouched("weightKg")}
+            error={visibleError("weightKg")}
           />
         </div>
 
@@ -682,10 +687,10 @@ export function CreateProfileExperience({ onComplete }: { onComplete: () => void
 
   return (
     <main className="profile-page min-h-[100dvh] overflow-x-clip">
-      <div className="mx-auto grid min-h-[100dvh] max-w-[1440px] grid-cols-1 items-center gap-10 px-4 py-5 sm:px-7 sm:py-8 md:px-10 lg:grid-cols-[minmax(0,0.76fr)_minmax(560px,1fr)] lg:gap-12 lg:px-12 lg:py-8 xl:grid-cols-[minmax(0,0.82fr)_minmax(580px,1fr)] xl:gap-16 2xl:px-14">
+      <div className="mx-auto grid min-h-[100dvh] max-w-[1400px] grid-cols-1 items-center gap-10 px-4 py-5 sm:px-7 sm:py-7 md:px-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 lg:px-8 lg:py-6 xl:gap-16 xl:px-12">
         <ProfileVisual />
         <section
-          className="profile-form-panel relative mx-auto w-full max-w-[610px] rounded-[24px] border border-white/85 bg-white/[0.82] p-5 shadow-[0_24px_70px_rgba(44,83,130,0.13)] backdrop-blur-xl sm:rounded-[28px] sm:p-8 lg:p-9 xl:p-10"
+          className="profile-form-panel relative mx-auto w-full max-w-[600px] rounded-[24px] border border-white/85 bg-white/[0.82] p-5 shadow-[0_24px_70px_rgba(44,83,130,0.13)] backdrop-blur-xl sm:rounded-[28px] sm:p-8 lg:p-7 xl:p-8"
           aria-label="Create your AICare profile"
         >
           {success ? <ProfileSuccess /> : <ProfileForm user={user} onSuccess={() => setSuccess(true)} />}
