@@ -216,9 +216,9 @@ function SexSelector({
   error?: string;
 }) {
   return (
-    <fieldset className="min-w-0" aria-describedby={error ? "sex-error" : undefined}>
+    <fieldset id="sex" tabIndex={-1} className="min-w-0" aria-describedby={error ? "sex-error" : undefined}>
       <legend className="mb-2 text-[13px] font-bold uppercase tracking-[0.09em] text-slate-600">Sex</legend>
-      <div className="flex flex-wrap gap-1.5 rounded-[14px] border border-slate-200 bg-slate-50/90 p-1.5">
+      <div className="flex flex-wrap gap-1.5 rounded-[14px] border border-slate-200 bg-slate-50/90 p-1.5 md:flex-nowrap md:gap-1">
         {SEX_OPTIONS.map((option) => {
           const selected = value === option.value;
           return (
@@ -227,7 +227,7 @@ function SexSelector({
               type="button"
               onClick={() => onChange(option.value)}
               aria-pressed={selected}
-              className={`min-h-[36px] min-w-[82px] flex-1 rounded-[10px] border px-2 text-[12px] font-semibold leading-tight transition-[background-color,border-color,color,box-shadow,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 active:scale-[0.98] ${
+              className={`min-h-[36px] min-w-[82px] flex-1 rounded-[10px] border px-1.5 text-[12px] font-semibold leading-tight transition-[background-color,border-color,color,box-shadow,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 active:scale-[0.98] md:min-w-0 md:text-[11px] xl:text-[12px] ${
                 selected
                   ? "border-blue-200 bg-blue-50 text-slate-900 shadow-[0_2px_10px_rgba(59,130,246,0.11)]"
                   : "border-transparent text-slate-600 hover:bg-white/70 hover:text-slate-900"
@@ -287,7 +287,7 @@ function GoogleAccountPreview({ user }: { user: AppUser }) {
   );
 
   return (
-    <div className="flex min-w-0 items-center gap-3 rounded-[15px] border border-sky-100 bg-sky-50/65 p-3">
+    <div className="flex min-w-0 items-center gap-3 rounded-[15px] border border-sky-100 bg-sky-50/65 px-3 py-2.5">
       <div className="relative size-11 shrink-0">
         {user.avatar ? (
           <img
@@ -374,7 +374,7 @@ function DoctorIllustration({ mobile = false }: { mobile?: boolean }) {
       loading="eager"
       className={
         mobile
-          ? "relative z-10 h-[158px] w-auto max-w-[80%] select-none object-contain"
+          ? "relative z-10 h-[170px] w-auto max-w-[80%] select-none object-contain"
           : "relative z-10 h-[clamp(350px,43vh,405px)] w-auto max-h-full max-w-full select-none object-contain"
       }
       initial={{ opacity: 0, y: 8 }}
@@ -435,7 +435,7 @@ function MobileWelcomeVisual() {
   return (
     <div className="profile-mobile-scene relative mt-3 flex h-[178px] items-end justify-center overflow-hidden rounded-[20px] lg:hidden">
       <div className="profile-doctor-glow pointer-events-none absolute left-1/2 top-1/2 size-[220px] -translate-x-1/2 -translate-y-1/2" />
-      <div className="translate-x-[18%]">
+      <div className="translate-x-[32%]">
         <DoctorIllustration mobile />
       </div>
       <ProfileBenefitCard
@@ -561,11 +561,11 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
         </div>
       </div>
 
-      <div className="mt-6">
+      <div className="profile-form-heading mt-6 lg:mt-4">
         <h1 className="text-[30px] font-extrabold leading-tight tracking-[-0.045em] text-slate-950 sm:text-[34px] lg:text-[36px]">
           Create your profile
         </h1>
-        <p className="mt-2.5 max-w-[500px] text-sm leading-6 text-slate-500 sm:text-[15px]">
+        <p className="mt-2.5 max-w-[500px] text-sm leading-6 text-slate-500 sm:text-[15px] lg:mt-1.5">
           <span className="lg:hidden">Let&apos;s personalize your experience.</span>
           <span className="hidden lg:inline">
             Tell us a little about yourself so we can personalize your AICare experience.
@@ -575,11 +575,11 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
 
       <MobileWelcomeVisual />
 
-      <div className="mt-4">
+      <div className="mt-4 lg:mt-3">
         <GoogleAccountPreview user={user} />
       </div>
 
-      <form onSubmit={(event) => void handleSubmit(event)} noValidate className="mt-5 space-y-4">
+      <form onSubmit={(event) => void handleSubmit(event)} noValidate className="mt-5 space-y-4 lg:mt-3 lg:space-y-3">
         <ProfileInput
           id="displayName"
           label="Display name"
@@ -694,7 +694,7 @@ export function CreateProfileExperience({ onComplete }: { onComplete: () => void
       <div className="mx-auto grid min-h-[100dvh] max-w-[1400px] grid-cols-1 items-center gap-10 px-4 py-5 sm:px-7 sm:py-7 md:px-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 lg:px-8 lg:py-6 xl:gap-16 xl:px-12">
         <ProfileVisual />
         <section
-          className="profile-form-panel relative mx-auto w-full max-w-[600px] rounded-[24px] border border-white/85 bg-white/[0.82] p-5 shadow-[0_24px_70px_rgba(44,83,130,0.13)] backdrop-blur-xl sm:rounded-[28px] sm:p-8 lg:p-7 xl:p-8"
+          className="profile-form-panel relative mx-auto w-full max-w-[600px] rounded-[24px] border border-white/85 bg-white/[0.82] p-5 shadow-[0_24px_70px_rgba(44,83,130,0.13)] backdrop-blur-xl sm:rounded-[28px] sm:p-8 lg:p-7"
           aria-label="Create your AICare profile"
         >
           {success ? <ProfileSuccess /> : <ProfileForm user={user} onSuccess={() => setSuccess(true)} />}
