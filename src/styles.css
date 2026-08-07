@@ -604,3 +604,51 @@
     display: none;
   }
 }
+
+/* ---------- Refactored authentication scene ---------- */
+
+.login-page {
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 26% 48%, rgba(103, 232, 249, 0.15), transparent 34%),
+    radial-gradient(circle at 76% 22%, rgba(147, 197, 253, 0.11), transparent 30%),
+    linear-gradient(145deg, #ffffff 0%, #f8fbff 58%, #f4faff 100%);
+}
+
+.doctor-image-blend {
+  mix-blend-mode: multiply;
+  -webkit-mask-image: radial-gradient(
+    ellipse 54% 70% at 50% 52%,
+    #000 60%,
+    rgba(0, 0, 0, 0.9) 74%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 54% 70% at 50% 52%,
+    #000 60%,
+    rgba(0, 0, 0, 0.9) 74%,
+    transparent 100%
+  );
+}
+
+.login-mobile-scene {
+  height: 205px;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .login-mobile-scene {
+    height: 280px;
+  }
+}
+
+@media (max-width: 359px) {
+  .login-mobile-scene {
+    height: 190px;
+  }
+}
+
+@media (max-height: 700px) and (max-width: 767px) {
+  .login-mobile-scene {
+    height: 165px;
+  }
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { LoginPanel, LoginVisual } from "@/components/auth/LoginExperience";
+import { LoginExperience } from "@/components/auth/LoginExperience";
 import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/login")({
@@ -46,10 +46,5 @@ export function LoginPage() {
     }
   }
 
-  return (
-    <main className="auth-page grid min-h-dvh overflow-x-clip lg:grid-cols-[minmax(0,1.18fr)_minmax(420px,.82fr)]">
-      <LoginVisual />
-      <LoginPanel onSignIn={() => void handleSignIn()} pending={pending} error={error} />
-    </main>
-  );
+  return <LoginExperience onSignIn={() => void handleSignIn()} pending={pending} error={error} />;
 }
