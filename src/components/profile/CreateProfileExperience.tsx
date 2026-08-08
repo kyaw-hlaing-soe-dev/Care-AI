@@ -15,75 +15,19 @@ import { useAuth, type AppUser } from "@/lib/auth-context";
 import {
   useProfile,
   type BloodType,
-  type ProfileInput,
   type ProfileSex,
 } from "@/lib/profile-context";
+import {
+  BLOOD_TYPES,
+  SEX_OPTIONS,
+  draftToProfileInput,
+  validateProfile,
+  type ProfileDraft,
+} from "@/lib/profile-validation";
 import profileDoctor from "@/assets/profile-doctor-clipboard.png";
-
-type FieldErrors = Partial<Record<keyof ProfileDraft, string>>;
-
-type ProfileDraft = {
-  displayName: string;
-  dateOfBirth: string;
-  sex: ProfileSex | "";
-  heightCm: string;
-  weightKg: string;
-  bloodType: BloodType | "";
-};
-
-const SEX_OPTIONS: Array<{ value: ProfileSex; label: string }> = [
-  { value: "male", label: "Male" },
-  { value: "female", label: "Female" },
-  { value: "prefer-not-to-say", label: "Prefer not to say" },
-];
-
-const BLOOD_TYPES: Array<{ value: BloodType; label: string }> = [
-  { value: "A+", label: "A+" },
-  { value: "A-", label: "A−" },
-  { value: "B+", label: "B+" },
-  { value: "B-", label: "B−" },
-  { value: "AB+", label: "AB+" },
-  { value: "AB-", label: "AB−" },
-  { value: "O+", label: "O+" },
-  { value: "O-", label: "O−" },
-  { value: "unknown", label: "Unknown" },
-];
 
 const fieldClassName =
   "h-[52px] w-full rounded-[13px] border border-slate-200 bg-white px-4 text-base font-medium text-slate-950 outline-none transition-[border-color,box-shadow] placeholder:font-normal placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-cyan-100/80 disabled:cursor-not-allowed disabled:bg-slate-50";
-
-function validateProfile(draft: ProfileDraft): FieldErrors {
-  const errors: FieldErrors = {};
-  const displayName = draft.displayName.trim();
-  const height = Number(draft.heightCm);
-  const weight = Number(draft.weightKg);
-  const today = new Date();
-  today.setHours(23, 59, 59, 999);
-
-  if (!displayName) errors.displayName = "Please enter your display name.";
-  else if (displayName.length < 2 || displayName.length > 50) {
-    errors.displayName = "Display name should be between 2 and 50 characters.";
-  }
-
-  if (!draft.dateOfBirth) errors.dateOfBirth = "Please enter your date of birth.";
-  else if (Number.isNaN(Date.parse(`${draft.dateOfBirth}T00:00:00`))) {
-    errors.dateOfBirth = "Please enter a valid date of birth.";
-  } else if (new Date(`${draft.dateOfBirth}T00:00:00`) > today) {
-    errors.dateOfBirth = "Date of birth cannot be in the future.";
-  }
-
-  if (!draft.sex) errors.sex = "Please select an option.";
-
-  if (!draft.heightCm || !Number.isFinite(height) || height < 50 || height > 250) {
-    errors.heightCm = "Please enter a valid height between 50 and 250 cm.";
-  }
-
-  if (!draft.weightKg || !Number.isFinite(weight) || weight < 2 || weight > 500) {
-    errors.weightKg = "Please enter a valid weight between 2 and 500 kg.";
-  }
-
-  return errors;
-}
 
 function FieldLabel({ children, optional }: { children: ReactNode; optional?: boolean }) {
   return (
@@ -530,14 +474,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
 
     submitLock.current = true;
     setSubmitting(true);
-    const input: ProfileInput = {
-      displayName: draft.displayName.trim(),
-      dateOfBirth: draft.dateOfBirth,
-      sex: draft.sex as ProfileSex,
-      heightCm: Number(draft.heightCm),
-      weightKg: Number(draft.weightKg),
-      ...(draft.bloodType ? { bloodType: draft.bloodType } : {}),
-    };
+    const input = draftToProfileInput(draft);
 
     try {
       await createProfile(input);

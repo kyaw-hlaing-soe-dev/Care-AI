@@ -11,6 +11,7 @@ import { useAuth, type AppUser } from "@/lib/auth-context";
 
 export type ProfileSex = "male" | "female" | "prefer-not-to-say";
 export type BloodType = "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-" | "unknown";
+export type PreferredLanguage = "en" | "my" | "zh-CN";
 
 export type ProfileInput = {
   displayName: string;
@@ -22,6 +23,7 @@ export type ProfileInput = {
 };
 
 export type UserProfile = ProfileInput & {
+  preferredLanguage?: PreferredLanguage;
   createdAt: string;
   updatedAt: string;
 };
@@ -31,6 +33,8 @@ type ProfileContextValue = {
   loading: boolean;
   error: string | null;
   createProfile: (input: ProfileInput) => Promise<UserProfile>;
+  updateProfile: (input: ProfileInput) => Promise<UserProfile>;
+  updatePreferredLanguage: (language: PreferredLanguage) => Promise<UserProfile>;
   refreshProfile: () => void;
 };
 
@@ -63,6 +67,7 @@ async function saveAuthenticatedProfile(user: AppUser, input: ProfileInput): Pro
   const key = accountKey(user);
   const now = new Date().toISOString();
   const profile: UserProfile = {
+    ...profiles[key],
     ...input,
     createdAt: profiles[key]?.createdAt ?? now,
     updatedAt: now,
@@ -133,9 +138,51 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     [user],
   );
 
+  const updateProfile = createProfile;
+
+  const updatePreferredLanguage = useCallback(
+    async (language: PreferredLanguage) => {
+      if (!user) throw new Error("You need to be signed in to update your preferences.");
+
+      const profiles = readProfiles();
+      const key = accountKey(user);
+      const currentProfile = profiles[key];
+      if (!currentProfile) throw new Error("Complete your profile before updating preferences.");
+
+      const nextProfile: UserProfile = {
+        ...currentProfile,
+        preferredLanguage: language,
+        updatedAt: new Date().toISOString(),
+      };
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ ...profiles, [key]: nextProfile }),
+      );
+      setProfile(nextProfile);
+      return nextProfile;
+    },
+    [user],
+  );
+
   const value = useMemo(
-    () => ({ profile, loading, error, createProfile, refreshProfile }),
-    [profile, loading, error, createProfile, refreshProfile],
+    () => ({
+      profile,
+      loading,
+      error,
+      createProfile,
+      updateProfile,
+      updatePreferredLanguage,
+      refreshProfile,
+    }),
+    [
+      profile,
+      loading,
+      error,
+      createProfile,
+      updateProfile,
+      updatePreferredLanguage,
+      refreshProfile,
+    ],
   );
 
   return <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>;
