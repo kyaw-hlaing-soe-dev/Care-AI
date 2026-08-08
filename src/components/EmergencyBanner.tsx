@@ -1,6 +1,8 @@
 import { AlertTriangle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export function EmergencyBanner() {
+  const { t } = useTranslation();
   return (
     <div
       role="alert"
@@ -8,7 +10,7 @@ export function EmergencyBanner() {
     >
       <p className="inline-flex items-center gap-2 text-sm font-semibold text-white">
         <AlertTriangle className="size-4 shrink-0" />
-        Urgent: One or more readings require immediate attention. Please seek medical care now.
+        {t("medical.urgent")}
       </p>
     </div>
   );

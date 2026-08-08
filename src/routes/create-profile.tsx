@@ -4,6 +4,7 @@ import { CreateProfileExperience } from "@/components/profile/CreateProfileExper
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { useAuth } from "@/lib/auth-context";
 import { useProfile } from "@/lib/profile-context";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/create-profile")({
   head: () => ({
@@ -23,6 +24,7 @@ export function CreateProfilePage() {
   const { user, loading: authLoading } = useAuth();
   const { profile, loading: profileLoading } = useProfile();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (authLoading || (user && profileLoading)) return;
@@ -35,7 +37,7 @@ export function CreateProfilePage() {
   }, [navigate]);
 
   if (authLoading || (user && profileLoading) || !user || profile) {
-    return <LoadingSpinner fullscreen label="Preparing your profile…" />;
+    return <LoadingSpinner fullscreen label={t("createProfile.preparing")} />;
   }
 
   return <CreateProfileExperience onComplete={handleComplete} />;

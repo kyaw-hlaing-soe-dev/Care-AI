@@ -103,11 +103,11 @@ export function analyzeVitals(v: VitalInput): VitalAnalysis {
   return { status, emergency, score, summary, good, concerns, recommendations };
 }
 
-export function formatRecordedAt(iso: string) {
+export function formatRecordedAt(iso: string, locale?: string, todayLabel = "Today at") {
   const d = new Date(iso);
   const today = new Date();
   const isToday = d.toDateString() === today.toDateString();
-  const time = d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
-  if (isToday) return `Today at ${time}`;
-  return `${d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })} · ${time}`;
+  const time = d.toLocaleTimeString(locale, { hour: "numeric", minute: "2-digit" });
+  if (isToday) return `${todayLabel} ${time}`;
+  return `${d.toLocaleDateString(locale, { month: "short", day: "numeric", year: "numeric" })} · ${time}`;
 }

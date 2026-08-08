@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { GlassInput } from "@/components/glass/GlassInput";
 import { RANGES, type VitalInput } from "@/lib/vitals";
 import { createVital } from "@/lib/vitals-store";
+import { useTranslation } from "react-i18next";
 
 type Fields = Record<keyof VitalInput, string>;
 type FieldErrors = Partial<Record<keyof Fields, string>>;
@@ -16,38 +17,46 @@ const EMPTY: Fields = {
   temperature: "",
 };
 
-const LIMITS: Record<keyof Fields, { min: number; max: number; empty: string; invalid: string }> = {
-  systolic: { min: 50, max: 300, empty: "Enter a systolic pressure.", invalid: "Enter a valid systolic pressure." },
-  diastolic: { min: 30, max: 200, empty: "Enter a diastolic pressure.", invalid: "Enter a valid diastolic pressure." },
-  heartRate: { min: 20, max: 250, empty: "Enter a heart rate.", invalid: "Enter a valid heart rate." },
-  oxygen: { min: 50, max: 100, empty: "Enter an oxygen saturation.", invalid: "Enter a valid oxygen saturation." },
-  temperature: { min: 30, max: 45, empty: "Enter a temperature.", invalid: "Enter a valid temperature." },
+const LIMITS: Record<keyof Fields, { min: number; max: number }> = {
+  systolic: { min: 50, max: 300 },
+  diastolic: { min: 30, max: 200 },
+  heartRate: { min: 20, max: 250 },
+  oxygen: { min: 50, max: 100 },
+  temperature: { min: 30, max: 45 },
 };
 
-function validate(fields: Fields): FieldErrors {
+const VALIDATION_KEYS: Record<keyof Fields, `validation.${string}`> = {
+  systolic: "validation.systolic", diastolic: "validation.diastolic", heartRate: "validation.heartRate",
+  oxygen: "validation.oxygen", temperature: "validation.temperature",
+};
+
+function validate(fields: Fields, translate: (key: string) => string): FieldErrors {
   const errors: FieldErrors = {};
   (Object.keys(fields) as Array<keyof Fields>).forEach((key) => {
     const value = fields[key].trim();
     const numeric = Number(value);
     const limit = LIMITS[key];
-    if (!value) errors[key] = limit.empty;
+    if (!value) errors[key] = translate(VALIDATION_KEYS[key]);
     else if (!Number.isFinite(numeric) || numeric < limit.min || numeric > limit.max) {
-      errors[key] = limit.invalid;
+      errors[key] = translate(VALIDATION_KEYS[key]);
     }
   });
   return errors;
 }
 
-const referenceHint = (hint: string) => hint.replace(/^Normal:/, "Typical reference:");
-
 export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
+  const { t } = useTranslation();
   const [fields, setFields] = useState<Fields>(EMPTY);
   const [touched, setTouched] = useState<Partial<Record<keyof Fields, boolean>>>({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [saved, setSaved] = useState(false);
   const submitLock = useRef(false);
-  const errors = useMemo(() => validate(fields), [fields]);
+  const errors = useMemo(() => validate(fields, t), [fields, t]);
+  const referenceHint = (key: keyof typeof RANGES) => {
+    const range = RANGES[key];
+    return t("vitals.typical", { range: `${range.min} – ${range.max}${range.unit}` });
+  };
 
   function update(key: keyof Fields, value: string) {
     setFields((current) => ({ ...current, [key]: value }));
@@ -86,13 +95,13 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
         oxygen: Number(fields.oxygen),
       });
       setSaved(true);
-      toast.success("Reading analyzed and saved.");
+      toast.success(t("vitals.analyzed"));
       await new Promise((resolve) => window.setTimeout(resolve, 650));
       onSaved?.(record.id);
     } catch {
       submitLock.current = false;
       setSubmitting(false);
-      toast.error("We couldn't analyze your vitals. Please try again.");
+      toast.error(t("vitals.analysisFailed"));
     }
   }
 
@@ -102,8 +111,8 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
         <span className="grid size-16 place-items-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-white shadow-[0_18px_42px_rgba(37,99,235,0.22)]">
           <Check className="size-7" strokeWidth={2.5} aria-hidden="true" />
         </span>
-        <h2 className="mt-5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">Reading saved</h2>
-        <p className="mt-2 text-sm text-slate-500">Your CareAI overview is being updated.</p>
+        <h2 className="mt-5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">{t("vitals.analyzed")}</h2>
+        <p className="mt-2 text-sm text-slate-500">{t("dashboard.subtitle")}</p>
       </div>
     );
   }
@@ -111,13 +120,13 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
   return (
     <form onSubmit={(event) => void handleSubmit(event)} className="space-y-7" noValidate>
       <fieldset>
-        <legend className="text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">Blood pressure</legend>
-        <p className="mt-1 text-sm leading-6 text-slate-500">Enter both values from the same measurement.</p>
+        <legend className="text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">{t("vitals.bloodPressure")}</legend>
+        <p className="mt-1 text-sm leading-6 text-slate-500">{t("vitals.bloodPressureBody")}</p>
         <div className="mt-4 grid grid-cols-1 gap-4 min-[375px]:grid-cols-2">
           <GlassInput
             id="input-systolic"
-            label="Systolic"
-            hint={referenceHint(RANGES.systolic.hint)}
+            label={t("vitals.systolic")}
+            hint={referenceHint("systolic")}
             error={visibleError("systolic")}
             unit="mmHg"
             type="number"
@@ -130,8 +139,8 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
           />
           <GlassInput
             id="input-diastolic"
-            label="Diastolic"
-            hint={referenceHint(RANGES.diastolic.hint)}
+            label={t("vitals.diastolic")}
+            hint={referenceHint("diastolic")}
             error={visibleError("diastolic")}
             unit="mmHg"
             type="number"
@@ -146,12 +155,12 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
       </fieldset>
 
       <fieldset>
-        <legend className="text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">Other vitals</legend>
+        <legend className="text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">{t("vitals.otherVitals")}</legend>
         <div className="mt-4 grid gap-4">
           <GlassInput
             id="input-heartRate"
-            label="Heart Rate"
-            hint={referenceHint(RANGES.heartRate.hint)}
+            label={t("vitals.heartRate")}
+            hint={referenceHint("heartRate")}
             error={visibleError("heartRate")}
             unit="bpm"
             type="number"
@@ -164,8 +173,8 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
           />
           <GlassInput
             id="input-oxygen"
-            label="Oxygen Saturation"
-            hint={referenceHint(RANGES.oxygen.hint)}
+            label={t("vitals.oxygen")}
+            hint={referenceHint("oxygen")}
             error={visibleError("oxygen")}
             unit="%"
             type="number"
@@ -178,8 +187,8 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
           />
           <GlassInput
             id="input-temperature"
-            label="Temperature"
-            hint={referenceHint(RANGES.temperature.hint)}
+            label={t("vitals.temperature")}
+            hint={referenceHint("temperature")}
             error={visibleError("temperature")}
             unit="°C"
             type="number"
@@ -202,12 +211,12 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
         {submitting ? (
           <>
             <LoaderCircle className="size-5 animate-spin motion-reduce:animate-none" aria-hidden="true" />
-            Analyzing...
+            {t("vitals.analyzing")}
           </>
         ) : (
           <>
             <Zap className="size-4" aria-hidden="true" />
-            Analyze My Vitals
+            {t("vitals.analyze")}
           </>
         )}
       </button>

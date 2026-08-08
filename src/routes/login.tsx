@@ -4,6 +4,7 @@ import { LoginExperience } from "@/components/auth/LoginExperience";
 import { useAuth } from "@/lib/auth-context";
 import { useProfile } from "@/lib/profile-context";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -31,6 +32,7 @@ export function LoginPage() {
   const navigate = useNavigate();
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!user || profileLoading) return;
@@ -43,14 +45,14 @@ export function LoginPage() {
     try {
       await signInWithGoogle();
     } catch {
-      setError("We couldn't sign you in. Please try again.");
+      setError(t("errors.signIn"));
     } finally {
       setPending(false);
     }
   }
 
   if (authLoading || (user && profileLoading)) {
-    return <LoadingSpinner fullscreen label="Checking your account…" />;
+    return <LoadingSpinner fullscreen label={t("auth.checkingAccount")} />;
   }
 
   return <LoginExperience onSignIn={() => void handleSignIn()} pending={pending} error={error} />;

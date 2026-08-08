@@ -9,8 +9,10 @@ import {
 } from "lucide-react";
 import { GlassCard } from "@/components/glass/GlassCard";
 import type { VitalRecord } from "@/lib/vitals";
+import { useTranslation } from "react-i18next";
 
 function Sparkline({ values }: { values: number[] }) {
+  const { t } = useTranslation();
   const width = 180;
   const height = 46;
   const min = Math.min(...values);
@@ -29,7 +31,7 @@ function Sparkline({ values }: { values: number[] }) {
       viewBox={`0 0 ${width} ${height}`}
       className="h-12 w-full"
       role="img"
-      aria-label={`Trend values: ${values.join(", ")}`}
+      aria-label={t("dashboard.trendValues", { values: values.join(", ") })}
     >
       <defs>
         <linearGradient id="trend-line" x1="0" x2="1">
@@ -72,19 +74,21 @@ function Delta({
   previous: number;
   suffix?: string;
 }) {
+  const { t } = useTranslation();
   const difference = Number((current - previous).toFixed(1));
   const Icon = difference > 0 ? TrendingUp : difference < 0 ? TrendingDown : Minus;
   return (
     <span className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500">
       <Icon className="size-3.5 text-blue-500" aria-hidden="true" />
       {difference === 0
-        ? "No change"
-        : `${difference > 0 ? "+" : ""}${difference}${suffix} from prior`}
+        ? t("dashboard.noChange")
+        : t("dashboard.fromPrior", { value: `${difference > 0 ? "+" : ""}${difference}${suffix}` })}
     </span>
   );
 }
 
 export function TrendPreview({ records, limit = 4 }: { records: VitalRecord[]; limit?: number }) {
+  const { t } = useTranslation();
   if (records.length < 2) return null;
 
   const recent = records.slice(0, 7).reverse();
@@ -94,7 +98,7 @@ export function TrendPreview({ records, limit = 4 }: { records: VitalRecord[]; l
 
   const trends = [
     {
-      label: "Heart Rate",
+      label: t("dashboard.heartRate"),
       Icon: HeartPulse,
       values: recent.map((record) => record.heartRate),
       value: `${latest.heartRate} bpm`,
@@ -103,7 +107,7 @@ export function TrendPreview({ records, limit = 4 }: { records: VitalRecord[]; l
       suffix: " bpm",
     },
     {
-      label: "Blood Pressure",
+      label: t("dashboard.bloodPressure"),
       Icon: Droplets,
       values: recent.map((record) => record.systolic),
       value: `${latest.systolic}/${latest.diastolic}`,
@@ -112,7 +116,7 @@ export function TrendPreview({ records, limit = 4 }: { records: VitalRecord[]; l
       suffix: " mmHg",
     },
     {
-      label: "Oxygen",
+      label: t("dashboard.oxygen"),
       Icon: Activity,
       values: recent.map((record) => record.oxygen),
       value: `${latest.oxygen}%`,
@@ -121,7 +125,7 @@ export function TrendPreview({ records, limit = 4 }: { records: VitalRecord[]; l
       suffix: "%",
     },
     {
-      label: "Temperature",
+      label: t("dashboard.temperature"),
       Icon: Thermometer,
       values: recent.map((record) => record.temperature),
       value: `${latest.temperature}°C`,
@@ -139,10 +143,10 @@ export function TrendPreview({ records, limit = 4 }: { records: VitalRecord[]; l
             id="trends-heading"
             className="text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]"
           >
-            Your Trends
+            {t("dashboard.trends")}
           </h2>
           <p className="mt-1 text-sm text-slate-500">
-            A quick look across your last {recent.length} readings.
+            {t("dashboard.trendsBody", { count: recent.length })}
           </p>
         </div>
       </div>

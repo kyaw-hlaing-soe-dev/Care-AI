@@ -1,21 +1,22 @@
 import { Activity, Droplets, Thermometer } from "lucide-react";
 import { Reveal, SectionHeading } from "./Reveal";
+import { useTranslation } from "react-i18next";
 
 export function HealthTrends() {
+  const { t } = useTranslation();
   return (
     <section
       id="trends"
       className="mx-auto max-w-[1200px] scroll-mt-28 px-5 py-20 sm:py-24 lg:py-28"
     >
       <SectionHeading
-        eyebrow="See the bigger picture"
+        eyebrow={t("landing.trends.eyebrow")}
         title={
           <>
-            See the bigger picture,
-            <br className="hidden sm:block" /> not just today&apos;s numbers.
+            {t("landing.trends.title")}
           </>
         }
-        subtitle="Follow changes across your readings with the same calm, focused charts used in your CareAI dashboard."
+        subtitle={t("landing.trends.subtitle")}
       />
 
       <Reveal delay={0.1} className="mt-12 sm:mt-14">
@@ -24,8 +25,8 @@ export function HealthTrends() {
             <div className="rounded-[22px] border border-blue-100/75 bg-white/80 p-4 sm:p-5">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <p className="text-sm font-extrabold">Heart Rate — 7 day trend</p>
-                  <p className="mt-1 text-xs text-muted-foreground">Last 7 readings</p>
+                  <p className="text-sm font-extrabold">{t("landing.trends.sevenDay")}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">{t("landing.trends.lastSeven")}</p>
                 </div>
                 <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-extrabold text-slate-950">
                   72 bpm
@@ -37,21 +38,21 @@ export function HealthTrends() {
             <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
               <MiniTrend
                 Icon={Droplets}
-                title="Blood Pressure"
+                title={t("dashboard.bloodPressure")}
                 value="120/76"
                 color="#3b82f6"
                 path="M4 48 C34 43, 48 30, 78 39 S124 50, 150 36 S198 30, 232 42 S270 35, 296 40"
               />
               <MiniTrend
                 Icon={Activity}
-                title="Oxygen"
+                title={t("dashboard.oxygen")}
                 value="98%"
                 color="#14b8a6"
                 path="M4 34 C35 50, 56 50, 82 27 S125 48, 154 35 S205 27, 232 43 S270 47, 296 25"
               />
               <MiniTrend
                 Icon={Thermometer}
-                title="Temperature"
+                title={t("dashboard.temperature")}
                 value="39.2°C"
                 color="#8b5cf6"
                 path="M4 54 C35 51, 64 48, 92 46 S149 39, 176 34 S236 22, 296 14"
@@ -65,12 +66,13 @@ export function HealthTrends() {
 }
 
 function TrendChart() {
+  const { t } = useTranslation();
   return (
     <svg
       viewBox="0 0 520 180"
       className="mt-4 h-[160px] w-full sm:h-[180px]"
       role="img"
-      aria-label="Seven-day heart-rate trend"
+      aria-label={t("landing.trends.aria")}
     >
       <defs>
         <linearGradient id="trend-main-fill" x1="0" y1="0" x2="0" y2="1">
@@ -109,9 +111,9 @@ function TrendChart() {
           strokeWidth="3"
         />
       ))}
-      {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, i) => (
+      {(["mon", "tue", "wed", "thu", "fri", "sat", "sun"] as const).map((day, i) => (
         <text key={day} x={8 + i * 84} y="176" fill="#64748b" fontSize="11">
-          {day}
+          {t(`landing.trends.${day}`)}
         </text>
       ))}
     </svg>

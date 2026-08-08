@@ -1,6 +1,7 @@
 import { CheckCircle2, AlertTriangle, Lightbulb } from "lucide-react";
 import { GlassCard } from "@/components/glass/GlassCard";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 type ListProps = { items: string[]; delay?: number | undefined };
 
@@ -30,14 +31,17 @@ function AnalysisList({
   );
 }
 
-export const GoodList = ({ items, delay }: ListProps) => (
-  <AnalysisList items={items} delay={delay} title="What Looks Good" Icon={CheckCircle2} tone="text-good-text" />
-);
+export const GoodList = ({ items, delay }: ListProps) => {
+  const { t } = useTranslation();
+  return <AnalysisList items={items} delay={delay} title={t("dashboard.whatLooksGood")} Icon={CheckCircle2} tone="text-good-text" />;
+};
 
-export const ConcernsList = ({ items, delay }: ListProps) => (
-  <AnalysisList items={items} delay={delay} title="Areas to Watch" Icon={AlertTriangle} tone="text-warn-text" />
-);
+export const ConcernsList = ({ items, delay }: ListProps) => {
+  const { t } = useTranslation();
+  return <AnalysisList items={items} delay={delay} title={t("dashboard.areasToWatch")} Icon={AlertTriangle} tone="text-warn-text" />;
+};
 
-export const RecommendationsList = ({ items, delay }: ListProps) => (
-  <AnalysisList items={items} delay={delay} title="Recommendations" Icon={Lightbulb} tone="text-info-text" />
-);
+export const RecommendationsList = ({ items, delay }: ListProps) => {
+  const { t } = useTranslation();
+  return <AnalysisList items={items} delay={delay} title={t("dashboard.recommendations")} Icon={Lightbulb} tone="text-info-text" />;
+};

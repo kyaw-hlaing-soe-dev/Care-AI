@@ -8,8 +8,9 @@ import { HistoryItem } from "@/components/history/HistoryItem";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { useVitals } from "@/hooks/use-vitals";
-import { formatRecordedAt } from "@/lib/vitals";
+import { useLocalizedRecordedAt } from "@/i18n/useLocalizedDate";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/history/")({
   head: () => ({
@@ -37,6 +38,8 @@ function HistoryPage() {
   const [filter, setFilter] = useState<DateFilter>("all");
   const [visible, setVisible] = useState(PAGE_SIZE);
   const [openId, setOpenId] = useState<string | null>(null);
+  const { t } = useTranslation();
+  const formatRecordedAt = useLocalizedRecordedAt();
 
   useEffect(() => setVisible(PAGE_SIZE), [filter]);
 
@@ -46,7 +49,7 @@ function HistoryPage() {
     return records.filter((record) => new Date(record.recordedAt).getTime() >= cutoff);
   }, [filter, records]);
 
-  if (loading) return <LoadingSpinner fullscreen label="Loading your records…" />;
+  if (loading) return <LoadingSpinner fullscreen label={t("history.loading")} />;
 
   const averageScore = records.length
     ? Math.round(records.reduce((total, record) => total + record.analysis.score, 0) / records.length)
@@ -58,36 +61,36 @@ function HistoryPage() {
 
   return (
     <div className="mx-auto max-w-[1120px] space-y-7 lg:space-y-8">
-      <PageHeader title="Health History" subtitle="Review your readings and CareAI insights over time." />
+      <PageHeader title={t("history.title")} subtitle={t("history.subtitle")} />
 
       {records.length === 0 ? (
         <GlassCard strong className="app-card px-5 py-12 text-center sm:px-8 sm:py-16">
           <span className="mx-auto grid size-14 place-items-center rounded-[18px] bg-gradient-to-br from-blue-500 to-cyan-400 text-white shadow-[0_16px_34px_rgba(37,99,235,0.20)]">
             <CalendarDays className="size-6" aria-hidden="true" />
           </span>
-          <h2 className="mt-5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">No history yet.</h2>
+          <h2 className="mt-5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">{t("history.noHistory")}</h2>
           <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
-            Your readings will appear here after you start tracking your vitals.
+            {t("history.noHistoryBody")}
           </p>
           <Link to="/add" className={glassButtonVariants({ size: "lg", className: "mt-6" })}>
-            Log Vitals
+            {t("dashboard.logVitals")}
           </Link>
         </GlassCard>
       ) : (
         <>
-          <section className="grid grid-cols-2 gap-3 lg:grid-cols-4" aria-label="History summary">
+          <section className="grid grid-cols-2 gap-3 lg:grid-cols-4" aria-label={t("history.summaryAria")}>
             {[
-              { label: "Total Logs", value: records.length.toString(), Icon: ListChecks },
-              { label: "Average Score", value: averageScore.toString(), Icon: ChartNoAxesColumnIncreasing },
-              { label: "Latest Reading", value: records[0] ? formatRecordedAt(records[0].recordedAt) : "—", Icon: Clock3 },
-              { label: "This Week", value: thisWeek.toString(), Icon: Activity },
+              { label: t("history.totalLogs"), value: records.length.toString(), Icon: ListChecks },
+              { label: t("history.averageScore"), value: averageScore.toString(), Icon: ChartNoAxesColumnIncreasing },
+              { label: t("history.latestReading"), value: records[0] ? formatRecordedAt(records[0].recordedAt) : "—", Icon: Clock3 },
+              { label: t("history.thisWeek"), value: thisWeek.toString(), Icon: Activity },
             ].map(({ label, value, Icon }, index) => (
               <GlassCard key={label} delay={index * 45} className="app-card min-w-0 p-4 sm:p-5">
                 <span className="grid size-9 place-items-center rounded-[12px] bg-blue-50 text-blue-500">
                   <Icon className="size-4" aria-hidden="true" />
                 </span>
                 <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.1em] text-slate-500">{label}</p>
-                <p className={cn("mt-1 font-extrabold tracking-[-0.025em] text-slate-950", label === "Latest Reading" ? "text-sm leading-5" : "text-2xl")}>
+                <p className={cn("mt-1 font-extrabold tracking-[-0.025em] text-slate-950", label === t("history.latestReading") ? "text-sm leading-5" : "text-2xl")}>
                   {value}
                 </p>
               </GlassCard>
@@ -97,14 +100,14 @@ function HistoryPage() {
           <section aria-labelledby="timeline-heading">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h2 id="timeline-heading" className="text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]">Reading Timeline</h2>
-                <p className="mt-1 text-sm text-slate-500">Newest readings appear first.</p>
+                <h2 id="timeline-heading" className="text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]">{t("history.timeline")}</h2>
+                <p className="mt-1 text-sm text-slate-500">{t("history.newestFirst")}</p>
               </div>
-              <div className="inline-flex w-full rounded-[15px] border border-slate-200 bg-white/75 p-1 sm:w-auto" role="group" aria-label="Filter history by date">
+              <div className="inline-flex w-full rounded-[15px] border border-slate-200 bg-white/75 p-1 sm:w-auto" role="group" aria-label={t("history.filterAria")}>
                 {([
-                  ["all", "All"],
-                  ["7", "7 Days"],
-                  ["30", "30 Days"],
+                  ["all", t("history.all")],
+                  ["7", t("history.sevenDays")],
+                  ["30", t("history.thirtyDays")],
                 ] as const).map(([value, label]) => (
                   <button
                     key={value}
@@ -124,7 +127,7 @@ function HistoryPage() {
 
             {filteredRecords.length === 0 ? (
               <GlassCard className="app-card mt-5 p-8 text-center">
-                <p className="text-sm text-slate-500">No readings were logged in this period.</p>
+                <p className="text-sm text-slate-500">{t("history.emptyPeriod")}</p>
               </GlassCard>
             ) : (
               <div className="relative mt-5 space-y-4 sm:before:absolute sm:before:bottom-8 sm:before:left-2 sm:before:top-8 sm:before:w-px sm:before:bg-blue-100">
@@ -146,7 +149,7 @@ function HistoryPage() {
                   onClick={() => setVisible((current) => current + PAGE_SIZE)}
                   className={glassButtonVariants({ variant: "glass", size: "md" })}
                 >
-                  Load More
+                  {t("history.loadMore")}
                 </button>
               </div>
             ) : null}

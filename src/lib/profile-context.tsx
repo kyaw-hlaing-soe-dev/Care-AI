@@ -8,10 +8,11 @@ import {
   type ReactNode,
 } from "react";
 import { useAuth, type AppUser } from "@/lib/auth-context";
+import { LANGUAGE_STORAGE_KEY, normalizeLanguage, type LanguageCode } from "@/i18n/languages";
 
 export type ProfileSex = "male" | "female" | "prefer-not-to-say";
 export type BloodType = "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-" | "unknown";
-export type PreferredLanguage = "en" | "my" | "zh-CN";
+export type PreferredLanguage = LanguageCode;
 
 export type ProfileInput = {
   displayName: string;
@@ -69,6 +70,9 @@ async function saveAuthenticatedProfile(user: AppUser, input: ProfileInput): Pro
   const profile: UserProfile = {
     ...profiles[key],
     ...input,
+    preferredLanguage:
+      profiles[key]?.preferredLanguage ??
+      normalizeLanguage(window.localStorage.getItem(LANGUAGE_STORAGE_KEY)),
     createdAt: profiles[key]?.createdAt ?? now,
     updatedAt: now,
   };

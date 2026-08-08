@@ -2,25 +2,26 @@ import { AlertTriangle, CheckCircle2, Lightbulb, Sparkles } from "lucide-react";
 import { GlassCard } from "@/components/glass/GlassCard";
 import type { VitalAnalysis } from "@/lib/vitals";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 const GROUPS = [
   {
     key: "good",
-    title: "What looks good",
+    titleKey: "dashboard.whatLooksGood",
     Icon: CheckCircle2,
     tone: "text-emerald-600",
     dot: "bg-emerald-500",
   },
   {
     key: "concerns",
-    title: "Areas to watch",
+    titleKey: "dashboard.areasToWatch",
     Icon: AlertTriangle,
     tone: "text-amber-600",
     dot: "bg-amber-500",
   },
   {
     key: "recommendations",
-    title: "Recommendations",
+    titleKey: "dashboard.recommendations",
     Icon: Lightbulb,
     tone: "text-blue-600",
     dot: "bg-blue-500",
@@ -34,6 +35,7 @@ export function AIInsightPanel({
   analysis: VitalAnalysis;
   panelId?: string;
 }) {
+  const { t } = useTranslation();
   return (
     <GlassCard id={panelId} strong className="app-card scroll-mt-24 overflow-hidden p-0">
       <div className="border-b border-blue-100/80 bg-gradient-to-r from-blue-50/80 via-white/60 to-cyan-50/75 px-5 py-5 sm:px-6">
@@ -42,17 +44,17 @@ export function AIInsightPanel({
             <span className="grid size-9 place-items-center rounded-[13px] bg-gradient-to-br from-blue-500 to-cyan-400 text-white shadow-sm">
               <Sparkles className="size-4" aria-hidden="true" />
             </span>
-            CareAI Health Insight
+            {t("dashboard.insightTitle")}
           </h2>
           <span className="rounded-full border border-blue-100 bg-white/80 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-blue-600">
-            AI analysis
+            {t("dashboard.aiAnalysis")}
           </span>
         </div>
         <p className="mt-3 max-w-4xl text-sm leading-6 text-slate-600">{analysis.summary}</p>
       </div>
 
       <div className="grid lg:grid-cols-3">
-        {GROUPS.map(({ key, title, Icon, tone, dot }, index) => {
+        {GROUPS.map(({ key, titleKey, Icon, tone, dot }, index) => {
           const items = analysis[key];
           return (
             <section
@@ -64,7 +66,7 @@ export function AIInsightPanel({
             >
               <h3 className={cn("inline-flex items-center gap-2 text-sm font-bold", tone)}>
                 <Icon className="size-4" aria-hidden="true" />
-                {title}
+                {t(titleKey)}
               </h3>
               <ul className="mt-3 space-y-2.5">
                 {items.map((item) => (

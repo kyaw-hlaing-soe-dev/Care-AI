@@ -1,0 +1,39 @@
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import en from "@/i18n/locales/en";
+import my from "@/i18n/locales/my";
+import zhCN from "@/i18n/locales/zh-CN";
+import {
+  LANGUAGE_STORAGE_KEY,
+  normalizeLanguage,
+  type LanguageCode,
+} from "@/i18n/languages";
+
+function storedLanguage(): LanguageCode {
+  if (typeof window === "undefined") return "en";
+  return normalizeLanguage(window.localStorage.getItem(LANGUAGE_STORAGE_KEY));
+}
+
+void i18n.use(initReactI18next).init({
+  resources: {
+    en: { translation: en },
+    my: { translation: my },
+    "zh-CN": { translation: zhCN },
+  },
+  lng: storedLanguage(),
+  fallbackLng: "en",
+  supportedLngs: ["en", "my", "zh-CN"],
+  nonExplicitSupportedLngs: false,
+  interpolation: { escapeValue: false },
+  react: { useSuspense: false },
+  returnEmptyString: false,
+});
+
+export async function changeCareAILanguage(language: LanguageCode) {
+  if (typeof window !== "undefined") {
+    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+  }
+  await i18n.changeLanguage(language);
+}
+
+export default i18n;

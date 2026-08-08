@@ -9,13 +9,13 @@ const glassButtonVariants = cva(
     variants: {
       variant: {
         primary:
-          "border border-white/25 bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 text-primary-foreground shadow-[0_14px_32px_rgba(37,99,235,0.24)] hover:-translate-y-px hover:brightness-[1.02] hover:shadow-[0_18px_38px_rgba(37,99,235,0.30)]",
+          "overflow-hidden border border-white/35 [background:var(--brand-gradient)] text-primary-foreground shadow-[0_14px_32px_rgba(37,99,235,0.24)] before:pointer-events-none before:absolute before:inset-x-1 before:top-px before:h-[42%] before:rounded-[inherit] before:bg-gradient-to-b before:from-white/30 before:to-transparent hover:-translate-y-px hover:brightness-[1.02] hover:shadow-[0_18px_38px_rgba(37,99,235,0.30)]",
         glass:
-          "glass-surface glass-glare glass-hover text-foreground",
+          "glass-control glass-glare text-foreground shadow-[var(--shadow-ui-sm)] hover:-translate-y-px hover:border-blue-200 hover:bg-white/95 hover:shadow-[var(--shadow-glass-lift)]",
         ghost:
           "text-muted-foreground hover:text-foreground hover:bg-foreground/5",
         danger:
-          "bg-destructive text-destructive-foreground border border-white/20 hover:-translate-y-0.5",
+          "border border-rose-200 bg-rose-50/90 text-rose-700 shadow-[var(--shadow-ui-sm)] hover:-translate-y-px hover:bg-rose-100/90",
       },
       size: {
         sm: "h-11 px-4 text-sm",
@@ -38,8 +38,8 @@ export const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
       className={cn(glassButtonVariants({ variant, size }), className)}
       {...props}
     >
-      {loading && <Loader2 className="size-4 animate-spin" />}
-      {children}
+      {loading && <Loader2 className="relative z-[1] size-4 animate-spin motion-reduce:animate-none" />}
+      <span className="relative z-[1] contents">{children}</span>
     </button>
   ),
 );

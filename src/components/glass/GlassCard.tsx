@@ -1,9 +1,12 @@
 import { forwardRef, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { GlassSurface, type GlassMaterial } from "./GlassSurface";
 
 type GlassCardProps = HTMLAttributes<HTMLDivElement> & {
   /** Denser, more opaque glass — use for primary/focus panels. */
   strong?: boolean;
+  /** Named material level; `strong` remains as a compatibility shorthand. */
+  material?: Exclude<GlassMaterial, "control">;
   /** Enable the hover lift micro-interaction. */
   interactive?: boolean;
   /** Stagger index for the entrance animation. */
@@ -11,14 +14,14 @@ type GlassCardProps = HTMLAttributes<HTMLDivElement> & {
 };
 
 export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
-  ({ className, strong, interactive, delay = 0, style, ...props }, ref) => (
-    <div
+  ({ className, strong, material = "medium", interactive, delay = 0, style, ...props }, ref) => (
+    <GlassSurface
       ref={ref}
+      material={strong ? "strong" : material}
+      interactive={interactive ?? false}
       style={{ animationDelay: `${delay}ms`, ...style }}
       className={cn(
-        "glass-surface glass-glare animate-rise rounded-2xl",
-        strong && "glass-strong",
-        interactive && "glass-hover",
+        "animate-rise rounded-[var(--radius-card)]",
         className,
       )}
       {...props}

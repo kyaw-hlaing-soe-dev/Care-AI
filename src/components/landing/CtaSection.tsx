@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { GlassButton } from "@/components/glass/GlassButton";
 import { Reveal } from "./Reveal";
 import doctor from "@/assets/ai-doctor-cutout.png";
+import { useTranslation } from "react-i18next";
 
 function SupportCard({
   icon,
@@ -55,6 +56,7 @@ function SupportCard({
 
 export function CtaSection() {
   const reducedMotion = Boolean(useReducedMotion());
+  const { t } = useTranslation();
 
   return (
     <section id="start" className="mx-auto max-w-6xl scroll-mt-24 px-5 pb-24">
@@ -66,10 +68,10 @@ export function CtaSection() {
           <div className="relative grid items-center gap-7 md:grid-cols-[minmax(0,1.1fr)_minmax(280px,.9fr)] md:gap-4 lg:gap-8">
             <div className="text-center md:text-left">
               <h2 className="text-balance text-4xl font-extrabold tracking-tight text-primary-foreground sm:text-5xl">
-                Start understanding your health today.
+                {t("landing.cta.title")}
               </h2>
               <p className="mt-4 text-pretty text-base leading-relaxed text-primary-foreground/85 sm:text-lg">
-                Track your vitals and turn everyday readings into clear, useful insights.
+                {t("landing.cta.body")}
               </p>
               <Link to="/login" className="mt-8 inline-block w-full sm:w-auto">
                 <GlassButton
@@ -77,7 +79,7 @@ export function CtaSection() {
                   size="lg"
                   className="w-full bg-white/90 text-primary-dark hover:bg-white sm:w-auto"
                 >
-                  Start Tracking Free <ArrowRight className="size-4" />
+                  {t("landing.cta.button")} <ArrowRight className="size-4" />
                 </GlassButton>
               </Link>
             </div>
@@ -107,7 +109,7 @@ export function CtaSection() {
 
               <motion.img
                 src={doctor}
-                alt="CareAI 3D health companion"
+                alt={t("landing.cta.doctorAlt")}
                 width={512}
                 height={512}
                 loading="lazy"
@@ -119,7 +121,7 @@ export function CtaSection() {
 
               <SupportCard
                 icon={<Sparkles className="size-4" aria-hidden="true" />}
-                label="Health score"
+                label={t("landing.cta.healthScore")}
                 value="88 / 100"
                 className="right-[0%] top-[22%]"
                 delay={0.45}

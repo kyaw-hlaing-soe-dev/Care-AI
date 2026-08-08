@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Star } from "lucide-react";
 import { Reveal, SectionHeading } from "./Reveal";
+import { useTranslation } from "react-i18next";
 
 const STORIES = [
   {
@@ -30,12 +31,13 @@ const STORIES = [
 ];
 
 export function Testimonials() {
+  const { t } = useTranslation();
   return (
     <section id="stories" className="mx-auto max-w-6xl px-5 py-20 sm:py-28">
       <SectionHeading
         eyebrow="Stories"
-        title="Trusted in Everyday Life"
-        subtitle="People use CareAI between appointments — the long stretch where health actually happens."
+        title={t("landing.testimonials.title")}
+        subtitle={t("landing.testimonials.subtitle")}
       />
 
       <ul className="mt-14 grid gap-5 md:grid-cols-3">

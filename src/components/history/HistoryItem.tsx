@@ -3,8 +3,10 @@ import { ChevronDown, Sparkles } from "lucide-react";
 import { GlassCard } from "@/components/glass/GlassCard";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { formatRecordedAt, type VitalRecord } from "@/lib/vitals";
+import type { VitalRecord } from "@/lib/vitals";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
+import { useLocalizedRecordedAt } from "@/i18n/useLocalizedDate";
 
 export function HistoryItem({
   record,
@@ -15,6 +17,8 @@ export function HistoryItem({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
+  const { t } = useTranslation();
+  const formatRecordedAt = useLocalizedRecordedAt();
   return (
     <div className="relative sm:pl-8">
       <span className="absolute left-[3px] top-8 hidden size-3 rounded-full border-[3px] border-blue-100 bg-blue-500 sm:block" aria-hidden="true" />
@@ -24,7 +28,7 @@ export function HistoryItem({
             <button
               type="button"
               className="w-full px-4 py-5 text-left focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-cyan-200 sm:px-5"
-              aria-label={`${open ? "Hide" : "Show"} details for ${formatRecordedAt(record.recordedAt)}`}
+              aria-label={t(open ? "history.hideDetails" : "history.showDetails", { date: formatRecordedAt(record.recordedAt) })}
             >
               <span className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <span className="min-w-0">
@@ -33,14 +37,14 @@ export function HistoryItem({
                     <StatusBadge status={record.analysis.status} />
                     <span className="text-xs font-semibold text-slate-500">
                       {record.analysis.concerns.length === 0
-                        ? "All readings were within their typical ranges."
-                        : `${record.analysis.concerns.length} ${record.analysis.concerns.length === 1 ? "reading needs" : "readings need"} attention.`}
+                        ? t("history.allTypical")
+                        : t("history.attention", { count: record.analysis.concerns.length })}
                     </span>
                   </span>
                 </span>
                 <span className="flex items-center justify-between gap-4 sm:justify-end">
                   <span className="text-right">
-                    <span className="block text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400">Health score</span>
+                    <span className="block text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400">{t("history.healthScore")}</span>
                     <span className="block text-2xl font-extrabold tabular-nums text-blue-600">{record.analysis.score}</span>
                   </span>
                   <ChevronDown className={cn("size-5 text-slate-400 transition-transform", open && "rotate-180")} aria-hidden="true" />
@@ -49,10 +53,10 @@ export function HistoryItem({
 
               <span className="mt-4 grid grid-cols-2 gap-2 min-[430px]:grid-cols-4">
                 {[
-                  ["Blood pressure", `${record.systolic}/${record.diastolic}`],
-                  ["Heart rate", `${record.heartRate} bpm`],
-                  ["Oxygen", `${record.oxygen}%`],
-                  ["Temperature", `${record.temperature}°C`],
+                  [t("dashboard.bloodPressure"), `${record.systolic}/${record.diastolic}`],
+                  [t("dashboard.heartRate"), `${record.heartRate} bpm`],
+                  [t("dashboard.oxygen"), `${record.oxygen}%`],
+                  [t("dashboard.temperature"), `${record.temperature}°C`],
                 ].map(([label, value]) => (
                   <span key={label} className="rounded-[13px] border border-slate-100 bg-slate-50/75 px-3 py-2.5">
                     <span className="block text-[10px] font-bold uppercase tracking-[0.07em] text-slate-400">{label}</span>
@@ -72,9 +76,9 @@ export function HistoryItem({
 
               <div className="mt-5 grid gap-4 lg:grid-cols-3">
                 {[
-                  ["What looks good", record.analysis.good],
-                  ["Areas to watch", record.analysis.concerns],
-                  ["Recommendations", record.analysis.recommendations],
+                  [t("dashboard.whatLooksGood"), record.analysis.good],
+                  [t("dashboard.areasToWatch"), record.analysis.concerns],
+                  [t("dashboard.recommendations"), record.analysis.recommendations],
                 ].map(([title, items]) => (
                   <section key={title as string}>
                     <h3 className="text-xs font-extrabold uppercase tracking-[0.1em] text-slate-700">{title as string}</h3>
@@ -95,7 +99,7 @@ export function HistoryItem({
                 params={{ id: record.id }}
                 className="mt-5 inline-flex min-h-11 items-center rounded-[12px] border border-blue-100 bg-white px-4 text-sm font-bold text-blue-600 shadow-sm transition-colors hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200"
               >
-                View full record
+                {t("history.viewFullRecord")}
               </Link>
             </div>
           </CollapsibleContent>

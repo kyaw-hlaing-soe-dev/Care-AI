@@ -11,7 +11,9 @@ import { EmergencyBanner } from "@/components/EmergencyBanner";
 import { AIInsightPanel } from "@/components/dashboard/AIInsightPanel";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { getVital } from "@/lib/vitals-store";
-import { formatRecordedAt, type VitalRecord } from "@/lib/vitals";
+import type { VitalRecord } from "@/lib/vitals";
+import { useTranslation } from "react-i18next";
+import { useLocalizedRecordedAt } from "@/i18n/useLocalizedDate";
 
 export const Route = createFileRoute("/history/$id")({
   head: () => ({
@@ -35,20 +37,22 @@ function VitalDetailPage() {
   const { id } = useParams({ from: "/history/$id" });
   const [record, setRecord] = useState<VitalRecord | null>(null);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
+  const formatRecordedAt = useLocalizedRecordedAt();
 
   useEffect(() => {
     setRecord(getVital(id) ?? null);
     setLoading(false);
   }, [id]);
 
-  if (loading) return <LoadingSpinner fullscreen label="Loading this record…" />;
+  if (loading) return <LoadingSpinner fullscreen label={t("history.recordLoading")} />;
 
   if (!record) {
     return (
       <GlassCard className="app-card mx-auto max-w-lg p-10 text-center">
-        <p className="text-sm text-muted-foreground">We couldn't find that record.</p>
+        <p className="text-sm text-muted-foreground">{t("errors.recordNotFound")}</p>
         <Link to="/history" className="mt-5 inline-block">
-          <GlassButton variant="glass">Back to history</GlassButton>
+          <GlassButton variant="glass">{t("history.back")}</GlassButton>
         </Link>
       </GlassCard>
     );
@@ -65,7 +69,7 @@ function VitalDetailPage() {
         className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft className="size-4" />
-        Back to history
+        {t("history.back")}
       </Link>
 
       <GlassCard className="app-card flex flex-wrap items-center gap-5 p-5 sm:p-6">

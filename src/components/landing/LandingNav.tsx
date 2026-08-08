@@ -2,18 +2,21 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { GlassButton } from "@/components/glass/GlassButton";
 import { CareAILogo } from "@/components/auth/CareAILogo";
+import { PublicLanguageMenu } from "@/components/settings/PublicLanguageMenu";
 
 const LINKS = [
-  { href: "#features", label: "Features" },
-  { href: "#dashboard", label: "Dashboard Preview" },
-  { href: "#how-it-works", label: "How It Works" },
-  { href: "#insights", label: "AI Insights" },
+  { href: "#features", key: "landing.nav.features" },
+  { href: "#dashboard", key: "landing.nav.dashboard" },
+  { href: "#how-it-works", key: "landing.nav.how" },
+  { href: "#insights", key: "landing.nav.insights" },
 ];
 
 export function LandingNav() {
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <header className="sticky top-0 z-50 px-4 pt-3 sm:pt-4">
@@ -23,25 +26,26 @@ export function LandingNav() {
         </Link>
 
         <ul className="hidden items-center gap-7 md:flex">
-          {LINKS.map((l) => (
-            <li key={l.href}>
+          {LINKS.map((link) => (
+            <li key={link.href}>
               <a
-                href={l.href}
+                href={link.href}
                 className="text-sm font-semibold text-muted-foreground transition-colors hover:text-primary"
               >
-                {l.label}
+                {t(link.key)}
               </a>
             </li>
           ))}
         </ul>
 
         <div className="flex shrink-0 items-center gap-2">
+          <span className="hidden lg:block"><PublicLanguageMenu /></span>
           <Link to="/login" className="hidden sm:block">
-            <GlassButton size="sm">Get Started Free</GlassButton>
+            <GlassButton size="sm">{t("landing.nav.getStarted")}</GlassButton>
           </Link>
           <button
             type="button"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? t("common.closeMenu") : t("common.openMenu")}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
             className="grid size-11 place-items-center rounded-[14px] text-foreground transition-colors hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 md:hidden"
@@ -61,21 +65,22 @@ export function LandingNav() {
             className="glass-surface glass-strong mx-auto mt-3 max-w-[1380px] rounded-[24px] p-4 md:hidden"
           >
             <ul className="space-y-1">
-              {LINKS.map((l) => (
-                <li key={l.href}>
+              {LINKS.map((link) => (
+                <li key={link.href}>
                   <a
-                    href={l.href}
+                    href={link.href}
                     onClick={() => setOpen(false)}
                     className="block rounded-2xl px-4 py-3 text-base font-semibold text-foreground/85 hover:bg-primary/10"
                   >
-                    {l.label}
+                    {t(link.key)}
                   </a>
                 </li>
               ))}
             </ul>
+            <div className="mt-3"><PublicLanguageMenu mobile /></div>
             <Link to="/login" onClick={() => setOpen(false)} className="mt-3 block">
               <GlassButton size="lg" className="w-full">
-                Get Started Free
+                {t("landing.nav.getStarted")}
               </GlassButton>
             </Link>
           </motion.div>

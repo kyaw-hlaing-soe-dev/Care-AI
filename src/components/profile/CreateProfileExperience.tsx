@@ -21,11 +21,13 @@ import {
   type ProfileDraft,
 } from "@/lib/profile-validation";
 import profileDoctor from "@/assets/profile-doctor-clipboard.png";
+import { useTranslation } from "react-i18next";
 
 const fieldClassName =
   "h-[52px] w-full rounded-[13px] border border-slate-200 bg-white px-4 text-base font-medium text-slate-950 outline-none transition-[border-color,box-shadow] placeholder:font-normal placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-cyan-100/80 disabled:cursor-not-allowed disabled:bg-slate-50";
 
 function FieldLabel({ children, optional }: { children: ReactNode; optional?: boolean }) {
+  const { t } = useTranslation();
   return (
     <div className="mb-2 flex items-center justify-between gap-2">
       <label className="text-[13px] font-bold uppercase tracking-[0.09em] text-slate-600">
@@ -33,7 +35,7 @@ function FieldLabel({ children, optional }: { children: ReactNode; optional?: bo
       </label>
       {optional && (
         <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-500">
-          Optional
+          {t("common.optional")}
         </span>
       )}
     </div>
@@ -155,6 +157,7 @@ function SexSelector({
   onChange: (value: ProfileSex) => void;
   error?: string | undefined;
 }) {
+  const { t } = useTranslation();
   return (
     <fieldset
       id="sex"
@@ -163,7 +166,7 @@ function SexSelector({
       aria-describedby={error ? "sex-error" : undefined}
     >
       <legend className="mb-2 text-[13px] font-bold uppercase tracking-[0.09em] text-slate-600">
-        Sex
+        {t("createProfile.sex")}
       </legend>
       <div className="flex flex-wrap gap-1.5 rounded-[14px] border border-slate-200 bg-slate-50/90 p-1.5 md:flex-nowrap md:gap-1">
         {SEX_OPTIONS.map((option) => {
@@ -180,7 +183,7 @@ function SexSelector({
                   : "border-transparent text-slate-600 hover:bg-white/70 hover:text-slate-900"
               }`}
             >
-              {option.label}
+              {t(option.labelKey)}
             </button>
           );
         })}
@@ -197,9 +200,10 @@ function BloodTypeSelector({
   value: BloodType | "";
   onChange: (value: BloodType | "") => void;
 }) {
+  const { t } = useTranslation();
   return (
     <div>
-      <FieldLabel optional>Blood type</FieldLabel>
+      <FieldLabel optional>{t("createProfile.bloodType")}</FieldLabel>
       <div className="relative">
         <select
           id="bloodType"
@@ -208,10 +212,10 @@ function BloodTypeSelector({
           onChange={(event) => onChange(event.target.value as BloodType | "")}
           className={`${fieldClassName} appearance-none pr-11`}
         >
-          <option value="">Select if known</option>
+          <option value="">{t("createProfile.selectIfKnown")}</option>
           {BLOOD_TYPES.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {option.value === "unknown" ? t("common.unknown") : option.label}
             </option>
           ))}
         </select>
@@ -222,6 +226,7 @@ function BloodTypeSelector({
 }
 
 function GoogleAccountPreview({ user }: { user: AppUser }) {
+  const { t } = useTranslation();
   const initials = useMemo(
     () =>
       user.name
@@ -257,11 +262,11 @@ function GoogleAccountPreview({ user }: { user: AppUser }) {
         <p className="mt-1 truncate text-xs text-slate-500">{user.email}</p>
       </div>
       <span className="hidden shrink-0 items-center gap-1.5 rounded-full border border-emerald-100 bg-white px-2.5 py-1.5 text-[11px] font-semibold text-emerald-700 sm:flex">
-        <Check className="size-3.5" /> Google account
+        <Check className="size-3.5" /> {t("createProfile.googleAccount")}
       </span>
       <CheckCircle2
         className="size-5 shrink-0 text-emerald-500 sm:hidden"
-        aria-label="Google account verified"
+        aria-label={t("createProfile.googleVerified")}
       />
     </div>
   );
@@ -339,6 +344,7 @@ function DoctorIllustration({ mobile = false }: { mobile?: boolean }) {
 }
 
 function ProfileVisual() {
+  const { t } = useTranslation();
   return (
     <section
       className="hidden min-w-0 flex-col justify-center lg:flex"
@@ -346,18 +352,18 @@ function ProfileVisual() {
     >
       <div className="max-w-[500px]">
         <span className="inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-white/75 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-[0.16em] text-blue-600 shadow-sm backdrop-blur-md">
-          <Sparkles className="size-3.5 text-cyan-500" /> Personalized for you
+          <Sparkles className="size-3.5 text-cyan-500" /> {t("createProfile.personalized")}
         </span>
         <h1
           id="profile-welcome-title"
           className="mt-5 text-[clamp(48px,4.2vw,56px)] font-extrabold leading-[0.98] tracking-[-0.055em] text-slate-950"
         >
-          Let&apos;s get to
+          {t("createProfile.titleLead")}
           <br />
-          <span className="text-gradient">know you.</span>
+          <span className="text-gradient">{t("createProfile.titleAccent")}</span>
         </h1>
         <p className="mt-5 max-w-[430px] text-[15px] leading-7 text-slate-600 xl:text-base">
-          A few details help CareAI personalize your health insights and experience.
+          {t("createProfile.visualBody")}
         </p>
       </div>
 
@@ -366,16 +372,16 @@ function ProfileVisual() {
         <DoctorIllustration />
         <ProfileBenefitCard
           icon={<Sparkles className="size-4" />}
-          title="Personalized insights"
-          detail="Tailored to you"
+          title={t("createProfile.insights")}
+          detail={t("createProfile.insightsBody")}
           className="right-[0%] top-[1%]"
           primary
           delay={0.15}
         />
         <ProfileBenefitCard
           icon={<ShieldCheck className="size-4" />}
-          title="Private & secure"
-          detail="Your data, protected"
+          title={t("createProfile.secure")}
+          detail={t("createProfile.secureBody")}
           className="bottom-[3%] right-[0%]"
           delay={0.3}
         />
@@ -385,6 +391,7 @@ function ProfileVisual() {
 }
 
 function MobileWelcomeVisual() {
+  const { t } = useTranslation();
   return (
     <div className="profile-mobile-scene relative mt-3 flex h-[178px] items-end justify-center overflow-hidden rounded-[20px] lg:hidden">
       <div className="profile-doctor-glow pointer-events-none absolute left-1/2 top-1/2 size-[220px] -translate-x-1/2 -translate-y-1/2" />
@@ -393,8 +400,8 @@ function MobileWelcomeVisual() {
       </div>
       <ProfileBenefitCard
         icon={<Sparkles className="size-3.5" />}
-        title="Personalized for you"
-        detail="A healthier experience"
+        title={t("createProfile.personalized")}
+        detail={t("createProfile.healthierExperience")}
         className="left-[1%] top-[8%] origin-top-left scale-[0.82]"
         primary
         delay={0.15}
@@ -404,6 +411,7 @@ function MobileWelcomeVisual() {
 }
 
 function ProfileSuccess() {
+  const { t } = useTranslation();
   const reducedMotion = Boolean(useReducedMotion());
   return (
     <motion.div
@@ -423,9 +431,9 @@ function ProfileSuccess() {
         <Check className="size-9" strokeWidth={2.5} />
       </motion.div>
       <h2 className="mt-7 text-3xl font-extrabold tracking-[-0.04em] text-slate-950">
-        Profile created!
+        {t("createProfile.successTitle")}
       </h2>
-      <p className="mt-2 text-base text-slate-500">Welcome to CareAI.</p>
+      <p className="mt-2 text-base text-slate-500">{t("createProfile.successBody")}</p>
       <div className="mt-8 h-1.5 w-32 overflow-hidden rounded-full bg-sky-100">
         <motion.div
           className="h-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-400"
@@ -440,6 +448,7 @@ function ProfileSuccess() {
 
 function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void }) {
   const { createProfile } = useProfile();
+  const { t } = useTranslation();
   const reducedMotion = Boolean(useReducedMotion());
   const [draft, setDraft] = useState<ProfileDraft>({
     displayName: user.name,
@@ -455,7 +464,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
   const [submitError, setSubmitError] = useState<string | null>(null);
   const submitLock = useRef(false);
   const today = new Date().toISOString().slice(0, 10);
-  const validationErrors = useMemo(() => validateProfile(draft), [draft]);
+  const validationErrors = useMemo(() => validateProfile(draft, t), [draft, t]);
 
   function updateField<K extends keyof ProfileDraft>(field: K, value: ProfileDraft[K]) {
     setDraft((current) => ({ ...current, [field]: value }));
@@ -493,7 +502,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
     } catch {
       submitLock.current = false;
       setSubmitting(false);
-      setSubmitError("We couldn't create your profile. Please try again.");
+      setSubmitError(t("errors.createProfile"));
     }
   }
 
@@ -506,18 +515,18 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
       <div className="flex items-center justify-between gap-4">
         <CareAILogo compact />
         <p className="rounded-full border border-cyan-100 bg-cyan-50/70 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.17em] text-blue-600">
-          Profile setup
+          {t("createProfile.formBadge")}
         </p>
       </div>
 
       <div className="profile-form-heading mt-6 lg:mt-4">
         <h1 className="text-[30px] font-extrabold leading-tight tracking-[-0.045em] text-slate-950 sm:text-[34px] lg:text-[36px]">
-          Create your profile
+          {t("createProfile.title")}
         </h1>
         <p className="mt-2.5 max-w-[500px] text-sm leading-6 text-slate-500 sm:text-[15px] lg:mt-1.5">
-          <span className="lg:hidden">Let&apos;s personalize your experience.</span>
+          <span className="lg:hidden">{t("createProfile.mobileSubtitle")}</span>
           <span className="hidden lg:inline">
-            Tell us a little about yourself so we can personalize your CareAI experience.
+            {t("createProfile.subtitle")}
           </span>
         </p>
       </div>
@@ -535,11 +544,11 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
       >
         <ProfileInput
           id="displayName"
-          label="Display name"
+          label={t("createProfile.displayName")}
           value={draft.displayName}
           onChange={(value) => updateField("displayName", value)}
           onBlur={() => markTouched("displayName")}
-          placeholder="How should we address you?"
+          placeholder={t("createProfile.displayNamePlaceholder")}
           autoComplete="name"
           error={visibleError("displayName")}
         />
@@ -547,7 +556,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
         <div className="grid gap-5 md:grid-cols-[0.78fr_1.22fr]">
           <ProfileInput
             id="dateOfBirth"
-            label="Date of birth"
+            label={t("createProfile.dateOfBirth")}
             value={draft.dateOfBirth}
             onChange={(value) => updateField("dateOfBirth", value)}
             onBlur={() => markTouched("dateOfBirth")}
@@ -569,7 +578,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
         <div className="profile-measurement-grid grid grid-cols-1 gap-4 md:grid-cols-2">
           <UnitInput
             id="heightCm"
-            label="Height"
+            label={t("createProfile.height")}
             value={draft.heightCm}
             unit="cm"
             placeholder="170"
@@ -579,7 +588,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
           />
           <UnitInput
             id="weightKg"
-            label="Weight"
+            label={t("createProfile.weight")}
             value={draft.weightKg}
             unit="kg"
             placeholder="65"
@@ -612,11 +621,11 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
           >
             {submitting ? (
               <>
-                <LoaderCircle className="size-5 animate-spin" /> Creating your profile...
+                <LoaderCircle className="size-5 animate-spin" /> {t("createProfile.creating")}
               </>
             ) : (
               <>
-                Create Profile &amp; Continue
+                {t("createProfile.createContinue")}
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </>
             )}
@@ -624,8 +633,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
           <p className="mt-3.5 flex items-start justify-center gap-2 px-1 text-center text-[11px] leading-[1.55] text-slate-500 sm:text-xs">
             <LockKeyhole className="mt-0.5 size-3.5 shrink-0 text-blue-500" />
             <span>
-              Your information is used to personalize your CareAI experience and is handled
-              according to our privacy practices.
+              {t("createProfile.privacy")}
             </span>
           </p>
         </div>
@@ -636,6 +644,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
 
 export function CreateProfileExperience({ onComplete }: { onComplete: () => void }) {
   const { user } = useAuth();
+  const { t } = useTranslation();
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
@@ -652,7 +661,7 @@ export function CreateProfileExperience({ onComplete }: { onComplete: () => void
         <ProfileVisual />
         <section
           className="profile-form-panel relative mx-auto w-full max-w-[620px] rounded-[24px] border border-white/85 bg-white/[0.84] p-5 shadow-[0_24px_70px_rgba(44,83,130,0.13)] backdrop-blur-xl sm:rounded-[28px] sm:p-8 lg:p-7 xl:p-8"
-          aria-label="Create your CareAI profile"
+          aria-label={t("createProfile.formAria")}
         >
           {success ? (
             <ProfileSuccess />

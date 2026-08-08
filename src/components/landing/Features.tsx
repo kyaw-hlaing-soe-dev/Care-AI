@@ -1,50 +1,52 @@
 import { motion } from "motion/react";
 import { Activity, BrainCircuit, ChartNoAxesCombined, History } from "lucide-react";
 import { Reveal, SectionHeading } from "./Reveal";
+import { useTranslation } from "react-i18next";
 
 const FEATURES = [
   {
     Icon: Activity,
     number: "01",
-    title: "Track Your Vitals",
-    body: "Blood pressure, heart rate, oxygen saturation and temperature.",
+    titleKey: "landing.features.track",
+    bodyKey: "landing.features.trackBody",
     tint: "from-primary to-sky",
   },
   {
     number: "02",
     Icon: BrainCircuit,
-    title: "AI Health Insights",
-    body: "CareAI turns your readings into simple, understandable information.",
+    titleKey: "landing.features.insights",
+    bodyKey: "landing.features.insightsBody",
     tint: "from-violet to-primary",
   },
   {
     number: "03",
     Icon: ChartNoAxesCombined,
-    title: "Understand Your Trends",
-    body: "See how your readings change over time.",
+    titleKey: "landing.features.trends",
+    bodyKey: "landing.features.trendsBody",
     tint: "from-cyan to-teal",
   },
   {
     number: "04",
     Icon: History,
-    title: "Your Health History",
-    body: "Review previous readings and health scores whenever you need them.",
+    titleKey: "landing.features.history",
+    bodyKey: "landing.features.historyBody",
     tint: "from-amber-400 to-rose-400",
   },
 ];
 
 export function Features() {
+  const { t } = useTranslation();
   return (
     <section id="features" className="mx-auto max-w-6xl scroll-mt-28 px-5 py-20 sm:py-24 lg:py-28">
       <SectionHeading
-        eyebrow="Features"
-        title="Everything you need to understand your vitals."
-        subtitle="Four focused tools that carry your readings from the tracker into a clear, useful health history."
+        eyebrow={t("landing.features.eyebrow")}
+        title={t("landing.features.title")}
+        subtitle={t("landing.features.subtitle")}
       />
 
       <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
         {FEATURES.map((f, i) => (
-          <Reveal as="li" key={f.title} delay={i * 0.07}>
+          <Reveal as="li" key={f.titleKey} delay={i * 0.07}>
             <motion.article
               whileHover={{ y: -8, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 260, damping: 22 }}
@@ -58,8 +60,8 @@ export function Features() {
               <span className="absolute right-6 top-6 text-xs font-extrabold tracking-[0.16em] text-primary/55">
                 {f.number}
               </span>
-              <h3 className="mt-6 text-lg font-bold tracking-tight">{f.title}</h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{f.body}</p>
+              <h3 className="mt-6 text-lg font-bold tracking-tight">{t(f.titleKey)}</h3>
+              <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{t(f.bodyKey)}</p>
             </motion.article>
           </Reveal>
         ))}

@@ -11,10 +11,10 @@ export type ProfileDraft = {
 
 export type ProfileFieldErrors = Partial<Record<keyof ProfileDraft, string>>;
 
-export const SEX_OPTIONS: Array<{ value: ProfileSex; label: string }> = [
-  { value: "male", label: "Male" },
-  { value: "female", label: "Female" },
-  { value: "prefer-not-to-say", label: "Prefer not to say" },
+export const SEX_OPTIONS: Array<{ value: ProfileSex; labelKey: string }> = [
+  { value: "male", labelKey: "createProfile.male" },
+  { value: "female", labelKey: "createProfile.female" },
+  { value: "prefer-not-to-say", labelKey: "createProfile.preferNotToSay" },
 ];
 
 export const BLOOD_TYPES: Array<{ value: BloodType; label: string }> = [
@@ -29,7 +29,7 @@ export const BLOOD_TYPES: Array<{ value: BloodType; label: string }> = [
   { value: "unknown", label: "Unknown" },
 ];
 
-export function validateProfile(draft: ProfileDraft): ProfileFieldErrors {
+export function validateProfile(draft: ProfileDraft, translate: (key: string) => string = (key) => key): ProfileFieldErrors {
   const errors: ProfileFieldErrors = {};
   const displayName = draft.displayName.trim();
   const height = Number(draft.heightCm);
@@ -37,26 +37,26 @@ export function validateProfile(draft: ProfileDraft): ProfileFieldErrors {
   const today = new Date();
   today.setHours(23, 59, 59, 999);
 
-  if (!displayName) errors.displayName = "Please enter your display name.";
+  if (!displayName) errors.displayName = translate("validation.displayNameRequired");
   else if (displayName.length < 2 || displayName.length > 50) {
-    errors.displayName = "Display name should be between 2 and 50 characters.";
+    errors.displayName = translate("validation.displayNameLength");
   }
 
-  if (!draft.dateOfBirth) errors.dateOfBirth = "Please enter your date of birth.";
+  if (!draft.dateOfBirth) errors.dateOfBirth = translate("validation.dateRequired");
   else if (Number.isNaN(Date.parse(`${draft.dateOfBirth}T00:00:00`))) {
-    errors.dateOfBirth = "Please enter a valid date of birth.";
+    errors.dateOfBirth = translate("validation.dateInvalid");
   } else if (new Date(`${draft.dateOfBirth}T00:00:00`) > today) {
-    errors.dateOfBirth = "Date of birth cannot be in the future.";
+    errors.dateOfBirth = translate("validation.dateFuture");
   }
 
-  if (!draft.sex) errors.sex = "Please select an option.";
+  if (!draft.sex) errors.sex = translate("validation.sexRequired");
 
   if (!draft.heightCm || !Number.isFinite(height) || height < 50 || height > 250) {
-    errors.heightCm = "Please enter a valid height between 50 and 250 cm.";
+    errors.heightCm = translate("validation.heightInvalid");
   }
 
   if (!draft.weightKg || !Number.isFinite(weight) || weight < 2 || weight > 500) {
-    errors.weightKg = "Please enter a valid weight between 2 and 500 kg.";
+    errors.weightKg = translate("validation.weightInvalid");
   }
 
   return errors;

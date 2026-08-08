@@ -4,8 +4,13 @@ import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } fro
 import { Activity, ArrowDown, Brain, Check, Droplets, HeartPulse, Thermometer } from "lucide-react";
 import { GlassButton } from "@/components/glass/GlassButton";
 import doctor from "@/assets/ai-doctor-cutout.png";
+import { useTranslation } from "react-i18next";
 
-const PROOF = ["Google Sign-In", "Clear Health Insights", "Vital Trend History"];
+const PROOF = [
+  "landing.hero.proofGoogle",
+  "landing.hero.proofInsights",
+  "landing.hero.proofHistory",
+] as const;
 
 const WIDGETS = [
   {
@@ -61,6 +66,7 @@ const WIDGETS = [
 ];
 
 export function Hero() {
+  const { t } = useTranslation();
   const reducedMotion = Boolean(useReducedMotion());
   const stage = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0);
@@ -86,16 +92,17 @@ export function Hero() {
           className="glass-surface glass-glare inline-flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-primary-dark"
         >
           <Brain className="size-3.5" />
-          Your Personal AI Health Companion
+          {t("landing.hero.badge")}
         </motion.span>
 
         <motion.h1
           initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-5 text-balance text-[clamp(2.375rem,11vw,3.25rem)] font-extrabold leading-[1.01] tracking-[-0.055em] sm:text-[3.25rem] md:text-[3.75rem] lg:text-[clamp(3.65rem,5.2vw,4.5rem)] [@media(max-height:700px)]:mt-3 lg:[@media(max-height:700px)]:mt-5"
+          className="hero-title mt-5 text-balance text-[clamp(2.375rem,11vw,3.25rem)] font-extrabold leading-[1.01] tracking-[-0.055em] sm:text-[3.25rem] md:text-[3.75rem] lg:text-[clamp(3.65rem,5.2vw,4.5rem)] [@media(max-height:700px)]:mt-3 lg:[@media(max-height:700px)]:mt-5"
         >
-          Understand Your Health. <span className="text-gradient">One Reading at a Time.</span>
+          {t("landing.hero.title")}{" "}
+          <span className="text-gradient">{t("landing.hero.titleAccent")}</span>
         </motion.h1>
 
         <motion.p
@@ -104,8 +111,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
           className="mx-auto mt-5 max-w-[380px] text-pretty text-[15px] leading-6 text-muted-foreground sm:text-base md:max-w-[580px] md:text-lg lg:mx-0 [@media(max-height:700px)]:mt-3 lg:[@media(max-height:700px)]:mt-5"
         >
-          Track your vital signs, understand your trends, and receive clear AI-powered health
-          insights — all in one place.
+          {t("landing.hero.body")}
         </motion.p>
 
         <motion.div
@@ -116,13 +122,13 @@ export function Hero() {
         >
           <Link to="/login" className="sm:w-auto">
             <GlassButton size="lg" className="w-full sm:w-auto">
-              Start Tracking Free
+              {t("landing.hero.primary")}
             </GlassButton>
           </Link>
           <a href="#how-it-works" className="sm:w-auto">
             <GlassButton variant="glass" size="lg" className="w-full sm:w-auto">
               <ArrowDown className="size-4" />
-              See How It Works
+              {t("landing.hero.secondary")}
             </GlassButton>
           </a>
         </motion.div>
@@ -133,15 +139,15 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mx-auto mt-5 flex max-w-[430px] flex-wrap justify-center gap-2 text-left sm:mt-6 md:max-w-[560px] md:gap-x-4 lg:mx-0 lg:justify-start [@media(max-height:700px)]:mt-4 lg:[@media(max-height:700px)]:mt-5"
         >
-          {PROOF.map((p, index) => (
+          {PROOF.map((key, index) => (
             <li
-              key={p}
+              key={key}
               className={`flex items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-2.5 py-1.5 text-[11px] font-semibold text-foreground/75 shadow-sm backdrop-blur-sm max-[340px]:px-2 max-[340px]:text-[10px] md:bg-transparent md:px-0 md:py-0 md:text-sm md:shadow-none ${index === 2 ? "[@media(max-height:700px)]:hidden lg:[@media(max-height:700px)]:flex" : ""}`}
             >
               <span className="grid size-4 shrink-0 place-items-center rounded-full bg-gradient-to-br from-primary to-cyan text-primary-foreground md:size-5">
                 <Check className="size-3" strokeWidth={3} />
               </span>
-              {p}
+              {t(key)}
             </li>
           ))}
         </motion.ul>
@@ -170,7 +176,7 @@ export function Hero() {
 
           <motion.img
             src={doctor}
-            alt="Friendly CareAI health companion"
+            alt={t("landing.hero.doctorAlt")}
             width={1024}
             height={1024}
             loading="eager"

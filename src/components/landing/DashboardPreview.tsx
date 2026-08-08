@@ -16,6 +16,7 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { VitalSummaryGrid } from "@/components/VitalSummaryGrid";
 import { Reveal, SectionHeading } from "./Reveal";
 import { LANDING_DEMO_ANALYSIS, LANDING_DEMO_RECORDS } from "./demo-data";
+import { useTranslation } from "react-i18next";
 
 const latest = LANDING_DEMO_RECORDS[0]!;
 const previous = LANDING_DEMO_RECORDS[1]!;
@@ -23,16 +24,16 @@ const previous = LANDING_DEMO_RECORDS[1]!;
 const MOBILE_VITALS = [
   {
     Icon: Droplets,
-    label: "Blood Pressure",
+    labelKey: "dashboard.bloodPressure",
     value: "120/76",
     unit: "mmHg",
     status: "Good" as const,
   },
-  { Icon: HeartPulse, label: "Heart Rate", value: "72", unit: "bpm", status: "Good" as const },
-  { Icon: Activity, label: "Oxygen", value: "98", unit: "%", status: "Good" as const },
+  { Icon: HeartPulse, labelKey: "dashboard.heartRate", value: "72", unit: "bpm", status: "Good" as const },
+  { Icon: Activity, labelKey: "dashboard.oxygen", value: "98", unit: "%", status: "Good" as const },
   {
     Icon: Thermometer,
-    label: "Temperature",
+    labelKey: "dashboard.temperature",
     value: "39.2",
     unit: "°C",
     status: "Attention Needed" as const,
@@ -40,21 +41,22 @@ const MOBILE_VITALS = [
 ];
 
 export function DashboardPreview() {
+  const { t } = useTranslation();
   return (
     <section
       id="dashboard"
       className="mx-auto max-w-[1250px] scroll-mt-28 px-5 py-20 sm:py-24 lg:py-28"
     >
       <SectionHeading
-        eyebrow="Your health at a glance"
+        eyebrow={t("landing.preview.eyebrow")}
         title={
           <>
-            Everything that matters,
+            {t("landing.preview.title")}
             <br className="hidden sm:block" />{" "}
-            <span className="text-gradient">in one clear dashboard.</span>
+            <span className="text-gradient">{t("landing.preview.titleAccent")}</span>
           </>
         }
-        subtitle="See your latest readings, health score, AI insights and trends without digging through complicated health data."
+        subtitle={t("landing.preview.subtitle")}
       />
 
       <Reveal delay={0.08} className="mt-10 sm:mt-14">
@@ -82,6 +84,7 @@ export function DashboardPreview() {
 }
 
 function ProductFrameHeader() {
+  const { t } = useTranslation();
   return (
     <div className="flex items-center justify-between border-b border-blue-100/80 pb-4">
       <div className="flex items-center gap-2.5">
@@ -91,18 +94,19 @@ function ProductFrameHeader() {
         <span className="font-extrabold tracking-[-0.025em] text-slate-950">CareAI</span>
       </div>
       <div className="flex items-center gap-2 rounded-[16px] border border-slate-200/80 bg-white/75 p-1 text-xs font-bold text-slate-500">
-        <span className="rounded-[11px] bg-blue-50 px-3 py-2 text-blue-600">Dashboard</span>
-        <span className="px-3 py-2">Vital Tracker</span>
-        <span className="px-3 py-2">History</span>
+        <span className="rounded-[11px] bg-blue-50 px-3 py-2 text-blue-600">{t("nav.dashboard")}</span>
+        <span className="px-3 py-2">{t("nav.vitalTracker")}</span>
+        <span className="px-3 py-2">{t("nav.history")}</span>
       </div>
       <span className="rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 px-3 py-2 text-xs font-extrabold text-white">
-        Demo
+        {t("landing.preview.demo")}
       </span>
     </div>
   );
 }
 
 function MobileDashboardPreview() {
+  const { t } = useTranslation();
   return (
     <div className="mx-auto max-w-[430px] overflow-hidden rounded-[28px] border border-white/90 bg-[#f8fbff]/94 p-4 shadow-[0_30px_72px_-38px_rgba(35,79,137,0.4)] backdrop-blur-xl md:hidden">
       <div className="flex items-center justify-between border-b border-blue-100/80 pb-3">
@@ -113,7 +117,7 @@ function MobileDashboardPreview() {
           <span className="text-sm font-extrabold text-slate-950">CareAI</span>
         </div>
         <span className="rounded-full bg-blue-50 px-3 py-1 text-[10px] font-extrabold text-blue-600">
-          Dashboard
+          {t("nav.dashboard")}
         </span>
       </div>
 
@@ -121,9 +125,9 @@ function MobileDashboardPreview() {
         <HealthScoreRing score={88} hasData size={94} />
         <div className="min-w-0">
           <p className="text-[10px] font-extrabold uppercase tracking-[0.12em] text-blue-600">
-            Latest overview
+            {t("dashboard.latestOverview")}
           </p>
-          <p className="mt-1 text-lg font-extrabold tracking-tight text-slate-950">Health Score</p>
+          <p className="mt-1 text-lg font-extrabold tracking-tight text-slate-950">{t("dashboard.healthScore")}</p>
           <div className="mt-2">
             <StatusBadge status="Attention Needed" />
           </div>
@@ -131,16 +135,16 @@ function MobileDashboardPreview() {
       </div>
 
       <div className="mt-3 grid grid-cols-2 gap-3">
-        {MOBILE_VITALS.map(({ Icon, label, value, unit, status }) => (
+        {MOBILE_VITALS.map(({ Icon, labelKey, value, unit, status }) => (
           <div
-            key={label}
+            key={labelKey}
             className="min-w-0 rounded-[18px] border border-slate-200/80 bg-white/88 p-3.5 shadow-[0_10px_24px_rgba(44,83,130,0.07)]"
           >
             <div className="flex min-w-0 items-center gap-2 text-[10px] font-extrabold uppercase tracking-[0.04em] text-slate-500">
               <span className="grid size-7 shrink-0 place-items-center rounded-[10px] bg-blue-50 text-blue-500">
                 <Icon className="size-3.5" />
               </span>
-              <span className="min-w-0 leading-4">{label}</span>
+              <span className="min-w-0 leading-4">{t(labelKey)}</span>
             </div>
             <p className="mt-3 flex flex-wrap items-baseline gap-1 text-slate-950">
               <span className="text-xl font-extrabold tracking-[-0.04em] tabular-nums">
@@ -161,39 +165,39 @@ function MobileDashboardPreview() {
             <Sparkles className="size-4" />
           </span>
           <div>
-            <p className="text-xs font-extrabold text-slate-950">CareAI Health Insight</p>
-            <p className="mt-0.5 text-[10px] text-slate-500">1 reading needs attention today.</p>
+            <p className="text-xs font-extrabold text-slate-950">{t("dashboard.insightTitle")}</p>
+            <p className="mt-0.5 text-[10px] text-slate-500">{t("landing.preview.insightAttention")}</p>
           </div>
         </div>
         <div className="space-y-2.5 p-4">
           <InsightLine
             Icon={CheckCircle2}
             tone="text-emerald-600"
-            text="Heart rate and oxygen are within range."
+            text={t("landing.preview.insightGood")}
           />
           <InsightLine
             Icon={AlertTriangle}
             tone="text-amber-600"
-            text="Temperature is above the typical range."
+            text={t("landing.preview.insightWatch")}
           />
           <InsightLine
             Icon={Lightbulb}
             tone="text-blue-600"
-            text="Rest, hydrate, and re-check later."
+            text={t("landing.preview.insightRecommendation")}
           />
         </div>
       </div>
 
       <div className="mt-3 rounded-[20px] border border-blue-100/80 bg-white/88 p-4">
         <div className="flex items-center justify-between gap-3">
-          <p className="text-xs font-extrabold text-slate-950">Heart Rate trend</p>
+          <p className="text-xs font-extrabold text-slate-950">{t("landing.preview.heartTrend")}</p>
           <span className="text-xs font-extrabold text-slate-950">72 bpm</span>
         </div>
         <svg
           viewBox="0 0 300 76"
           className="mt-2 h-[76px] w-full"
           role="img"
-          aria-label="Illustrative heart-rate trend"
+          aria-label={t("landing.preview.trendAria")}
         >
           <defs>
             <linearGradient id="mobile-dashboard-line" x1="0" x2="1">

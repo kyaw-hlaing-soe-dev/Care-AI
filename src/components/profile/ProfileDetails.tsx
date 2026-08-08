@@ -37,51 +37,42 @@ import {
   type ProfileDraft,
 } from "@/lib/profile-validation";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
+import { changeCareAILanguage } from "@/i18n";
+import { localeForLanguage, normalizeLanguage, SUPPORTED_LANGUAGES } from "@/i18n/languages";
 
 type ProfileSection = "overview" | "edit" | "preferences" | "privacy";
 
 const PROFILE_SECTIONS: Array<{
   id: ProfileSection;
-  label: string;
+  labelKey: string;
   Icon: typeof UserRound;
 }> = [
-  { id: "overview", label: "Overview", Icon: CircleUserRound },
-  { id: "edit", label: "Edit Profile", Icon: Pencil },
-  { id: "preferences", label: "Preferences", Icon: Settings2 },
-  { id: "privacy", label: "Account & Privacy", Icon: LockKeyhole },
+  { id: "overview", labelKey: "profile.overview", Icon: CircleUserRound },
+  { id: "edit", labelKey: "profile.edit", Icon: Pencil },
+  { id: "preferences", labelKey: "profile.preferences", Icon: Settings2 },
+  { id: "privacy", labelKey: "profile.privacy", Icon: LockKeyhole },
 ];
 
-const LANGUAGE_OPTIONS: Array<{
-  value: PreferredLanguage;
-  label: string;
-  nativeLabel: string;
-}> = [
-  { value: "en", label: "English", nativeLabel: "English" },
-  { value: "my", label: "Myanmar", nativeLabel: "မြန်မာ" },
-  { value: "zh-CN", label: "Simplified Chinese", nativeLabel: "简体中文" },
-];
-
-const SEX_LABELS: Record<ProfileSex, string> = {
-  male: "Male",
-  female: "Female",
-  "prefer-not-to-say": "Prefer not to say",
-};
+const LANGUAGE_OPTIONS = SUPPORTED_LANGUAGES.map((language) => ({
+  value: language.code, label: language.englishLabel, nativeLabel: language.nativeLabel,
+}));
 
 const fieldClassName =
   "h-[52px] w-full rounded-[13px] border border-slate-200 bg-white px-4 text-base font-medium text-slate-950 outline-none transition-[border-color,box-shadow] placeholder:font-normal placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-cyan-100/80 disabled:cursor-not-allowed disabled:bg-slate-50";
 
-function formatDate(value?: string) {
-  if (!value) return "Not provided";
+function formatDate(value: string | undefined, locale: string, notProvided: string) {
+  if (!value) return notProvided;
   const date = new Date(`${value.slice(0, 10)}T00:00:00`);
-  if (Number.isNaN(date.getTime())) return "Not provided";
-  return new Intl.DateTimeFormat(undefined, { dateStyle: "long" }).format(date);
+  if (Number.isNaN(date.getTime())) return notProvided;
+  return new Intl.DateTimeFormat(locale, { dateStyle: "long" }).format(date);
 }
 
-function formatMemberSince(value?: string) {
+function formatMemberSince(value: string | undefined, locale: string) {
   if (!value) return null;
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return null;
-  return new Intl.DateTimeFormat(undefined, { month: "short", year: "numeric" }).format(date);
+  return new Intl.DateTimeFormat(locale, { month: "short", year: "numeric" }).format(date);
 }
 
 function initials(name: string) {
@@ -149,6 +140,7 @@ function ProfileSidebar({
   activeSection: ProfileSection;
   onSectionChange: (section: ProfileSection) => void;
 }) {
+  const { t } = useTranslation();
   const displayName = profile.displayName?.trim() || user.name;
   const completion = completionFor(profile);
   const isComplete = completion.percent === 100;
@@ -165,21 +157,21 @@ function ProfileSidebar({
         </h2>
         <p className="mt-1 break-all text-xs leading-5 text-slate-500">{user.email}</p>
         <span className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-emerald-100 bg-emerald-50 px-2.5 py-1 text-[11px] font-bold text-emerald-700">
-          <Check className="size-3.5" aria-hidden="true" /> Google Account
+          <Check className="size-3.5" aria-hidden="true" /> {t("profile.googleAccount")}
         </span>
       </div>
 
       <div className="mt-4 rounded-[16px] border border-slate-100 bg-slate-50/70 p-4">
         <div className="flex items-center justify-between gap-3">
           <p className="text-xs font-extrabold uppercase tracking-[0.1em] text-slate-500">
-            Profile completion
+            {t("profile.completion")}
           </p>
           <span className="text-sm font-extrabold text-blue-600">{completion.percent}%</span>
         </div>
         <div
           className="mt-3 h-2 overflow-hidden rounded-full bg-slate-200/80"
           role="progressbar"
-          aria-label="Profile completion"
+          aria-label={t("profile.completion")}
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={completion.percent}
@@ -199,8 +191,8 @@ function ProfileSidebar({
           />
           <p className="text-xs leading-5 text-slate-500">
             {isComplete
-              ? "All required profile details are complete."
-              : `${completion.total - completion.complete} required ${completion.total - completion.complete === 1 ? "detail" : "details"} remaining.`}
+              ? t("profile.completeBody")
+              : t("profile.remaining", { count: completion.total - completion.complete })}
           </p>
         </div>
         {!isComplete ? (
@@ -209,14 +201,14 @@ function ProfileSidebar({
             onClick={() => onSectionChange("edit")}
             className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[13px] bg-blue-50 px-3 text-sm font-bold text-blue-700 transition-colors hover:bg-blue-100 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200"
           >
-            Complete profile <ChevronRight className="size-4" aria-hidden="true" />
+            {t("profile.completeAction")} <ChevronRight className="size-4" aria-hidden="true" />
           </button>
         ) : null}
       </div>
 
       <nav
         className="mt-4 grid grid-cols-2 gap-2 lg:flex lg:flex-col"
-        aria-label="Profile sections"
+        aria-label={t("profile.sectionsAria")}
       >
         {PROFILE_SECTIONS.map((section) => {
           const active = activeSection === section.id;
@@ -234,7 +226,7 @@ function ProfileSidebar({
               )}
             >
               <section.Icon className="size-4.5" aria-hidden="true" />
-              {section.label}
+              {t(section.labelKey)}
             </button>
           );
         })}
@@ -292,30 +284,33 @@ function DetailItem({
 }
 
 function OverviewSection({ profile, onEdit }: { profile: UserProfile; onEdit: () => void }) {
+  const { t, i18n } = useTranslation();
+  const locale = localeForLanguage(normalizeLanguage(i18n.resolvedLanguage ?? i18n.language));
+  const notProvided = t("common.notProvided");
   const details = [
-    { label: "Date of Birth", value: formatDate(profile.dateOfBirth), Icon: CalendarDays },
+    { label: t("profile.dateOfBirth"), value: formatDate(profile.dateOfBirth, locale, notProvided), Icon: CalendarDays },
     {
-      label: "Sex",
-      value: profile.sex ? SEX_LABELS[profile.sex] : "Not provided",
+      label: t("profile.sex"),
+      value: profile.sex ? t(`createProfile.${profile.sex === "prefer-not-to-say" ? "preferNotToSay" : profile.sex}`) : notProvided,
       Icon: UserRound,
     },
     {
-      label: "Height",
-      value: Number.isFinite(profile.heightCm) ? `${profile.heightCm} cm` : "Not provided",
+      label: t("profile.height"),
+      value: Number.isFinite(profile.heightCm) ? `${profile.heightCm} cm` : notProvided,
       Icon: Ruler,
     },
     {
-      label: "Weight",
-      value: Number.isFinite(profile.weightKg) ? `${profile.weightKg} kg` : "Not provided",
+      label: t("profile.weight"),
+      value: Number.isFinite(profile.weightKg) ? `${profile.weightKg} kg` : notProvided,
       Icon: Scale,
     },
     {
-      label: "Blood Type",
+      label: t("profile.bloodType"),
       value: profile.bloodType
         ? profile.bloodType === "unknown"
-          ? "Unknown"
+          ? t("common.unknown")
           : profile.bloodType
-        : "Not provided",
+        : notProvided,
       Icon: Check,
     },
   ];
@@ -323,8 +318,8 @@ function OverviewSection({ profile, onEdit }: { profile: UserProfile; onEdit: ()
   return (
     <GlassCard strong className="app-card p-5 sm:p-7 lg:p-8">
       <SectionHeading
-        title="Personal Details"
-        description="The information CareAI uses to personalize your health experience."
+        title={t("profile.personalDetails")}
+        description={t("profile.personalDetailsBody")}
         action={
           <button
             type="button"
@@ -335,7 +330,7 @@ function OverviewSection({ profile, onEdit }: { profile: UserProfile; onEdit: ()
               className: "w-full sm:w-auto",
             })}
           >
-            <Pencil className="size-4" aria-hidden="true" /> Edit Profile
+            <Pencil className="size-4" aria-hidden="true" /> {t("profile.edit")}
           </button>
         }
       />
@@ -357,6 +352,7 @@ function FieldLabel({
   children: ReactNode;
   optional?: boolean;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="mb-2 flex items-center justify-between gap-2">
       <label
@@ -367,7 +363,7 @@ function FieldLabel({
       </label>
       {optional ? (
         <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-500">
-          Optional
+          {t("common.optional")}
         </span>
       ) : null}
     </div>
@@ -385,12 +381,13 @@ function FieldError({ id, message }: { id: string; message: string | undefined }
 
 function EditProfileSection({ profile, onDone }: { profile: UserProfile; onDone: () => void }) {
   const { updateProfile } = useProfile();
+  const { t } = useTranslation();
   const [draft, setDraft] = useState<ProfileDraft>(() => profileToDraft(profile));
   const [touched, setTouched] = useState<Partial<Record<keyof ProfileDraft, boolean>>>({});
   const [submitted, setSubmitted] = useState(false);
   const [saving, setSaving] = useState(false);
   const saveLock = useRef(false);
-  const errors = useMemo(() => validateProfile(draft), [draft]);
+  const errors = useMemo(() => validateProfile(draft, t), [draft, t]);
   const today = new Date().toISOString().slice(0, 10);
 
   useEffect(() => setDraft(profileToDraft(profile)), [profile]);
@@ -425,10 +422,10 @@ function EditProfileSection({ profile, onDone }: { profile: UserProfile; onDone:
     setSaving(true);
     try {
       await updateProfile(draftToProfileInput(draft));
-      toast.success("Profile updated.");
+      toast.success(t("profile.updated"));
       onDone();
     } catch {
-      toast.error("We couldn't update your profile. Please try again.");
+      toast.error(t("errors.updateProfile"));
     } finally {
       saveLock.current = false;
       setSaving(false);
@@ -438,12 +435,12 @@ function EditProfileSection({ profile, onDone }: { profile: UserProfile; onDone:
   return (
     <GlassCard strong className="app-card p-5 sm:p-7 lg:p-8">
       <SectionHeading
-        title="Edit Profile"
-        description="Update the personal details used to personalize your CareAI experience."
+        title={t("profile.edit")}
+        description={t("profile.editBody")}
       />
       <form className="mt-6 space-y-5" onSubmit={(event) => void submit(event)} noValidate>
         <div>
-          <FieldLabel htmlFor="edit-displayName">Display Name</FieldLabel>
+          <FieldLabel htmlFor="edit-displayName">{t("createProfile.displayName")}</FieldLabel>
           <input
             id="edit-displayName"
             value={draft.displayName}
@@ -460,7 +457,7 @@ function EditProfileSection({ profile, onDone }: { profile: UserProfile; onDone:
 
         <div className="grid gap-5 md:grid-cols-2">
           <div>
-            <FieldLabel htmlFor="edit-dateOfBirth">Date of Birth</FieldLabel>
+            <FieldLabel htmlFor="edit-dateOfBirth">{t("profile.dateOfBirth")}</FieldLabel>
             <input
               id="edit-dateOfBirth"
               type="date"
@@ -477,7 +474,7 @@ function EditProfileSection({ profile, onDone }: { profile: UserProfile; onDone:
           </div>
           <fieldset>
             <legend className="mb-2 text-[13px] font-bold uppercase tracking-[0.09em] text-slate-600">
-              Sex
+              {t("profile.sex")}
             </legend>
             <div
               className="grid min-h-[52px] grid-cols-3 overflow-hidden rounded-[13px] border border-slate-200 bg-slate-50 p-1"
@@ -502,7 +499,7 @@ function EditProfileSection({ profile, onDone }: { profile: UserProfile; onDone:
                     aria-pressed={selected}
                     disabled={saving}
                   >
-                    {option.label}
+                    {t(option.labelKey)}
                   </button>
                 );
               })}
@@ -514,8 +511,8 @@ function EditProfileSection({ profile, onDone }: { profile: UserProfile; onDone:
         <div className="grid gap-5 min-[390px]:grid-cols-2">
           {(
             [
-              ["heightCm", "Height", "170", "cm", "numeric"],
-              ["weightKg", "Weight", "65", "kg", "decimal"],
+              ["heightCm", t("profile.height"), "170", "cm", "numeric"],
+              ["weightKg", t("profile.weight"), "65", "kg", "decimal"],
             ] as const
           ).map(([field, label, placeholder, unit, inputMode]) => (
             <div key={field}>
@@ -546,7 +543,7 @@ function EditProfileSection({ profile, onDone }: { profile: UserProfile; onDone:
 
         <div>
           <FieldLabel htmlFor="edit-bloodType" optional>
-            Blood Type
+            {t("profile.bloodType")}
           </FieldLabel>
           <select
             id="edit-bloodType"
@@ -557,10 +554,10 @@ function EditProfileSection({ profile, onDone }: { profile: UserProfile; onDone:
             className={fieldClassName}
             disabled={saving}
           >
-            <option value="">Not provided</option>
+            <option value="">{t("common.notProvided")}</option>
             {BLOOD_TYPES.map((option) => (
               <option key={option.value} value={option.value}>
-                {option.label}
+                {option.value === "unknown" ? t("common.unknown") : option.label}
               </option>
             ))}
           </select>
@@ -577,7 +574,7 @@ function EditProfileSection({ profile, onDone }: { profile: UserProfile; onDone:
               className: "w-full sm:w-auto",
             })}
           >
-            Cancel
+            {t("common.cancel")}
           </button>
           <button
             type="submit"
@@ -589,10 +586,10 @@ function EditProfileSection({ profile, onDone }: { profile: UserProfile; onDone:
           >
             {saving ? (
               <>
-                <LoaderCircle className="size-4 animate-spin" aria-hidden="true" /> Saving changes…
+                <LoaderCircle className="size-4 animate-spin" aria-hidden="true" /> {t("common.savingChanges")}
               </>
             ) : (
-              "Save Changes"
+              t("common.saveChanges")
             )}
           </button>
         </div>
@@ -603,6 +600,7 @@ function EditProfileSection({ profile, onDone }: { profile: UserProfile; onDone:
 
 function PreferencesSection({ profile }: { profile: UserProfile }) {
   const { updatePreferredLanguage } = useProfile();
+  const { t } = useTranslation();
   const savedLanguage = profile.preferredLanguage ?? "en";
   const [selectedLanguage, setSelectedLanguage] = useState<PreferredLanguage>(savedLanguage);
   const [saving, setSaving] = useState(false);
@@ -614,9 +612,9 @@ function PreferencesSection({ profile }: { profile: UserProfile }) {
     setSaving(true);
     try {
       await updatePreferredLanguage(selectedLanguage);
-      toast.success("Preferences saved.");
+      toast.success(t("profile.preferencesSaved"));
     } catch {
-      toast.error("We couldn't save your preferences. Please try again.");
+      toast.error(t("errors.savePreferences"));
     } finally {
       setSaving(false);
     }
@@ -625,20 +623,20 @@ function PreferencesSection({ profile }: { profile: UserProfile }) {
   return (
     <GlassCard strong className="app-card p-5 sm:p-7 lg:p-8">
       <SectionHeading
-        title="Preferences"
-        description="Choose how CareAI presents your account experience."
+        title={t("profile.preferences")}
+        description={t("profile.preferredLanguageBody")}
       />
       <fieldset className="mt-6">
         <legend className="flex items-center gap-2 text-base font-extrabold text-slate-950">
-          <Languages className="size-5 text-blue-500" aria-hidden="true" /> Preferred language
+          <Languages className="size-5 text-blue-500" aria-hidden="true" /> {t("profile.preferredLanguage")}
         </legend>
         <p className="mt-1 text-sm leading-6 text-slate-500">
-          Choose from the languages currently supported by CareAI.
+          {t("profile.preferredLanguageBody")}
         </p>
         <div
           className="mt-4 grid gap-3 sm:grid-cols-3"
           role="radiogroup"
-          aria-label="Preferred language"
+          aria-label={t("profile.preferredLanguage")}
         >
           {LANGUAGE_OPTIONS.map((option) => {
             const selected = selectedLanguage === option.value;
@@ -648,7 +646,10 @@ function PreferencesSection({ profile }: { profile: UserProfile }) {
                 type="button"
                 role="radio"
                 aria-checked={selected}
-                onClick={() => setSelectedLanguage(option.value)}
+                onClick={() => {
+                  setSelectedLanguage(option.value);
+                  void changeCareAILanguage(option.value);
+                }}
                 className={cn(
                   "min-h-24 rounded-[16px] border p-4 text-left transition-[border-color,background-color,box-shadow] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200",
                   selected
@@ -677,7 +678,7 @@ function PreferencesSection({ profile }: { profile: UserProfile }) {
       </fieldset>
       <div className="mt-6 flex flex-col items-start justify-between gap-4 border-t border-slate-100 pt-5 sm:flex-row sm:items-center">
         <p className="text-xs leading-5 text-slate-500">
-          Your preference is saved to your CareAI profile.
+          {t("profile.preferenceStored")}
         </p>
         <button
           type="button"
@@ -690,7 +691,7 @@ function PreferencesSection({ profile }: { profile: UserProfile }) {
               <LoaderCircle className="size-4 animate-spin" aria-hidden="true" /> Saving…
             </>
           ) : (
-            "Save Preferences"
+            t("profile.savePreferences")
           )}
         </button>
       </div>
@@ -700,6 +701,7 @@ function PreferencesSection({ profile }: { profile: UserProfile }) {
 
 function PrivacySection({ user }: { user: AppUser }) {
   const { signOut } = useAuth();
+  const { t } = useTranslation();
   const [signingOut, setSigningOut] = useState(false);
 
   async function handleSignOut() {
@@ -712,8 +714,8 @@ function PrivacySection({ user }: { user: AppUser }) {
     <div className="space-y-5">
       <GlassCard strong className="app-card p-5 sm:p-7 lg:p-8">
         <SectionHeading
-          title="Account & Privacy"
-          description="Review your connected account and how your profile information is used."
+          title={t("profile.privacy")}
+          description={t("profile.accountBody")}
         />
         <div className="mt-6 grid gap-3">
           <div className="flex flex-col gap-4 rounded-[16px] border border-slate-100 bg-slate-50/65 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
@@ -722,12 +724,12 @@ function PrivacySection({ user }: { user: AppUser }) {
                 <ShieldCheck className="size-5" aria-hidden="true" />
               </span>
               <div className="min-w-0">
-                <p className="font-extrabold text-slate-950">Connected account</p>
+                <p className="font-extrabold text-slate-950">{t("profile.connectedAccount")}</p>
                 <p className="mt-0.5 break-all text-sm text-slate-500">Google · {user.email}</p>
               </div>
             </div>
             <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-emerald-100 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-700">
-              <Check className="size-3.5" aria-hidden="true" /> Active
+              <Check className="size-3.5" aria-hidden="true" /> {t("common.active")}
             </span>
           </div>
         </div>
@@ -738,19 +740,18 @@ function PrivacySection({ user }: { user: AppUser }) {
           <LockKeyhole className="size-4.5" aria-hidden="true" />
         </span>
         <div>
-          <h2 className="font-extrabold text-slate-950">Your Data</h2>
+          <h2 className="font-extrabold text-slate-950">{t("profile.yourData")}</h2>
           <p className="mt-1 text-sm leading-6 text-slate-500">
-            CareAI uses your profile and health readings to personalize your experience and show
-            your health history.
+            {t("profile.dataBody")}
           </p>
         </div>
       </GlassCard>
 
       <GlassCard className="app-card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
         <div>
-          <h2 className="font-extrabold text-slate-950">Sign out of CareAI</h2>
+          <h2 className="font-extrabold text-slate-950">{t("profile.signOutTitle")}</h2>
           <p className="mt-1 text-sm leading-6 text-slate-500">
-            You can sign back in with your connected Google account.
+            {t("profile.signOutBody")}
           </p>
         </div>
         <button
@@ -764,7 +765,7 @@ function PrivacySection({ user }: { user: AppUser }) {
           ) : (
             <LogOut className="size-4" aria-hidden="true" />
           )}{" "}
-          {signingOut ? "Signing out…" : "Sign Out"}
+          {signingOut ? t("profile.signingOut") : t("nav.signOut")}
         </button>
       </GlassCard>
     </div>
@@ -773,7 +774,8 @@ function PrivacySection({ user }: { user: AppUser }) {
 
 export function ProfileDetails({ user, profile }: { user: AppUser; profile: UserProfile }) {
   const [activeSection, setActiveSection] = useState<ProfileSection>("overview");
-  const memberSince = formatMemberSince(profile.createdAt);
+  const { t, i18n } = useTranslation();
+  const memberSince = formatMemberSince(profile.createdAt, localeForLanguage(normalizeLanguage(i18n.resolvedLanguage ?? i18n.language)));
 
   useEffect(() => {
     const syncFromHash = () => setActiveSection(sectionFromHash());
@@ -795,16 +797,16 @@ export function ProfileDetails({ user, profile }: { user: AppUser; profile: User
       <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">
-            Personal profile
+            {t("profile.eyebrow")}
           </p>
           <h1 className="mt-2 text-[clamp(2rem,5vw,2.6rem)] font-extrabold tracking-[-0.045em] text-slate-950">
-            My Profile
+            {t("profile.title")}
           </h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 sm:text-[15px]">
-            Manage your personal information and CareAI preferences.
+            {t("profile.subtitle")}
           </p>
           {memberSince ? (
-            <p className="mt-1 text-xs font-medium text-slate-400">Member since {memberSince}</p>
+            <p className="mt-1 text-xs font-medium text-slate-400">{t("profile.memberSince", { date: memberSince })}</p>
           ) : null}
         </div>
         <Link
@@ -815,7 +817,7 @@ export function ProfileDetails({ user, profile }: { user: AppUser; profile: User
             className: "w-full sm:w-auto",
           })}
         >
-          Back to Dashboard
+          {t("common.backToDashboard")}
         </Link>
       </header>
 
@@ -846,8 +848,9 @@ export function ProfileDetails({ user, profile }: { user: AppUser; profile: User
 }
 
 export function ProfileSkeleton() {
+  const { t } = useTranslation();
   return (
-    <div className="mx-auto max-w-[1180px] space-y-6" aria-label="Loading profile" aria-busy="true">
+    <div className="mx-auto max-w-[1180px] space-y-6" aria-label={t("profile.loading")} aria-busy="true">
       <div className="space-y-3">
         <div className="h-3 w-28 animate-pulse rounded bg-blue-100" />
         <div className="h-11 w-48 animate-pulse rounded-xl bg-slate-200" />
@@ -879,43 +882,45 @@ export function ProfileSkeleton() {
 }
 
 export function ProfileLoadError({ onRetry }: { onRetry: () => void }) {
+  const { t } = useTranslation();
   return (
     <GlassCard strong className="app-card mx-auto max-w-xl p-8 text-center sm:p-10">
       <span className="mx-auto grid size-14 place-items-center rounded-[18px] bg-rose-50 text-rose-500">
         <UserRound className="size-6" aria-hidden="true" />
       </span>
       <h1 className="mt-5 text-2xl font-extrabold text-slate-950">
-        We couldn&apos;t load your profile.
+        {t("errors.loadProfile")}
       </h1>
       <p className="mt-2 text-sm leading-6 text-slate-500">
-        Please try again. Your account information has not been changed.
+        {t("errors.loadProfileBody")}
       </p>
       <button
         type="button"
         onClick={onRetry}
         className={glassButtonVariants({ size: "md", className: "mt-6" })}
       >
-        Try Again
+        {t("common.tryAgain")}
       </button>
     </GlassCard>
   );
 }
 
 export function IncompleteProfile() {
+  const { t } = useTranslation();
   return (
     <GlassCard strong className="app-card mx-auto max-w-xl p-8 text-center sm:p-10">
       <CareAILogo className="justify-center" />
       <h1 className="mt-6 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">
-        Your CareAI profile isn&apos;t complete yet.
+        {t("profile.incompleteTitle")}
       </h1>
       <p className="mt-2 text-sm leading-6 text-slate-500">
-        Complete your profile to improve personalization.
+        {t("profile.incompleteBody")}
       </p>
       <Link
         to="/create-profile"
         className={glassButtonVariants({ size: "lg", className: "mt-6 w-full sm:w-auto" })}
       >
-        Create Profile
+        {t("profile.createProfile")}
       </Link>
     </GlassCard>
   );

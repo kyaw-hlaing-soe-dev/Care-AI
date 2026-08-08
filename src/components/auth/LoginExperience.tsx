@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { ArrowLeft, Check, Droplets, HeartPulse, LockKeyhole, Sparkles } from "lucide-react";
 import { CareAILogo } from "@/components/auth/CareAILogo";
 import doctorImage from "../../assets/login-doctor-seated.png";
+import { useTranslation } from "react-i18next";
 
 export type LoginExperienceProps = {
   onSignIn: () => void;
@@ -83,11 +84,12 @@ function FloatingVitalCard({
 
 function DoctorImage({ className }: { className: string }) {
   const reducedMotion = Boolean(useReducedMotion());
+  const { t } = useTranslation();
 
   return (
     <motion.img
       src={doctorImage}
-      alt="Friendly 3D CareAI doctor sitting on a stool and reviewing health data on a tablet"
+      alt={t("auth.doctorAlt")}
       className={`doctor-image-blend relative z-10 h-full w-auto max-w-none select-none object-contain ${className}`}
       draggable="false"
       loading="eager"
@@ -106,6 +108,7 @@ function DoctorImage({ className }: { className: string }) {
 }
 
 function DesktopDoctorScene() {
+  const { t } = useTranslation();
   return (
     <div className="login-desktop-scene relative h-[clamp(340px,45dvh,410px)] w-full max-w-[620px] bg-[radial-gradient(circle_at_52%_53%,rgba(34,211,238,0.15),rgba(59,130,246,0.06)_43%,transparent_72%)]">
       <div className="relative z-10 mx-auto flex h-full w-full items-center justify-center overflow-hidden">
@@ -113,9 +116,9 @@ function DesktopDoctorScene() {
       </div>
 
       <FloatingVitalCard
-        title="Heart rate"
+        title={t("auth.heartRate")}
         value="72 BPM"
-        detail="Normal"
+        detail={t("auth.normal")}
         icon={<HeartPulse className="size-4" />}
         accentClassName="bg-rose-50 text-rose-500"
         className="left-[1%] top-[32%] w-[150px]"
@@ -124,9 +127,9 @@ function DesktopDoctorScene() {
         delay={0.12}
       />
       <FloatingVitalCard
-        title="Oxygen"
+        title={t("auth.oxygen")}
         value="98%"
-        detail="Excellent"
+        detail={t("auth.excellent")}
         icon={<Droplets className="size-4" />}
         accentClassName="bg-sky-50 text-sky-500"
         className="right-[1%] top-[18%] w-[142px]"
@@ -135,9 +138,9 @@ function DesktopDoctorScene() {
         delay={0.24}
       />
       <FloatingVitalCard
-        title="AI health score"
+        title={t("auth.aiHealthScore")}
         value="92"
-        detail="Great · trending up"
+        detail={t("auth.trendingUp")}
         icon={<Sparkles className="size-4" />}
         accentClassName="bg-cyan-50 text-cyan-600"
         className="bottom-[10%] right-[0%] w-[172px] rounded-[18px] p-3"
@@ -150,6 +153,7 @@ function DesktopDoctorScene() {
 }
 
 function MobileDoctorScene() {
+  const { t } = useTranslation();
   return (
     <div className="login-mobile-scene relative mx-auto w-full max-w-[390px] bg-[radial-gradient(circle_at_50%_52%,rgba(34,211,238,0.16),rgba(59,130,246,0.055)_46%,transparent_72%)] md:max-w-[580px]">
       <div className="relative z-10 mx-auto flex h-full w-full items-center justify-center overflow-hidden">
@@ -157,9 +161,9 @@ function MobileDoctorScene() {
       </div>
 
       <FloatingVitalCard
-        title="Heart rate"
+        title={t("auth.heartRate")}
         value="72 BPM"
-        detail="Normal"
+        detail={t("auth.normal")}
         icon={<HeartPulse className="size-3.5" />}
         accentClassName="bg-rose-50 text-rose-500"
         className="left-0 top-[24%] w-[108px] sm:left-[5%] sm:w-[118px] md:left-[12%] md:top-[27%] md:w-[132px]"
@@ -168,9 +172,9 @@ function MobileDoctorScene() {
         delay={0.14}
       />
       <FloatingVitalCard
-        title="AI score"
+        title={t("auth.aiScore")}
         value="92"
-        detail="Great"
+        detail={t("auth.great")}
         icon={<Sparkles className="size-3.5" />}
         accentClassName="bg-cyan-50 text-cyan-600"
         className="right-0 top-[51%] w-[108px] sm:right-[5%] sm:w-[118px] md:right-[12%] md:w-[132px]"
@@ -183,6 +187,7 @@ function MobileDoctorScene() {
 }
 
 export function LoginVisual() {
+  const { t } = useTranslation();
   return (
     <motion.section
       className="hidden min-w-0 flex-col justify-center gap-3 lg:flex"
@@ -194,19 +199,19 @@ export function LoginVisual() {
       <div className="max-w-[540px]">
         <div className="inline-flex items-center gap-2 rounded-full border border-cyan-200/75 bg-white/75 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-cyan-700 shadow-[0_8px_22px_rgba(14,165,233,0.08)]">
           <Sparkles className="size-3.5" aria-hidden="true" />
-          AI-powered health companion
+          {t("auth.visualBadge")}
         </div>
         <h1
           id="login-visual-heading"
           className="mt-4 max-w-[11ch] text-[clamp(3rem,4.8vw,4.25rem)] font-extrabold leading-[0.98] tracking-[-0.055em] text-slate-950"
         >
-          Your health,{" "}
+          {t("auth.visualTitle")}{" "}
           <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
-            understood.
+            {t("auth.visualTitleAccent")}
           </span>
         </h1>
         <p className="mt-4 max-w-[500px] text-[clamp(1rem,1.25vw,1.125rem)] leading-7 text-slate-600">
-          Track your vitals and get AI-powered insights that help you understand your health better.
+          {t("auth.visualBody")}
         </p>
       </div>
 
@@ -219,12 +224,13 @@ function GoogleSignInButton({
   pending,
   onSignIn,
 }: Pick<LoginExperienceProps, "pending" | "onSignIn">) {
+  const { t } = useTranslation();
   return (
     <button
       type="button"
       onClick={onSignIn}
       disabled={pending}
-      aria-label={pending ? "Signing you in with Google" : "Continue with Google"}
+      aria-label={pending ? t("auth.signingInAria") : t("auth.continueGoogle")}
       aria-busy={pending}
       className="relative inline-flex h-[54px] w-full items-center justify-center rounded-[15px] border border-slate-200 bg-white px-12 text-[15px] font-semibold text-slate-900 shadow-[0_10px_28px_rgba(15,23,42,0.07)] transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-px hover:border-sky-300 hover:shadow-[0_16px_34px_rgba(14,165,233,0.13)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-65 motion-reduce:transform-none motion-reduce:transition-none"
     >
@@ -252,24 +258,26 @@ function GoogleSignInButton({
             className="size-4 animate-spin rounded-full border-2 border-slate-300 border-t-cyan-500 motion-reduce:animate-none"
             aria-hidden="true"
           />
-          Signing you in...
+          {t("auth.signingIn")}
         </span>
       ) : (
-        "Continue with Google"
+        t("auth.continueGoogle")
       )}
     </button>
   );
 }
 
 function TrustIndicators() {
+  const { t } = useTranslation();
+  const indicators = [t("auth.secure"), t("auth.private"), t("auth.fast")];
   return (
     <div className="space-y-3.5">
       <p className="flex items-center justify-center gap-2 text-center text-[12px] leading-5 text-slate-600">
         <LockKeyhole className="size-3.5 shrink-0 text-cyan-600" aria-hidden="true" />
-        <span>Secure sign-in • Your health data stays private</span>
+        <span>{t("auth.secureSignIn")}</span>
       </p>
       <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[12px] font-semibold text-slate-600">
-        {["Secure", "Private", "Fast"].map((label) => (
+        {indicators.map((label) => (
           <span key={label} className="inline-flex items-center gap-1.5">
             <Check className="size-3.5 text-emerald-500" aria-hidden="true" />
             {label}
@@ -281,6 +289,7 @@ function TrustIndicators() {
 }
 
 export function LoginPanel({ onSignIn, pending, error }: LoginExperienceProps) {
+  const { t } = useTranslation();
   return (
     <motion.section
       className="min-w-0 lg:flex lg:items-center lg:justify-center"
@@ -294,17 +303,17 @@ export function LoginPanel({ onSignIn, pending, error }: LoginExperienceProps) {
           <CareAILogo />
 
           <div className="mt-4 inline-flex rounded-full border border-cyan-200/75 bg-white/75 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-700 shadow-[0_8px_18px_rgba(14,165,233,0.07)] sm:mt-5">
-            Private by design
+            {t("auth.privateBadge")}
           </div>
 
           <h2
             id="login-heading"
             className="mt-3 text-[clamp(2rem,8vw,2.25rem)] font-bold leading-[1.05] tracking-[-0.045em] text-slate-950 lg:mt-4 lg:text-[clamp(2.75rem,4vw,3.5rem)]"
           >
-            Welcome back
+            {t("auth.welcomeBack")}
           </h2>
           <p className="mt-2 text-[15px] leading-6 text-slate-600 sm:text-base">
-            Sign in to continue your health journey.
+            {t("auth.subtitle")}
           </p>
         </div>
 
@@ -328,8 +337,7 @@ export function LoginPanel({ onSignIn, pending, error }: LoginExperienceProps) {
 
         <div className="mt-5 border-t border-slate-200/80 pt-4 md:mx-auto md:max-w-[440px] lg:max-w-none">
           <p className="text-[12px] leading-[1.55] text-slate-600">
-            CareAI provides informational health insights only and is not a substitute for
-            professional medical advice.
+            {t("medical.shortDisclaimer")}
           </p>
 
           <Link
@@ -337,7 +345,7 @@ export function LoginPanel({ onSignIn, pending, error }: LoginExperienceProps) {
             className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-lg px-1 text-[13px] font-semibold text-slate-600 transition-colors hover:text-slate-950 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-300/40"
           >
             <ArrowLeft className="size-4" aria-hidden="true" />
-            Back to home
+            {t("common.backToHome")}
           </Link>
         </div>
       </div>

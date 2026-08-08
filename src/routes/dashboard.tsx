@@ -14,6 +14,7 @@ import { VitalSummaryGrid } from "@/components/VitalSummaryGrid";
 import { useVitals } from "@/hooks/use-vitals";
 import { useAuth } from "@/lib/auth-context";
 import { useProfile } from "@/lib/profile-context";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -38,15 +39,22 @@ function Dashboard() {
   const { user } = useAuth();
   const { profile } = useProfile();
   const [greeting, setGreeting] = useState("Hello");
+  const { t } = useTranslation();
 
   useEffect(() => {
     const hour = new Date().getHours();
-    setGreeting(hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening");
-  }, []);
+    setGreeting(
+      hour < 12
+        ? t("dashboard.greetingMorning")
+        : hour < 18
+          ? t("dashboard.greetingAfternoon")
+          : t("dashboard.greetingEvening"),
+    );
+  }, [t]);
 
-  if (loading) return <LoadingSpinner fullscreen label="Loading your latest check…" />;
+  if (loading) return <LoadingSpinner fullscreen label={t("dashboard.loading")} />;
 
-  const displayName = profile?.displayName || user?.name || "there";
+  const displayName = profile?.displayName || user?.name || t("dashboard.greetingFallback");
 
   return (
     <div className="space-y-8 lg:space-y-9">
@@ -57,11 +65,11 @@ function Dashboard() {
           <h1 className="text-[clamp(1.85rem,4vw,2.25rem)] font-extrabold leading-tight tracking-[-0.045em] text-slate-950">
             {greeting}, {displayName} <span aria-hidden="true">👋</span>
           </h1>
-          <p className="mt-2 text-sm leading-6 text-slate-500 sm:text-[15px]">Here&apos;s your latest health overview.</p>
+          <p className="mt-2 text-sm leading-6 text-slate-500 sm:text-[15px]">{t("dashboard.subtitle")}</p>
         </div>
         <Link to="/add" className={glassButtonVariants({ size: "md", className: "w-full sm:w-auto" })}>
           <Plus className="size-4" aria-hidden="true" />
-          Log Vitals
+          {t("dashboard.logVitals")}
         </Link>
       </header>
 
@@ -70,21 +78,21 @@ function Dashboard() {
           <span className="mx-auto grid size-14 place-items-center rounded-[18px] bg-gradient-to-br from-blue-500 to-cyan-400 text-white shadow-[0_16px_34px_rgba(37,99,235,0.20)]">
             <Activity className="size-6" aria-hidden="true" />
           </span>
-          <h2 className="mt-5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">No health readings yet.</h2>
+          <h2 className="mt-5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">{t("dashboard.noReadings")}</h2>
           <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
-            Log your first vitals to start building your health history and receive a CareAI insight.
+            {t("dashboard.noReadingsBody")}
           </p>
           <Link to="/add" className={glassButtonVariants({ size: "lg", className: "mt-6" })}>
-            Log My First Vitals
+            {t("dashboard.logFirst")}
           </Link>
         </GlassCard>
       ) : (
         <>
-          <section aria-label="Health score overview">
+          <section aria-label={t("dashboard.healthScoreOverviewAria")}>
             <HealthOverviewCard record={latest} />
           </section>
 
-          <section aria-label="Latest vital metrics">
+          <section aria-label={t("dashboard.latestMetricsAria")}>
             <VitalSummaryGrid record={latest} previousRecord={records[1]} />
           </section>
 

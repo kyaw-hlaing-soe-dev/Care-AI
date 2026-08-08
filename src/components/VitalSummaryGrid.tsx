@@ -2,6 +2,7 @@ import { Activity, Droplets, HeartPulse, Minus, Thermometer, TrendingDown, Trend
 import { GlassCard } from "@/components/glass/GlassCard";
 import { NoDataBadge, StatusBadge } from "@/components/StatusBadge";
 import { isInRange, type VitalRecord } from "@/lib/vitals";
+import { useTranslation } from "react-i18next";
 
 type Item = {
   label: string;
@@ -15,6 +16,7 @@ type Item = {
 };
 
 function Trend({ item }: { item: Item }) {
+  const { t } = useTranslation();
   if (item.current === undefined || item.previous === undefined) return null;
   const difference = Number((item.current - item.previous).toFixed(1));
   const Icon = difference > 0 ? TrendingUp : difference < 0 ? TrendingDown : Minus;
@@ -22,8 +24,8 @@ function Trend({ item }: { item: Item }) {
     <p className="mt-3 flex min-h-5 items-center gap-1.5 text-[11px] font-semibold leading-4 text-slate-500 sm:text-xs">
       <Icon className="size-3.5 shrink-0 text-blue-500" aria-hidden="true" />
       {difference === 0
-        ? "No change from prior"
-        : `${item.trendLabel ?? ""}${difference > 0 ? "+" : ""}${difference} from prior`}
+        ? t("dashboard.noChange")
+        : t("dashboard.fromPrior", { value: `${item.trendLabel ?? ""}${difference > 0 ? "+" : ""}${difference}` })}
     </p>
   );
 }
@@ -35,19 +37,20 @@ export function VitalSummaryGrid({
   record?: VitalRecord;
   previousRecord?: VitalRecord | undefined;
 }) {
+  const { t } = useTranslation();
   const items: Item[] = [
     {
-      label: "Blood Pressure",
+      label: t("dashboard.bloodPressure"),
       Icon: Droplets,
       value: record ? `${record.systolic}/${record.diastolic}` : "--",
       unit: "mmHg",
       normal: record ? isInRange("systolic", record.systolic) && isInRange("diastolic", record.diastolic) : false,
       current: record?.systolic,
       previous: previousRecord?.systolic,
-      trendLabel: "Systolic ",
+      trendLabel: `${t("dashboard.systolic")} `,
     },
     {
-      label: "Heart Rate",
+      label: t("dashboard.heartRate"),
       Icon: HeartPulse,
       value: record ? `${record.heartRate}` : "--",
       unit: "bpm",
@@ -56,7 +59,7 @@ export function VitalSummaryGrid({
       previous: previousRecord?.heartRate,
     },
     {
-      label: "Oxygen",
+      label: t("dashboard.oxygen"),
       Icon: Activity,
       value: record ? `${record.oxygen}` : "--",
       unit: "%",
@@ -65,7 +68,7 @@ export function VitalSummaryGrid({
       previous: previousRecord?.oxygen,
     },
     {
-      label: "Temperature",
+      label: t("dashboard.temperature"),
       Icon: Thermometer,
       value: record ? `${record.temperature}` : "--",
       unit: "°C",

@@ -1,0 +1,118 @@
+:root {
+  color-scheme: light;
+
+  /* CareAI brand */
+  --brand-blue-700: #1d4ed8;
+  --brand-blue-600: #2563eb;
+  --brand-blue-500: #3b82f6;
+  --brand-cyan-500: #06b6d4;
+  --brand-cyan-400: #22d3ee;
+  --brand-navy-950: #071a33;
+  --brand-navy-900: #0f2342;
+
+  /* Semantic color bridge for Tailwind/shadcn primitives */
+  --primary: oklch(0.623 0.188 259.8);
+  --primary-foreground: oklch(0.995 0.005 250);
+  --primary-dark: oklch(0.548 0.196 262);
+  --primary-light: oklch(0.955 0.028 250);
+  --brand-cyan: oklch(0.78 0.13 213);
+  --brand-sky: oklch(0.72 0.12 240);
+  --brand-violet: oklch(0.68 0.15 295);
+  --brand-teal: oklch(0.75 0.11 190);
+  --background: oklch(0.988 0.007 240);
+  --foreground: oklch(0.24 0.03 258);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.24 0.03 258);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.24 0.03 258);
+  --secondary: oklch(0.965 0.014 245);
+  --secondary-foreground: oklch(0.36 0.08 258);
+  --muted: oklch(0.968 0.008 250);
+  --muted-foreground: oklch(0.545 0.025 258);
+  --accent: oklch(0.95 0.035 215);
+  --accent-foreground: oklch(0.42 0.09 235);
+  --destructive: oklch(0.637 0.208 25.3);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.915 0.018 245);
+  --input: oklch(0.915 0.018 245);
+  --ring: oklch(0.623 0.188 259.8);
+
+  /* Status colors always pair icon + label + tint. */
+  --status-good: oklch(0.68 0.15 162);
+  --status-good-bg: oklch(0.955 0.04 165);
+  --status-good-text: oklch(0.42 0.105 163);
+  --status-warn: oklch(0.769 0.164 70.1);
+  --status-warn-bg: oklch(0.962 0.06 89);
+  --status-warn-text: oklch(0.43 0.105 62);
+  --status-urgent: oklch(0.637 0.208 25.3);
+  --status-urgent-bg: oklch(0.943 0.032 18);
+  --status-urgent-text: oklch(0.48 0.185 26);
+  --status-pending: oklch(0.515 0.036 257);
+  --status-pending-bg: oklch(0.929 0.013 255);
+  --info: oklch(0.623 0.188 259.8);
+  --info-bg: oklch(0.95 0.03 255);
+  --info-text: oklch(0.42 0.145 262);
+
+  /* Radius scale */
+  --radius: 18px;
+  --radius-control-sm: 12px;
+  --radius-control: 15px;
+  --radius-input: 16px;
+  --radius-card: 24px;
+  --radius-panel: 30px;
+  --radius-hero: 42px;
+
+  /* Material levels */
+  --glass-surface-soft: rgba(255, 255, 255, 0.5);
+  --glass-surface-medium: rgba(255, 255, 255, 0.68);
+  --glass-surface-strong: rgba(255, 255, 255, 0.86);
+  --glass-surface-control: rgba(255, 255, 255, 0.9);
+  --glass-border-soft: rgba(255, 255, 255, 0.58);
+  --glass-border: rgba(255, 255, 255, 0.78);
+  --glass-edge: rgba(255, 255, 255, 0.94);
+  --glass-blur-sm: 12px;
+  --glass-blur-md: 18px;
+  --glass-blur-lg: 26px;
+  --glass-saturation: 145%;
+
+  /* Elevation */
+  --shadow-glass: 0 18px 50px -22px rgba(30, 64, 140, 0.25), 0 2px 10px -5px rgba(30, 64, 140, 0.11);
+  --shadow-glass-lift: 0 28px 64px -25px rgba(30, 64, 140, 0.32), 0 5px 16px -7px rgba(30, 64, 140, 0.15);
+  --shadow-float: 0 30px 80px -36px rgba(28, 72, 135, 0.38);
+  --shadow-ui-sm: 0 8px 24px rgba(44, 83, 130, 0.08);
+  --shadow-ui-md: 0 16px 42px rgba(44, 83, 130, 0.12);
+  --shadow-ui-lg: 0 24px 70px rgba(44, 83, 130, 0.14);
+  --focus-ring: 0 0 0 4px rgba(103, 232, 249, 0.38);
+  --glow-primary: 0 0 52px rgba(59, 130, 246, 0.2);
+
+  /* Motion */
+  --motion-fast: 160ms;
+  --motion-base: 240ms;
+  --motion-slow: 520ms;
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --brand-gradient: linear-gradient(105deg, var(--brand-blue-700) 0%, var(--brand-blue-500) 50%, var(--brand-cyan-400) 100%);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --glass-surface-soft: rgba(255, 255, 255, 0.68);
+    --glass-surface-medium: rgba(255, 255, 255, 0.8);
+    --glass-surface-strong: rgba(255, 255, 255, 0.92);
+    --glass-blur-sm: 8px;
+    --glass-blur-md: 12px;
+    --glass-blur-lg: 16px;
+    --shadow-glass: 0 14px 36px -22px rgba(30, 64, 140, 0.24), 0 2px 8px -5px rgba(30, 64, 140, 0.1);
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --glass-surface-soft: rgba(255, 255, 255, 0.88);
+    --glass-surface-medium: rgba(255, 255, 255, 0.94);
+    --glass-surface-strong: #ffffff;
+    --glass-border-soft: rgba(104, 128, 160, 0.5);
+    --glass-border: rgba(75, 101, 135, 0.62);
+  }
+}
