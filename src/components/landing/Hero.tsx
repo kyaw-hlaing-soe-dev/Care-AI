@@ -13,8 +13,8 @@ const WIDGETS = [
     label: "Heart Rate",
     value: "72 BPM",
     tint: "from-rose-400/80 to-rose-500/80",
-    pos: "left-[1%] top-[23%]",
-    mobile: true,
+    pos: "left-[1%] top-[36%] lg:top-[23%]",
+    show: "flex",
     delay: 0,
     rotate: -7,
   },
@@ -23,8 +23,8 @@ const WIDGETS = [
     label: "Blood Pressure",
     value: "120 / 76",
     tint: "from-primary/85 to-sky/85",
-    pos: "right-[1%] top-[13%]",
-    mobile: true,
+    pos: "right-[1%] top-[28%] lg:top-[13%]",
+    show: "hidden md:flex",
     delay: 0.8,
     rotate: 6,
   },
@@ -34,7 +34,7 @@ const WIDGETS = [
     value: "36.7°C",
     tint: "from-amber-400/85 to-orange-400/85",
     pos: "left-[0%] bottom-[20%]",
-    mobile: false,
+    show: "hidden lg:flex",
     delay: 1.4,
     rotate: 5,
   },
@@ -43,10 +43,20 @@ const WIDGETS = [
     label: "Oxygen",
     value: "98%",
     tint: "from-teal/90 to-cyan/90",
-    pos: "right-[0%] bottom-[34%]",
-    mobile: true,
+    pos: "right-[1%] bottom-[20%] lg:right-[0%] lg:bottom-[34%]",
+    show: "flex",
     delay: 0.4,
     rotate: -5,
+  },
+  {
+    Icon: Brain,
+    label: "Health Score",
+    value: "88 / 100",
+    tint: "from-violet/85 to-primary/85",
+    pos: "right-[2%] top-[1%] lg:right-[6%] lg:bottom-[5%] lg:top-auto",
+    show: "flex max-[359px]:hidden",
+    delay: 1.1,
+    rotate: -2,
   },
 ];
 
@@ -67,7 +77,7 @@ export function Hero() {
   }
 
   return (
-    <section className="mx-auto grid max-w-[1380px] items-center gap-10 px-5 pb-16 pt-10 sm:px-6 sm:pt-12 lg:min-h-[calc(100dvh-84px)] lg:grid-cols-[minmax(0,.96fr)_minmax(0,1.04fr)] lg:gap-10 lg:px-10 lg:py-10 xl:gap-14 xl:px-12">
+    <section className="mx-auto grid max-w-[1380px] items-center gap-4 px-5 pb-10 pt-8 sm:px-6 sm:pb-12 sm:pt-10 md:gap-6 lg:min-h-[calc(100dvh-84px)] lg:grid-cols-[minmax(0,.96fr)_minmax(0,1.04fr)] lg:gap-10 lg:px-10 lg:py-10 xl:gap-14 xl:px-12">
       <div className="text-center lg:text-left">
         <motion.span
           initial={{ opacity: 0, y: 16 }}
@@ -83,7 +93,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-5 text-balance text-[clamp(2.65rem,12vw,3.75rem)] font-extrabold leading-[1.01] tracking-[-0.055em] sm:text-[clamp(3.5rem,8vw,4.25rem)] lg:text-[clamp(3.65rem,5.2vw,4.5rem)]"
+          className="mt-5 text-balance text-[clamp(2.375rem,11vw,3.25rem)] font-extrabold leading-[1.01] tracking-[-0.055em] sm:text-[3.25rem] md:text-[3.75rem] lg:text-[clamp(3.65rem,5.2vw,4.5rem)]"
         >
           Understand Your Health. <span className="text-gradient">One Reading at a Time.</span>
         </motion.h1>
@@ -92,7 +102,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto mt-5 max-w-[580px] text-pretty text-base leading-7 text-muted-foreground sm:text-lg lg:mx-0"
+          className="mx-auto mt-5 max-w-[380px] text-pretty text-[15px] leading-6 text-muted-foreground sm:text-base md:max-w-[580px] md:text-lg lg:mx-0"
         >
           Track your vital signs, understand your trends, and receive clear AI-powered health
           insights — all in one place.
@@ -121,11 +131,14 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mx-auto mt-7 flex max-w-[560px] flex-wrap justify-center gap-x-5 gap-y-3 text-left lg:mx-0 lg:justify-start"
+          className="mx-auto mt-5 flex max-w-[430px] flex-wrap justify-center gap-2 text-left sm:mt-6 md:max-w-[560px] md:gap-x-4 lg:mx-0 lg:justify-start"
         >
           {PROOF.map((p) => (
-            <li key={p} className="flex items-center gap-2 text-sm font-medium text-foreground/80">
-              <span className="grid size-5 shrink-0 place-items-center rounded-full bg-gradient-to-br from-primary to-cyan text-primary-foreground">
+            <li
+              key={p}
+              className="flex items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-2.5 py-1.5 text-[11px] font-semibold text-foreground/75 shadow-sm backdrop-blur-sm md:bg-transparent md:px-0 md:py-0 md:text-sm md:shadow-none"
+            >
+              <span className="grid size-4 shrink-0 place-items-center rounded-full bg-gradient-to-br from-primary to-cyan text-primary-foreground md:size-5">
                 <Check className="size-3" strokeWidth={3} />
               </span>
               {p}
@@ -142,7 +155,7 @@ export function Hero() {
           mx.set(0);
           my.set(0);
         }}
-        className="relative mx-auto h-[350px] w-full max-w-[560px] sm:h-[470px] lg:h-[clamp(430px,61dvh,560px)] [perspective:1400px]"
+        className="relative mx-auto h-[290px] w-full max-w-[430px] min-[400px]:h-[310px] sm:h-[330px] sm:max-w-[540px] md:h-[390px] md:max-w-[620px] lg:h-[clamp(430px,61dvh,560px)] lg:max-w-[560px] [perspective:1400px] [@media(max-height:700px)]:h-[270px] lg:[@media(max-height:700px)]:h-[430px]"
       >
         <motion.div
           style={
@@ -152,8 +165,8 @@ export function Hero() {
           }
           className="absolute inset-0"
         >
-          <div className="absolute left-1/2 top-1/2 h-[84%] w-[74%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-primary/22 via-cyan/24 to-sky-100/40 blur-2xl" />
-          <div className="glass-surface glass-glare absolute left-1/2 top-1/2 h-[82%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-[42%]" />
+          <div className="absolute left-1/2 top-1/2 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.28),rgba(34,211,238,0.13)_45%,transparent_72%)] blur-xl lg:h-[84%] lg:w-[74%] lg:bg-gradient-to-br lg:from-primary/22 lg:via-cyan/24 lg:to-sky-100/40 lg:blur-2xl" />
+          <div className="glass-surface glass-glare absolute left-1/2 top-1/2 hidden h-[82%] w-[72%] -translate-x-1/2 -translate-y-1/2 rounded-[42%] lg:block" />
 
           <motion.img
             src={doctor}
@@ -163,7 +176,7 @@ export function Hero() {
             loading="eager"
             {...(!reducedMotion ? { animate: { y: [0, -4, 0] } } : {})}
             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-x-[14%] bottom-[3%] top-[2%] m-auto h-[96%] w-auto object-contain drop-shadow-[0_34px_44px_rgba(30,64,140,0.22)]"
+            className="absolute inset-x-[14%] bottom-[7%] top-auto m-auto h-[240px] w-auto object-contain drop-shadow-[0_26px_34px_rgba(30,64,140,0.20)] min-[400px]:h-[255px] sm:h-[280px] md:h-[320px] lg:bottom-[3%] lg:top-[2%] lg:h-[96%] lg:drop-shadow-[0_34px_44px_rgba(30,64,140,0.22)] [@media(max-height:700px)]:h-[225px] lg:[@media(max-height:700px)]:h-[96%]"
             style={{ transform: "translateZ(60px)" }}
           />
 
@@ -180,18 +193,18 @@ export function Hero() {
                 y: { duration: 7 + w.delay, repeat: Infinity, ease: "easeInOut", delay: w.delay },
               }}
               style={{ rotate: w.rotate, transform: "translateZ(90px)" }}
-              className={`glass-surface glass-glare glass-strong absolute ${w.pos} ${w.mobile ? "flex" : "hidden sm:flex"} items-center gap-2.5 rounded-[18px] px-2.5 py-2 sm:gap-3 sm:px-3 sm:py-2.5`}
+              className={`glass-surface glass-glare glass-strong absolute ${w.pos} ${w.show} w-[118px] items-center gap-2 rounded-[15px] px-2 py-2 sm:w-auto sm:gap-3 sm:rounded-[18px] sm:px-3 sm:py-2.5`}
             >
               <span
-                className={`grid size-8 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${w.tint} text-white shadow-lg sm:size-9`}
+                className={`grid size-7 shrink-0 place-items-center rounded-[10px] bg-gradient-to-br ${w.tint} text-white shadow-md sm:size-9 sm:rounded-xl sm:shadow-lg`}
               >
-                <w.Icon className="size-4" />
+                <w.Icon className="size-3.5 sm:size-4" />
               </span>
               <span className="min-w-0">
-                <span className="block text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
+                <span className="block text-[9px] font-semibold uppercase tracking-wide text-muted-foreground sm:text-[10px]">
                   {w.label}
                 </span>
-                <span className="block text-[13px] font-extrabold tabular-nums sm:text-[15px]">
+                <span className="block text-sm font-extrabold tabular-nums sm:text-[15px]">
                   {w.value}
                 </span>
               </span>

@@ -15,8 +15,8 @@ export function AmbientBackground() {
       />
 
       {/* large transparent rings */}
-      <div className="absolute left-1/2 top-24 size-[52rem] -translate-x-1/2 rounded-full border border-white/50" />
-      <div className="absolute left-1/2 top-48 size-[34rem] -translate-x-1/2 rounded-full border border-white/40" />
+      <div className="absolute left-1/2 top-24 hidden size-[52rem] -translate-x-1/2 rounded-full border border-white/50 lg:block" />
+      <div className="absolute left-1/2 top-48 hidden size-[34rem] -translate-x-1/2 rounded-full border border-white/40 lg:block" />
 
       {/* floating particles */}
       {PARTICLES.map((p, i) => (
