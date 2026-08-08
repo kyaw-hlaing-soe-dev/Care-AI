@@ -1,7 +1,7 @@
 # CareAI User Profile Specification
 
 **Status:** Active  
-**Version:** 1.0  
+**Version:** 1.1
 **Last Updated:** 2026-08-08  
 **Related:** [Authentication](../03-auth/authentication.md), [Firestore Schema](../09-database/firestore-schema.md), [Privacy](../10-security/privacy.md)
 
@@ -9,16 +9,30 @@
 
 `CreateProfileExperience` collects data, performs touched/submit validation, prevents repeated submit, shows a short success state, and redirects. `ProfileProvider` persists profiles under lowercased email in `aicare.profiles.v1`; it does not use UID, Firestore, server timestamps, or a backend.
 
-| Field | Type | Required | Current validation | Target Firestore field/source |
-| --- | --- | --- | --- | --- |
-| Display name | string | yes | trimmed, 2–50 | `displayName`; Firebase Google name prefill |
-| Date of birth | `YYYY-MM-DD` | yes | valid, not future | `dateOfBirth` |
-| Sex | enum | yes | male/female/prefer-not-to-say | `sex` |
-| Height | number cm | yes | 50–250 | `heightCm` |
-| Weight | number kg | yes | 2–500 | `weightKg` |
-| Blood type | enum | no | selected option only | `bloodType` optional |
+| Field              | Type                  | Required | Current validation            | Target Firestore field/source               |
+| ------------------ | --------------------- | -------- | ----------------------------- | ------------------------------------------- |
+| Display name       | string                | yes      | trimmed, 2–50                 | `displayName`; Firebase Google name prefill |
+| Date of birth      | `YYYY-MM-DD`          | yes      | valid, not future             | `dateOfBirth`                               |
+| Sex                | enum                  | yes      | male/female/prefer-not-to-say | `sex`                                       |
+| Height             | number cm             | yes      | 50–250                        | `heightCm`                                  |
+| Weight             | number kg             | yes      | 2–500                         | `weightKg`                                  |
+| Blood type         | enum                  | no       | selected option only          | `bloodType` optional                        |
+| Preferred language | `en` / `my` / `zh-CN` | no       | supported option only         | `preferredLanguage`                         |
 
 Google-provided email/photo/name belong to authenticated identity or optional mirrored account metadata; users must not re-enter email/password.
+
+## Profile hub
+
+`/profile` is the protected, single-route CareAI profile hub. It uses the authenticated app shell and internal hash-addressable sections so no profile values are placed in the URL:
+
+- **Overview:** read-only personal details with friendly formatting and `Not provided` fallbacks.
+- **Edit Profile:** display name, date of birth, sex, height, weight, and optional blood type. It reuses the onboarding validation rules and only reveals errors after touch or submit.
+- **Preferences:** English, Myanmar, and Simplified Chinese. The selected value is stored on the existing profile record as `preferredLanguage`.
+- **Account & Privacy:** connected Google identity, active status, accurate data-use copy, and the existing sign-out action.
+
+Completion is deterministic: completed required fields (`displayName`, `dateOfBirth`, `sex`, `heightCm`, `weightKg`) divided by five. Optional blood type does not prevent 100% completion. Missing required values show a friendly remaining-detail count and open Edit Profile.
+
+The top-right user menu provides View Profile, Settings (`/profile#preferences`), and Sign Out. Unauthenticated access to `/profile` redirects to `/login`; loading, safe retry, and completely missing-profile states render before the hub.
 
 ## Target behavior
 

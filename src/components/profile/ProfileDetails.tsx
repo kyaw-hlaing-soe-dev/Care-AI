@@ -109,11 +109,11 @@ function ProfileAvatar({ user, name }: { user: AppUser; name: string }) {
       src={user.avatar}
       alt={`${name}'s Google profile avatar`}
       referrerPolicy="no-referrer"
-      className="size-20 shrink-0 rounded-full border-4 border-white object-cover shadow-[0_14px_34px_rgba(37,99,235,0.18)] sm:size-24"
+      className="mx-auto size-20 shrink-0 rounded-full border-4 border-white object-cover shadow-[0_14px_34px_rgba(37,99,235,0.18)] sm:size-24"
     />
   ) : (
     <span
-      className="grid size-20 shrink-0 place-items-center rounded-full border-4 border-white bg-gradient-to-br from-blue-500 to-cyan-400 text-2xl font-extrabold text-white shadow-[0_14px_34px_rgba(37,99,235,0.18)] sm:size-24"
+      className="mx-auto grid size-20 shrink-0 place-items-center rounded-full border-4 border-white bg-gradient-to-br from-blue-500 to-cyan-400 text-2xl font-extrabold text-white shadow-[0_14px_34px_rgba(37,99,235,0.18)] sm:size-24"
       role="img"
       aria-label={`${name}'s profile avatar`}
     >
@@ -215,7 +215,7 @@ function ProfileSidebar({
       </div>
 
       <nav
-        className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:overflow-visible"
+        className="mt-4 grid grid-cols-2 gap-2 lg:flex lg:flex-col"
         aria-label="Profile sections"
       >
         {PROFILE_SECTIONS.map((section) => {
@@ -227,7 +227,7 @@ function ProfileSidebar({
               onClick={() => onSectionChange(section.id)}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "inline-flex min-h-11 shrink-0 items-center gap-2.5 rounded-[13px] px-3.5 text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 lg:w-full",
+                "inline-flex min-h-11 w-full items-center justify-start gap-2 rounded-[13px] px-3 text-left text-[13px] font-bold leading-4 transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 sm:gap-2.5 sm:px-3.5 sm:text-sm",
                 active
                   ? "bg-blue-600 text-white shadow-[0_8px_20px_rgba(37,99,235,0.2)]"
                   : "text-slate-600 hover:bg-blue-50 hover:text-blue-700",
@@ -740,8 +740,8 @@ function PrivacySection({ user }: { user: AppUser }) {
         <div>
           <h2 className="font-extrabold text-slate-950">Your Data</h2>
           <p className="mt-1 text-sm leading-6 text-slate-500">
-            Your profile information is used to personalize your CareAI experience. Health and
-            profile information is kept within your authenticated CareAI account experience.
+            CareAI uses your profile and health readings to personalize your experience and show
+            your health history.
           </p>
         </div>
       </GlassCard>
