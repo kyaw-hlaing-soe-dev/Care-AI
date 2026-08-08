@@ -22,7 +22,12 @@ import { useAuth } from "@/lib/auth-context";
 import { cn } from "@/lib/utils";
 
 const NAV = [
-  { to: "/dashboard", labelKey: "nav.dashboard", shortLabelKey: "nav.dashboardShort", Icon: LayoutDashboard },
+  {
+    to: "/dashboard",
+    labelKey: "nav.dashboard",
+    shortLabelKey: "nav.dashboardShort",
+    Icon: LayoutDashboard,
+  },
   { to: "/add", labelKey: "nav.vitalTracker", shortLabelKey: "nav.track", Icon: Activity },
   { to: "/history", labelKey: "nav.history", shortLabelKey: "nav.history", Icon: History },
 ] as const;
@@ -55,7 +60,7 @@ function UserAvatar({ name, avatar }: { name: string; avatar?: string | undefine
   );
 }
 
-export function TopBar() {
+export function TopBar({ hideMobileNavigation = false }: { hideMobileNavigation?: boolean }) {
   const { user, signOut } = useAuth();
   const { t } = useTranslation();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
@@ -90,7 +95,9 @@ export function TopBar() {
                   )}
                 >
                   <item.Icon className="size-4" aria-hidden="true" />
-                  <span className="topbar-nav-label hidden min-[820px]:inline">{t(item.labelKey)}</span>
+                  <span className="topbar-nav-label hidden min-[820px]:inline">
+                    {t(item.labelKey)}
+                  </span>
                 </Link>
               );
             })}
@@ -164,7 +171,10 @@ export function TopBar() {
       </header>
 
       <nav
-        className="glass-control glass-glare fixed inset-x-3 bottom-[max(.65rem,env(safe-area-inset-bottom))] z-50 grid h-[64px] grid-cols-3 rounded-[22px] px-1.5 shadow-[0_18px_46px_rgba(31,72,116,0.18)] md:hidden"
+        className={cn(
+          "glass-control glass-glare fixed inset-x-3 bottom-[max(.65rem,env(safe-area-inset-bottom))] z-50 h-[64px] grid-cols-3 rounded-[22px] px-1.5 shadow-[0_18px_46px_rgba(31,72,116,0.18)] md:hidden",
+          hideMobileNavigation ? "hidden" : "grid",
+        )}
         aria-label={t("nav.mobile")}
       >
         {NAV.map((item) => {

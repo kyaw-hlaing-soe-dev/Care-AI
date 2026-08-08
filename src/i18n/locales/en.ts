@@ -6,6 +6,7 @@ const en = {
     active: "Active",
     default: "Default",
     save: "Save",
+    edit: "Edit",
     saveChanges: "Save Changes",
     saving: "Saving…",
     savingChanges: "Saving changes…",
@@ -45,15 +46,19 @@ const en = {
     noData: "No Data",
   },
   medical: {
-    disclaimer: "CareAI provides informational health insights and is not a substitute for professional medical advice. Always consult a qualified healthcare professional for medical concerns.",
-    shortDisclaimer: "CareAI provides informational health insights only and is not a substitute for professional medical advice.",
-    urgent: "Urgent: One or more readings require immediate attention. Please seek medical care now.",
+    disclaimer:
+      "CareAI provides informational health insights and is not a substitute for professional medical advice. Always consult a qualified healthcare professional for medical concerns.",
+    shortDisclaimer:
+      "CareAI provides informational health insights only and is not a substitute for professional medical advice.",
+    urgent:
+      "Urgent: One or more readings require immediate attention. Please seek medical care now.",
   },
   errors: {
     pageNotFound: "Page not found",
     pageNotFoundBody: "The page you're looking for doesn't exist or has been moved.",
     pageDidNotLoad: "This page didn't load",
-    pageDidNotLoadBody: "Something went wrong on our end. You can try refreshing or head back home.",
+    pageDidNotLoadBody:
+      "Something went wrong on our end. You can try refreshing or head back home.",
     signIn: "We couldn't sign you in. Please try again.",
     loadProfile: "We couldn't load your profile.",
     loadProfileBody: "Please try again. Your account information has not been changed.",
@@ -81,7 +86,8 @@ const en = {
     visualBadge: "AI-powered health companion",
     visualTitle: "Your health,",
     visualTitleAccent: "understood.",
-    visualBody: "Track your vitals and get AI-powered insights that help you understand your health better.",
+    visualBody:
+      "Track your vitals and get AI-powered insights that help you understand your health better.",
     privateBadge: "Private by design",
     welcomeBack: "Welcome back",
     subtitle: "Sign in to continue your health journey.",
@@ -131,7 +137,8 @@ const en = {
     selectIfKnown: "Select if known",
     createContinue: "Create Profile & Continue",
     creating: "Creating your profile…",
-    privacy: "Your information is used to personalize your CareAI experience and is handled according to our privacy practices.",
+    privacy:
+      "Your information is used to personalize your CareAI experience and is handled according to our privacy practices.",
     successTitle: "Profile created!",
     successBody: "Welcome to CareAI.",
     preparing: "Preparing your profile…",
@@ -147,7 +154,8 @@ const en = {
     logVitals: "Log Vitals",
     loading: "Loading your latest check…",
     noReadings: "No health readings yet.",
-    noReadingsBody: "Log your first vitals to start building your health history and receive a CareAI insight.",
+    noReadingsBody:
+      "Log your first vitals to start building your health history and receive a CareAI insight.",
     logFirst: "Log My First Vitals",
     latestOverview: "Latest overview",
     healthScore: "Health Score",
@@ -202,7 +210,7 @@ const en = {
       "Sit quietly for a few minutes before measuring.",
       "Keep your arm supported for blood pressure.",
       "Use the same device when possible.",
-      "Record readings at similar times for clearer trends."
+      "Record readings at similar times for clearer trends.",
     ],
     guidance: "Measurement guidance",
     lastReading: "Your last reading",
@@ -250,8 +258,30 @@ const en = {
     completeAction: "Complete profile",
     overview: "Overview",
     edit: "Edit Profile",
+    personalInformation: "Personal Information",
+    personalInformationShort: "Profile and body information",
     preferences: "Preferences",
     privacy: "Account & Privacy",
+    privacySecurity: "Privacy & Security",
+    accountAndPrivacy: "Account and privacy",
+    overviewBody: "Your CareAI account and profile at a glance.",
+    profileStatus: "Profile Status",
+    profileComplete: "Profile complete",
+    account: "Account",
+    basicInformation: "Basic Information",
+    bodyInformation: "Body Information",
+    general: "General",
+    preferencesBody: "Manage the preferences currently available in CareAI.",
+    email: "Email",
+    privacyLabel: "Privacy",
+    session: "Session",
+    dataPrivacy: "Data & Privacy",
+    dataPrivacyBody: "Understand how CareAI uses information to provide your account experience.",
+    aiDisclaimer: "AI Health Disclaimer",
+    discardTitle: "Discard changes?",
+    discardBody: "You have unsaved changes.",
+    keepEditing: "Keep Editing",
+    discardChanges: "Discard Changes",
     personalDetails: "Personal Details",
     personalDetailsBody: "The information CareAI uses to personalize your health experience.",
     dateOfBirth: "Date of Birth",
@@ -268,7 +298,8 @@ const en = {
     accountBody: "Review your connected account and how your profile information is used.",
     connectedAccount: "Connected account",
     yourData: "Your Data",
-    dataBody: "CareAI uses your profile and health readings to personalize your experience and show your health history.",
+    dataBody:
+      "CareAI uses your profile and health readings to personalize your experience and show your health history.",
     signOutTitle: "Sign out of CareAI",
     signOutBody: "You can sign back in with your connected Google account.",
     signingOut: "Signing out…",
@@ -311,7 +342,8 @@ const en = {
     features: {
       eyebrow: "Features",
       title: "Everything you need to understand your vitals.",
-      subtitle: "Four focused tools that carry your readings from the tracker into a clear, useful health history.",
+      subtitle:
+        "Four focused tools that carry your readings from the tracker into a clear, useful health history.",
       track: "Track Your Vitals",
       trackBody: "Blood pressure, heart rate, oxygen saturation and temperature.",
       insights: "AI Health Insights",
@@ -325,7 +357,8 @@ const en = {
       eyebrow: "Your health at a glance",
       title: "Everything that matters,",
       titleAccent: "in one clear dashboard.",
-      subtitle: "See your latest readings, health score, AI insights and trends without digging through complicated health data.",
+      subtitle:
+        "See your latest readings, health score, AI insights and trends without digging through complicated health data.",
       demo: "Demo",
       insightAttention: "1 reading needs attention today.",
       insightGood: "Heart rate and oxygen are within range.",
@@ -337,16 +370,20 @@ const en = {
     how: {
       eyebrow: "How it works",
       title: "From a reading to an insight in three simple steps.",
-      subtitle: "Enter your readings, let CareAI organize the result, then review your score and structured insight.",
+      subtitle:
+        "Enter your readings, let CareAI organize the result, then review your score and structured insight.",
       step: "Step {{number}}",
       log: "Log your vitals",
-      logBody: "Enter your blood pressure, heart rate, oxygen saturation, and temperature in less than a minute.",
+      logBody:
+        "Enter your blood pressure, heart rate, oxygen saturation, and temperature in less than a minute.",
       analyzeConnector: "CareAI analyzes",
       analyze: "CareAI analyzes your readings",
-      analyzeBody: "CareAI reviews your latest readings and compares them with the app's reference ranges and recent health data.",
+      analyzeBody:
+        "CareAI reviews your latest readings and compares them with the app's reference ranges and recent health data.",
       insightConnector: "Clear insight",
       understand: "Understand your health",
-      understandBody: "See your trends, areas to watch, and practical recommendations in your dashboard.",
+      understandBody:
+        "See your trends, areas to watch, and practical recommendations in your dashboard.",
       checking: "Checking readings…",
       checkingBody: "Turning readings into a clear overview",
       insightBody: "A simple view of what your readings mean",
@@ -361,12 +398,14 @@ const en = {
       title: "Health data shouldn't feel complicated.",
       body: "CareAI converts your latest readings into understandable observations, so you can quickly see what looks typical and what may be worth monitoring.",
       practical: "Practical recommendations",
-      disclaimer: "Informational insights only—not a diagnosis or replacement for professional medical advice.",
+      disclaimer:
+        "Informational insights only—not a diagnosis or replacement for professional medical advice.",
     },
     trends: {
       eyebrow: "See the bigger picture",
       title: "See the bigger picture, not just today's numbers.",
-      subtitle: "Follow changes across your readings with the same calm, focused charts used in your CareAI dashboard.",
+      subtitle:
+        "Follow changes across your readings with the same calm, focused charts used in your CareAI dashboard.",
       sevenDay: "Heart Rate — 7 day trend",
       lastSeven: "Last 7 readings",
       aria: "Seven-day heart-rate trend",
@@ -400,12 +439,14 @@ const en = {
       privacy: "Privacy",
       about: "About",
       contact: "Contact",
-      copyright: "© 2026 CareAI. CareAI provides informational health insights and is not a substitute for professional medical advice.",
+      copyright:
+        "© 2026 CareAI. CareAI provides informational health insights and is not a substitute for professional medical advice.",
       aria: "Footer",
     },
     testimonials: {
       title: "Trusted in Everyday Life",
-      subtitle: "People use CareAI between appointments — the long stretch where health actually happens.",
+      subtitle:
+        "People use CareAI between appointments — the long stretch where health actually happens.",
     },
   },
 } as const;

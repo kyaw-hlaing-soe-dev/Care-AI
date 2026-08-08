@@ -4,15 +4,23 @@ import { AppShell } from "@/components/app/AppShell";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import {
   IncompleteProfile,
+  PROFILE_VIEWS,
   ProfileDetails,
   ProfileLoadError,
   ProfileSkeleton,
+  type ProfileView,
 } from "@/components/profile/ProfileDetails";
 import { useAuth } from "@/lib/auth-context";
 import { useProfile } from "@/lib/profile-context";
 import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/profile")({
+  validateSearch: (search: Record<string, unknown>): { view: ProfileView } => ({
+    view:
+      typeof search.view === "string" && PROFILE_VIEWS.includes(search.view as ProfileView)
+        ? (search.view as ProfileView)
+        : "overview",
+  }),
   head: () => ({
     meta: [
       { title: "My Profile — CareAI" },
@@ -28,6 +36,7 @@ function ProfileRoute() {
   const { profile, loading: profileLoading, error, refreshProfile } = useProfile();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { view } = Route.useSearch();
 
   useEffect(() => {
     if (!authLoading && !user) void navigate({ to: "/login", replace: true });
@@ -36,13 +45,23 @@ function ProfileRoute() {
   if (authLoading || !user) return <LoadingSpinner fullscreen label={t("profile.loading")} />;
 
   return (
-    <AppShell>
+    <AppShell hideMobileNavigation={view !== "overview"}>
       {profileLoading ? (
         <ProfileSkeleton />
       ) : error ? (
         <ProfileLoadError onRetry={refreshProfile} />
       ) : profile ? (
-        <ProfileDetails user={user} profile={profile} />
+        <ProfileDetails
+          user={user}
+          profile={profile}
+          view={view}
+          onViewChange={(nextView) => {
+            void navigate({ to: "/profile", search: { view: nextView } });
+            window.requestAnimationFrame(() =>
+              document.getElementById("profile-section-content")?.focus(),
+            );
+          }}
+        />
       ) : (
         <IncompleteProfile />
       )}

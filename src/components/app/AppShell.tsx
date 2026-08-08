@@ -3,7 +3,13 @@ import { TopBar } from "@/components/TopBar";
 import { DisclaimerFooter } from "@/components/DisclaimerFooter";
 import { useTranslation } from "react-i18next";
 
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell({
+  children,
+  hideMobileNavigation = false,
+}: {
+  children: ReactNode;
+  hideMobileNavigation?: boolean;
+}) {
   const { t } = useTranslation();
   return (
     <div className="app-shell min-h-dvh">
@@ -13,11 +19,18 @@ export function AppShell({ children }: { children: ReactNode }) {
       >
         {t("common.skipToMain")}
       </a>
-      <TopBar />
-      <main id="main-content" className="mx-auto w-full max-w-[1440px] px-4 py-6 pb-28 sm:px-6 sm:py-8 md:pb-8 xl:px-10">
+      <TopBar hideMobileNavigation={hideMobileNavigation} />
+      <main
+        id="main-content"
+        className={
+          hideMobileNavigation
+            ? "mx-auto w-full max-w-[1440px] px-4 py-5 pb-10 sm:px-6 sm:py-7 md:pb-8 xl:px-10"
+            : "mx-auto w-full max-w-[1440px] px-4 py-6 pb-28 sm:px-6 sm:py-8 md:pb-8 xl:px-10"
+        }
+      >
         {children}
       </main>
-      <div className="pb-20 md:pb-0">
+      <div className={hideMobileNavigation ? "md:block" : "pb-20 md:pb-0"}>
         <DisclaimerFooter />
       </div>
     </div>
