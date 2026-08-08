@@ -77,10 +77,10 @@ export function Hero() {
   }
 
   return (
-    <section className="mx-auto grid max-w-[1380px] items-center gap-4 px-5 pb-10 pt-8 sm:px-6 sm:pb-12 sm:pt-10 md:gap-6 lg:min-h-[calc(100dvh-84px)] lg:grid-cols-[minmax(0,.96fr)_minmax(0,1.04fr)] lg:gap-10 lg:px-10 lg:py-10 xl:gap-14 xl:px-12">
+    <section className="mx-auto grid max-w-[1380px] items-center gap-4 px-5 pb-10 pt-8 sm:px-6 sm:pb-12 sm:pt-10 md:gap-6 lg:min-h-[calc(100dvh-84px)] lg:grid-cols-[minmax(0,.96fr)_minmax(0,1.04fr)] lg:gap-10 lg:px-10 lg:py-10 xl:gap-14 xl:px-12 [@media(max-height:700px)]:pb-8 [@media(max-height:700px)]:pt-5 lg:[@media(max-height:700px)]:py-10">
       <div className="text-center lg:text-left">
         <motion.span
-          initial={{ opacity: 0, y: 16 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="glass-surface glass-glare inline-flex items-center gap-2 rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-[0.12em] text-primary-dark"
@@ -90,29 +90,29 @@ export function Hero() {
         </motion.span>
 
         <motion.h1
-          initial={{ opacity: 0, y: 24 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-5 text-balance text-[clamp(2.375rem,11vw,3.25rem)] font-extrabold leading-[1.01] tracking-[-0.055em] sm:text-[3.25rem] md:text-[3.75rem] lg:text-[clamp(3.65rem,5.2vw,4.5rem)]"
+          className="mt-5 text-balance text-[clamp(2.375rem,11vw,3.25rem)] font-extrabold leading-[1.01] tracking-[-0.055em] sm:text-[3.25rem] md:text-[3.75rem] lg:text-[clamp(3.65rem,5.2vw,4.5rem)] [@media(max-height:700px)]:mt-3 lg:[@media(max-height:700px)]:mt-5"
         >
           Understand Your Health. <span className="text-gradient">One Reading at a Time.</span>
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 24 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto mt-5 max-w-[380px] text-pretty text-[15px] leading-6 text-muted-foreground sm:text-base md:max-w-[580px] md:text-lg lg:mx-0"
+          className="mx-auto mt-5 max-w-[380px] text-pretty text-[15px] leading-6 text-muted-foreground sm:text-base md:max-w-[580px] md:text-lg lg:mx-0 [@media(max-height:700px)]:mt-3 lg:[@media(max-height:700px)]:mt-5"
         >
           Track your vital signs, understand your trends, and receive clear AI-powered health
           insights — all in one place.
         </motion.p>
 
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start"
+          className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start [@media(max-height:700px)]:mt-5 lg:[@media(max-height:700px)]:mt-8"
         >
           <Link to="/login" className="sm:w-auto">
             <GlassButton size="lg" className="w-full sm:w-auto">
@@ -128,15 +128,15 @@ export function Hero() {
         </motion.div>
 
         <motion.ul
-          initial={{ opacity: 0 }}
+          initial={false}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mx-auto mt-5 flex max-w-[430px] flex-wrap justify-center gap-2 text-left sm:mt-6 md:max-w-[560px] md:gap-x-4 lg:mx-0 lg:justify-start"
+          className="mx-auto mt-5 flex max-w-[430px] flex-wrap justify-center gap-2 text-left sm:mt-6 md:max-w-[560px] md:gap-x-4 lg:mx-0 lg:justify-start [@media(max-height:700px)]:mt-4 lg:[@media(max-height:700px)]:mt-5"
         >
-          {PROOF.map((p) => (
+          {PROOF.map((p, index) => (
             <li
               key={p}
-              className="flex items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-2.5 py-1.5 text-[11px] font-semibold text-foreground/75 shadow-sm backdrop-blur-sm md:bg-transparent md:px-0 md:py-0 md:text-sm md:shadow-none"
+              className={`flex items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-2.5 py-1.5 text-[11px] font-semibold text-foreground/75 shadow-sm backdrop-blur-sm max-[340px]:px-2 max-[340px]:text-[10px] md:bg-transparent md:px-0 md:py-0 md:text-sm md:shadow-none ${index === 2 ? "[@media(max-height:700px)]:hidden lg:[@media(max-height:700px)]:flex" : ""}`}
             >
               <span className="grid size-4 shrink-0 place-items-center rounded-full bg-gradient-to-br from-primary to-cyan text-primary-foreground md:size-5">
                 <Check className="size-3" strokeWidth={3} />
@@ -183,7 +183,7 @@ export function Hero() {
           {WIDGETS.map((w) => (
             <motion.div
               key={w.label}
-              initial={{ opacity: 0, scale: 0.85 }}
+              initial={false}
               animate={
                 reducedMotion ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1, y: [0, -4, 0] }
               }
