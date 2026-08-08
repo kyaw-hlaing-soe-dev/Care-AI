@@ -72,6 +72,7 @@ async function saveAuthenticatedProfile(user: AppUser, input: ProfileInput): Pro
     createdAt: profiles[key]?.createdAt ?? now,
     updatedAt: now,
   };
+  if (!input.bloodType) delete profile.bloodType;
 
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...profiles, [key]: profile }));
   return profile;
@@ -154,10 +155,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
         preferredLanguage: language,
         updatedAt: new Date().toISOString(),
       };
-      window.localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({ ...profiles, [key]: nextProfile }),
-      );
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...profiles, [key]: nextProfile }));
       setProfile(nextProfile);
       return nextProfile;
     },

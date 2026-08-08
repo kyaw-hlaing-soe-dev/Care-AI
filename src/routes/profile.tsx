@@ -15,7 +15,7 @@ export const Route = createFileRoute("/profile")({
   head: () => ({
     meta: [
       { title: "My Profile — CareAI" },
-      { name: "description", content: "View your CareAI personal profile information." },
+      { name: "description", content: "Manage your CareAI profile and preferences." },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),

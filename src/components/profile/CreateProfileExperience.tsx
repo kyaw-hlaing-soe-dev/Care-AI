@@ -12,11 +12,7 @@ import {
 } from "lucide-react";
 import { CareAILogo } from "@/components/auth/CareAILogo";
 import { useAuth, type AppUser } from "@/lib/auth-context";
-import {
-  useProfile,
-  type BloodType,
-  type ProfileSex,
-} from "@/lib/profile-context";
+import { useProfile, type BloodType, type ProfileSex } from "@/lib/profile-context";
 import {
   BLOOD_TYPES,
   SEX_OPTIONS,
@@ -160,8 +156,15 @@ function SexSelector({
   error?: string | undefined;
 }) {
   return (
-    <fieldset id="sex" tabIndex={-1} className="min-w-0" aria-describedby={error ? "sex-error" : undefined}>
-      <legend className="mb-2 text-[13px] font-bold uppercase tracking-[0.09em] text-slate-600">Sex</legend>
+    <fieldset
+      id="sex"
+      tabIndex={-1}
+      className="min-w-0"
+      aria-describedby={error ? "sex-error" : undefined}
+    >
+      <legend className="mb-2 text-[13px] font-bold uppercase tracking-[0.09em] text-slate-600">
+        Sex
+      </legend>
       <div className="flex flex-wrap gap-1.5 rounded-[14px] border border-slate-200 bg-slate-50/90 p-1.5 md:flex-nowrap md:gap-1">
         {SEX_OPTIONS.map((option) => {
           const selected = value === option.value;
@@ -256,7 +259,10 @@ function GoogleAccountPreview({ user }: { user: AppUser }) {
       <span className="hidden shrink-0 items-center gap-1.5 rounded-full border border-emerald-100 bg-white px-2.5 py-1.5 text-[11px] font-semibold text-emerald-700 sm:flex">
         <Check className="size-3.5" /> Google account
       </span>
-      <CheckCircle2 className="size-5 shrink-0 text-emerald-500 sm:hidden" aria-label="Google account verified" />
+      <CheckCircle2
+        className="size-5 shrink-0 text-emerald-500 sm:hidden"
+        aria-label="Google account verified"
+      />
     </div>
   );
 }
@@ -334,7 +340,10 @@ function DoctorIllustration({ mobile = false }: { mobile?: boolean }) {
 
 function ProfileVisual() {
   return (
-    <section className="hidden min-w-0 flex-col justify-center lg:flex" aria-labelledby="profile-welcome-title">
+    <section
+      className="hidden min-w-0 flex-col justify-center lg:flex"
+      aria-labelledby="profile-welcome-title"
+    >
       <div className="max-w-[500px]">
         <span className="inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-white/75 px-3.5 py-2 text-[11px] font-extrabold uppercase tracking-[0.16em] text-blue-600 shadow-sm backdrop-blur-md">
           <Sparkles className="size-3.5 text-cyan-500" /> Personalized for you
@@ -413,7 +422,9 @@ function ProfileSuccess() {
       >
         <Check className="size-9" strokeWidth={2.5} />
       </motion.div>
-      <h2 className="mt-7 text-3xl font-extrabold tracking-[-0.04em] text-slate-950">Profile created!</h2>
+      <h2 className="mt-7 text-3xl font-extrabold tracking-[-0.04em] text-slate-950">
+        Profile created!
+      </h2>
       <p className="mt-2 text-base text-slate-500">Welcome to CareAI.</p>
       <div className="mt-8 h-1.5 w-32 overflow-hidden rounded-full bg-sky-100">
         <motion.div
@@ -517,7 +528,11 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
         <GoogleAccountPreview user={user} />
       </div>
 
-      <form onSubmit={(event) => void handleSubmit(event)} noValidate className="profile-form mt-5 space-y-4 lg:mt-3 lg:space-y-3">
+      <form
+        onSubmit={(event) => void handleSubmit(event)}
+        noValidate
+        className="profile-form mt-5 space-y-4 lg:mt-3 lg:space-y-3"
+      >
         <ProfileInput
           id="displayName"
           label="Display name"
@@ -581,7 +596,10 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
         />
 
         {submitError && (
-          <p className="rounded-xl border border-rose-100 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700" role="alert">
+          <p
+            className="rounded-xl border border-rose-100 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700"
+            role="alert"
+          >
             {submitError}
           </p>
         )}
@@ -606,7 +624,8 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
           <p className="mt-3.5 flex items-start justify-center gap-2 px-1 text-center text-[11px] leading-[1.55] text-slate-500 sm:text-xs">
             <LockKeyhole className="mt-0.5 size-3.5 shrink-0 text-blue-500" />
             <span>
-              Your information is used to personalize your CareAI experience and is handled according to our privacy practices.
+              Your information is used to personalize your CareAI experience and is handled
+              according to our privacy practices.
             </span>
           </p>
         </div>
@@ -635,7 +654,11 @@ export function CreateProfileExperience({ onComplete }: { onComplete: () => void
           className="profile-form-panel relative mx-auto w-full max-w-[620px] rounded-[24px] border border-white/85 bg-white/[0.84] p-5 shadow-[0_24px_70px_rgba(44,83,130,0.13)] backdrop-blur-xl sm:rounded-[28px] sm:p-8 lg:p-7 xl:p-8"
           aria-label="Create your CareAI profile"
         >
-          {success ? <ProfileSuccess /> : <ProfileForm user={user} onSuccess={() => setSuccess(true)} />}
+          {success ? (
+            <ProfileSuccess />
+          ) : (
+            <ProfileForm user={user} onSuccess={() => setSuccess(true)} />
+          )}
         </section>
       </div>
     </main>

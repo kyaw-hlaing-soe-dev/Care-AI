@@ -1,5 +1,13 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Activity, ChevronDown, History, LayoutDashboard, LogOut, UserRound } from "lucide-react";
+import {
+  Activity,
+  ChevronDown,
+  History,
+  LayoutDashboard,
+  LogOut,
+  Settings2,
+  UserRound,
+} from "lucide-react";
 import { CareAILogo } from "@/components/auth/CareAILogo";
 import {
   DropdownMenu,
@@ -129,6 +137,16 @@ export function TopBar() {
                       View Profile
                     </Link>
                   </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <a
+                      href="/profile#preferences"
+                      className="min-h-11 cursor-pointer rounded-[12px] px-3 text-sm font-semibold text-slate-700 focus:bg-blue-50 focus:text-blue-700"
+                    >
+                      <Settings2 className="size-4" />
+                      Settings
+                    </a>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-slate-100" />
                   <DropdownMenuItem
                     onSelect={() => void signOut()}
                     className="min-h-11 cursor-pointer rounded-[12px] px-3 text-sm font-semibold text-slate-700 focus:bg-rose-50 focus:text-rose-700"
