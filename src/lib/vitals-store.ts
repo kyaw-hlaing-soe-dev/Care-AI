@@ -40,6 +40,26 @@ export function createVital(input: VitalInput): VitalRecord {
   return record;
 }
 
+export async function createVitalWithAi(input: VitalInput): Promise<VitalRecord> {
+  const response = await fetch("/api/vitals/analyze", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(input),
+  });
+
+  if (!response.ok) {
+    throw new Error("Vitals analysis request failed.");
+  }
+
+  const payload = (await response.json()) as { reading?: VitalRecord };
+  if (!payload.reading) {
+    throw new Error("Vitals analysis response was malformed.");
+  }
+
+  write([payload.reading, ...read()]);
+  return payload.reading;
+}
+
 export function subscribeVitals(cb: () => void) {
   if (typeof window === "undefined") return () => {};
   window.addEventListener("aicare:vitals", cb);

@@ -3,7 +3,7 @@ import { Check, LoaderCircle, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { GlassInput } from "@/components/glass/GlassInput";
 import { RANGES, type VitalInput } from "@/lib/vitals";
-import { createVital } from "@/lib/vitals-store";
+import { createVitalWithAi } from "@/lib/vitals-store";
 import { useTranslation } from "react-i18next";
 
 type Fields = Record<keyof VitalInput, string>;
@@ -26,8 +26,11 @@ const LIMITS: Record<keyof Fields, { min: number; max: number }> = {
 };
 
 const VALIDATION_KEYS: Record<keyof Fields, `validation.${string}`> = {
-  systolic: "validation.systolic", diastolic: "validation.diastolic", heartRate: "validation.heartRate",
-  oxygen: "validation.oxygen", temperature: "validation.temperature",
+  systolic: "validation.systolic",
+  diastolic: "validation.diastolic",
+  heartRate: "validation.heartRate",
+  oxygen: "validation.oxygen",
+  temperature: "validation.temperature",
 };
 
 function validate(fields: Fields, translate: (key: string) => string): FieldErrors {
@@ -78,7 +81,9 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
     if (Object.keys(errors).length > 0) {
       const firstInvalid = Object.keys(errors)[0];
       if (firstInvalid) {
-        window.requestAnimationFrame(() => document.getElementById(`input-${firstInvalid}`)?.focus());
+        window.requestAnimationFrame(() =>
+          document.getElementById(`input-${firstInvalid}`)?.focus(),
+        );
       }
       return;
     }
@@ -86,8 +91,7 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
     submitLock.current = true;
     setSubmitting(true);
     try {
-      await new Promise((resolve) => window.setTimeout(resolve, 700));
-      const record = createVital({
+      const record = await createVitalWithAi({
         temperature: Number(fields.temperature),
         systolic: Number(fields.systolic),
         diastolic: Number(fields.diastolic),
@@ -107,11 +111,17 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
 
   if (saved) {
     return (
-      <div className="flex min-h-[420px] flex-col items-center justify-center px-4 text-center" role="status" aria-live="polite">
+      <div
+        className="flex min-h-[420px] flex-col items-center justify-center px-4 text-center"
+        role="status"
+        aria-live="polite"
+      >
         <span className="grid size-16 place-items-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-white shadow-[0_18px_42px_rgba(37,99,235,0.22)]">
           <Check className="size-7" strokeWidth={2.5} aria-hidden="true" />
         </span>
-        <h2 className="mt-5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">{t("vitals.analyzed")}</h2>
+        <h2 className="mt-5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">
+          {t("vitals.analyzed")}
+        </h2>
         <p className="mt-2 text-sm text-slate-500">{t("dashboard.subtitle")}</p>
       </div>
     );
@@ -120,7 +130,9 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
   return (
     <form onSubmit={(event) => void handleSubmit(event)} className="space-y-7" noValidate>
       <fieldset>
-        <legend className="text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">{t("vitals.bloodPressure")}</legend>
+        <legend className="text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">
+          {t("vitals.bloodPressure")}
+        </legend>
         <p className="mt-1 text-sm leading-6 text-slate-500">{t("vitals.bloodPressureBody")}</p>
         <div className="mt-4 grid grid-cols-1 gap-4 min-[375px]:grid-cols-2">
           <GlassInput
@@ -155,7 +167,9 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
       </fieldset>
 
       <fieldset>
-        <legend className="text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">{t("vitals.otherVitals")}</legend>
+        <legend className="text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">
+          {t("vitals.otherVitals")}
+        </legend>
         <div className="mt-4 grid gap-4">
           <GlassInput
             id="input-heartRate"
@@ -210,7 +224,10 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
       >
         {submitting ? (
           <>
-            <LoaderCircle className="size-5 animate-spin motion-reduce:animate-none" aria-hidden="true" />
+            <LoaderCircle
+              className="size-5 animate-spin motion-reduce:animate-none"
+              aria-hidden="true"
+            />
             {t("vitals.analyzing")}
           </>
         ) : (
