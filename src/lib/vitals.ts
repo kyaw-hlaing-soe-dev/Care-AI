@@ -10,6 +10,9 @@ export type VitalInput = {
 
 export type VitalAnalysis = {
   status: VitalStatus;
+  aiStatus?: "completed" | "failed";
+  urgency?: "routine" | "monitor" | "seek-care";
+  disclaimer?: string;
   emergency: boolean;
   score: number;
   summary: string;
@@ -70,7 +73,14 @@ export function analyzeVitals(v: VitalInput): VitalAnalysis {
     }
   });
 
-  if (v.oxygen < 90 || v.temperature >= 39.5 || v.systolic >= 180 || v.diastolic >= 120 || v.heartRate >= 130 || v.heartRate <= 40) {
+  if (
+    v.oxygen < 90 ||
+    v.temperature >= 39.5 ||
+    v.systolic >= 180 ||
+    v.diastolic >= 120 ||
+    v.heartRate >= 130 ||
+    v.heartRate <= 40
+  ) {
     emergency = true;
   }
 
@@ -78,16 +88,22 @@ export function analyzeVitals(v: VitalInput): VitalAnalysis {
     recommendations.push("Rest, hydrate frequently, and re-check your temperature in a few hours.");
   }
   if (v.systolic > RANGES.systolic.max || v.diastolic > RANGES.diastolic.max) {
-    recommendations.push("Reduce salt intake, avoid caffeine today, and re-measure while seated and calm.");
+    recommendations.push(
+      "Reduce salt intake, avoid caffeine today, and re-measure while seated and calm.",
+    );
   }
   if (v.heartRate > RANGES.heartRate.max) {
-    recommendations.push("Sit down for five minutes of slow breathing, then take the reading again.");
+    recommendations.push(
+      "Sit down for five minutes of slow breathing, then take the reading again.",
+    );
   }
   if (v.oxygen < RANGES.oxygen.min) {
     recommendations.push("Sit upright, breathe deeply, and monitor your oxygen level closely.");
   }
   if (recommendations.length === 0) {
-    recommendations.push("Keep your current routine — steady sleep, movement, and hydration are working.");
+    recommendations.push(
+      "Keep your current routine — steady sleep, movement, and hydration are working.",
+    );
   }
   recommendations.push("Log your vitals at the same time each day for a more accurate trend.");
 
