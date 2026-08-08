@@ -29,7 +29,9 @@ export type UserProfile = ProfileInput & {
 type ProfileContextValue = {
   profile: UserProfile | null;
   loading: boolean;
+  error: string | null;
   createProfile: (input: ProfileInput) => Promise<UserProfile>;
+  refreshProfile: () => void;
 };
 
 type StoredProfiles = Record<string, UserProfile>;
@@ -46,8 +48,8 @@ function readProfiles(): StoredProfiles {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     return raw ? (JSON.parse(raw) as StoredProfiles) : {};
-  } catch {
-    return {};
+  } catch (error) {
+    throw new Error("Unable to read the saved profile.", { cause: error });
   }
 }
 
@@ -74,12 +76,15 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   const { user, loading: authLoading } = useAuth();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [refreshVersion, setRefreshVersion] = useState(0);
 
   useEffect(() => {
     let active = true;
 
     if (authLoading) {
       setLoading(true);
+      setError(null);
       return () => {
         active = false;
       };
@@ -88,22 +93,35 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
     if (!user) {
       setProfile(null);
       setLoading(false);
+      setError(null);
       return () => {
         active = false;
       };
     }
 
     setLoading(true);
-    void getAuthenticatedProfile(user).then((nextProfile) => {
-      if (!active) return;
-      setProfile(nextProfile);
-      setLoading(false);
-    });
+    setError(null);
+    void getAuthenticatedProfile(user)
+      .then((nextProfile) => {
+        if (!active) return;
+        setProfile(nextProfile);
+        setLoading(false);
+      })
+      .catch(() => {
+        if (!active) return;
+        setProfile(null);
+        setError("We couldn't load your profile.");
+        setLoading(false);
+      });
 
     return () => {
       active = false;
     };
-  }, [authLoading, user]);
+  }, [authLoading, user, refreshVersion]);
+
+  const refreshProfile = useCallback(() => {
+    setRefreshVersion((version) => version + 1);
+  }, []);
 
   const createProfile = useCallback(
     async (input: ProfileInput) => {
@@ -116,8 +134,8 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   );
 
   const value = useMemo(
-    () => ({ profile, loading, createProfile }),
-    [profile, loading, createProfile],
+    () => ({ profile, loading, error, createProfile, refreshProfile }),
+    [profile, loading, error, createProfile, refreshProfile],
   );
 
   return <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>;

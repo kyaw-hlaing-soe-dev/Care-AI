@@ -1,12 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import {
-  Activity,
-  ChevronDown,
-  History,
-  LayoutDashboard,
-  LogOut,
-  UserRound,
-} from "lucide-react";
+import { Activity, ChevronDown, History, LayoutDashboard, LogOut, UserRound } from "lucide-react";
 import { CareAILogo } from "@/components/auth/CareAILogo";
 import {
   DropdownMenu,
@@ -42,7 +35,7 @@ function UserAvatar({ name, avatar }: { name: string; avatar?: string | undefine
   return avatar ? (
     <img
       src={avatar}
-      alt=""
+      alt={`${name}'s profile avatar`}
       referrerPolicy="no-referrer"
       className="size-9 rounded-full border-2 border-white object-cover shadow-sm"
     />
@@ -68,7 +61,10 @@ export function TopBar() {
             <CareAILogo compact />
           </Link>
 
-          <nav className="hidden items-center gap-1 rounded-[18px] border border-slate-200/65 bg-slate-50/75 p-1 md:flex" aria-label="Primary navigation">
+          <nav
+            className="hidden items-center gap-1 rounded-[18px] border border-slate-200/65 bg-slate-50/75 p-1 md:flex"
+            aria-label="Primary navigation"
+          >
             {NAV.map((item) => {
               const active = isActive(pathname, item.to);
               return (
@@ -101,7 +97,10 @@ export function TopBar() {
                   >
                     <UserAvatar name={user.name} avatar={user.avatar} />
                     <span className="hidden max-w-32 truncate sm:block">{user.name}</span>
-                    <ChevronDown className="hidden size-4 text-slate-400 sm:block" aria-hidden="true" />
+                    <ChevronDown
+                      className="hidden size-4 text-slate-400 sm:block"
+                      aria-hidden="true"
+                    />
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
@@ -113,10 +112,23 @@ export function TopBar() {
                     <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-blue-600">
                       <UserRound className="size-3.5" /> Profile
                     </span>
-                    <span className="mt-2 block truncate text-sm font-bold text-slate-900">{user.name}</span>
-                    <span className="mt-0.5 block truncate text-xs font-normal text-slate-500">{user.email}</span>
+                    <span className="mt-2 block truncate text-sm font-bold text-slate-900">
+                      {user.name}
+                    </span>
+                    <span className="mt-0.5 block truncate text-xs font-normal text-slate-500">
+                      {user.email}
+                    </span>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-slate-100" />
+                  <DropdownMenuItem asChild>
+                    <Link
+                      to="/profile"
+                      className="min-h-11 cursor-pointer rounded-[12px] px-3 text-sm font-semibold text-slate-700 focus:bg-blue-50 focus:text-blue-700"
+                    >
+                      <UserRound className="size-4" />
+                      View Profile
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem
                     onSelect={() => void signOut()}
                     className="min-h-11 cursor-pointer rounded-[12px] px-3 text-sm font-semibold text-slate-700 focus:bg-rose-50 focus:text-rose-700"

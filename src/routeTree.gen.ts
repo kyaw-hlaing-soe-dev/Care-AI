@@ -14,6 +14,7 @@ import { Route as AddRouteImport } from './routes/add'
 import { Route as CreateProfileRouteImport } from './routes/create-profile'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as HistoryIndexRouteImport } from './routes/history.index'
 import { Route as HistoryIdRouteImport } from './routes/history.$id'
 
@@ -42,6 +43,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HistoryIndexRoute = HistoryIndexRouteImport.update({
   id: '/history/',
   path: '/history/',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/create-profile': typeof CreateProfileRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
   '/history/$id': typeof HistoryIdRoute
   '/history/': typeof HistoryIndexRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/create-profile': typeof CreateProfileRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
   '/history/$id': typeof HistoryIdRoute
   '/history': typeof HistoryIndexRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/create-profile': typeof CreateProfileRoute
   '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
+  '/profile': typeof ProfileRoute
   '/history/$id': typeof HistoryIdRoute
   '/history/': typeof HistoryIndexRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/create-profile'
     | '/dashboard'
     | '/login'
+    | '/profile'
     | '/history/$id'
     | '/history/'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/create-profile'
     | '/dashboard'
     | '/login'
+    | '/profile'
     | '/history/$id'
     | '/history'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/create-profile'
     | '/dashboard'
     | '/login'
+    | '/profile'
     | '/history/$id'
     | '/history/'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   CreateProfileRoute: typeof CreateProfileRoute
   DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
+  ProfileRoute: typeof ProfileRoute
   HistoryIdRoute: typeof HistoryIdRoute
   HistoryIndexRoute: typeof HistoryIndexRoute
 }
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/history/': {
       id: '/history/'
       path: '/history'
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   CreateProfileRoute: CreateProfileRoute,
   DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
+  ProfileRoute: ProfileRoute,
   HistoryIdRoute: HistoryIdRoute,
   HistoryIndexRoute: HistoryIndexRoute,
 }
