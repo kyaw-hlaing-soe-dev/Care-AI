@@ -1,16 +1,26 @@
-import { motion } from "motion/react";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 
 /** Layered ambient background: gradient blobs, blurred circles, floating particles. */
 export function AmbientBackground() {
+  const reducedMotion = Boolean(useReducedMotion());
+  const [animated, setAnimated] = useState(false);
+
+  useEffect(() => {
+    if (reducedMotion) return;
+    const id = window.setTimeout(() => setAnimated(true), 300);
+    return () => window.clearTimeout(id);
+  }, [reducedMotion]);
+
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <div className="animate-blob absolute -left-40 -top-40 size-[42rem] rounded-full bg-primary/25 blur-[120px]" />
+      <div className={`${animated ? "animate-blob" : ""} absolute -left-40 -top-40 size-[42rem] rounded-full bg-primary/25 blur-[120px]`} />
       <div
-        className="animate-blob absolute -right-52 top-10 size-[38rem] rounded-full bg-cyan/30 blur-[130px]"
+        className={`${animated ? "animate-blob" : ""} absolute -right-52 top-10 size-[38rem] rounded-full bg-cyan/30 blur-[130px]`}
         style={{ animationDelay: "-6s" }}
       />
       <div
-        className="animate-blob absolute left-1/3 top-[70%] size-[34rem] rounded-full bg-sky/18 blur-[140px]"
+        className={`${animated ? "animate-blob" : ""} absolute left-1/3 top-[70%] size-[34rem] rounded-full bg-sky/18 blur-[140px]`}
         style={{ animationDelay: "-11s" }}
       />
 
@@ -19,15 +29,17 @@ export function AmbientBackground() {
       <div className="absolute left-1/2 top-48 hidden size-[34rem] -translate-x-1/2 rounded-full border border-white/40 lg:block" />
 
       {/* floating particles */}
-      {PARTICLES.map((p, i) => (
-        <motion.span
-          key={i}
-          className="absolute rounded-full bg-white/70 shadow-[0_0_18px_rgba(59,130,246,0.45)]"
-          style={{ left: p.left, top: p.top, width: p.size, height: p.size }}
-          animate={{ y: [0, -26, 0], opacity: [0.35, 0.9, 0.35] }}
-          transition={{ duration: p.dur, repeat: Infinity, ease: "easeInOut", delay: p.delay }}
-        />
-      ))}
+      {animated
+        ? PARTICLES.map((p, i) => (
+            <motion.span
+              key={i}
+              className="absolute rounded-full bg-white/70 shadow-[0_0_18px_rgba(59,130,246,0.45)]"
+              style={{ left: p.left, top: p.top, width: p.size, height: p.size }}
+              animate={{ y: [0, -26, 0], opacity: [0.35, 0.9, 0.35] }}
+              transition={{ duration: p.dur, repeat: Infinity, ease: "easeInOut", delay: p.delay }}
+            />
+          ))
+        : null}
     </div>
   );
 }
