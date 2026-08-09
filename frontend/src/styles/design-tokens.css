@@ -93,6 +93,19 @@
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 
   --brand-gradient: linear-gradient(105deg, var(--brand-blue-700) 0%, var(--brand-blue-500) 50%, var(--brand-cyan-400) 100%);
+
+  /* Multilingual typography */
+  --my-display-size: clamp(2rem, 7.2vw, 2.7rem);
+  --my-display-size-desktop: clamp(2.7rem, 4vw, 3.6rem);
+  --my-display-leading: 1.24;
+  --my-heading-leading: 1.38;
+  --my-body-leading: 1.7;
+  --my-caption-leading: 1.55;
+  --my-section-title-size: clamp(1.75rem, 3.8vw, 2.6rem);
+  --my-page-title-size: clamp(1.85rem, 3.5vw, 2.35rem);
+  --my-body-size: 1rem;
+  --my-caption-size: 0.75rem;
+  --my-card-title-size: 1rem;
 }
 
 @media (max-width: 767px) {
@@ -104,6 +117,9 @@
     --glass-blur-md: 12px;
     --glass-blur-lg: 16px;
     --shadow-glass: 0 14px 36px -22px rgba(30, 64, 140, 0.24), 0 2px 8px -5px rgba(30, 64, 140, 0.1);
+    --my-display-size: clamp(1.62rem, 7.8vw, 2.05rem);
+    --my-section-title-size: clamp(1.55rem, 6vw, 2rem);
+    --my-page-title-size: clamp(1.75rem, 8vw, 2.05rem);
   }
 }
 

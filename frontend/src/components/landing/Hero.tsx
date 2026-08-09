@@ -75,7 +75,7 @@ export function Hero() {
   }
 
   return (
-    <section className="care-container grid items-center gap-4 pb-10 pt-8 sm:pb-12 sm:pt-10 md:gap-6 lg:min-h-[calc(100dvh-84px)] lg:grid-cols-[minmax(0,.96fr)_minmax(0,1.04fr)] lg:gap-10 lg:py-10 xl:gap-14 [@media(max-height:700px)]:pb-8 [@media(max-height:700px)]:pt-5 lg:[@media(max-height:700px)]:py-10">
+    <section className="care-container grid items-center gap-3 pb-8 pt-5 sm:gap-4 sm:pb-12 sm:pt-10 md:gap-6 lg:min-h-[calc(100dvh-84px)] lg:grid-cols-[minmax(0,.96fr)_minmax(0,1.04fr)] lg:gap-10 lg:py-10 xl:gap-14 [@media(max-height:700px)]:pb-8 [@media(max-height:700px)]:pt-5 lg:[@media(max-height:700px)]:py-10">
       <div className="text-center lg:text-left">
         <motion.span
           initial={reducedMotion ? false : { opacity: 0, y: 10 }}
@@ -91,7 +91,7 @@ export function Hero() {
           initial={reducedMotion ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          className="hero-title mt-5 text-balance text-[clamp(2.375rem,11vw,3.25rem)] font-extrabold leading-[1.01] tracking-[-0.055em] sm:text-[3.25rem] md:text-[3.75rem] lg:text-[clamp(3.65rem,5.2vw,4.5rem)] [@media(max-height:700px)]:mt-3 lg:[@media(max-height:700px)]:mt-5"
+          className="hero-title mx-auto mt-4 max-w-[10.5em] text-balance text-[clamp(2rem,9vw,2.65rem)] font-extrabold leading-[1.04] tracking-[-0.035em] sm:mt-5 sm:text-[3.25rem] md:text-[3.75rem] lg:mx-0 lg:max-w-none lg:text-[clamp(3.65rem,5.2vw,4.5rem)] lg:tracking-[-0.055em] [@media(max-height:700px)]:mt-3 lg:[@media(max-height:700px)]:mt-5"
         >
           {t("landing.hero.title")}{" "}
           <span className="text-gradient">{t("landing.hero.titleAccent")}</span>
@@ -101,7 +101,7 @@ export function Hero() {
           initial={reducedMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto mt-5 max-w-[380px] text-pretty text-[15px] leading-6 text-muted-foreground sm:text-base md:max-w-[580px] md:text-lg lg:mx-0 [@media(max-height:700px)]:mt-3 lg:[@media(max-height:700px)]:mt-5"
+          className="mx-auto mt-3 max-w-[340px] text-pretty text-sm leading-6 text-muted-foreground sm:mt-5 sm:max-w-[380px] sm:text-base md:max-w-[580px] md:text-lg lg:mx-0 [@media(max-height:700px)]:mt-3 lg:[@media(max-height:700px)]:mt-5"
         >
           {t("landing.hero.body")}
         </motion.p>
@@ -110,14 +110,14 @@ export function Hero() {
           initial={reducedMotion ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start [@media(max-height:700px)]:mt-5 lg:[@media(max-height:700px)]:mt-8"
+          className="mt-5 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:justify-center lg:justify-start [@media(max-height:700px)]:mt-5 lg:[@media(max-height:700px)]:mt-8"
         >
-          <Link to="/login" className="sm:w-auto">
+          <Link to="/login" className="block w-full sm:w-auto">
             <GlassButton size="lg" className="w-full sm:w-auto">
               {t("landing.hero.primary")}
             </GlassButton>
           </Link>
-          <a href="#how-it-works" className="sm:w-auto">
+          <a href="#how-it-works" className="hidden sm:block sm:w-auto">
             <GlassButton variant="glass" size="lg" className="w-full sm:w-auto">
               <ArrowDown className="size-4" />
               {t("landing.hero.secondary")}
@@ -129,7 +129,7 @@ export function Hero() {
           initial={reducedMotion ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mx-auto mt-5 flex max-w-[430px] flex-wrap justify-center gap-2 text-left sm:mt-6 md:max-w-[560px] md:gap-x-4 lg:mx-0 lg:justify-start [@media(max-height:700px)]:mt-4 lg:[@media(max-height:700px)]:mt-5"
+          className="mx-auto mt-4 hidden max-w-[430px] flex-wrap justify-center gap-2 text-left sm:mt-6 sm:flex md:max-w-[560px] md:gap-x-4 lg:mx-0 lg:justify-start [@media(max-height:700px)]:mt-4 lg:[@media(max-height:700px)]:mt-5"
         >
           {PROOF.map((key, index) => (
             <li
@@ -153,7 +153,7 @@ export function Hero() {
           mx.set(0);
           my.set(0);
         }}
-        className="relative mx-auto h-[285px] w-full max-w-[430px] min-[400px]:h-[305px] sm:h-[330px] sm:max-w-[540px] md:h-[390px] md:max-w-[620px] lg:h-[clamp(430px,61dvh,560px)] lg:max-w-[560px] [perspective:1400px] [@media(max-height:700px)]:h-[260px] lg:[@media(max-height:700px)]:h-[430px]"
+        className="relative mx-auto h-[210px] w-full max-w-[390px] min-[400px]:h-[230px] sm:h-[330px] sm:max-w-[540px] md:h-[390px] md:max-w-[620px] lg:h-[clamp(430px,61dvh,560px)] lg:max-w-[560px] [perspective:1400px] [@media(max-height:700px)]:h-[205px] lg:[@media(max-height:700px)]:h-[430px]"
       >
         <motion.div
           initial={reducedMotion ? false : { opacity: 0, scale: 0.985 }}
@@ -177,7 +177,7 @@ export function Hero() {
             loading="eager"
             {...(!reducedMotion ? { animate: { y: [0, -4, 0] } } : {})}
             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-x-[14%] bottom-[8%] top-auto m-auto h-[230px] w-auto object-contain drop-shadow-[0_24px_30px_rgba(30,64,140,0.18)] min-[400px]:h-[248px] sm:h-[280px] md:h-[320px] lg:bottom-[3%] lg:top-[2%] lg:h-[96%] lg:drop-shadow-[0_34px_44px_rgba(30,64,140,0.22)] [@media(max-height:700px)]:h-[215px] lg:[@media(max-height:700px)]:h-[96%]"
+            className="absolute inset-x-[14%] bottom-[5%] top-auto m-auto h-[175px] w-auto object-contain drop-shadow-[0_24px_30px_rgba(30,64,140,0.18)] min-[400px]:h-[195px] sm:h-[280px] md:h-[320px] lg:bottom-[3%] lg:top-[2%] lg:h-[96%] lg:drop-shadow-[0_34px_44px_rgba(30,64,140,0.22)] [@media(max-height:700px)]:h-[168px] lg:[@media(max-height:700px)]:h-[96%]"
             style={{ transform: "translateZ(60px)" }}
           />
 
@@ -194,7 +194,7 @@ export function Hero() {
                 y: { duration: 7 + w.delay, repeat: Infinity, ease: "easeInOut", delay: w.delay },
               }}
               style={{ rotate: w.rotate, transform: "translateZ(90px)" }}
-              className={`glass-surface glass-glare glass-strong absolute ${w.pos} ${w.show} w-[118px] items-center gap-2 rounded-[15px] px-2 py-2 shadow-[0_12px_28px_rgba(30,64,140,0.12)] sm:w-auto sm:gap-3 sm:rounded-[18px] sm:px-3 sm:py-2.5`}
+              className={`glass-surface glass-glare glass-strong absolute ${w.pos} ${w.show} w-[106px] items-center gap-1.5 rounded-[14px] px-1.5 py-1.5 shadow-[0_12px_28px_rgba(30,64,140,0.12)] sm:w-auto sm:gap-3 sm:rounded-[18px] sm:px-3 sm:py-2.5`}
             >
               <span
                 className={`grid size-7 shrink-0 place-items-center rounded-[10px] bg-gradient-to-br ${w.tint} text-white shadow-md sm:size-9 sm:rounded-xl sm:shadow-lg`}
@@ -205,7 +205,7 @@ export function Hero() {
                 <span className="block text-[9px] font-semibold uppercase tracking-wide text-muted-foreground sm:text-[10px]">
                   {w.label}
                 </span>
-                <span className="block text-sm font-extrabold tabular-nums sm:text-[15px]">
+                <span className="block text-[13px] font-extrabold tabular-nums sm:text-[15px]">
                   {w.value}
                 </span>
               </span>
