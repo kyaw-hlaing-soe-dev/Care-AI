@@ -172,8 +172,6 @@ const en = {
     recommendations: "Recommendations",
     trends: "Your Trends",
     trendsBody: "A quick look across your last {{count}} readings.",
-    trendUnavailable: "Not enough data for a trend yet",
-    trendUnavailableBody: "Log another reading to start seeing changes over time.",
     noChange: "No change",
     fromPrior: "{{value}} from prior",
     recentLogs: "Recent Logs",

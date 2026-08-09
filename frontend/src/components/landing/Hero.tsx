@@ -16,7 +16,7 @@ const PROOF = [
 const WIDGETS = [
   {
     Icon: HeartPulse,
-    labelKey: "dashboard.heartRate",
+    label: "Heart Rate",
     value: "72 BPM",
     tint: "from-rose-400/80 to-rose-500/80",
     pos: "left-[30%] top-[0%] sm:left-[16%] sm:top-[10%] lg:left-[1%] lg:top-[23%]",
@@ -26,7 +26,7 @@ const WIDGETS = [
   },
   {
     Icon: Droplets,
-    labelKey: "dashboard.bloodPressure",
+    label: "Blood Pressure",
     value: "120 / 76",
     tint: "from-primary/85 to-sky/85",
     pos: "left-[0%] bottom-[10%] sm:left-[4%] sm:bottom-[16%] md:left-auto md:right-[1%] md:top-[28%] md:bottom-auto lg:top-[13%]",
@@ -36,7 +36,7 @@ const WIDGETS = [
   },
   {
     Icon: Thermometer,
-    labelKey: "dashboard.temperature",
+    label: "Temperature",
     value: "36.7°C",
     tint: "from-amber-400/85 to-orange-400/85",
     pos: "left-[0%] bottom-[20%]",
@@ -46,7 +46,7 @@ const WIDGETS = [
   },
   {
     Icon: Activity,
-    labelKey: "dashboard.oxygen",
+    label: "Oxygen",
     value: "98%",
     tint: "from-teal/90 to-cyan/90",
     pos: "right-[0%] bottom-[10%] sm:right-[3%] sm:bottom-[16%] lg:right-[0%] lg:bottom-[34%]",
@@ -101,7 +101,7 @@ export function Hero() {
           initial={reducedMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-          className="landing-body-copy mx-auto mt-5 max-w-[380px] text-pretty text-[15px] leading-6 text-muted-foreground sm:text-base md:max-w-[580px] md:text-lg lg:mx-0 [@media(max-height:700px)]:mt-3 lg:[@media(max-height:700px)]:mt-5"
+          className="mx-auto mt-5 max-w-[380px] text-pretty text-[15px] leading-6 text-muted-foreground sm:text-base md:max-w-[580px] md:text-lg lg:mx-0 [@media(max-height:700px)]:mt-3 lg:[@media(max-height:700px)]:mt-5"
         >
           {t("landing.hero.body")}
         </motion.p>
@@ -134,7 +134,7 @@ export function Hero() {
           {PROOF.map((key, index) => (
             <li
               key={key}
-              className={`trust-chip flex items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-2.5 py-1.5 text-[11px] font-semibold text-foreground/75 shadow-sm backdrop-blur-sm max-[340px]:px-2 max-[340px]:text-[10px] md:bg-transparent md:px-0 md:py-0 md:text-sm md:shadow-none ${index === 2 ? "[@media(max-height:700px)]:hidden lg:[@media(max-height:700px)]:flex" : ""}`}
+              className={`flex items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-2.5 py-1.5 text-[11px] font-semibold text-foreground/75 shadow-sm backdrop-blur-sm max-[340px]:px-2 max-[340px]:text-[10px] md:bg-transparent md:px-0 md:py-0 md:text-sm md:shadow-none ${index === 2 ? "[@media(max-height:700px)]:hidden lg:[@media(max-height:700px)]:flex" : ""}`}
             >
               <span className="grid size-4 shrink-0 place-items-center rounded-full bg-gradient-to-br from-primary to-cyan text-primary-foreground md:size-5">
                 <Check className="size-3" strokeWidth={3} />
@@ -183,7 +183,7 @@ export function Hero() {
 
           {WIDGETS.map((w) => (
             <motion.div
-              key={w.labelKey}
+              key={w.label}
               initial={false}
               animate={
                 reducedMotion ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1, y: [0, -4, 0] }
@@ -194,7 +194,7 @@ export function Hero() {
                 y: { duration: 7 + w.delay, repeat: Infinity, ease: "easeInOut", delay: w.delay },
               }}
               style={{ rotate: w.rotate, transform: "translateZ(90px)" }}
-              className={`glass-surface glass-glare glass-strong absolute ${w.pos} ${w.show} w-[128px] items-center gap-2 rounded-[15px] px-2 py-2 shadow-[0_12px_28px_rgba(30,64,140,0.12)] min-[390px]:w-[138px] sm:w-auto sm:gap-3 sm:rounded-[18px] sm:px-3 sm:py-2.5`}
+              className={`glass-surface glass-glare glass-strong absolute ${w.pos} ${w.show} w-[118px] items-center gap-2 rounded-[15px] px-2 py-2 shadow-[0_12px_28px_rgba(30,64,140,0.12)] sm:w-auto sm:gap-3 sm:rounded-[18px] sm:px-3 sm:py-2.5`}
             >
               <span
                 className={`grid size-7 shrink-0 place-items-center rounded-[10px] bg-gradient-to-br ${w.tint} text-white shadow-md sm:size-9 sm:rounded-xl sm:shadow-lg`}
@@ -202,8 +202,8 @@ export function Hero() {
                 <w.Icon className="size-3.5 sm:size-4" />
               </span>
               <span className="min-w-0">
-                <span className="myanmar-metric-label block break-words text-[9px] font-semibold uppercase leading-tight tracking-wide text-muted-foreground sm:text-[10px]">
-                  {t(w.labelKey)}
+                <span className="block text-[9px] font-semibold uppercase tracking-wide text-muted-foreground sm:text-[10px]">
+                  {w.label}
                 </span>
                 <span className="block text-sm font-extrabold tabular-nums sm:text-[15px]">
                   {w.value}
