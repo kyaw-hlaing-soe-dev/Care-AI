@@ -176,7 +176,7 @@ function Identity({
     <div className="flex min-w-0 items-center gap-3.5">
       <ProfileAvatar user={user} name={displayName} size={compact ? "sm" : "md"} />
       <div className="min-w-0">
-        <h2 className="break-words text-[20px] font-extrabold leading-6 tracking-[-0.03em] text-slate-950">
+        <h2 className="app-card-title break-words text-[20px] font-extrabold leading-6 tracking-[-0.03em] text-slate-950">
           {displayName}
         </h2>
         <p className="mt-0.5 break-all text-[13px] leading-5 text-slate-500">{user.email}</p>
@@ -405,7 +405,7 @@ function MobileNestedHeader({
         <ArrowLeft className="size-4" aria-hidden="true" /> {backLabel}
       </button>
       <div className="mt-1 flex min-w-0 items-center justify-between gap-3">
-        <h1 className="min-w-0 break-words text-[28px] font-extrabold leading-[1.12] tracking-[-0.04em] text-slate-950">
+        <h1 className="app-page-title min-w-0 break-words text-[28px] font-extrabold leading-[1.12] tracking-[-0.04em] text-slate-950">
           {title}
         </h1>
         {action}
@@ -426,7 +426,7 @@ function ContentHeading({
   return (
     <div className="hidden border-b border-slate-200/70 pb-5 md:flex md:items-start md:justify-between md:gap-5">
       <div className="min-w-0">
-        <h2 className="text-[24px] font-extrabold tracking-[-0.035em] text-slate-950 lg:text-[28px]">
+        <h2 className="app-section-title text-[24px] font-extrabold tracking-[-0.035em] text-slate-950 lg:text-[28px]">
           {title}
         </h2>
         <p className="mt-1.5 max-w-2xl text-sm leading-6 text-slate-500">{description}</p>
@@ -589,7 +589,7 @@ function MobileProfileHub({
         >
           <ArrowLeft className="size-4" aria-hidden="true" /> {t("nav.dashboard")}
         </Link>
-        <h1 className="mt-1 text-[30px] font-extrabold tracking-[-0.045em] text-slate-950">
+        <h1 className="app-page-title mt-1 text-[30px] font-extrabold tracking-[-0.045em] text-slate-950">
           {t("common.profile")}
         </h1>
       </div>
@@ -892,7 +892,7 @@ function EditProfileSection({
             {t("common.cancel")}
           </button>
         </div>
-        <h1 className="mt-1 break-words text-[28px] font-extrabold leading-[1.15] tracking-[-0.04em] text-slate-950">
+        <h1 className="app-page-title mt-1 break-words text-[28px] font-extrabold leading-[1.15] tracking-[-0.04em] text-slate-950">
           {t("profile.edit")}
         </h1>
       </div>
@@ -1238,7 +1238,7 @@ export function ProfileDetails({
           <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">
             {t("profile.eyebrow")}
           </p>
-          <h1 className="mt-2 text-[clamp(2rem,4vw,2.25rem)] font-extrabold tracking-[-0.045em] text-slate-950">
+          <h1 className="app-page-title mt-2 text-[clamp(2rem,4vw,2.25rem)] font-extrabold tracking-[-0.045em] text-slate-950">
             {t("profile.title")}
           </h1>
           <p className="mt-2 max-w-2xl text-[15px] leading-6 text-slate-500">

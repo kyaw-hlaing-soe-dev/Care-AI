@@ -95,7 +95,7 @@ export function LanguageSettings() {
   return (
     <GlassCard strong className="app-card p-5 sm:p-7 lg:p-8">
       <div className="border-b border-slate-100 pb-5">
-        <h2 className="flex items-center gap-2 text-xl font-extrabold tracking-[-0.03em] text-slate-950">
+        <h2 className="app-section-title flex items-center gap-2 text-xl font-extrabold tracking-[-0.03em] text-slate-950">
           <Languages className="size-5 shrink-0 text-blue-500" aria-hidden="true" />
           {t("settings.language")}
         </h2>

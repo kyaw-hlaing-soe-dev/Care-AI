@@ -62,10 +62,10 @@ function Dashboard() {
 
       <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-[clamp(1.85rem,4vw,2.25rem)] font-extrabold leading-tight tracking-[-0.045em] text-slate-950">
+          <h1 className="app-page-title text-[clamp(1.85rem,4vw,2.25rem)] font-extrabold leading-tight tracking-[-0.045em] text-slate-950">
             {greeting}, {displayName}
           </h1>
-          <p className="mt-2 text-sm leading-6 text-slate-500 sm:text-[15px]">{t("dashboard.subtitle")}</p>
+          <p className="myanmar-readable mt-2 text-sm leading-6 text-slate-500 sm:text-[15px]">{t("dashboard.subtitle")}</p>
         </div>
         <Link to="/add" className={glassButtonVariants({ size: "md", className: "w-full sm:w-auto" })}>
           <Plus className="size-4" aria-hidden="true" />
@@ -78,7 +78,7 @@ function Dashboard() {
           <span className="mx-auto grid size-14 place-items-center rounded-[18px] bg-gradient-to-br from-blue-500 to-cyan-400 text-white shadow-[0_16px_34px_rgba(37,99,235,0.20)]">
             <Activity className="size-6" aria-hidden="true" />
           </span>
-          <h2 className="mt-5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">{t("dashboard.noReadings")}</h2>
+          <h2 className="app-section-title mt-5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">{t("dashboard.noReadings")}</h2>
           <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
             {t("dashboard.noReadingsBody")}
           </p>
@@ -100,7 +100,7 @@ function Dashboard() {
                 </p>
                 <h2
                   id="latest-vitals-heading"
-                  className="mt-1 text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]"
+                  className="app-section-title mt-1 text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]"
                 >
                   {t("dashboard.latestMetricsAria")}
                 </h2>

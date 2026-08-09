@@ -99,7 +99,7 @@ export function TrendPreview({ records, limit = 4 }: { records: VitalRecord[]; l
           <div>
             <h2
               id="trends-heading"
-              className="text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]"
+              className="app-section-title text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]"
             >
               {t("dashboard.trends")}
             </h2>
@@ -112,7 +112,7 @@ export function TrendPreview({ records, limit = 4 }: { records: VitalRecord[]; l
                 <ChartNoAxesColumnIncreasing className="size-5" aria-hidden="true" />
               </span>
               <div className="min-w-0">
-                <h3 className="text-base font-extrabold tracking-[-0.02em] text-slate-950">
+                <h3 className="app-card-title text-base font-extrabold tracking-[-0.02em] text-slate-950">
                   {t("dashboard.trendUnavailable")}
                 </h3>
                 <p className="mt-1 max-w-xl text-sm leading-6 text-slate-500">
@@ -196,7 +196,7 @@ export function TrendPreview({ records, limit = 4 }: { records: VitalRecord[]; l
         <div>
           <h2
             id="trends-heading"
-            className="text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]"
+            className="app-section-title text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]"
           >
             {t("dashboard.trends")}
           </h2>

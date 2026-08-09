@@ -19,10 +19,10 @@ export function PageHeader({
             {eyebrow}
           </p>
         ) : null}
-        <h1 className="text-[clamp(1.85rem,4vw,2.25rem)] font-extrabold leading-tight tracking-[-0.045em] text-slate-950">
+        <h1 className="app-page-title text-[clamp(1.85rem,4vw,2.25rem)] font-extrabold leading-tight tracking-[-0.045em] text-slate-950">
           {title}
         </h1>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500 sm:text-[15px]">{subtitle}</p>
+        <p className="myanmar-readable mt-2 max-w-2xl text-sm leading-6 text-slate-500 sm:text-[15px]">{subtitle}</p>
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}
     </header>

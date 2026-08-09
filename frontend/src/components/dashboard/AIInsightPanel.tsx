@@ -40,7 +40,7 @@ export function AIInsightPanel({
     <GlassCard id={panelId} strong className="app-card scroll-mt-24 overflow-hidden p-0">
       <div className="border-b border-blue-100/80 bg-gradient-to-r from-blue-50/80 via-white/60 to-cyan-50/75 px-5 py-5 sm:px-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="inline-flex items-center gap-2.5 text-xl font-extrabold tracking-[-0.025em] text-slate-950 sm:text-[22px]">
+          <h2 className="app-section-title inline-flex items-center gap-2.5 text-xl font-extrabold tracking-[-0.025em] text-slate-950 sm:text-[22px]">
             <span className="grid size-9 place-items-center rounded-[13px] bg-gradient-to-br from-blue-500 to-cyan-400 text-white shadow-sm">
               <Sparkles className="size-4" aria-hidden="true" />
             </span>
@@ -50,7 +50,7 @@ export function AIInsightPanel({
             {t("dashboard.aiAnalysis")}
           </span>
         </div>
-        <p className="mt-3 max-w-4xl text-sm leading-6 text-slate-600">{analysis.summary}</p>
+        <p className="myanmar-readable mt-3 max-w-4xl text-sm leading-6 text-slate-600">{analysis.summary}</p>
       </div>
 
       <div className="grid md:grid-cols-2 xl:grid-cols-3">

@@ -44,7 +44,7 @@ export function Features() {
         subtitle={t("landing.features.subtitle")}
       />
 
-      <ul className="mx-auto mt-12 grid max-w-6xl gap-5 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
+      <ul className="feature-grid mx-auto mt-12 grid max-w-6xl gap-5 sm:grid-cols-2 lg:mt-14 xl:grid-cols-4">
         {FEATURES.map((f, i) => (
           <Reveal as="li" key={f.titleKey} delay={i * 0.07}>
             <motion.article
@@ -60,8 +60,8 @@ export function Features() {
               <span className="absolute right-6 top-6 text-xs font-extrabold tracking-[0.16em] text-primary/55">
                 {f.number}
               </span>
-              <h3 className="mt-6 text-lg font-bold tracking-tight">{t(f.titleKey)}</h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{t(f.bodyKey)}</p>
+              <h3 className="landing-card-title mt-6 text-lg font-bold tracking-tight">{t(f.titleKey)}</h3>
+              <p className="myanmar-readable mt-2.5 text-sm leading-relaxed text-muted-foreground">{t(f.bodyKey)}</p>
             </motion.article>
           </Reveal>
         ))}

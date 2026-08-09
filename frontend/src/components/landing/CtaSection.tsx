@@ -67,10 +67,10 @@ export function CtaSection() {
 
           <div className="relative grid items-center gap-7 md:grid-cols-[minmax(0,1.1fr)_minmax(280px,.9fr)] md:gap-4 lg:gap-8">
             <div className="text-center md:text-left">
-              <h2 className="text-balance text-4xl font-extrabold tracking-tight text-primary-foreground sm:text-5xl">
+              <h2 className="landing-section-title text-balance text-4xl font-extrabold tracking-tight text-primary-foreground sm:text-5xl">
                 {t("landing.cta.title")}
               </h2>
-              <p className="mt-4 text-pretty text-base leading-relaxed text-primary-foreground/85 sm:text-lg">
+              <p className="mt-4 text-pretty text-base leading-relaxed text-primary-foreground/90 sm:text-lg">
                 {t("landing.cta.body")}
               </p>
               <Link to="/login" className="mt-8 inline-block w-full sm:w-auto">

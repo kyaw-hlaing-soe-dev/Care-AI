@@ -101,7 +101,7 @@ export function Hero() {
           initial={reducedMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto mt-5 max-w-[380px] text-pretty text-[15px] leading-6 text-muted-foreground sm:text-base md:max-w-[580px] md:text-lg lg:mx-0 [@media(max-height:700px)]:mt-3 lg:[@media(max-height:700px)]:mt-5"
+          className="landing-body-copy mx-auto mt-5 max-w-[380px] text-pretty text-[15px] leading-6 text-muted-foreground sm:text-base md:max-w-[580px] md:text-lg lg:mx-0 [@media(max-height:700px)]:mt-3 lg:[@media(max-height:700px)]:mt-5"
         >
           {t("landing.hero.body")}
         </motion.p>
@@ -134,7 +134,7 @@ export function Hero() {
           {PROOF.map((key, index) => (
             <li
               key={key}
-              className={`flex items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-2.5 py-1.5 text-[11px] font-semibold text-foreground/75 shadow-sm backdrop-blur-sm max-[340px]:px-2 max-[340px]:text-[10px] md:bg-transparent md:px-0 md:py-0 md:text-sm md:shadow-none ${index === 2 ? "[@media(max-height:700px)]:hidden lg:[@media(max-height:700px)]:flex" : ""}`}
+              className={`trust-chip flex items-center gap-1.5 rounded-full border border-white/70 bg-white/60 px-2.5 py-1.5 text-[11px] font-semibold text-foreground/75 shadow-sm backdrop-blur-sm max-[340px]:px-2 max-[340px]:text-[10px] md:bg-transparent md:px-0 md:py-0 md:text-sm md:shadow-none ${index === 2 ? "[@media(max-height:700px)]:hidden lg:[@media(max-height:700px)]:flex" : ""}`}
             >
               <span className="grid size-4 shrink-0 place-items-center rounded-full bg-gradient-to-br from-primary to-cyan text-primary-foreground md:size-5">
                 <Check className="size-3" strokeWidth={3} />
@@ -202,7 +202,7 @@ export function Hero() {
                 <w.Icon className="size-3.5 sm:size-4" />
               </span>
               <span className="min-w-0">
-                <span className="block break-words text-[9px] font-semibold uppercase leading-tight tracking-wide text-muted-foreground sm:text-[10px]">
+                <span className="myanmar-metric-label block break-words text-[9px] font-semibold uppercase leading-tight tracking-wide text-muted-foreground sm:text-[10px]">
                   {t(w.labelKey)}
                 </span>
                 <span className="block text-sm font-extrabold tabular-nums sm:text-[15px]">

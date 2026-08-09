@@ -12,7 +12,7 @@ export function RecentLogs({ records }: { records: VitalRecord[] }) {
   return (
     <section aria-labelledby="recent-logs-heading">
       <div className="mb-4 flex items-center justify-between gap-4">
-        <h2 id="recent-logs-heading" className="text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]">
+        <h2 id="recent-logs-heading" className="app-section-title text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]">
           {t("dashboard.recentLogs")}
         </h2>
         <Link

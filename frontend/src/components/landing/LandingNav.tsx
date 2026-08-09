@@ -25,7 +25,7 @@ export function LandingNav() {
           <CareAILogo compact className="gap-2.5" />
         </Link>
 
-        <ul className="hidden items-center gap-4 lg:flex xl:gap-6">
+        <ul className="hidden items-center gap-4 xl:flex xl:gap-6">
           {LINKS.map((link) => (
             <li key={link.href}>
               <a
@@ -39,7 +39,7 @@ export function LandingNav() {
         </ul>
 
         <div className="flex shrink-0 items-center gap-2">
-          <span className="hidden lg:block"><PublicLanguageMenu /></span>
+          <span className="hidden xl:block"><PublicLanguageMenu /></span>
           <Link to="/login" className="hidden sm:block">
             <GlassButton size="sm">{t("landing.nav.getStarted")}</GlassButton>
           </Link>
@@ -48,7 +48,7 @@ export function LandingNav() {
             aria-label={open ? t("common.closeMenu") : t("common.openMenu")}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="grid size-11 place-items-center rounded-[14px] text-foreground transition-colors hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 lg:hidden"
+            className="grid size-11 place-items-center rounded-[14px] text-foreground transition-colors hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 xl:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>

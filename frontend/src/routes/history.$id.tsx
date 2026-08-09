@@ -75,7 +75,7 @@ function VitalDetailPage() {
       <GlassCard className="app-card flex flex-wrap items-center gap-5 p-5 sm:p-6">
         <HealthScoreRing score={analysis.score} hasData />
         <div className="min-w-0 flex-1">
-          <h1 className="text-2xl font-extrabold tracking-tight">
+          <h1 className="app-page-title text-2xl font-extrabold tracking-tight">
             {formatRecordedAt(record.recordedAt)}
           </h1>
           <div className="mt-2">

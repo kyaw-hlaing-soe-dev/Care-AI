@@ -345,7 +345,8 @@ function DoctorIllustration({ mobile = false }: { mobile?: boolean }) {
 }
 
 function ProfileVisual() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isMyanmar = i18n.resolvedLanguage === "my" || i18n.language === "my";
   return (
     <section
       className="hidden min-w-0 flex-col justify-center lg:flex"
@@ -357,13 +358,13 @@ function ProfileVisual() {
         </span>
         <h1
           id="profile-welcome-title"
-          className="mt-5 text-[clamp(48px,4.2vw,56px)] font-extrabold leading-[0.98] tracking-[-0.055em] text-slate-950"
+          className="profile-marketing-title mt-5 text-[clamp(48px,4.2vw,56px)] font-extrabold leading-[0.98] tracking-[-0.055em] text-slate-950"
         >
           {t("createProfile.titleLead")}
-          <br />
+          {isMyanmar ? " " : <br />}
           <span className="text-gradient">{t("createProfile.titleAccent")}</span>
         </h1>
-        <p className="mt-5 max-w-[430px] text-[15px] leading-7 text-slate-600 xl:text-base">
+        <p className="myanmar-readable mt-5 max-w-[430px] text-[15px] leading-7 text-slate-600 xl:text-base">
           {t("createProfile.visualBody")}
         </p>
       </div>
@@ -521,10 +522,10 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
       </div>
 
       <div className="profile-form-heading mt-6 lg:mt-4">
-        <h1 className="text-[30px] font-extrabold leading-tight tracking-[-0.045em] text-slate-950 sm:text-[34px] lg:text-[36px]">
+        <h1 className="auth-panel-title text-[30px] font-extrabold leading-tight tracking-[-0.045em] text-slate-950 sm:text-[34px] lg:text-[36px]">
           {t("createProfile.title")}
         </h1>
-        <p className="mt-2.5 max-w-[500px] text-sm leading-6 text-slate-500 sm:text-[15px] lg:mt-1.5">
+        <p className="myanmar-readable mt-2.5 max-w-[500px] text-sm leading-6 text-slate-600 sm:text-[15px] lg:mt-1.5">
           <span className="lg:hidden">{t("createProfile.mobileSubtitle")}</span>
           <span className="hidden lg:inline">
             {t("createProfile.subtitle")}

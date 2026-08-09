@@ -86,7 +86,7 @@ export function VitalSummaryGrid({
             <span className="grid size-8 shrink-0 place-items-center rounded-[11px] bg-blue-50 text-blue-500">
               <item.Icon className="size-4" aria-hidden="true" />
             </span>
-            <span className="min-w-0 leading-tight">{item.label}</span>
+            <span className="myanmar-label min-w-0 leading-tight">{item.label}</span>
           </div>
           <p className="mt-4 flex min-w-0 flex-wrap items-baseline gap-x-1.5">
             <span className="text-[clamp(1.45rem,5vw,2rem)] font-extrabold tracking-[-0.04em] tabular-nums text-slate-950">

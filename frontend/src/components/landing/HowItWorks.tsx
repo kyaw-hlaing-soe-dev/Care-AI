@@ -63,9 +63,9 @@ export function HowItWorks() {
         <div className="relative">
           <div
             aria-hidden="true"
-            className="absolute left-[16%] right-[16%] top-[44px] hidden h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent lg:block"
+            className="absolute left-[16%] right-[16%] top-[44px] hidden h-px bg-gradient-to-r from-transparent via-blue-200 to-transparent xl:block"
           />
-          <ol className="grid gap-4 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+          <ol className="how-steps-grid grid gap-4 sm:gap-5 xl:grid-cols-3 xl:gap-6">
             {STEPS.map((step, index) => (
               <li key={step.number} className="relative">
                 <article className="relative h-full rounded-[24px] border border-slate-200/75 bg-white/88 p-5 shadow-[0_12px_32px_rgba(44,83,130,0.075)] sm:p-6">
@@ -78,14 +78,14 @@ export function HowItWorks() {
                     </span>
                   </div>
 
-                  <h3 className="mt-5 text-[22px] font-extrabold tracking-[-0.035em] text-slate-950">
+                  <h3 className="landing-card-title mt-5 text-[22px] font-extrabold tracking-[-0.035em] text-slate-950">
                     {t(step.titleKey)}
                   </h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{t(step.bodyKey)}</p>
+                  <p className="myanmar-readable mt-2 text-sm leading-6 text-slate-600">{t(step.bodyKey)}</p>
 
                   <ul className="mt-5 grid gap-2.5">
                     {step.items.map((item) => (
-                      <li key={item} className="flex items-center gap-2.5 text-sm font-semibold text-slate-700">
+                      <li key={item} className="flex items-start gap-2.5 text-sm font-semibold leading-6 text-slate-700">
                         <span className="grid size-5 shrink-0 place-items-center rounded-full bg-blue-50 text-blue-600">
                           <Check className="size-3" strokeWidth={3} aria-hidden="true" />
                         </span>

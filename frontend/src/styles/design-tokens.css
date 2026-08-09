@@ -119,6 +119,20 @@
   --space-11: 80px;
   --space-12: 96px;
 
+  /* Myanmar-first typography scale. */
+  --my-display-size: clamp(2rem, 7.8vw, 2.5rem);
+  --my-display-size-desktop: clamp(2.75rem, 4.2vw, 3.875rem);
+  --my-page-title-size: clamp(1.75rem, 3.4vw, 2.125rem);
+  --my-section-title-size: clamp(1.75rem, 3.2vw, 3rem);
+  --my-card-title-size: clamp(1.125rem, 2.2vw, 1.375rem);
+  --my-body-size: 1rem;
+  --my-caption-size: 0.8125rem;
+  --my-display-leading: 1.24;
+  --my-heading-leading: 1.34;
+  --my-card-leading: 1.42;
+  --my-body-leading: 1.7;
+  --my-caption-leading: 1.58;
+
   /* Motion */
   --motion-fast: 160ms;
   --motion-base: 240ms;

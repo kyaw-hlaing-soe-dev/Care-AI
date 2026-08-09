@@ -18,7 +18,7 @@ export function HealthOverviewCard({ record }: { record: VitalRecord }) {
 
         <div className="min-w-0">
           <p className="text-xs font-bold uppercase tracking-[0.13em] text-blue-600">{t("dashboard.latestOverview")}</p>
-          <h2 className="mt-1.5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">{t("dashboard.healthScore")}</h2>
+          <h2 className="app-section-title mt-1.5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">{t("dashboard.healthScore")}</h2>
           <div className="mt-2.5">
             <StatusBadge status={record.analysis.status} />
           </div>

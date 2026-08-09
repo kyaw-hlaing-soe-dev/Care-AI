@@ -32,7 +32,7 @@ export function HistoryItem({
             >
               <span className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <span className="min-w-0">
-                  <span className="block text-base font-extrabold text-slate-950">{formatRecordedAt(record.recordedAt)}</span>
+                  <span className="app-card-title block text-base font-extrabold text-slate-950">{formatRecordedAt(record.recordedAt)}</span>
                   <span className="mt-2 flex flex-wrap items-center gap-2.5">
                     <StatusBadge status={record.analysis.status} />
                     <span className="text-xs font-semibold text-slate-500">

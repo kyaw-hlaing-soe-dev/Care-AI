@@ -69,7 +69,7 @@ function AddVitalPage() {
               <Activity className="size-5" aria-hidden="true" />
             </span>
             <div>
-              <h2 className="text-xl font-extrabold tracking-[-0.03em] text-slate-950">{t("vitals.readings")}</h2>
+              <h2 className="app-section-title text-xl font-extrabold tracking-[-0.03em] text-slate-950">{t("vitals.readings")}</h2>
               <p className="mt-1 text-sm leading-6 text-slate-500">{t("vitals.readingsBody")}</p>
             </div>
           </div>
@@ -88,14 +88,14 @@ function AddVitalPage() {
           </details>
 
           <GlassCard className="app-card hidden p-5 lg:block xl:p-6">
-            <h2 className="inline-flex items-center gap-2 text-base font-extrabold text-slate-950">
+            <h2 className="app-card-title inline-flex items-center gap-2 text-base font-extrabold text-slate-950">
               <Lightbulb className="size-4 text-blue-500" aria-hidden="true" /> {t("vitals.tips")}
             </h2>
             <TipsList />
           </GlassCard>
 
           <GlassCard className="app-card p-5 xl:p-6">
-            <h2 className="inline-flex items-center gap-2 text-base font-extrabold text-slate-950">
+            <h2 className="app-card-title inline-flex items-center gap-2 text-base font-extrabold text-slate-950">
               <TimerReset className="size-4 text-blue-500" aria-hidden="true" /> {t("vitals.lastReading")}
             </h2>
             {latest ? (

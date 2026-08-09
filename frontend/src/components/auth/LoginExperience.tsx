@@ -203,7 +203,7 @@ export function LoginVisual() {
         </div>
         <h1
           id="login-visual-heading"
-          className="mt-4 max-w-[11ch] text-[clamp(3rem,4.8vw,4.25rem)] font-extrabold leading-[0.98] tracking-[-0.055em] text-slate-950"
+          className="login-marketing-title mt-4 max-w-[11ch] text-[clamp(3rem,4.8vw,4.25rem)] font-extrabold leading-[0.98] tracking-[-0.055em] text-slate-950"
         >
           {t("auth.visualTitle")}{" "}
           <span className="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
@@ -308,11 +308,11 @@ export function LoginPanel({ onSignIn, pending, error }: LoginExperienceProps) {
 
           <h2
             id="login-heading"
-            className="mt-3 text-[clamp(2rem,8vw,2.25rem)] font-bold leading-[1.05] tracking-[-0.045em] text-slate-950 lg:mt-4 lg:text-[clamp(2.75rem,4vw,3.5rem)]"
+            className="auth-panel-title mt-3 text-[clamp(2rem,8vw,2.25rem)] font-bold leading-[1.05] tracking-[-0.045em] text-slate-950 lg:mt-4 lg:text-[clamp(2.75rem,4vw,3.5rem)]"
           >
             {t("auth.welcomeBack")}
           </h2>
-          <p className="mt-2 text-[15px] leading-6 text-slate-600 sm:text-base">
+          <p className="myanmar-readable mt-2 text-[15px] leading-6 text-slate-600 sm:text-base">
             {t("auth.subtitle")}
           </p>
         </div>
@@ -336,7 +336,7 @@ export function LoginPanel({ onSignIn, pending, error }: LoginExperienceProps) {
         </div>
 
         <div className="mt-5 border-t border-slate-200/80 pt-4 md:mx-auto md:max-w-[440px] lg:max-w-none">
-          <p className="text-[12px] leading-[1.55] text-slate-600">
+          <p className="text-[12px] leading-[1.65] text-slate-600">
             {t("medical.shortDisclaimer")}
           </p>
 

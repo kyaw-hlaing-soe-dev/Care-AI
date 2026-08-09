@@ -68,7 +68,7 @@ function HistoryPage() {
           <span className="mx-auto grid size-14 place-items-center rounded-[18px] bg-gradient-to-br from-blue-500 to-cyan-400 text-white shadow-[0_16px_34px_rgba(37,99,235,0.20)]">
             <CalendarDays className="size-6" aria-hidden="true" />
           </span>
-          <h2 className="mt-5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">{t("history.noHistory")}</h2>
+          <h2 className="app-section-title mt-5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">{t("history.noHistory")}</h2>
           <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
             {t("history.noHistoryBody")}
           </p>
@@ -100,7 +100,7 @@ function HistoryPage() {
           <section aria-labelledby="timeline-heading">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h2 id="timeline-heading" className="text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]">{t("history.timeline")}</h2>
+                <h2 id="timeline-heading" className="app-section-title text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]">{t("history.timeline")}</h2>
                 <p className="mt-1 text-sm text-slate-500">{t("history.newestFirst")}</p>
               </div>
               <div className="inline-flex w-full rounded-[15px] border border-slate-200 bg-white/75 p-1 sm:w-auto" role="group" aria-label={t("history.filterAria")}>

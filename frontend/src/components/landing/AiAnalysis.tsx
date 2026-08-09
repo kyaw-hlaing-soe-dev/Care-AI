@@ -20,13 +20,13 @@ export function AiAnalysis() {
       <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[minmax(0,.72fr)_minmax(0,1.28fr)] lg:gap-14">
         <Reveal>
           <div className="mx-auto max-w-lg text-center lg:mx-0 lg:text-left">
-            <span className="glass-surface inline-flex rounded-full px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">
+            <span className="section-heading-eyebrow glass-surface inline-flex rounded-full px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">
               {t("landing.ai.eyebrow")}
             </span>
-            <h2 className="mt-5 text-balance text-4xl font-extrabold tracking-[-0.045em] text-slate-950 sm:text-5xl">
+            <h2 className="landing-section-title mt-5 text-balance text-4xl font-extrabold tracking-[-0.045em] text-slate-950 sm:text-5xl">
               {t("landing.ai.title")}
             </h2>
-            <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
+            <p className="landing-body-copy mt-5 text-base leading-7 text-slate-600 sm:text-lg">
               {t("landing.ai.body")}
             </p>
 
@@ -41,12 +41,12 @@ export function AiAnalysis() {
                   >
                     <Icon className="size-4" />
                   </span>
-                  <span className="text-sm font-bold text-slate-700">{t(labelKey)}</span>
+                  <span className="myanmar-label text-sm font-bold text-slate-700">{t(labelKey)}</span>
                 </li>
               ))}
             </ul>
 
-            <p className="mt-6 text-xs leading-5 text-slate-500">
+            <p className="mt-6 text-xs leading-5 text-slate-600">
               {t("landing.ai.disclaimer")}
             </p>
           </div>

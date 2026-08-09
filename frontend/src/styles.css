@@ -115,8 +115,8 @@
   html:lang(my) h2,
   html:lang(my) h3,
   html:lang(my) .hero-title {
-    line-height: 1.24;
-    letter-spacing: -0.035em;
+    line-height: var(--my-heading-leading);
+    letter-spacing: normal;
   }
 
   html:lang(my) button,
@@ -125,6 +125,128 @@
   html:lang(my) input,
   html:lang(my) select {
     line-height: 1.45;
+  }
+
+  html:lang(my) p {
+    line-height: var(--my-body-leading);
+  }
+
+  html:lang(my) .leading-none,
+  html:lang(my) .leading-tight {
+    line-height: var(--my-caption-leading);
+  }
+
+  html:lang(my) .tracking-tight,
+  html:lang(my) .tracking-tighter,
+  html:lang(my) [class*="tracking-[-"] {
+    letter-spacing: normal;
+  }
+
+  html:lang(my) .hero-title {
+    max-width: 11.5em;
+    font-size: var(--my-display-size);
+    font-weight: 700;
+    line-height: var(--my-display-leading);
+  }
+
+  html:lang(my) .section-heading {
+    max-width: 840px;
+  }
+
+  html:lang(my) .section-heading-eyebrow {
+    font-size: var(--my-caption-size);
+    font-weight: 600;
+    line-height: var(--my-caption-leading);
+    letter-spacing: 0.035em;
+  }
+
+  html:lang(my) .section-heading-title,
+  html:lang(my) .landing-section-title {
+    max-width: 840px;
+    font-size: var(--my-section-title-size);
+    font-weight: 700;
+    line-height: var(--my-heading-leading);
+    letter-spacing: normal;
+  }
+
+  html:lang(my) .section-heading-body,
+  html:lang(my) .landing-body-copy {
+    font-size: var(--my-body-size);
+    line-height: var(--my-body-leading);
+    color: oklch(0.43 0.026 258);
+  }
+
+  html:lang(my) .landing-card-title,
+  html:lang(my) .app-card-title {
+    font-size: var(--my-card-title-size);
+    font-weight: 600;
+    line-height: var(--my-card-leading);
+    letter-spacing: normal;
+  }
+
+  html:lang(my) .login-marketing-title,
+  html:lang(my) .profile-marketing-title {
+    max-width: 560px;
+    font-size: clamp(2.625rem, 4vw, 3.375rem);
+    font-weight: 700;
+    line-height: 1.26;
+    letter-spacing: normal;
+  }
+
+  html:lang(my) .auth-panel-title {
+    font-size: clamp(1.875rem, 6.5vw, 2.875rem);
+    font-weight: 700;
+    line-height: 1.28;
+    letter-spacing: normal;
+  }
+
+  html:lang(my) .app-page-title {
+    font-size: var(--my-page-title-size);
+    font-weight: 700;
+    line-height: 1.32;
+    letter-spacing: normal;
+  }
+
+  html:lang(my) .app-section-title {
+    font-size: clamp(1.25rem, 2.4vw, 1.5rem);
+    font-weight: 700;
+    line-height: 1.38;
+    letter-spacing: normal;
+  }
+
+  html:lang(my) .myanmar-readable {
+    font-weight: 400;
+    line-height: var(--my-body-leading);
+    color: oklch(0.43 0.026 258);
+  }
+
+  html:lang(my) .myanmar-label {
+    font-weight: 500;
+    line-height: var(--my-caption-leading);
+    letter-spacing: 0.02em;
+  }
+
+  html:lang(my) .myanmar-metric-label {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.45;
+    letter-spacing: 0.02em;
+  }
+
+  html:lang(my) .landing-nav-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.55;
+  }
+
+  html:lang(my) .trust-chip {
+    font-weight: 500;
+    line-height: 1.55;
+  }
+
+  html:lang(my) .feature-grid,
+  html:lang(my) .how-steps-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
   ::selection {
@@ -186,6 +308,11 @@
 }
 
 @media (min-width: 640px) {
+  html:lang(my) .feature-grid,
+  html:lang(my) .how-steps-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .care-container {
     padding-inline: 1.5rem;
   }
@@ -196,6 +323,10 @@
 }
 
 @media (min-width: 1024px) {
+  html:lang(my) .hero-title {
+    font-size: var(--my-display-size-desktop);
+  }
+
   .care-container {
     padding-inline: 2rem;
   }
@@ -205,7 +336,17 @@
   }
 }
 
+@media (min-width: 1200px) {
+  html:lang(my) .how-steps-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (min-width: 1280px) {
+  html:lang(my) .feature-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
   .care-container {
     padding-inline: 2.5rem;
   }

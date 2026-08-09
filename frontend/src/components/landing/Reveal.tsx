@@ -53,17 +53,17 @@ export function SectionHeading({
   className?: string;
 }) {
   return (
-    <Reveal className={cn("mx-auto max-w-2xl text-center", className)}>
+    <Reveal className={cn("section-heading mx-auto max-w-2xl text-center", className)}>
       {eyebrow && (
-        <span className="glass-surface inline-flex rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+        <span className="section-heading-eyebrow glass-surface inline-flex rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-primary">
           {eyebrow}
         </span>
       )}
-      <h2 className="mt-5 text-balance text-4xl font-extrabold tracking-tight sm:text-5xl">
+      <h2 className="section-heading-title mt-5 text-balance text-4xl font-extrabold tracking-tight sm:text-5xl">
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
+        <p className="section-heading-body mt-4 text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
           {subtitle}
         </p>
       )}
