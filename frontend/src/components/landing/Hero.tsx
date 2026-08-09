@@ -1,10 +1,12 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
-import { Activity, ArrowDown, Brain, Check, Droplets, HeartPulse, Thermometer } from "lucide-react";
+import { Activity, ArrowDown, Brain, Check, Droplets, HeartPulse, Play, Thermometer } from "lucide-react";
 import { GlassButton } from "@/components/glass/GlassButton";
+import { WatchDemoModal } from "@/components/landing/WatchDemoModal";
 import doctor from "@/assets/ai-doctor-cutout.png";
 import { useTranslation } from "react-i18next";
+
 
 const PROOF = [
   "landing.hero.proofGoogle",
@@ -67,8 +69,10 @@ const WIDGETS = [
 
 export function Hero() {
   const { t } = useTranslation();
+  const [demoOpen, setDemoOpen] = useState(false);
   const reducedMotion = Boolean(useReducedMotion());
   const stage = useRef<HTMLDivElement>(null);
+
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const rx = useSpring(useTransform(my, [-0.5, 0.5], [8, -8]), { stiffness: 120, damping: 18 });
@@ -131,6 +135,16 @@ export function Hero() {
               {t("landing.hero.secondary")}
             </GlassButton>
           </a>
+          <GlassButton
+            variant="glass"
+            size="lg"
+            className="w-full sm:w-auto"
+            onClick={() => setDemoOpen(true)}
+          >
+            <Play className="size-4" fill="currentColor" />
+            {t("landing.hero.watchDemo")}
+          </GlassButton>
+
         </motion.div>
 
         <motion.ul
@@ -218,6 +232,8 @@ export function Hero() {
           ))}
         </motion.div>
       </div>
+      <WatchDemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
     </section>
   );
 }
+
