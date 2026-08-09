@@ -1,0 +1,6 @@
+{
+  "name": "careai-functions",
+  "private": true,
+  "type": "module",
+  "description": "Scaffold for the planned CareAI Firebase Cloud Functions backend."
+}
