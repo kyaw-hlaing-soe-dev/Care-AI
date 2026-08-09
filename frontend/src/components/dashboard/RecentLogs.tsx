@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarDays } from "lucide-react";
+import { ArrowRight, CalendarDays, ChevronRight } from "lucide-react";
 import { GlassCard } from "@/components/glass/GlassCard";
 import { StatusBadge } from "@/components/StatusBadge";
 import type { VitalRecord } from "@/lib/vitals";
@@ -29,16 +29,39 @@ export function RecentLogs({ records }: { records: VitalRecord[] }) {
             key={record.id}
             to="/history/$id"
             params={{ id: record.id }}
-            className="grid min-h-[92px] gap-3 px-4 py-4 transition-colors hover:bg-blue-50/45 focus-visible:bg-blue-50/60 focus-visible:outline-none sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:px-5"
+            className="group grid min-h-[92px] gap-3 px-4 py-4 transition-colors hover:bg-blue-50/45 focus-visible:bg-blue-50/60 focus-visible:outline-none sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:px-5"
           >
-            <span className="min-w-0">
-              <span className="flex items-center gap-2 text-sm font-bold text-slate-900">
-                <CalendarDays className="size-4 shrink-0 text-blue-500" aria-hidden="true" />
-                {formatRecordedAt(record.recordedAt)}
+            <span className="flex min-w-0 items-start justify-between gap-3">
+              <span className="min-w-0">
+                <span className="flex items-center gap-2 text-sm font-bold text-slate-900">
+                  <CalendarDays className="size-4 shrink-0 text-blue-500" aria-hidden="true" />
+                  {formatRecordedAt(record.recordedAt)}
+                </span>
+                <span className="mt-2 grid grid-cols-4 gap-2 sm:hidden">
+                  {[
+                    [t("dashboard.bloodPressure"), `${record.systolic}/${record.diastolic}`],
+                    [t("dashboard.heartRate"), `${record.heartRate}`],
+                    [t("dashboard.oxygen"), `${record.oxygen}%`],
+                    [t("dashboard.temperature"), `${record.temperature}°`],
+                  ].map(([label, value]) => (
+                    <span key={label} className="min-w-0 rounded-[11px] bg-slate-50/85 px-2 py-1.5">
+                      <span className="block truncate text-[9px] font-bold uppercase tracking-[0.06em] text-slate-400">
+                        {label}
+                      </span>
+                      <span className="mt-0.5 block truncate text-xs font-extrabold text-slate-900">
+                        {value}
+                      </span>
+                    </span>
+                  ))}
+                </span>
+                <span className="mt-1.5 hidden text-xs leading-5 text-slate-500 sm:block sm:text-[13px]">
+                  {record.systolic}/{record.diastolic} mmHg <span aria-hidden="true">•</span> {record.heartRate} bpm <span aria-hidden="true">•</span> {record.oxygen}% <span aria-hidden="true">•</span> {record.temperature}°C
+                </span>
               </span>
-              <span className="mt-1.5 block text-xs leading-5 text-slate-500 sm:text-[13px]">
-                {record.systolic}/{record.diastolic} mmHg <span aria-hidden="true">•</span> {record.heartRate} bpm <span aria-hidden="true">•</span> {record.oxygen}% <span aria-hidden="true">•</span> {record.temperature}°C
-              </span>
+              <ChevronRight
+                className="mt-0.5 size-4 shrink-0 text-slate-300 transition-transform group-hover:translate-x-0.5 group-hover:text-blue-500 sm:hidden"
+                aria-hidden="true"
+              />
             </span>
             <span className="flex items-center justify-between gap-3 sm:justify-end">
               <StatusBadge status={record.analysis.status} />

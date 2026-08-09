@@ -167,6 +167,8 @@ const zhCN: TranslationSchema = {
     recommendations: "建议",
     trends: "健康趋势",
     trendsBody: "快速查看最近 {{count}} 次读数。",
+    trendUnavailable: "趋势数据暂不足",
+    trendUnavailableBody: "再记录一次生命体征后，就可以开始查看变化趋势。",
     noChange: "无变化",
     fromPrior: "较上次 {{value}}",
     recentLogs: "最近记录",

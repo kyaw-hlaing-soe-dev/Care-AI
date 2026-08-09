@@ -1,5 +1,6 @@
 import {
   Activity,
+  ChartNoAxesColumnIncreasing,
   Droplets,
   HeartPulse,
   Minus,
@@ -89,7 +90,61 @@ function Delta({
 
 export function TrendPreview({ records, limit = 4 }: { records: VitalRecord[]; limit?: number }) {
   const { t } = useTranslation();
-  if (records.length < 2) return null;
+
+  if (records.length < 2) {
+    const latest = records[0];
+    return (
+      <section aria-labelledby="trends-heading">
+        <div className="mb-4 flex items-end justify-between gap-4">
+          <div>
+            <h2
+              id="trends-heading"
+              className="text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]"
+            >
+              {t("dashboard.trends")}
+            </h2>
+          </div>
+        </div>
+        <GlassCard className="app-card p-5 sm:p-6">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex min-w-0 gap-3">
+              <span className="grid size-10 shrink-0 place-items-center rounded-[14px] bg-blue-50 text-blue-500">
+                <ChartNoAxesColumnIncreasing className="size-5" aria-hidden="true" />
+              </span>
+              <div className="min-w-0">
+                <h3 className="text-base font-extrabold tracking-[-0.02em] text-slate-950">
+                  {t("dashboard.trendUnavailable")}
+                </h3>
+                <p className="mt-1 max-w-xl text-sm leading-6 text-slate-500">
+                  {t("dashboard.trendUnavailableBody")}
+                </p>
+              </div>
+            </div>
+            {latest ? (
+              <div className="grid grid-cols-2 gap-2 text-xs sm:w-[280px]">
+                <span className="rounded-[13px] border border-slate-100 bg-slate-50/80 px-3 py-2">
+                  <span className="block font-bold uppercase tracking-[0.08em] text-slate-400">
+                    {t("dashboard.heartRate")}
+                  </span>
+                  <span className="mt-1 block font-extrabold text-slate-950">
+                    {latest.heartRate} bpm
+                  </span>
+                </span>
+                <span className="rounded-[13px] border border-slate-100 bg-slate-50/80 px-3 py-2">
+                  <span className="block font-bold uppercase tracking-[0.08em] text-slate-400">
+                    {t("dashboard.temperature")}
+                  </span>
+                  <span className="mt-1 block font-extrabold text-slate-950">
+                    {latest.temperature}°C
+                  </span>
+                </span>
+              </div>
+            ) : null}
+          </div>
+        </GlassCard>
+      </section>
+    );
+  }
 
   const recent = records.slice(0, 7).reverse();
   const latest = records[0];

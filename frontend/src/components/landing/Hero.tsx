@@ -16,7 +16,7 @@ const PROOF = [
 const WIDGETS = [
   {
     Icon: HeartPulse,
-    label: "Heart Rate",
+    labelKey: "dashboard.heartRate",
     value: "72 BPM",
     tint: "from-rose-400/80 to-rose-500/80",
     pos: "left-[30%] top-[0%] sm:left-[16%] sm:top-[10%] lg:left-[1%] lg:top-[23%]",
@@ -26,7 +26,7 @@ const WIDGETS = [
   },
   {
     Icon: Droplets,
-    label: "Blood Pressure",
+    labelKey: "dashboard.bloodPressure",
     value: "120 / 76",
     tint: "from-primary/85 to-sky/85",
     pos: "left-[0%] bottom-[10%] sm:left-[4%] sm:bottom-[16%] md:left-auto md:right-[1%] md:top-[28%] md:bottom-auto lg:top-[13%]",
@@ -36,7 +36,7 @@ const WIDGETS = [
   },
   {
     Icon: Thermometer,
-    label: "Temperature",
+    labelKey: "dashboard.temperature",
     value: "36.7°C",
     tint: "from-amber-400/85 to-orange-400/85",
     pos: "left-[0%] bottom-[20%]",
@@ -46,7 +46,7 @@ const WIDGETS = [
   },
   {
     Icon: Activity,
-    label: "Oxygen",
+    labelKey: "dashboard.oxygen",
     value: "98%",
     tint: "from-teal/90 to-cyan/90",
     pos: "right-[0%] bottom-[10%] sm:right-[3%] sm:bottom-[16%] lg:right-[0%] lg:bottom-[34%]",
@@ -183,7 +183,7 @@ export function Hero() {
 
           {WIDGETS.map((w) => (
             <motion.div
-              key={w.label}
+              key={w.labelKey}
               initial={false}
               animate={
                 reducedMotion ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1, y: [0, -4, 0] }
@@ -203,7 +203,7 @@ export function Hero() {
               </span>
               <span className="min-w-0">
                 <span className="block text-[9px] font-semibold uppercase tracking-wide text-muted-foreground sm:text-[10px]">
-                  {w.label}
+                  {t(w.labelKey)}
                 </span>
                 <span className="block text-sm font-extrabold tabular-nums sm:text-[15px]">
                   {w.value}
