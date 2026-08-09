@@ -77,7 +77,7 @@ export function LanguageSelector({ compact = false }: { compact?: boolean }) {
                 </span>
                 <span className="mt-0.5 block text-xs leading-5 text-slate-500">
                   {language.englishLabel}
-                  {language.code === "my" ? ` · ${t("common.default")}` : ""}
+                  {language.code === "en" ? ` · ${t("common.default")}` : ""}
                 </span>
               </span>
             </button>

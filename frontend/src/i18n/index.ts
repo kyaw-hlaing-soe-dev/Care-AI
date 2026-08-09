@@ -13,9 +13,9 @@ void i18n.use(initReactI18next).init({
   },
   // Keep SSR and the first client render identical. LanguageProvider applies
   // the persisted preference after hydration before revealing page content.
-  lng: "my",
+  lng: "en",
   fallbackLng: "en",
-  supportedLngs: ["my", "en", "zh-CN"],
+  supportedLngs: ["en", "my", "zh-CN"],
   nonExplicitSupportedLngs: false,
   interpolation: { escapeValue: false },
   react: { useSuspense: false },
