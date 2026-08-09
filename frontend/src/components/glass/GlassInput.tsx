@@ -30,7 +30,7 @@ export const GlassInput = forwardRef<HTMLInputElement, GlassInputProps>(
             aria-invalid={hasError || undefined}
             aria-describedby={descriptions || undefined}
             className={cn(
-              "h-[54px] w-full rounded-[var(--radius-input)] border border-slate-200/90 bg-white/90 px-4 text-base font-medium text-slate-950 outline-none backdrop-blur-[var(--glass-blur-sm)]",
+              "min-h-[54px] w-full rounded-[var(--radius-input)] border border-slate-200/90 bg-white/90 px-4 py-3 text-base font-medium leading-normal text-slate-950 outline-none backdrop-blur-[var(--glass-blur-sm)]",
               "placeholder:font-normal placeholder:text-slate-400",
               "shadow-[inset_0_1px_0_rgba(255,255,255,.95),0_5px_18px_rgba(44,83,130,0.045)] transition-[border-color,box-shadow,background-color] duration-200",
               "hover:border-slate-300 hover:bg-white focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-cyan-100/80",

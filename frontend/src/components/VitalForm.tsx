@@ -220,7 +220,7 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
         type="submit"
         disabled={submitting}
         aria-busy={submitting}
-        className="flex h-14 w-full items-center justify-center gap-2 rounded-[15px] bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 px-5 text-[15px] font-bold text-white shadow-[0_14px_32px_rgba(37,99,235,0.24)] transition-[transform,box-shadow,filter] duration-200 hover:-translate-y-px hover:brightness-[1.02] hover:shadow-[0_18px_38px_rgba(37,99,235,0.30)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-75 motion-reduce:transform-none motion-reduce:transition-none"
+        className="flex min-h-14 w-full items-center justify-center gap-2 rounded-[15px] bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 px-5 py-3 text-center text-[15px] font-bold leading-snug text-white shadow-[0_14px_32px_rgba(37,99,235,0.24)] transition-[transform,box-shadow,filter] duration-200 hover:-translate-y-px hover:brightness-[1.02] hover:shadow-[0_18px_38px_rgba(37,99,235,0.30)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-75 motion-reduce:transform-none motion-reduce:transition-none"
       >
         {submitting ? (
           <>

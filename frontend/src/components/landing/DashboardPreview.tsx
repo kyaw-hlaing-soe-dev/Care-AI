@@ -144,7 +144,7 @@ function MobileDashboardPreview() {
               <span className="grid size-7 shrink-0 place-items-center rounded-[10px] bg-blue-50 text-blue-500">
                 <Icon className="size-3.5" />
               </span>
-              <span className="min-w-0 leading-4">{t(labelKey)}</span>
+              <span className="min-w-0 break-words leading-4">{t(labelKey)}</span>
             </div>
             <p className="mt-3 flex flex-wrap items-baseline gap-1 text-slate-950">
               <span className="text-xl font-extrabold tracking-[-0.04em] tabular-nums">

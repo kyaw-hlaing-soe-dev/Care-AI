@@ -141,6 +141,7 @@ const zhCN: TranslationSchema = {
     preparing: "正在准备你的个人资料…",
     healthierExperience: "更健康的体验",
     formAria: "创建 CareAI 个人资料",
+    doctorAlt: "正在帮助创建资料的 CareAI 医生",
   },
   dashboard: {
     greetingMorning: "早上好",

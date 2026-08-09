@@ -4,7 +4,7 @@ import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const glassButtonVariants = cva(
-  "relative inline-flex items-center justify-center gap-2 rounded-[15px] font-semibold whitespace-nowrap select-none outline-none transition-[transform,box-shadow,background-color,border-color,filter] duration-200 focus-visible:ring-4 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-60 active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none",
+  "relative inline-flex items-center justify-center gap-2 rounded-[15px] text-center font-semibold leading-snug whitespace-normal select-none outline-none transition-[transform,box-shadow,background-color,border-color,filter] duration-200 focus-visible:ring-4 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-60 active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none",
   {
     variants: {
       variant: {
@@ -18,9 +18,9 @@ const glassButtonVariants = cva(
           "border border-rose-200 bg-rose-50/90 text-rose-700 shadow-[var(--shadow-ui-sm)] hover:-translate-y-px hover:bg-rose-100/90",
       },
       size: {
-        sm: "h-11 px-4 text-sm",
-        md: "h-12 px-5 text-sm",
-        lg: "h-[54px] px-7 text-base",
+        sm: "min-h-11 px-4 py-2 text-sm",
+        md: "min-h-12 px-5 py-2.5 text-sm",
+        lg: "min-h-[54px] px-7 py-3 text-base",
       },
     },
     defaultVariants: { variant: "primary", size: "md" },

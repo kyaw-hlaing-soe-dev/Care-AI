@@ -144,6 +144,7 @@ const en = {
     preparing: "Preparing your profile…",
     healthierExperience: "A healthier experience",
     formAria: "Create your CareAI profile",
+    doctorAlt: "CareAI doctor helping with profile setup",
   },
   dashboard: {
     greetingMorning: "Good morning",

@@ -37,7 +37,7 @@ export function RecentLogs({ records }: { records: VitalRecord[] }) {
                   <CalendarDays className="size-4 shrink-0 text-blue-500" aria-hidden="true" />
                   {formatRecordedAt(record.recordedAt)}
                 </span>
-                <span className="mt-2 grid grid-cols-4 gap-2 sm:hidden">
+                <span className="mt-2 grid grid-cols-2 gap-2 min-[390px]:grid-cols-4 sm:hidden">
                   {[
                     [t("dashboard.bloodPressure"), `${record.systolic}/${record.diastolic}`],
                     [t("dashboard.heartRate"), `${record.heartRate}`],
@@ -45,10 +45,10 @@ export function RecentLogs({ records }: { records: VitalRecord[] }) {
                     [t("dashboard.temperature"), `${record.temperature}°`],
                   ].map(([label, value]) => (
                     <span key={label} className="min-w-0 rounded-[11px] bg-slate-50/85 px-2 py-1.5">
-                      <span className="block truncate text-[9px] font-bold uppercase tracking-[0.06em] text-slate-400">
+                      <span className="block break-words text-[9px] font-bold uppercase leading-tight tracking-[0.04em] text-slate-400">
                         {label}
                       </span>
-                      <span className="mt-0.5 block truncate text-xs font-extrabold text-slate-900">
+                      <span className="mt-0.5 block break-words text-xs font-extrabold leading-tight text-slate-900">
                         {value}
                       </span>
                     </span>

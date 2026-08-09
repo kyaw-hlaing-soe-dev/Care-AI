@@ -194,7 +194,7 @@ export function Hero() {
                 y: { duration: 7 + w.delay, repeat: Infinity, ease: "easeInOut", delay: w.delay },
               }}
               style={{ rotate: w.rotate, transform: "translateZ(90px)" }}
-              className={`glass-surface glass-glare glass-strong absolute ${w.pos} ${w.show} w-[118px] items-center gap-2 rounded-[15px] px-2 py-2 shadow-[0_12px_28px_rgba(30,64,140,0.12)] sm:w-auto sm:gap-3 sm:rounded-[18px] sm:px-3 sm:py-2.5`}
+              className={`glass-surface glass-glare glass-strong absolute ${w.pos} ${w.show} w-[128px] items-center gap-2 rounded-[15px] px-2 py-2 shadow-[0_12px_28px_rgba(30,64,140,0.12)] min-[390px]:w-[138px] sm:w-auto sm:gap-3 sm:rounded-[18px] sm:px-3 sm:py-2.5`}
             >
               <span
                 className={`grid size-7 shrink-0 place-items-center rounded-[10px] bg-gradient-to-br ${w.tint} text-white shadow-md sm:size-9 sm:rounded-xl sm:shadow-lg`}
@@ -202,7 +202,7 @@ export function Hero() {
                 <w.Icon className="size-3.5 sm:size-4" />
               </span>
               <span className="min-w-0">
-                <span className="block text-[9px] font-semibold uppercase tracking-wide text-muted-foreground sm:text-[10px]">
+                <span className="block break-words text-[9px] font-semibold uppercase leading-tight tracking-wide text-muted-foreground sm:text-[10px]">
                   {t(w.labelKey)}
                 </span>
                 <span className="block text-sm font-extrabold tabular-nums sm:text-[15px]">

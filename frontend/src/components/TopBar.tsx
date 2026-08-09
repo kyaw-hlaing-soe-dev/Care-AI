@@ -49,7 +49,7 @@ function UserAvatar({ name, avatar }: { name: string; avatar?: string | undefine
   return avatar ? (
     <img
       src={avatar}
-      alt={`${name}'s profile avatar`}
+      alt={name}
       referrerPolicy="no-referrer"
       className="size-9 rounded-full border-2 border-white object-cover shadow-sm"
     />
@@ -172,7 +172,7 @@ export function TopBar({ hideMobileNavigation = false }: { hideMobileNavigation?
 
       <nav
         className={cn(
-          "glass-control glass-glare fixed inset-x-3 bottom-[max(.65rem,env(safe-area-inset-bottom))] z-50 h-[64px] grid-cols-3 rounded-[22px] px-1.5 shadow-[0_18px_46px_rgba(31,72,116,0.18)] md:hidden",
+          "glass-control glass-glare fixed inset-x-3 bottom-[max(.65rem,env(safe-area-inset-bottom))] z-50 min-h-[68px] grid-cols-3 rounded-[22px] px-1.5 py-1 shadow-[0_18px_46px_rgba(31,72,116,0.18)] md:hidden",
           hideMobileNavigation ? "hidden" : "grid",
         )}
         aria-label={t("nav.mobile")}
@@ -192,7 +192,9 @@ export function TopBar({ hideMobileNavigation = false }: { hideMobileNavigation?
               )}
             >
               <item.Icon className={cn("size-5", active && "fill-blue-50")} aria-hidden="true" />
-              <span className="w-full truncate px-1 text-center">{t(item.shortLabelKey)}</span>
+              <span className="w-full break-words px-1 text-center leading-tight">
+                {t(item.shortLabelKey)}
+              </span>
             </Link>
           );
         })}

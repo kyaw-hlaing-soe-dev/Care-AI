@@ -24,7 +24,7 @@ import profileDoctor from "@/assets/profile-doctor-clipboard.png";
 import { useTranslation } from "react-i18next";
 
 const fieldClassName =
-  "h-[52px] w-full rounded-[13px] border border-slate-200 bg-white px-4 text-base font-medium text-slate-950 outline-none transition-[border-color,box-shadow] placeholder:font-normal placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-cyan-100/80 disabled:cursor-not-allowed disabled:bg-slate-50";
+  "min-h-[52px] w-full rounded-[13px] border border-slate-200 bg-white px-4 py-3 text-base font-medium leading-normal text-slate-950 outline-none transition-[border-color,box-shadow] placeholder:font-normal placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-cyan-100/80 disabled:cursor-not-allowed disabled:bg-slate-50";
 
 function FieldLabel({ children, optional }: { children: ReactNode; optional?: boolean }) {
   const { t } = useTranslation();
@@ -177,7 +177,7 @@ function SexSelector({
               type="button"
               onClick={() => onChange(option.value)}
               aria-pressed={selected}
-              className={`min-h-[36px] min-w-[82px] flex-1 rounded-[10px] border px-1.5 text-[12px] font-semibold leading-tight transition-[background-color,border-color,color,box-shadow,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 active:scale-[0.98] md:min-w-0 md:text-[11px] xl:text-[12px] ${
+              className={`min-h-11 min-w-[82px] flex-1 rounded-[10px] border px-2 py-2 text-[12px] font-semibold leading-snug transition-[background-color,border-color,color,box-shadow,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 active:scale-[0.98] md:min-w-0 md:text-[11px] xl:text-[12px] ${
                 selected
                   ? "border-blue-200 bg-blue-50 text-slate-900 shadow-[0_2px_10px_rgba(59,130,246,0.11)]"
                   : "border-transparent text-slate-600 hover:bg-white/70 hover:text-slate-900"
@@ -258,8 +258,8 @@ function GoogleAccountPreview({ user }: { user: AppUser }) {
         </span>
       </div>
       <div className="min-w-0 flex-1 leading-tight">
-        <p className="truncate text-sm font-bold text-slate-900">{user.name}</p>
-        <p className="mt-1 truncate text-xs text-slate-500">{user.email}</p>
+        <p className="break-words text-sm font-bold leading-snug text-slate-900">{user.name}</p>
+        <p className="mt-1 break-all text-xs leading-snug text-slate-500">{user.email}</p>
       </div>
       <span className="hidden shrink-0 items-center gap-1.5 rounded-full border border-emerald-100 bg-white px-2.5 py-1.5 text-[11px] font-semibold text-emerald-700 sm:flex">
         <Check className="size-3.5" /> {t("createProfile.googleAccount")}
@@ -309,8 +309,8 @@ function ProfileBenefitCard({
         {icon}
       </span>
       <span className="leading-tight">
-        <span className="block whitespace-nowrap text-xs font-bold">{title}</span>
-        <span className="mt-0.5 block whitespace-nowrap text-[10px] font-medium text-slate-500">
+        <span className="block break-words text-xs font-bold leading-tight">{title}</span>
+        <span className="mt-0.5 block break-words text-[10px] font-medium leading-tight text-slate-500">
           {detail}
         </span>
       </span>
@@ -320,11 +320,12 @@ function ProfileBenefitCard({
 
 function DoctorIllustration({ mobile = false }: { mobile?: boolean }) {
   const reducedMotion = Boolean(useReducedMotion());
+  const { t } = useTranslation();
   return (
     <motion.img
       data-profile-doctor
       src={profileDoctor}
-      alt="CareAI doctor welcoming you to create your health profile"
+      alt={t("createProfile.doctorAlt")}
       draggable="false"
       loading="eager"
       className={
@@ -617,7 +618,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
           <button
             type="submit"
             disabled={submitting}
-            className="group flex h-14 w-full items-center justify-center gap-2 rounded-[15px] bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 px-5 text-[15px] font-bold text-white shadow-[0_14px_32px_rgba(37,99,235,0.24)] transition-[transform,box-shadow,filter] duration-200 hover:-translate-y-px hover:shadow-[0_18px_38px_rgba(37,99,235,0.3)] hover:brightness-[1.02] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-75 motion-reduce:transform-none motion-reduce:transition-none"
+            className="group flex min-h-14 w-full items-center justify-center gap-2 rounded-[15px] bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-400 px-5 py-3 text-center text-[15px] font-bold leading-snug text-white shadow-[0_14px_32px_rgba(37,99,235,0.24)] transition-[transform,box-shadow,filter] duration-200 hover:-translate-y-px hover:shadow-[0_18px_38px_rgba(37,99,235,0.3)] hover:brightness-[1.02] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-75 motion-reduce:transform-none motion-reduce:transition-none"
           >
             {submitting ? (
               <>

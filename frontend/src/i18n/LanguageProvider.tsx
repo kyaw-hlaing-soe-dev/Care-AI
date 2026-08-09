@@ -13,7 +13,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     let active = true;
     const storedLanguage =
       typeof window === "undefined"
-        ? "en"
+        ? "my"
         : normalizeLanguage(window.localStorage.getItem(LANGUAGE_STORAGE_KEY));
     const language = normalizeLanguage(profile?.preferredLanguage ?? storedLanguage);
     void changeCareAILanguage(language).finally(() => {

@@ -69,7 +69,7 @@ function FloatingVitalCard({
           {icon}
         </span>
         <span className="min-w-0 leading-tight">
-          <span className="block whitespace-nowrap text-[9px] font-bold uppercase tracking-[0.1em] text-slate-500 sm:text-[10px]">
+          <span className="block break-words text-[9px] font-bold uppercase leading-tight tracking-[0.08em] text-slate-500 sm:text-[10px]">
             {title}
           </span>
           <span className="mt-0.5 block text-[15px] font-bold tracking-[-0.02em] text-slate-950">
@@ -166,7 +166,7 @@ function MobileDoctorScene() {
         detail={t("auth.normal")}
         icon={<HeartPulse className="size-3.5" />}
         accentClassName="bg-rose-50 text-rose-500"
-        className="left-0 top-[24%] w-[108px] sm:left-[5%] sm:w-[118px] md:left-[12%] md:top-[27%] md:w-[132px]"
+        className="left-0 top-[24%] w-[126px] sm:left-[5%] sm:w-[132px] md:left-[12%] md:top-[27%] md:w-[140px]"
         floatY={-3}
         duration={7.2}
         delay={0.14}
@@ -177,7 +177,7 @@ function MobileDoctorScene() {
         detail={t("auth.great")}
         icon={<Sparkles className="size-3.5" />}
         accentClassName="bg-cyan-50 text-cyan-600"
-        className="right-0 top-[51%] w-[108px] sm:right-[5%] sm:w-[118px] md:right-[12%] md:w-[132px]"
+        className="right-0 top-[51%] w-[126px] sm:right-[5%] sm:w-[132px] md:right-[12%] md:w-[140px]"
         floatY={3}
         duration={8.1}
         delay={0.28}
@@ -232,7 +232,7 @@ function GoogleSignInButton({
       disabled={pending}
       aria-label={pending ? t("auth.signingInAria") : t("auth.continueGoogle")}
       aria-busy={pending}
-      className="relative inline-flex h-[54px] w-full items-center justify-center rounded-[15px] border border-slate-200 bg-white px-12 text-[15px] font-semibold text-slate-900 shadow-[0_10px_28px_rgba(15,23,42,0.07)] transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-px hover:border-sky-300 hover:shadow-[0_16px_34px_rgba(14,165,233,0.13)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-65 motion-reduce:transform-none motion-reduce:transition-none"
+      className="relative inline-flex min-h-[54px] w-full items-center justify-center rounded-[15px] border border-slate-200 bg-white px-12 py-3 text-center text-[15px] font-semibold leading-snug text-slate-900 shadow-[0_10px_28px_rgba(15,23,42,0.07)] transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-px hover:border-sky-300 hover:shadow-[0_16px_34px_rgba(14,165,233,0.13)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 focus-visible:ring-offset-2 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-65 motion-reduce:transform-none motion-reduce:transition-none"
     >
       <svg aria-hidden="true" viewBox="0 0 48 48" className="absolute left-5 size-5">
         <path

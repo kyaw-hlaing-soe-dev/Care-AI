@@ -70,7 +70,7 @@ const NAV_ITEMS: Array<{
 ];
 
 const fieldClassName =
-  "h-[52px] w-full rounded-[14px] border border-slate-200 bg-white/90 px-4 text-base font-medium text-slate-950 shadow-[inset_0_1px_0_white] outline-none transition-[border-color,box-shadow] placeholder:font-normal placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-cyan-100/80 disabled:cursor-not-allowed disabled:bg-slate-50";
+  "min-h-[52px] w-full rounded-[14px] border border-slate-200 bg-white/90 px-4 py-3 text-base font-medium leading-normal text-slate-950 shadow-[inset_0_1px_0_white] outline-none transition-[border-color,box-shadow] placeholder:font-normal placeholder:text-slate-400 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-cyan-100/80 disabled:cursor-not-allowed disabled:bg-slate-50";
 
 function formatDate(value: string | undefined, locale: string, notProvided: string) {
   if (!value) return notProvided;
@@ -132,7 +132,7 @@ function ProfileAvatar({
   return user.avatar ? (
     <img
       src={user.avatar}
-      alt={`${name}'s Google profile avatar`}
+      alt={name}
       referrerPolicy="no-referrer"
       className={cn(
         "shrink-0 rounded-full border-[3px] border-white object-cover shadow-[0_10px_26px_rgba(37,99,235,0.16)]",
@@ -146,7 +146,7 @@ function ProfileAvatar({
         sizeClass,
       )}
       role="img"
-      aria-label={`${name}'s profile avatar`}
+      aria-label={name}
     >
       {initials(name)}
     </span>
@@ -492,7 +492,7 @@ function SettingsRow({
         ) : null}
       </span>
       {value ? (
-        <span className="max-w-[42%] break-words text-right text-sm font-medium text-slate-500">
+        <span className="ml-auto max-w-[42%] break-words text-right text-sm font-medium leading-snug text-slate-500 max-[360px]:order-3 max-[360px]:ml-[44px] max-[360px]:max-w-[calc(100%-44px)] max-[360px]:basis-full max-[360px]:text-left">
           {value}
         </span>
       ) : null}
@@ -502,7 +502,7 @@ function SettingsRow({
     </>
   );
   const className =
-    "flex min-h-[60px] w-full items-center gap-3 px-4 py-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-cyan-200";
+    "flex min-h-[60px] w-full flex-wrap items-center gap-3 px-4 py-3 text-left transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-cyan-200";
   return onClick ? (
     <button type="button" onClick={onClick} className={cn(className, "hover:bg-blue-50/55")}>
       {content}
@@ -577,7 +577,9 @@ function MobileProfileHub({
   const { t, i18n } = useTranslation();
   const code =
     profile.preferredLanguage ?? normalizeLanguage(i18n.resolvedLanguage ?? i18n.language);
-  const language = SUPPORTED_LANGUAGES.find((item) => item.code === code)?.nativeLabel ?? "English";
+  const language =
+    SUPPORTED_LANGUAGES.find((item) => item.code === code)?.nativeLabel ??
+    SUPPORTED_LANGUAGES[0].nativeLabel;
   return (
     <div className="space-y-5 md:hidden">
       <div>
@@ -652,7 +654,7 @@ function OverviewSection({
       (item) =>
         item.code ===
         (profile.preferredLanguage ?? normalizeLanguage(i18n.resolvedLanguage ?? i18n.language)),
-    )?.nativeLabel ?? "English";
+    )?.nativeLabel ?? SUPPORTED_LANGUAGES[0].nativeLabel;
   return (
     <GlassCard strong className="app-card p-5 sm:p-6 lg:p-8">
       <ContentHeading title={t("profile.overview")} description={t("profile.overviewBody")} />
@@ -959,7 +961,7 @@ function EditProfileSection({
                         setTouched((current) => ({ ...current, sex: true }));
                       }}
                       className={cn(
-                        "min-h-10 rounded-[10px] px-1.5 py-1 text-[11px] font-bold leading-4 transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 sm:text-xs",
+                        "min-h-11 rounded-[10px] px-1.5 py-2 text-[11px] font-bold leading-snug transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 sm:text-xs",
                         selected
                           ? "border border-blue-200 bg-blue-50 text-blue-700 shadow-sm"
                           : "text-slate-500 hover:bg-white hover:text-slate-800",
@@ -1100,7 +1102,9 @@ function PreferencesSection({
   const { t, i18n } = useTranslation();
   const code =
     profile.preferredLanguage ?? normalizeLanguage(i18n.resolvedLanguage ?? i18n.language);
-  const language = SUPPORTED_LANGUAGES.find((item) => item.code === code)?.nativeLabel ?? "English";
+  const language =
+    SUPPORTED_LANGUAGES.find((item) => item.code === code)?.nativeLabel ??
+    SUPPORTED_LANGUAGES[0].nativeLabel;
   return (
     <>
       <MobileNestedHeader

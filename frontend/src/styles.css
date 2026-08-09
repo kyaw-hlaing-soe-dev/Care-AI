@@ -77,10 +77,6 @@
     scroll-padding-top: 7rem;
   }
 
-  html:lang(my) body {
-    line-height: 1.65;
-  }
-
   html:lang(zh-CN) body {
     letter-spacing: 0;
   }
@@ -108,6 +104,27 @@
     background-attachment: fixed;
     min-height: 100dvh;
     overflow-x: clip;
+  }
+
+  html:lang(my) body {
+    font-family: "Noto Sans Myanmar", "Inter", "Noto Sans SC", "Myanmar Text", "Pyidaungsu", system-ui, sans-serif;
+    line-height: 1.65;
+  }
+
+  html:lang(my) h1,
+  html:lang(my) h2,
+  html:lang(my) h3,
+  html:lang(my) .hero-title {
+    line-height: 1.24;
+    letter-spacing: -0.035em;
+  }
+
+  html:lang(my) button,
+  html:lang(my) a,
+  html:lang(my) label,
+  html:lang(my) input,
+  html:lang(my) select {
+    line-height: 1.45;
   }
 
   ::selection {

@@ -1,8 +1,8 @@
 export const LANGUAGE_STORAGE_KEY = "careai-language";
 
 export const SUPPORTED_LANGUAGES = [
-  { code: "en", nativeLabel: "English", englishLabel: "English" },
   { code: "my", nativeLabel: "မြန်မာ", englishLabel: "Myanmar" },
+  { code: "en", nativeLabel: "English", englishLabel: "English" },
   { code: "zh-CN", nativeLabel: "简体中文", englishLabel: "Chinese (Simplified)" },
 ] as const;
 
@@ -13,7 +13,7 @@ export function isLanguageCode(value: unknown): value is LanguageCode {
 }
 
 export function normalizeLanguage(value: unknown): LanguageCode {
-  return isLanguageCode(value) ? value : "en";
+  return isLanguageCode(value) ? value : "my";
 }
 
 export function localeForLanguage(language: LanguageCode) {
