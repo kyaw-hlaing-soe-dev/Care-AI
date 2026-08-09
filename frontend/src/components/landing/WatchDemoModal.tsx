@@ -1,20 +1,25 @@
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X, Play } from "lucide-react";
+import { Film, Play, X } from "lucide-react";
 import { GlassCard } from "@/components/glass/GlassCard";
 import { useTranslation } from "react-i18next";
 
-const DEMO_VIDEO_URL = "/__l5e/assets-v1/ef8e430f-b37b-438f-b5b6-6543d3de76fb/careai-demo.mp4";
+const DEMO_VIDEO_SOURCES = [
+  "/videos/careai-demo.mp4",
+  "/__l5e/assets-v1/ef8e430f-b37b-438f-b5b6-6543d3de76fb/careai-demo.mp4",
+] as const;
 
 export function WatchDemoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useTranslation();
   const videoRef = useRef<HTMLVideoElement>(null);
   const titleId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
+  const [videoUnavailable, setVideoUnavailable] = useState(false);
 
   useEffect(() => {
     if (!open) {
       videoRef.current?.pause();
+      setVideoUnavailable(false);
     }
   }, [open]);
 
@@ -91,18 +96,43 @@ export function WatchDemoModal({ open, onClose }: { open: boolean; onClose: () =
                 <X className="size-5" />
               </button>
             </div>
-            <div className="relative aspect-video bg-slate-950">
-              <video
-                ref={videoRef}
-                src={DEMO_VIDEO_URL}
-                controls
-                playsInline
-                preload="metadata"
-                className="absolute inset-0 size-full"
-                aria-label={t("landing.demoModal.description")}
-              >
-                <source src={DEMO_VIDEO_URL} type="video/mp4" />
-              </video>
+            <div className="relative aspect-video overflow-hidden bg-slate-950">
+              {!videoUnavailable ? (
+                <video
+                  ref={videoRef}
+                  controls
+                  playsInline
+                  muted
+                  autoPlay
+                  preload="metadata"
+                  className="absolute inset-0 size-full"
+                  aria-label={t("landing.demoModal.description")}
+                  onError={() => setVideoUnavailable(true)}
+                >
+                  {DEMO_VIDEO_SOURCES.map((source) => (
+                    <source key={source} src={source} type="video/mp4" />
+                  ))}
+                </video>
+              ) : (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-[radial-gradient(circle_at_50%_25%,rgba(14,165,233,0.25),transparent_38%),linear-gradient(135deg,#061226,#0f2547_52%,#092d3d)] px-6 text-center text-white">
+                  <span className="grid size-16 place-items-center rounded-full bg-white/12 ring-1 ring-white/20">
+                    <Film className="size-7" aria-hidden="true" />
+                  </span>
+                  <h3 className="mt-5 text-xl font-extrabold tracking-tight">
+                    {t("landing.demoModal.title")}
+                  </h3>
+                  <p className="mt-2 max-w-md text-sm leading-6 text-white/75">
+                    {t("landing.demoModal.description")}
+                  </p>
+                  <a
+                    href={DEMO_VIDEO_SOURCES[0]}
+                    className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-white/12 px-4 text-sm font-bold text-white transition-colors hover:bg-white/18 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200/40"
+                  >
+                    <Play className="size-4" fill="currentColor" aria-hidden="true" />
+                    {t("landing.hero.watchDemo")}
+                  </a>
+                </div>
+              )}
             </div>
             <div className="px-5 py-4">
               <p className="text-sm text-muted-foreground">{t("landing.demoModal.description")}</p>
