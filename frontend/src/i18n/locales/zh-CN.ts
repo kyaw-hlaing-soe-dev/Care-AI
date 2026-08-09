@@ -329,10 +329,12 @@ const zhCN: TranslationSchema = {
       body: "记录生命体征、了解变化趋势并获取清晰的 AI 健康洞察，一站式完成。",
       primary: "免费开始记录",
       secondary: "了解使用方式",
+      watchDemo: "观看演示",
       proofGoogle: "Google 登录",
       proofInsights: "清晰健康洞察",
       proofHistory: "生命体征趋势历史",
       doctorAlt: "友好的 CareAI 健康伙伴",
+
     },
     features: {
       eyebrow: "功能",
@@ -421,8 +423,13 @@ const zhCN: TranslationSchema = {
       healthScore: "健康评分",
       doctorAlt: "CareAI 3D 健康伙伴",
     },
+    demoModal: {
+      title: "观看 CareAI 实际演示",
+      description: "快速了解 CareAI 如何将你的生命体征转化为清晰的健康洞察。",
+    },
     footer: {
       body: "轻松记录生命体征，获取 AI 健康洞察。",
+
       privacy: "隐私",
       about: "关于",
       contact: "联系我们",

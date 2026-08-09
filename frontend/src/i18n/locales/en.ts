@@ -334,10 +334,12 @@ const en = {
       body: "Track your vital signs, understand your trends, and receive clear AI-powered health insights — all in one place.",
       primary: "Start Tracking Free",
       secondary: "See How It Works",
+      watchDemo: "Watch Demo",
       proofGoogle: "Google Sign-In",
       proofInsights: "Clear Health Insights",
       proofHistory: "Vital Trend History",
       doctorAlt: "Friendly CareAI health companion",
+
     },
     features: {
       eyebrow: "Features",
@@ -434,7 +436,12 @@ const en = {
       healthScore: "Health score",
       doctorAlt: "CareAI 3D health companion",
     },
+    demoModal: {
+      title: "See CareAI in action",
+      description: "A quick look at how CareAI turns your vitals into clear health insights.",
+    },
     footer: {
+
       body: "Simple vital tracking and AI-powered health insights.",
       privacy: "Privacy",
       about: "About",
