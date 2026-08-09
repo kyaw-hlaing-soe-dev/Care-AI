@@ -36,7 +36,7 @@ export function HealthOverviewCard({ record }: { record: VitalRecord }) {
                   ? t("dashboard.allTypical")
                   : t("dashboard.attention", { count: attentionCount })}
               </p>
-              <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-slate-600">{record.analysis.summary}</p>
+              <p className="mt-1.5 text-sm leading-6 text-slate-600">{record.analysis.summary}</p>
               <a
                 href="#careai-insight"
                 className="mt-2.5 inline-flex min-h-11 items-center gap-1.5 rounded-lg text-sm font-bold text-blue-600 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200"

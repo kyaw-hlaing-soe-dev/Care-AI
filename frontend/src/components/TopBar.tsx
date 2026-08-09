@@ -129,10 +129,10 @@ export function TopBar({ hideMobileNavigation = false }: { hideMobileNavigation?
                     <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-blue-600">
                       <UserRound className="size-3.5" /> {t("common.profile")}
                     </span>
-                    <span className="mt-2 block truncate text-sm font-bold text-slate-900">
+                    <span className="mt-2 block break-words text-sm font-bold text-slate-900">
                       {user.name}
                     </span>
-                    <span className="mt-0.5 block truncate text-xs font-normal text-slate-500">
+                    <span className="mt-0.5 block break-all text-xs font-normal text-slate-500">
                       {user.email}
                     </span>
                   </DropdownMenuLabel>

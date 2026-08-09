@@ -24,7 +24,7 @@ export function GlassBadge({
   return (
     <span
       className={cn(
-        "glass-control inline-flex min-h-7 items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold leading-tight shadow-none",
+        "glass-control inline-flex min-h-7 max-w-full items-center gap-1.5 whitespace-normal rounded-full border px-3 py-1 text-left text-xs font-bold leading-tight shadow-none",
         toneClass[tone],
         className,
       )}
