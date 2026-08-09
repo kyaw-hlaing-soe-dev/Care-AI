@@ -1,6 +1,0 @@
-[run]
-install = "cd frontend && bun install"
-dev = "cd frontend && bun dev"
-build = "cd frontend && bun run build"
-lint = "cd frontend && bun run lint"
-format = "cd frontend && bun run format"
