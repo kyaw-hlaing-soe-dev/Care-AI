@@ -8,16 +8,16 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
+import { Route as rootRouteImport } from './routes/__root.tsx'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AddRouteImport } from './routes/add'
-import { Route as CreateProfileRouteImport } from './routes/create-profile'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as HistoryIndexRouteImport } from './routes/history.index'
-import { Route as HistoryIdRouteImport } from './routes/history.$id'
+import { Route as AddRouteImport } from './routes/add.tsx'
+import { Route as CreateProfileRouteImport } from './routes/create-profile.tsx'
+import { Route as DashboardRouteImport } from './routes/dashboard.tsx'
+import { Route as LoginRouteImport } from './routes/login.tsx'
+import { Route as ProfileRouteImport } from './routes/profile.tsx'
+import { Route as SettingsRouteImport } from './routes/settings.tsx'
+import { Route as HistoryIndexRouteImport } from './routes/history.index.tsx'
+import { Route as HistoryIdRouteImport } from './routes/history.$id.tsx'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
