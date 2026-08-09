@@ -7,7 +7,7 @@ export function HealthTrends() {
   return (
     <section
       id="trends"
-      className="mx-auto max-w-[1200px] scroll-mt-28 px-5 py-20 sm:py-24 lg:py-28"
+      className="care-container care-section scroll-mt-28"
     >
       <SectionHeading
         eyebrow={t("landing.trends.eyebrow")}
@@ -20,7 +20,7 @@ export function HealthTrends() {
       />
 
       <Reveal delay={0.1} className="mt-12 sm:mt-14">
-        <div className="rounded-[30px] border border-white/90 bg-white/86 p-4 shadow-[0_32px_80px_-42px_rgba(35,79,137,0.42)] backdrop-blur-xl sm:p-6 lg:p-8">
+        <div className="mx-auto max-w-[1200px] rounded-[28px] border border-white/90 bg-white/88 p-4 shadow-[0_24px_64px_-42px_rgba(35,79,137,0.34)] backdrop-blur-lg sm:p-6 lg:p-8">
           <div className="grid gap-4 lg:grid-cols-[minmax(0,1.45fr)_minmax(280px,.55fr)] lg:gap-5">
             <div className="rounded-[22px] border border-blue-100/75 bg-white/80 p-4 sm:p-5">
               <div className="flex flex-wrap items-center justify-between gap-3">

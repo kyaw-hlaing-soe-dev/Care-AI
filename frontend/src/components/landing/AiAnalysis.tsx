@@ -15,9 +15,9 @@ export function AiAnalysis() {
   return (
     <section
       id="insights"
-      className="mx-auto max-w-[1200px] scroll-mt-28 px-5 py-20 sm:py-24 lg:py-28"
+      className="care-container care-section scroll-mt-28"
     >
-      <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,.72fr)_minmax(0,1.28fr)] lg:gap-14">
+      <div className="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[minmax(0,.72fr)_minmax(0,1.28fr)] lg:gap-14">
         <Reveal>
           <div className="mx-auto max-w-lg text-center lg:mx-0 lg:text-left">
             <span className="glass-surface inline-flex rounded-full px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">

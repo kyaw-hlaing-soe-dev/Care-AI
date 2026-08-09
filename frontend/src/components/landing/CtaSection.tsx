@@ -59,9 +59,9 @@ export function CtaSection() {
   const { t } = useTranslation();
 
   return (
-    <section id="start" className="mx-auto max-w-6xl scroll-mt-24 px-5 pb-24">
+    <section id="start" className="care-container scroll-mt-24 pb-20 pt-8 sm:pb-24">
       <Reveal>
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-primary via-sky to-cyan p-8 shadow-[0_50px_90px_-40px_rgba(30,64,140,0.75)] sm:p-10 lg:px-12 lg:py-10">
+        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[32px] bg-gradient-to-br from-primary via-sky to-cyan p-8 shadow-[0_38px_76px_-44px_rgba(30,64,140,0.68)] sm:p-10 lg:px-12 lg:py-10">
           <div className="pointer-events-none absolute -left-16 -top-24 size-80 rounded-full bg-white/20 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-28 right-10 size-96 rounded-full bg-white/15 blur-3xl" />
 

@@ -24,8 +24,8 @@ export function AppShell({
         id="main-content"
         className={
           hideMobileNavigation
-            ? "mx-auto w-full max-w-[1440px] px-4 py-5 pb-10 sm:px-6 sm:py-7 md:pb-8 xl:px-10"
-            : "mx-auto w-full max-w-[1440px] px-4 py-6 pb-28 sm:px-6 sm:py-8 md:pb-8 xl:px-10"
+            ? "care-container py-5 pb-10 sm:py-7 md:pb-8"
+            : "care-container py-6 pb-28 sm:py-8 md:pb-8"
         }
       >
         {children}

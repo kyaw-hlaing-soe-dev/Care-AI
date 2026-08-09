@@ -91,18 +91,18 @@
     background-color: var(--color-background);
     background-image:
       radial-gradient(
-        900px 600px at 10% -10%,
-        color-mix(in oklab, var(--primary) 20%, transparent),
+        860px 560px at 8% -8%,
+        color-mix(in oklab, var(--primary) 13%, transparent),
         transparent 62%
       ),
       radial-gradient(
-        820px 540px at 94% 2%,
-        color-mix(in oklab, var(--brand-cyan) 42%, transparent),
+        760px 500px at 96% 0%,
+        color-mix(in oklab, var(--brand-cyan) 24%, transparent),
         transparent 62%
       ),
       radial-gradient(
-        1000px 720px at 55% 112%,
-        color-mix(in oklab, var(--brand-sky) 14%, transparent),
+        920px 680px at 55% 112%,
+        color-mix(in oklab, var(--brand-sky) 10%, transparent),
         transparent 62%
       );
     background-attachment: fixed;
@@ -128,8 +128,8 @@
   isolation: isolate;
   color: #0f172a;
   background:
-    radial-gradient(circle at 8% 8%, rgba(59, 130, 246, 0.09), transparent 27rem),
-    radial-gradient(circle at 92% 12%, rgba(34, 211, 238, 0.09), transparent 25rem),
+    radial-gradient(circle at 8% 8%, rgba(59, 130, 246, 0.065), transparent 27rem),
+    radial-gradient(circle at 92% 12%, rgba(34, 211, 238, 0.065), transparent 25rem),
     #f8fbff;
 }
 
@@ -147,14 +147,51 @@
 
 .app-card {
   border-color: rgba(226, 232, 240, 0.82);
-  background: rgba(255, 255, 255, 0.84);
+  background: rgba(255, 255, 255, 0.9);
   box-shadow: var(--shadow-ui-md);
-  backdrop-filter: blur(16px) saturate(135%);
+  backdrop-filter: blur(12px) saturate(128%);
 }
 
 .app-card.glass-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 48px rgba(44, 83, 130, 0.14);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 38px rgba(44, 83, 130, 0.11);
+}
+
+.care-container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.care-section {
+  padding-block: 3.5rem;
+}
+
+@media (min-width: 640px) {
+  .care-container {
+    padding-inline: 1.5rem;
+  }
+
+  .care-section {
+    padding-block: 4.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .care-container {
+    padding-inline: 2rem;
+  }
+
+  .care-section {
+    padding-block: 5.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .care-container {
+    padding-inline: 2.5rem;
+  }
 }
 
 @utility glass-surface {
@@ -211,7 +248,7 @@
 
 @utility glass-hover {
   &:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-glass-lift), var(--glow-primary);
     border-color: color-mix(in srgb, var(--glass-border) 70%, var(--primary) 30%);
   }
@@ -337,7 +374,7 @@
   .glass-hover:hover,
   .app-card.glass-hover:hover {
     transform: none;
-    box-shadow: var(--shadow-glass);
+    box-shadow: var(--shadow-ui-md);
   }
 }
 

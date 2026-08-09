@@ -9,19 +9,22 @@ type GlassCardProps = HTMLAttributes<HTMLDivElement> & {
   material?: Exclude<GlassMaterial, "control">;
   /** Enable the hover lift micro-interaction. */
   interactive?: boolean;
+  /** Enable entrance animation for selected decorative cards. */
+  animated?: boolean;
   /** Stagger index for the entrance animation. */
   delay?: number | undefined;
 };
 
 export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
-  ({ className, strong, material = "medium", interactive, delay = 0, style, ...props }, ref) => (
+  ({ className, strong, material = "medium", interactive, animated = false, delay = 0, style, ...props }, ref) => (
     <GlassSurface
       ref={ref}
       material={strong ? "strong" : material}
       interactive={interactive ?? false}
       style={{ animationDelay: `${delay}ms`, ...style }}
       className={cn(
-        "animate-rise rounded-[var(--radius-card)]",
+        "rounded-[var(--radius-card)]",
+        animated && "animate-rise",
         className,
       )}
       {...props}

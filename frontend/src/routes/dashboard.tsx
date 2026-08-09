@@ -57,13 +57,13 @@ function Dashboard() {
   const displayName = profile?.displayName || user?.name || t("dashboard.greetingFallback");
 
   return (
-    <div className="space-y-8 lg:space-y-9">
+    <div className="space-y-7 lg:space-y-8">
       {latest?.analysis.emergency ? <EmergencyBanner /> : null}
 
       <header className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="text-[clamp(1.85rem,4vw,2.25rem)] font-extrabold leading-tight tracking-[-0.045em] text-slate-950">
-            {greeting}, {displayName} <span aria-hidden="true">👋</span>
+            {greeting}, {displayName}
           </h1>
           <p className="mt-2 text-sm leading-6 text-slate-500 sm:text-[15px]">{t("dashboard.subtitle")}</p>
         </div>
@@ -92,7 +92,20 @@ function Dashboard() {
             <HealthOverviewCard record={latest} />
           </section>
 
-          <section aria-label={t("dashboard.latestMetricsAria")}>
+          <section aria-labelledby="latest-vitals-heading">
+            <div className="mb-3 flex items-end justify-between gap-4 sm:mb-4">
+              <div>
+                <p className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-blue-600">
+                  {t("dashboard.latestOverview")}
+                </p>
+                <h2
+                  id="latest-vitals-heading"
+                  className="mt-1 text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]"
+                >
+                  {t("dashboard.latestMetricsAria")}
+                </h2>
+              </div>
+            </div>
             <VitalSummaryGrid record={latest} previousRecord={records[1]} />
           </section>
 

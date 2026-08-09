@@ -19,8 +19,8 @@ export function LandingNav() {
   const { t } = useTranslation();
 
   return (
-    <header className="sticky top-0 z-50 px-4 pt-3 sm:pt-4">
-      <nav className="glass-surface glass-glare glass-strong mx-auto flex max-w-[1380px] items-center justify-between gap-4 rounded-[22px] border-white/80 px-3 py-2 shadow-[0_14px_42px_rgba(31,72,116,0.10)] sm:px-5">
+    <header className="sticky top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
+      <nav className="glass-surface glass-glare glass-strong mx-auto flex max-w-[1280px] items-center justify-between gap-4 rounded-[21px] border-white/80 px-3 py-2 shadow-[0_10px_30px_rgba(31,72,116,0.09)] sm:px-5">
         <Link to="/" className="flex min-w-0 items-center gap-2.5">
           <CareAILogo compact className="gap-2.5" />
         </Link>
@@ -62,7 +62,7 @@ export function LandingNav() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="glass-surface glass-strong mx-auto mt-3 max-w-[1380px] rounded-[24px] p-4 md:hidden"
+            className="glass-surface glass-strong mx-auto mt-3 max-w-[1280px] rounded-[22px] p-4 md:hidden"
           >
             <ul className="space-y-1">
               {LINKS.map((link) => (

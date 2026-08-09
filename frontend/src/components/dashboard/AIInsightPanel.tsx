@@ -53,7 +53,7 @@ export function AIInsightPanel({
         <p className="mt-3 max-w-4xl text-sm leading-6 text-slate-600">{analysis.summary}</p>
       </div>
 
-      <div className="grid lg:grid-cols-3">
+      <div className="grid md:grid-cols-2 xl:grid-cols-3">
         {GROUPS.map(({ key, titleKey, Icon, tone, dot }, index) => {
           const items = analysis[key];
           return (
@@ -61,7 +61,8 @@ export function AIInsightPanel({
               key={key}
               className={cn(
                 "p-5 sm:p-6",
-                index > 0 && "border-t border-slate-100 lg:border-l lg:border-t-0",
+                index === 1 && "border-t border-slate-100 md:border-l md:border-t-0",
+                index === 2 && "border-t border-slate-100 md:col-span-2 xl:col-span-1 xl:border-l xl:border-t-0",
               )}
             >
               <h3 className={cn("inline-flex items-center gap-2 text-sm font-bold", tone)}>

@@ -68,7 +68,7 @@ export function TopBar({ hideMobileNavigation = false }: { hideMobileNavigation?
   return (
     <>
       <header className="pointer-events-none sticky top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
-        <div className="glass-control glass-glare pointer-events-auto mx-auto grid h-[62px] max-w-[1380px] grid-cols-[1fr_auto] items-center gap-3 rounded-[21px] px-3 shadow-[0_14px_42px_rgba(31,72,116,0.11)] sm:h-[66px] sm:px-4 md:grid-cols-[1fr_auto_1fr] md:rounded-[24px] lg:px-5">
+        <div className="glass-control glass-glare pointer-events-auto mx-auto grid h-[58px] max-w-[1280px] grid-cols-[1fr_auto] items-center gap-3 rounded-[19px] px-3 shadow-[0_10px_30px_rgba(31,72,116,0.09)] sm:h-[62px] sm:px-4 md:grid-cols-[1fr_auto_1fr] md:rounded-[22px] lg:px-5">
           <Link
             to="/dashboard"
             className="w-fit rounded-[14px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200"
@@ -77,7 +77,7 @@ export function TopBar({ hideMobileNavigation = false }: { hideMobileNavigation?
           </Link>
 
           <nav
-            className="hidden items-center gap-1 rounded-[17px] border border-white/80 bg-slate-100/55 p-1 shadow-[inset_0_1px_0_rgba(255,255,255,.9)] md:flex"
+            className="hidden items-center gap-1 rounded-[16px] border border-white/80 bg-slate-100/50 p-1 shadow-[inset_0_1px_0_rgba(255,255,255,.9)] md:flex"
             aria-label={t("nav.primary")}
           >
             {NAV.map((item) => {
@@ -88,7 +88,7 @@ export function TopBar({ hideMobileNavigation = false }: { hideMobileNavigation?
                   to={item.to}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "inline-flex min-h-10 items-center gap-2 rounded-[14px] px-4 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200",
+                    "inline-flex min-h-10 items-center gap-2 rounded-[13px] px-3.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 lg:px-4",
                     active
                       ? "border border-white/90 bg-white/90 text-blue-600 shadow-[0_5px_16px_rgba(37,99,235,0.10),inset_0_1px_0_white]"
                       : "border border-transparent text-slate-500 hover:bg-white/70 hover:text-slate-900",

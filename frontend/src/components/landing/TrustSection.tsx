@@ -23,9 +23,9 @@ const TRUST_ITEMS = [
 export function TrustSection() {
   const { t } = useTranslation();
   return (
-    <section id="privacy" className="mx-auto max-w-[1200px] scroll-mt-28 px-5 py-16 sm:py-20">
+    <section id="privacy" className="care-container scroll-mt-28 py-12 sm:py-16">
       <Reveal>
-        <div className="rounded-[28px] border border-white/90 bg-white/72 p-6 shadow-[0_22px_60px_-38px_rgba(35,79,137,0.34)] backdrop-blur-lg sm:p-8 lg:flex lg:items-center lg:gap-10">
+        <div className="mx-auto max-w-[1200px] rounded-[26px] border border-white/90 bg-white/78 p-6 shadow-[0_18px_48px_-36px_rgba(35,79,137,0.28)] backdrop-blur-md sm:p-8 lg:flex lg:items-center lg:gap-10">
           <div className="max-w-sm text-center lg:text-left">
             <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-blue-600">
               {t("landing.trust.eyebrow")}

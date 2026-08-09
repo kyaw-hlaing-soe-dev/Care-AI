@@ -45,7 +45,7 @@ export function DashboardPreview() {
   return (
     <section
       id="dashboard"
-      className="mx-auto max-w-[1250px] scroll-mt-28 px-5 py-20 sm:py-24 lg:py-28"
+      className="care-container care-section scroll-mt-28"
     >
       <SectionHeading
         eyebrow={t("landing.preview.eyebrow")}

@@ -199,7 +199,12 @@ function CompletionStrip({
   const completion = completionFor(profile);
   const complete = completion.percent === 100;
   return (
-    <div className="rounded-[16px] border border-blue-100/80 bg-blue-50/65 px-4 py-3">
+    <div
+      className={cn(
+        "rounded-[16px] border px-4 py-3",
+        complete ? "border-slate-200/80 bg-white/72" : "border-blue-100/80 bg-blue-50/65",
+      )}
+    >
       <div className="flex items-center justify-between gap-4">
         <div className="flex min-w-0 items-center gap-2">
           <CheckCircle2
@@ -569,7 +574,10 @@ function MobileProfileHub({
   profile: UserProfile;
   onViewChange: (view: ProfileView) => void;
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const code =
+    profile.preferredLanguage ?? normalizeLanguage(i18n.resolvedLanguage ?? i18n.language);
+  const language = SUPPORTED_LANGUAGES.find((item) => item.code === code)?.nativeLabel ?? "English";
   return (
     <div className="space-y-5 md:hidden">
       <div>
@@ -600,6 +608,7 @@ function MobileProfileHub({
           Icon={Languages}
           title={t("profile.preferences")}
           description={t("settings.language")}
+          value={language}
           onClick={() => onViewChange("preferences")}
         />
         <SettingsRow
@@ -871,7 +880,7 @@ function EditProfileSection({
   return (
     <>
       <div className="mb-4 md:hidden">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center">
           <button
             type="button"
             onClick={onBack}
@@ -879,21 +888,6 @@ function EditProfileSection({
             className="min-h-10 rounded-[11px] px-1 text-sm font-bold text-blue-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200"
           >
             {t("common.cancel")}
-          </button>
-          <button
-            type="submit"
-            form="edit-profile-form"
-            disabled={saving}
-            className="min-h-10 rounded-[11px] px-1 text-sm font-extrabold text-blue-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200"
-          >
-            {saving ? (
-              <LoaderCircle
-                className="mx-auto size-4 animate-spin"
-                aria-label={t("common.saving")}
-              />
-            ) : (
-              t("common.save")
-            )}
           </button>
         </div>
         <h1 className="mt-1 break-words text-[28px] font-extrabold leading-[1.15] tracking-[-0.04em] text-slate-950">
@@ -1033,6 +1027,30 @@ function EditProfileSection({
                 </option>
               ))}
             </select>
+          </div>
+
+          <div className="grid gap-3 pt-1 md:hidden">
+            <button
+              type="submit"
+              disabled={saving}
+              className={glassButtonVariants({ size: "lg", className: "w-full" })}
+            >
+              {saving ? (
+                <>
+                  <LoaderCircle className="size-4 animate-spin" aria-hidden="true" /> {t("common.saving")}
+                </>
+              ) : (
+                t("common.saveChanges")
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={onBack}
+              disabled={saving}
+              className={glassButtonVariants({ variant: "glass", size: "md", className: "w-full" })}
+            >
+              {t("common.cancel")}
+            </button>
           </div>
         </form>
       </GlassCard>

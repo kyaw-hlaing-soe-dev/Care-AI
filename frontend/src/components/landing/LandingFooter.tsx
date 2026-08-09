@@ -18,8 +18,8 @@ const SOCIALS = [
 export function LandingFooter() {
   const { t } = useTranslation();
   return (
-    <footer className="mx-auto max-w-6xl px-5 pb-12">
-      <div className="glass-surface glass-glare flex flex-col items-center gap-6 rounded-3xl px-6 py-8 sm:flex-row sm:justify-between">
+    <footer className="care-container pb-12">
+      <div className="glass-surface glass-glare mx-auto flex max-w-6xl flex-col items-center gap-6 rounded-[26px] px-6 py-8 sm:flex-row sm:justify-between">
         <div className="text-center sm:text-left">
           <CareAILogo compact className="justify-center sm:justify-start" />
           <p className="mt-2 max-w-[260px] text-xs leading-5 text-muted-foreground">

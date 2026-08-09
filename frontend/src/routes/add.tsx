@@ -62,7 +62,7 @@ function AddVitalPage() {
         subtitle={t("vitals.subtitle")}
       />
 
-      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(320px,.65fr)] lg:gap-6 xl:gap-8">
+      <div className="mx-auto grid max-w-[1120px] items-start gap-5 lg:grid-cols-[minmax(0,760px)_minmax(300px,340px)] lg:justify-center lg:gap-6 xl:gap-8">
         <GlassCard strong className="app-card p-5 sm:p-7 lg:p-8">
           <div className="mb-6 flex items-start gap-3 border-b border-slate-100 pb-5">
             <span className="grid size-10 shrink-0 place-items-center rounded-[14px] bg-gradient-to-br from-blue-500 to-cyan-400 text-white shadow-sm">
