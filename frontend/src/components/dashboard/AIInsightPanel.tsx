@@ -1,4 +1,11 @@
-import { AlertTriangle, CheckCircle2, Lightbulb, Sparkles } from "lucide-react";
+import {
+  AlertCircle,
+  AlertTriangle,
+  CheckCircle2,
+  Lightbulb,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 import { GlassCard } from "@/components/glass/GlassCard";
 import type { VitalAnalysis } from "@/lib/vitals";
 import { cn } from "@/lib/utils";
@@ -36,6 +43,7 @@ export function AIInsightPanel({
   panelId?: string;
 }) {
   const { t } = useTranslation();
+  const analysisUnavailable = analysis.aiStatus === "failed";
   return (
     <GlassCard id={panelId} strong className="app-card scroll-mt-24 overflow-hidden p-0">
       <div className="border-b border-blue-100/80 bg-gradient-to-r from-blue-50/80 via-white/60 to-cyan-50/75 px-5 py-5 sm:px-6">
@@ -46,11 +54,24 @@ export function AIInsightPanel({
             </span>
             {t("dashboard.insightTitle")}
           </h2>
-          <span className="rounded-full border border-blue-100 bg-white/80 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-blue-600">
-            {t("dashboard.aiAnalysis")}
+          <span
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-full border bg-white/80 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em]",
+              analysisUnavailable
+                ? "border-amber-200 text-amber-700"
+                : "border-blue-100 text-blue-600",
+            )}
+          >
+            {analysisUnavailable ? <AlertCircle className="size-3" aria-hidden="true" /> : null}
+            {analysisUnavailable ? "Temporarily unavailable" : t("dashboard.aiAnalysis")}
           </span>
         </div>
-        <p className="myanmar-readable mt-3 max-w-4xl text-sm leading-6 text-slate-600">{analysis.summary}</p>
+        <p
+          className="myanmar-readable mt-3 max-w-4xl text-sm leading-6 text-slate-600"
+          role={analysisUnavailable ? "status" : undefined}
+        >
+          {analysis.summary}
+        </p>
       </div>
 
       <div className="grid md:grid-cols-2 xl:grid-cols-3">
@@ -84,6 +105,13 @@ export function AIInsightPanel({
           );
         })}
       </div>
+
+      {analysis.disclaimer ? (
+        <p className="flex items-start gap-2 border-t border-blue-100/80 bg-blue-50/45 px-5 py-4 text-xs leading-5 text-slate-600 sm:px-6">
+          <ShieldCheck className="mt-0.5 size-4 shrink-0 text-blue-600" aria-hidden="true" />
+          <span>{analysis.disclaimer}</span>
+        </p>
+      ) : null}
     </GlassCard>
   );
 }
