@@ -65,7 +65,7 @@ production-ready or treat the mock user as an authorization boundary.
 
 ## Commands And Runtime
 
-Use Node.js 22.12 or newer; current TanStack Start packages do not support Node
+Use Node.js 22.13 or newer; current TanStack Start packages do not support Node
 18. From `frontend/` run:
 
 ```sh
