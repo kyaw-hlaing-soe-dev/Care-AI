@@ -2,7 +2,7 @@
 
 **Status:** Active  
 **Version:** 1.0  
-**Last Updated:** 2026-08-08  
+**Last Updated:** 2026-08-10
 **Related:** [System Architecture](../02-architecture/system-architecture.md), [Testing Strategy](../13-testing/testing-strategy.md)
 
 ## P0 — MVP blockers
@@ -17,7 +17,7 @@
 
 ### TASK-AI-003
 
-**Status:** NOT IMPLEMENTED. Build protected token-verifying vital endpoint/function with server validation, deterministic score, Firestore writes, OpenRouter normalization, timeout/failure handling. **Related:** `02-architecture/backend-architecture.md`, `06-ai/*`. **Acceptance:** AC-VITAL-001, AC-AI-001. **Dependency:** TASK-AUTH-001, TASK-DB-001.
+**Status:** PARTIAL. The TanStack server endpoint implements server validation, deterministic scoring, minimal OpenRouter context, normalization/safety checks, timeout/retry, failure preservation, warm-instance idempotency, client states, and focused tests. Firebase token verification, trusted UID derivation, Firestore writes, separate analysis persistence, durable idempotency, and controlled retry jobs remain. **Related:** `02-architecture/backend-architecture.md`, `06-ai/*`. **Acceptance:** AC-VITAL-001, AC-AI-001. **Dependency:** TASK-AUTH-001, TASK-DB-001.
 
 ## P1 — Important improvements
 

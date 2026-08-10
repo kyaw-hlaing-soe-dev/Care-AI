@@ -2,7 +2,7 @@
 
 **Status:** Active  
 **Version:** 1.0  
-**Last Updated:** 2026-08-08  
+**Last Updated:** 2026-08-10
 **Related:** [System Architecture](./system-architecture.md), [Design System](../11-ui/design-system.md)
 
 ## Actual structure
@@ -11,7 +11,7 @@
 - `src/components`: shared app shell, auth/profile experience, dashboard, history, landing, glass primitives, and UI components.
 - `src/lib/auth-context.tsx`: mock localStorage identity context.
 - `src/lib/profile-context.tsx`: local profile context.
-- `src/lib/vitals.ts`: score/range/analysis logic; `vitals-store.ts`: local persistence.
+- `src/lib/vitals.ts`: deterministic score/range logic; `vitals-api-server.ts`: server-only OpenRouter endpoint logic; `vitals-store.ts`: endpoint client and local persistence.
 - `src/hooks/use-vitals.ts`: subscription-based local data hook.
 - `src/router.tsx`, `src/start.ts`, and `src/server.ts`: TanStack Start application setup.
 
@@ -19,7 +19,7 @@
 
 ## State and data — CURRENT
 
-No Redux, Firebase client, API client, or remote-query integration is implemented. React Context holds mock auth/profile state; `useVitals` reads localStorage and observes custom/storage events. React Query is configured but no project query usage was found.
+No Redux, Firebase client, or remote-query integration is implemented. `createVitalWithAi()` calls the same-origin TanStack analysis endpoint, then stores its returned record locally. React Context holds mock auth/profile state; `useVitals` reads localStorage and observes custom/storage events. React Query is configured but no project query usage was found.
 
 ## Target boundaries
 

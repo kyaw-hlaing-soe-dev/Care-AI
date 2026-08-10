@@ -1,8 +1,8 @@
 # CareAI AI Output Schema
 
-**Status:** Planned  
+**Status:** Active
 **Version:** 1.0  
-**Last Updated:** 2026-08-08  
+**Last Updated:** 2026-08-10
 **Related:** [AI Analysis](./ai-analysis.md), [API Contracts](../12-api/api-contracts.md)
 
 ## Target normalized contract
@@ -20,4 +20,4 @@
 
 `summary`, all arrays, `urgency`, and `disclaimer` are required after normalization. Use zero to three concise strings per array; disallow arbitrary urgency labels. `disclaimer` must state that CareAI offers informational insights and is not a substitute for professional medical advice.
 
-**CARE-AI-003 — P0 / NOT IMPLEMENTED:** The backend validates JSON and types before storage. Invalid JSON, unsupported enum values, missing required fields, overlong arrays, or unsafe text produce a safe fallback analysis/status rather than raw model content. The existing local `VitalAnalysis` shape is an implementation stand-in, not this provider schema.
+**CARE-AI-003 — P0 / PARTIAL:** The TanStack server validates exact JSON keys, required types, enum values, non-empty bounded text, zero-to-three-item arrays, and prohibited medical language before returning content. Invalid, overlong, unsafe, or urgency-conflicting output produces a safe fallback rather than raw model content. Firestore storage validation remains unimplemented; the local `VitalAnalysis` shape adapts the normalized provider schema for current UI compatibility.

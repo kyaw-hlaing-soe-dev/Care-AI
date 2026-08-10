@@ -2,7 +2,7 @@
 
 **Status:** Active  
 **Version:** 1.0  
-**Last Updated:** 2026-08-08  
+**Last Updated:** 2026-08-10
 **Related:** [Authentication](../03-auth/authentication.md), [Firestore Queries](../09-database/firestore-queries.md)
 
 ## Auth and profile — target
@@ -31,7 +31,7 @@ flowchart LR
   A --> D[Dashboard and History]
 ```
 
-Current state: `createVital()` adds an ISO timestamp, calls `analyzeVitals()` locally, and writes one combined record to `aicare.vitals.v1`.
+Current state: `createVitalWithAi()` calls the TanStack server endpoint, which validates, calculates the deterministic score, calls/normalizes OpenRouter, and returns a combined record. The browser then writes that record to `aicare.vitals.v1`; verified auth, Firestore writes, and separate analysis persistence remain outstanding.
 
 ## Dashboard/history — target
 

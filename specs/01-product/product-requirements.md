@@ -2,7 +2,7 @@
 
 **Status:** Active  
 **Version:** 1.0  
-**Last Updated:** 2026-08-08  
+**Last Updated:** 2026-08-10
 **Related:** [User Flows](./user-flows.md), [Acceptance Criteria](./acceptance-criteria.md), [AI Safety](../06-ai/ai-safety.md)
 
 ## Purpose, users, and problem
@@ -61,7 +61,7 @@ Target is owner-scoped Firestore documents and trusted server writes. Browser lo
 **Status:** PARTIAL  
 **Acceptance:** [AC-AI-001](./acceptance-criteria.md#ac-ai-001)
 
-Current rule-based copy has the intended UI shape. A protected OpenRouter request, normalization, failure state, and persistence are absent.
+A server-only TanStack endpoint now calls OpenRouter with validated minimal context, normalizes the response, preserves deterministic score/status/urgency, and returns an explicit saved-reading failure state. Verified authentication and owner-scoped Firestore reading/analysis persistence remain absent.
 
 ### CARE-PROD-007 — Dashboard and recent trends
 

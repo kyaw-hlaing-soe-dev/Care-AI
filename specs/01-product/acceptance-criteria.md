@@ -2,7 +2,7 @@
 
 **Status:** Active  
 **Version:** 1.0  
-**Last Updated:** 2026-08-08  
+**Last Updated:** 2026-08-10
 **Related:** [Product Requirements](./product-requirements.md), [Testing Strategy](../13-testing/testing-strategy.md)
 
 ## AC-AUTH-001
@@ -26,7 +26,7 @@
 ## AC-VITAL-001
 
 **Related requirement:** CARE-PROD-001  
-**Status:** IMPLEMENTED (client); NOT IMPLEMENTED (server)
+**Status:** IMPLEMENTED (client); PARTIAL (server validation/analysis, local persistence)
 
 **GIVEN** a profile-complete user  
 **WHEN** they submit five numeric readings inside technical limits  
@@ -44,11 +44,13 @@
 ## AC-AI-001
 
 **Related requirement:** CARE-PROD-006  
-**Status:** NOT IMPLEMENTED for provider integration
+**Status:** PARTIAL for provider integration
 
 **GIVEN** a validated, saved reading  
 **WHEN** the protected AI provider is available  
 **THEN** only minimal permitted context is sent, its response is normalized to the approved schema, and the UI shows the disclaimer.
+
+The current TanStack endpoint implements minimal context, deterministic authority, normalization, failure fallback, and the disclaimer. Verified authentication and durable owner-scoped reading/analysis persistence are still missing.
 
 ## AC-DASH-001
 

@@ -2,7 +2,7 @@
 
 **Status:** Active  
 **Version:** 1.0  
-**Last Updated:** 2026-08-08  
+**Last Updated:** 2026-08-10
 **Related:** [Authentication](../03-auth/authentication.md), [User Profile](../04-profile/user-profile.md), [Vital Tracker](../05-vitals/vital-tracker.md)
 
 ## Current implementation note
@@ -48,7 +48,7 @@ flowchart TD
   WA --> D
 ```
 
-Current behavior is `validate → createVital → analyzeVitals → localStorage → dashboard`; no remote write or OpenRouter call occurs.
+Current behavior is `client validate → TanStack server validate/score/OpenRouter → normalized or failed analysis → localStorage → dashboard`. Firebase verification, remote reading/analysis writes, and durable ownership remain unimplemented.
 
 ## History flow
 

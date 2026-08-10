@@ -2,9 +2,9 @@
 
 **Status:** Active  
 **Version:** 1.0  
-**Last Updated:** 2026-08-08
+**Last Updated:** 2026-08-10
 
-CareAI is a responsive health-vital tracking web application. The current repository is a TanStack Start/React/TypeScript frontend using local browser storage and a deterministic in-browser analysis function. Firebase, Firestore, Firebase Storage, OpenRouter, and a protected application backend are documented as the intended MVP target; they are not present in this repository.
+CareAI is a responsive health-vital tracking web application. The current repository is a TanStack Start/React/TypeScript frontend using local browser storage. A TanStack server endpoint now validates and scores vital submissions and calls OpenRouter with a normalized safety contract. Firebase, Firestore, Firebase Storage, verified identity, and durable protected persistence remain the intended MVP target and are not implemented.
 
 ## MVP status
 
@@ -55,10 +55,10 @@ The UI MVP is substantially implemented: landing, profile onboarding, vital entr
 | Profile onboarding and redirects | PARTIAL | `src/lib/profile-context.tsx`; browser-only persistence |
 | Authentication / Google Sign-In | NOT IMPLEMENTED | `src/lib/auth-context.tsx` simulates a fixed user |
 | Firebase / Firestore / Storage | NOT IMPLEMENTED | no Firebase dependency, configuration, or rules found |
-| OpenRouter integration | NOT IMPLEMENTED | no OpenRouter client or server endpoint found |
+| OpenRouter integration | PARTIAL | server-only TanStack endpoint, validation, timeout/retry, normalization, fallback, and tests; no verified auth or Firestore persistence |
 | Dashboard and local trends | PARTIAL | `src/routes/dashboard.tsx`, local records only |
 | Responsive public and authenticated UI | IMPLEMENTED | Tailwind/Tailwind CSS responsive layouts |
-| Automated tests | NOT IMPLEMENTED | no test files or test script found |
+| Automated tests | PARTIAL | focused AI endpoint/provider/normalization tests; broader unit, integration, component, and E2E coverage remain |
 
 ## How AI coding agents must use these specs
 
