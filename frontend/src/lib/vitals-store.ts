@@ -40,10 +40,17 @@ export function createVital(input: VitalInput): VitalRecord {
   return record;
 }
 
-export async function createVitalWithAi(input: VitalInput): Promise<VitalRecord> {
+export async function createVitalWithAi(
+  input: VitalInput,
+  idempotencyKey = crypto.randomUUID(),
+): Promise<VitalRecord> {
   const response = await fetch("/api/vitals/analyze", {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+      "idempotency-key": idempotencyKey,
+    },
     body: JSON.stringify(input),
   });
 
@@ -51,13 +58,33 @@ export async function createVitalWithAi(input: VitalInput): Promise<VitalRecord>
     throw new Error("Vitals analysis request failed.");
   }
 
-  const payload = (await response.json()) as { reading?: VitalRecord };
-  if (!payload.reading) {
+  const payload = (await response.json()) as unknown;
+  if (!isAnalyzeResponse(payload)) {
     throw new Error("Vitals analysis response was malformed.");
   }
 
   write([payload.reading, ...read()]);
   return payload.reading;
+}
+
+function isAnalyzeResponse(value: unknown): value is { reading: VitalRecord } {
+  if (value == null || typeof value !== "object") return false;
+  const reading = (value as { reading?: unknown }).reading;
+  if (reading == null || typeof reading !== "object") return false;
+  const record = reading as Partial<VitalRecord>;
+  return (
+    typeof record.id === "string" &&
+    typeof record.recordedAt === "string" &&
+    typeof record.systolic === "number" &&
+    typeof record.diastolic === "number" &&
+    typeof record.heartRate === "number" &&
+    typeof record.oxygen === "number" &&
+    typeof record.temperature === "number" &&
+    record.analysis != null &&
+    typeof record.analysis === "object" &&
+    typeof record.analysis.summary === "string" &&
+    typeof record.analysis.score === "number"
+  );
 }
 
 export function subscribeVitals(cb: () => void) {

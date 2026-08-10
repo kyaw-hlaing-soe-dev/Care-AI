@@ -2,7 +2,7 @@
 
 **Status:** Active  
 **Version:** 1.0  
-**Last Updated:** 2026-08-08  
+**Last Updated:** 2026-08-10
 **Related:** [Validation](./validation.md), [Health Score](./health-score.md), [AI Analysis](../06-ai/ai-analysis.md), [Firestore Schema](../09-database/firestore-schema.md)
 
 ## Current implementation — IMPLEMENTED locally
@@ -21,4 +21,4 @@ The current local record has `id`, `recordedAt` ISO timestamp, the five fields, 
 
 ## Target submission
 
-**CARE-VITAL-001 — P0 / PARTIAL:** Enter → client validation → authenticated backend → server validation → deterministic score → owner-scoped vital write → minimal AI request → normalized analysis write → dashboard refresh. UI limits are technical sanity limits, not diagnosis or clinical triage policy. Server validation and remote persistence are NOT IMPLEMENTED.
+**CARE-VITAL-001 — P0 / PARTIAL:** Enter → client validation → authenticated backend → server validation → deterministic score → owner-scoped vital write → minimal AI request → normalized analysis write → dashboard refresh. The current TanStack endpoint implements server validation, score, minimal AI, and normalized/failure response, after which the browser saves one combined local record. Authenticated owner-scoped remote persistence remains NOT IMPLEMENTED. UI limits are technical sanity limits, not diagnosis or clinical triage policy.

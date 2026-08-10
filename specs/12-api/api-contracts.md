@@ -2,12 +2,12 @@
 
 **Status:** Planned  
 **Version:** 1.0  
-**Last Updated:** 2026-08-08  
+**Last Updated:** 2026-08-10
 **Related:** [Backend Architecture](../02-architecture/backend-architecture.md), [AI Output Schema](../06-ai/ai-output-schema.md)
 
 ## Current state
 
-**NOT IMPLEMENTED.** Current UI calls local functions directly.
+**PARTIAL.** Analyze Vitals is implemented as a TanStack server endpoint with safe validation/provider contracts, but it has no verified authentication or trusted Firestore persistence. Other operations remain local or scaffolded.
 
 ## Target operations
 

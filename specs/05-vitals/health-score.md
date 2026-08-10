@@ -2,7 +2,7 @@
 
 **Status:** Active  
 **Version:** 1.0  
-**Last Updated:** 2026-08-08  
+**Last Updated:** 2026-08-10
 **Related:** [Vital Tracker](./vital-tracker.md), [AI Analysis](../06-ai/ai-analysis.md), [Testing Strategy](../13-testing/testing-strategy.md)
 
 ## Exact current algorithm — IMPLEMENTED
@@ -20,4 +20,4 @@ Score is integer-valued with range 0–100; no rounding step is needed. Missing 
 
 ## Target execution
 
-**CARE-SCORE-001 — P0 / PARTIAL:** Preserve deterministic behavior, test boundary conditions, and move the authoritative execution to the protected backend before production. OpenRouter must receive the already calculated score and must never invent the authoritative numeric score.
+**CARE-SCORE-001 — P0 / PARTIAL:** The TanStack analysis endpoint executes the deterministic algorithm before OpenRouter, supplies the calculated score, and rejects provider urgency conflicts. Boundary coverage and migration to the verified Firebase/Firestore backend remain required before production. OpenRouter must never invent the authoritative numeric score.

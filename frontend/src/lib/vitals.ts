@@ -13,6 +13,8 @@ export type VitalAnalysis = {
   aiStatus?: "completed" | "failed";
   urgency?: "routine" | "monitor" | "seek-care";
   disclaimer?: string;
+  provider?: "openrouter";
+  model?: string;
   emergency: boolean;
   score: number;
   summary: string;

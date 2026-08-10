@@ -54,7 +54,10 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [savedWithAnalysis, setSavedWithAnalysis] = useState(true);
+  const [savedMessage, setSavedMessage] = useState("");
   const submitLock = useRef(false);
+  const idempotencyKey = useRef<string | undefined>(undefined);
   const errors = useMemo(() => validate(fields, t), [fields, t]);
   const referenceHint = (key: keyof typeof RANGES) => {
     const range = RANGES[key];
@@ -62,6 +65,7 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
   };
 
   function update(key: keyof Fields, value: string) {
+    idempotencyKey.current = undefined;
     setFields((current) => ({ ...current, [key]: value }));
   }
 
@@ -91,15 +95,23 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
     submitLock.current = true;
     setSubmitting(true);
     try {
-      const record = await createVitalWithAi({
-        temperature: Number(fields.temperature),
-        systolic: Number(fields.systolic),
-        diastolic: Number(fields.diastolic),
-        heartRate: Number(fields.heartRate),
-        oxygen: Number(fields.oxygen),
-      });
+      idempotencyKey.current ??= crypto.randomUUID();
+      const record = await createVitalWithAi(
+        {
+          temperature: Number(fields.temperature),
+          systolic: Number(fields.systolic),
+          diastolic: Number(fields.diastolic),
+          heartRate: Number(fields.heartRate),
+          oxygen: Number(fields.oxygen),
+        },
+        idempotencyKey.current,
+      );
+      const analysisCompleted = record.analysis.aiStatus !== "failed";
+      setSavedWithAnalysis(analysisCompleted);
+      setSavedMessage(record.analysis.summary);
       setSaved(true);
-      toast.success(t("vitals.analyzed"));
+      if (analysisCompleted) toast.success(t("vitals.analyzed"));
+      else toast.warning(record.analysis.summary);
       await new Promise((resolve) => window.setTimeout(resolve, 650));
       onSaved?.(record.id);
     } catch {
@@ -120,9 +132,11 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
           <Check className="size-7" strokeWidth={2.5} aria-hidden="true" />
         </span>
         <h2 className="mt-5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">
-          {t("vitals.analyzed")}
+          {savedWithAnalysis ? t("vitals.analyzed") : "Reading saved"}
         </h2>
-        <p className="mt-2 text-sm text-slate-500">{t("dashboard.subtitle")}</p>
+        <p className="mt-2 max-w-md text-sm text-slate-500">
+          {savedWithAnalysis ? t("dashboard.subtitle") : savedMessage}
+        </p>
       </div>
     );
   }

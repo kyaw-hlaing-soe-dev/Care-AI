@@ -2,7 +2,7 @@
 
 **Status:** Active  
 **Version:** 1.0  
-**Last Updated:** 2026-08-08  
+**Last Updated:** 2026-08-10
 **Related:** [Health Trends](./health-trends.md), [Firestore Queries](../09-database/firestore-queries.md), [AI Analysis](../06-ai/ai-analysis.md)
 
 ## Current implementation — PARTIAL
@@ -13,7 +13,7 @@
 | --- | --- | --- | --- |
 | Greeting | profile/mock user | authenticated profile | local fallback; no remote error |
 | Health Score/vitals | latest local record | latest user vital | empty CTA/loading; error missing |
-| Insight | local `analysis` | linked/latest normalized analysis | no provider-failure state |
+| Insight | normalized/fallback analysis on latest local record | linked/latest normalized analysis | provider-unavailable state and disclaimer implemented; remote errors missing |
 | Trends | local records | recent user vitals | handled locally; remote error missing |
 | Recent logs | local records | newest user vitals | local list/empty; pagination absent |
 

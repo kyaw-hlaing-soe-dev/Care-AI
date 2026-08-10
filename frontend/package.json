@@ -9,6 +9,7 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
+    "test:ai": "npx --yes tsx@4.20.3 --test src/lib/vitals-api-server.test.ts",
     "format": "prettier --write ."
   },
   "dependencies": {

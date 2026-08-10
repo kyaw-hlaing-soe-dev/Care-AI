@@ -2,12 +2,12 @@
 
 **Status:** Planned  
 **Version:** 1.0  
-**Last Updated:** 2026-08-08  
+**Last Updated:** 2026-08-10
 **Related:** [API Contracts](../12-api/api-contracts.md), [OpenRouter](../06-ai/openrouter.md), [Security](../10-security/security.md)
 
-## Current state
+## Current state — PARTIAL
 
-**NOT IMPLEMENTED.** No backend application operation, Firebase Cloud Function, Firebase Admin SDK, or OpenRouter call exists in the repository. TanStack Start’s generic server bootstrap and CSRF middleware do not constitute the required backend.
+`frontend/src/server.ts` now exposes a server-only `POST /api/vitals/analyze` operation with strict vital validation, deterministic scoring, OpenRouter timeout/retry, output normalization, safe failure, and warm-instance idempotency. It is not the target trusted production backend: Firebase Admin token verification, UID derivation, owner-scoped Firestore writes, durable idempotency, and separate analysis persistence are not implemented. The `backend/` Cloud Functions tree remains a scaffold.
 
 ## Target
 
@@ -23,4 +23,4 @@ The backend owns token verification, UID derivation, technical input validation,
 
 ## Requirement
 
-**CARE-ARCH-001 — P0 / NOT IMPLEMENTED:** Every production vital submission must pass through a trusted backend before Firestore/AI persistence. See [TASK-AI-003](../14-development/implementation-plan.md#task-ai-003).
+**CARE-ARCH-001 — P0 / PARTIAL:** Local vital submission passes through the TanStack server before OpenRouter analysis, but every production submission must use verified identity and trusted Firestore persistence. See [TASK-AI-003](../14-development/implementation-plan.md#task-ai-003).

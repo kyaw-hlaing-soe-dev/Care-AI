@@ -2,12 +2,12 @@
 
 **Status:** Planned  
 **Version:** 1.0  
-**Last Updated:** 2026-08-08  
+**Last Updated:** 2026-08-10
 **Related:** [QA Checklist](./qa-checklist.md), [Health Score](../05-vitals/health-score.md)
 
 ## Current state
 
-**NOT IMPLEMENTED.** No test script, test framework configuration, or test files were found.
+**PARTIAL.** `npm run test:ai` covers vital request rejection, exact AI schema normalization, unsafe-output fallback, missing configuration, minimal provider context, deterministic urgency authority, 4xx/5xx retry behavior, and warm-instance idempotency. Score boundary suites, auth/Firestore integration, components, E2E, and manual release checks remain outstanding.
 
 ## Target priorities
 
