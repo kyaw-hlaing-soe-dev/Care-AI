@@ -73,7 +73,7 @@ The active Spark-mode frontend does not call OpenRouter. It derives deterministi
 ## AC-SEC-001
 
 **Related requirement:** CARE-PROD-005  
-**Status:** IMPLEMENTED IN CODE; RULES DEPLOYMENT / EMULATOR ACCEPTANCE OUTSTANDING
+**Status:** FIRESTORE RULES DEPLOYED / EMULATOR VERIFIED; BROWSER E2E OUTSTANDING
 
 **GIVEN** User A is authenticated  
 **WHEN** User A requests profile, reading, or analysis data  

@@ -5,7 +5,7 @@
 **Last Updated:** 2026-08-15
 **Related:** [Frontend](./frontend-architecture.md), [Backend](./backend-architecture.md), [Security](../10-security/security.md)
 
-## Current Spark architecture — IMPLEMENTED IN CODE, NOT DEPLOYED
+## Current Spark architecture — FIRESTORE DEPLOYED, FRONTEND E2E PENDING
 
 The active application uses Firebase Authentication and direct Cloud Firestore access from the React frontend. Every private path is rooted under the current Firebase user's UID. Security rules enforce owner access, exact profile/vital fields, technical vital limits, immutable readings, server timestamps, and the deterministic score/status/emergency result. A one-time cutover clears legacy mock localStorage data without importing it.
 
@@ -27,4 +27,4 @@ This architecture remains compatible with the Firebase Spark plan because it doe
 
 ## Remaining gap
 
-Firestore database creation/location confirmation, Auth Google-provider setup, rules/index deployment, rules-emulator acceptance, and end-to-end verification remain outstanding. Direct writes reduce the trust boundary: rules must remain deployed and tested before real health data is used.
+Firestore rules/indexes are deployed to the default database in `care-ai-4eb8d`, and the focused rules-emulator suite passes. Auth Google-provider/browser setup, frontend deployment of this branch, and end-to-end verification remain outstanding. Direct writes make deployed rule integrity a release-critical control.

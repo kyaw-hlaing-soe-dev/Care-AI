@@ -13,7 +13,7 @@
 
 ### TASK-DB-001
 
-**Status:** IMPLEMENTED, DEPLOYMENT PENDING. Direct owner-scoped profile/vital reads and writes, strict field/range/deterministic-result rules, immutable idempotent readings, bounded queries, deny-by-default Storage rules, and legacy-local-data cutover are implemented. Rules emulator/live deployment acceptance remain. **Acceptance:** AC-SEC-001.
+**Status:** FIRESTORE DEPLOYED, BROWSER E2E PENDING. Direct owner-scoped profile/vital reads and writes, strict field/range/deterministic-result rules, immutable idempotent readings, bounded queries, deny-by-default Storage rules, and legacy-local-data cutover are implemented. Firestore rules/indexes are deployed and focused emulator tests pass; authenticated browser and Storage deployment acceptance remain. **Acceptance:** AC-SEC-001.
 
 ### TASK-AI-003
 

@@ -1,6 +1,6 @@
 # CareAI Firestore Queries
 
-**Status:** Implemented in code, deployment pending
+**Status:** Firestore indexes deployed; browser E2E pending
 **Version:** 1.0  
 **Last Updated:** 2026-08-08  
 **Related:** [Dashboard](../07-dashboard/dashboard.md), [History](../08-history/history.md)

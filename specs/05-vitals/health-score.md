@@ -20,4 +20,4 @@ Score is integer-valued with range 0–100; no rounding step is needed. Missing 
 
 ## Target execution
 
-**CARE-SCORE-001 — P0 / IMPLEMENTED IN CODE, NOT DEPLOYED:** The frontend executes the deterministic algorithm before creating a reading. Firestore rules independently recompute deviations/emergency and reject a mismatched score, status, emergency flag, or urgency. OpenRouter is disabled and never supplies the numeric score.
+**CARE-SCORE-001 — P0 / RULES DEPLOYED, BROWSER E2E PENDING:** The frontend executes the deterministic algorithm before creating a reading. Deployed Firestore rules independently recompute deviations/emergency and reject a mismatched score, status, emergency flag, or urgency. OpenRouter is disabled and never supplies the numeric score.

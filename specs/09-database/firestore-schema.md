@@ -1,13 +1,13 @@
 # CareAI Firestore Schema
 
-**Status:** Implemented in code, deployment pending
+**Status:** Firestore rules/indexes deployed; browser E2E pending
 **Version:** 1.0  
 **Last Updated:** 2026-08-08  
 **Related:** [User Profile](../04-profile/user-profile.md), [Firestore Rules](../10-security/firestore-rules.md)
 
 ## Current state
 
-**IMPLEMENTED IN CODE, NOT DEPLOYED.** The authenticated frontend writes profiles and immutable readings through owner-derived paths. Firestore rules validate the owner, exact fields, limits, timestamps, and deterministic result. The browser clears legacy local profile/vital structures once and does not import or continue using them.
+**FIRESTORE RULES/INDEXES DEPLOYED; FRONTEND E2E PENDING.** The authenticated frontend writes profiles and immutable readings through owner-derived paths. Deployed Firestore rules validate the owner, exact fields, limits, timestamps, and deterministic result. The browser clears legacy local profile/vital structures once and does not import or continue using them.
 
 ## Target schema
 

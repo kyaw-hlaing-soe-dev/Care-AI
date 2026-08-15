@@ -4,7 +4,7 @@
 **Version:** 1.0  
 **Last Updated:** 2026-08-15
 
-CareAI is a responsive health-vital tracking web application. The active Spark-plan architecture uses Firebase Authentication plus direct, owner-scoped Cloud Firestore access from the frontend. The previous Cloud Functions/OpenRouter backend remains in `backend/` as inactive reference code and is not part of the free-plan deployment. Firestore deployment, Google-provider setup, and full emulator/E2E verification remain outstanding.
+CareAI is a responsive health-vital tracking web application. The active Spark-plan architecture uses Firebase Authentication plus direct, owner-scoped Cloud Firestore access from the frontend. The previous Cloud Functions/OpenRouter backend remains in `backend/` as inactive reference code and is not part of the free-plan deployment. Firestore rules/indexes are deployed to `care-ai-4eb8d`; Google-provider and full browser E2E verification remain outstanding.
 
 ## MVP status
 
@@ -55,7 +55,7 @@ The UI MVP and Spark-compatible data path are substantially implemented. Authent
 | Vital tracking, validation, score, and history | PARTIAL     | direct Firestore implementation and rule validation complete; deployment/E2E verification outstanding                                                                           |
 | Profile onboarding and redirects               | PARTIAL     | direct Firestore implementation complete; provider configuration and E2E verification outstanding                                                                               |
 | Authentication / Google Sign-In                | PARTIAL     | Firebase Auth implementation complete; project/provider verification outstanding                                                                                                |
-| Firebase / Firestore / Storage                 | PARTIAL     | Spark-compatible rules, indexes, emulator config, and deny-by-default Storage rules implemented but not deployed                                                                |
+| Firebase / Firestore / Storage                 | PARTIAL     | Spark-compatible Firestore rules/indexes deployed and emulator-tested; Auth browser verification and Storage rules deployment remain                                             |
 | OpenRouter integration                         | DEFERRED    | inactive backend code remains available, but AI is disabled because secrets cannot be held safely in a browser-only Spark architecture                                            |
 | Dashboard and trends                           | PARTIAL     | bounded owner-scoped direct Firestore queries and frontend loading implemented; E2E verification outstanding                                                                    |
 | Responsive public and authenticated UI         | IMPLEMENTED | Tailwind/Tailwind CSS responsive layouts                                                                                                                                        |
