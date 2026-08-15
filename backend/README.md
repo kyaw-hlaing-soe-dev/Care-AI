@@ -4,7 +4,7 @@
 
 This folder contains the Firebase Cloud Functions backend for CareAI. It is the trusted layer for Firebase token verification, profile writes, vital submission, deterministic health scoring, OpenRouter analysis, Firestore persistence, dashboard data, history data, safe errors, and privacy-safe logging.
 
-The implementation is ready for local configuration and emulator verification. It has not been deployed; Firebase project aliases, hosted origins, the Google provider, and deployment secrets must be configured first.
+The implementation is wired to the `care-ai-4eb8d` Firebase project and is ready for emulator and deployment verification. It has not been deployed; hosted origins, the Google provider, and deployment secrets must still be configured in Firebase.
 
 ## Architecture
 
@@ -56,7 +56,7 @@ Backend is responsible for Firebase ID token verification, UID derivation, serve
 
 1. Use Node.js 22.13 or newer and run `npm ci` in this directory.
 2. Copy `.env.example` to `.env.local`; keep real secrets out of git.
-3. Add Firebase `dev` and `prod` aliases in a local `.firebaserc`, or pass a project ID explicitly.
+3. The checked-in `.firebaserc` maps `default` and `prod` to `care-ai-4eb8d`. Add a separate `dev` alias before using `npm run deploy:dev`.
 4. Set the Functions secret with `firebase functions:secrets:set OPENROUTER_API_KEY --project <project-id>`.
 5. Start local services with `npm run emulators`; configure the frontend from `frontend/.env.example`.
 

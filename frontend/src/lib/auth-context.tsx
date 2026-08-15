@@ -13,9 +13,10 @@ import {
   signInWithPopup,
   signInWithRedirect,
   signOut as firebaseSignOut,
+  type User,
 } from "firebase/auth";
 import { useQueryClient } from "@tanstack/react-query";
-import { firebaseAuth } from "./firebase-client";
+import { getFirebaseAuth } from "./firebase-client";
 
 export type AppUser = { uid: string; name: string; email: string; avatar?: string };
 type AuthContextValue = {
@@ -26,7 +27,7 @@ type AuthContextValue = {
 };
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-function appUser(user: NonNullable<typeof firebaseAuth.currentUser>): AppUser {
+function appUser(user: User): AppUser {
   return {
     uid: user.uid,
     name: user.displayName ?? "CareAI user",
@@ -40,6 +41,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const queryClient = useQueryClient();
   useEffect(() => {
+    const firebaseAuth = getFirebaseAuth();
     const marker = "careai.firebase-cutover.v1";
     if (!window.localStorage.getItem(marker)) {
       window.localStorage.removeItem("aicare.user.v1");
@@ -54,6 +56,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signInWithGoogle = useCallback(async () => {
+    const firebaseAuth = getFirebaseAuth();
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(firebaseAuth, provider);
@@ -65,6 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signOut = useCallback(async () => {
+    const firebaseAuth = getFirebaseAuth();
     await firebaseSignOut(firebaseAuth);
     queryClient.clear();
     window.localStorage.removeItem("aicare.user.v1");

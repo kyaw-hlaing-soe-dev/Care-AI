@@ -9,7 +9,7 @@
 
 ### TASK-AUTH-001
 
-**Status:** IMPLEMENTED, NOT DEPLOYED. Firebase Google Auth, session observation, logout, loading behavior, token-bearing API calls, and explicit emulator support replace mock identity. Project/provider configuration and E2E acceptance remain. **Related:** `03-auth/authentication.md`. **Acceptance:** AC-AUTH-001. **Dependency:** Firebase project/config.
+**Status:** IMPLEMENTED, NOT DEPLOYED. Firebase Google Auth, session observation, logout, loading behavior, token-bearing API calls, explicit emulator support, and the `care-ai-4eb8d` public web configuration replace mock identity. Google-provider console setup and E2E acceptance remain. **Related:** `03-auth/authentication.md`. **Acceptance:** AC-AUTH-001. **Dependency:** Firebase project/provider setup.
 
 ### TASK-DB-001
 
@@ -27,4 +27,4 @@
 ## P2 — Post-MVP
 
 - **TASK-STORAGE-001 / PLANNED:** Optional validated profile-avatar upload with Storage rules.
-- **TASK-OBS-001 / PLANNED:** Privacy-safe monitoring, retention, and operational analytics after security review.
+- **TASK-OBS-001 / PARTIAL:** Failure-isolated Firebase Analytics SDK initialization is implemented. Consent, collection policy, retention, legal review, privacy-safe monitoring, and operational event design remain outstanding.

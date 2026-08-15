@@ -10,3 +10,5 @@ CareAI collects account identity supplied by Google, profile fields, vital readi
 OpenRouter receives only validated vital values, deterministic score, and approved minimum context. It must not receive email, full name, avatar, Firebase UID, Google ID, or unrelated profile data. Public landing sections use demo values only.
 
 Current code no longer stores profile or health records in localStorage; a one-time cutover deletes legacy keys without importing them. The app remains **NOT PRODUCTION-READY** until Firebase deployment/security verification and legal/privacy review. Do not make unsupported claims about encryption, retention, compliance, or provider handling.
+
+Firebase Analytics initializes only in supported browsers and is isolated from app startup failures. Analytics consent, collection policy, retention, and legal review remain release requirements; no profile, vital, analysis, UID, or other health payload is logged as a custom analytics event.

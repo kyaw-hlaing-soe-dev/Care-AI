@@ -1,8 +1,11 @@
-import { firebaseAuth } from "./firebase-client";
+import { getFirebaseAuth } from "./firebase-client";
 import type { ProfileInput, UserProfile } from "./profile-context";
 import type { VitalInput, VitalRecord } from "./vitals";
 
-const API_BASE = String(import.meta.env["VITE_CAREAI_API_BASE_URL"] ?? "").replace(/\/$/, "");
+const API_BASE = String(
+  import.meta.env["VITE_CAREAI_API_BASE_URL"] ??
+    "https://asia-southeast1-care-ai-4eb8d.cloudfunctions.net/api",
+).replace(/\/$/, "");
 export const CAREAI_DISCLAIMER =
   "CareAI provides informational health insights and is not a substitute for professional medical advice.";
 
@@ -21,6 +24,7 @@ export class ApiError extends Error {
 }
 
 export async function apiRequest<T>(path: string, init: RequestInit = {}): Promise<T> {
+  const firebaseAuth = getFirebaseAuth();
   const user = firebaseAuth.currentUser;
   if (!user) throw new ApiError("AUTH_ERROR", "Please sign in again.", 401);
   if (!API_BASE) throw new ApiError("NETWORK_ERROR", "CareAI backend is not configured.", 503);

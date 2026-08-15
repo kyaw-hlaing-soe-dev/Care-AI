@@ -4,7 +4,7 @@
 **Version:** 1.0  
 **Last Updated:** 2026-08-15
 
-CareAI is a responsive health-vital tracking web application. The repository now includes a Firebase Auth frontend cutover and a Firebase Cloud Functions/Firestore backend implementation. Deployment, real Firebase project configuration, Google-provider setup, and full emulator/E2E verification remain outstanding.
+CareAI is a responsive health-vital tracking web application. The repository now includes a Firebase Auth frontend cutover, a Firebase Cloud Functions/Firestore backend implementation, and the public web configuration for `care-ai-4eb8d`. Deployment, Google-provider setup, secret configuration, and full emulator/E2E verification remain outstanding.
 
 ## MVP status
 
@@ -54,7 +54,7 @@ The UI MVP and backend code path are substantially implemented. Authenticated pr
 | Vital tracking, validation, score, and history | PARTIAL     | protected API and Firestore implementation complete; deployment/E2E verification outstanding                                                                                    |
 | Profile onboarding and redirects               | PARTIAL     | Firebase-backed implementation complete; provider configuration and E2E verification outstanding                                                                                |
 | Authentication / Google Sign-In                | PARTIAL     | Firebase Auth implementation complete; project/provider configuration outstanding                                                                                               |
-| Firebase / Firestore / Storage                 | PARTIAL     | Functions, rules, indexes, emulator config, and deny-by-default Storage rules implemented but not deployed                                                                      |
+| Firebase / Firestore / Storage                 | PARTIAL     | `care-ai-4eb8d` web/project config, Functions, rules, indexes, emulator config, and deny-by-default Storage rules implemented but not deployed                                   |
 | OpenRouter integration                         | PARTIAL     | verified-auth Functions path, persistence, durable idempotency, private retry task, normalization, fallback, and focused tests implemented; deployment verification outstanding |
 | Dashboard and trends                           | PARTIAL     | bounded owner-scoped backend queries and frontend loading implemented; E2E verification outstanding                                                                             |
 | Responsive public and authenticated UI         | IMPLEMENTED | Tailwind/Tailwind CSS responsive layouts                                                                                                                                        |

@@ -7,7 +7,7 @@
 
 ## Current state — IMPLEMENTED IN CODE, NOT DEPLOYED
 
-`AuthProvider` observes Firebase Auth, uses the Google popup flow with a blocked-popup redirect fallback, supplies Firebase identity to token-bearing API calls, clears user-scoped query state on logout, and performs a one-time removal of legacy mock local data. Firebase project/provider configuration and browser E2E acceptance remain outstanding.
+`AuthProvider` initializes Firebase Auth only in the browser, observes the session, uses the Google popup flow with a blocked-popup redirect fallback, supplies Firebase identity to token-bearing API calls, clears user-scoped query state on logout, and performs a one-time removal of legacy mock local data. Keeping Auth initialization out of server-side rendering prevents a frontend deployment configuration error from turning every SSR request into an HTTP 500. The `care-ai-4eb8d` web configuration is present; Google-provider console setup, deployment, and browser E2E acceptance remain outstanding.
 
 ## Target behavior
 

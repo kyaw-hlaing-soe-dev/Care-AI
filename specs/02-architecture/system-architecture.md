@@ -37,4 +37,4 @@ Responsibilities: UI captures/presents data; Firebase Auth establishes identity;
 
 ## Remaining gap
 
-Firebase project provisioning, Google-provider setup, deployed rules/indexes/functions, secret configuration, rules-emulator acceptance, and end-to-end verification remain outstanding. The repository implementation alone is not a production authorization boundary until those controls are deployed and verified.
+The `care-ai-4eb8d` web/project configuration is wired in code. Google-provider setup, deployed rules/indexes/functions, secret configuration, rules-emulator acceptance, and end-to-end verification remain outstanding. The repository implementation alone is not a production authorization boundary until those controls are deployed and verified.
