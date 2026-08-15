@@ -1,11 +1,4 @@
-import {
-  AlertCircle,
-  AlertTriangle,
-  CheckCircle2,
-  Lightbulb,
-  ShieldCheck,
-  Sparkles,
-} from "lucide-react";
+import { AlertTriangle, CheckCircle2, Lightbulb, ShieldCheck, Sparkles } from "lucide-react";
 import { GlassCard } from "@/components/glass/GlassCard";
 import type { VitalAnalysis } from "@/lib/vitals";
 import { cn } from "@/lib/utils";
@@ -43,7 +36,7 @@ export function AIInsightPanel({
   panelId?: string;
 }) {
   const { t } = useTranslation();
-  const analysisUnavailable = analysis.aiStatus === "failed";
+  const deterministic = analysis.provider === "deterministic";
   return (
     <GlassCard id={panelId} strong className="app-card scroll-mt-24 overflow-hidden p-0">
       <div className="border-b border-blue-100/80 bg-gradient-to-r from-blue-50/80 via-white/60 to-cyan-50/75 px-5 py-5 sm:px-6">
@@ -57,21 +50,20 @@ export function AIInsightPanel({
           <span
             className={cn(
               "inline-flex items-center gap-1.5 rounded-full border bg-white/80 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em]",
-              analysisUnavailable
-                ? "border-amber-200 text-amber-700"
-                : "border-blue-100 text-blue-600",
+              "border-blue-100 text-blue-600",
             )}
           >
-            {analysisUnavailable ? <AlertCircle className="size-3" aria-hidden="true" /> : null}
-            {analysisUnavailable ? "Temporarily unavailable" : t("dashboard.aiAnalysis")}
+            {deterministic ? t("dashboard.ruleBasedInsight") : t("dashboard.aiAnalysis")}
           </span>
         </div>
-        <p
-          className="myanmar-readable mt-3 max-w-4xl text-sm leading-6 text-slate-600"
-          role={analysisUnavailable ? "status" : undefined}
-        >
+        <p className="myanmar-readable mt-3 max-w-4xl text-sm leading-6 text-slate-600">
           {analysis.summary}
         </p>
+        {deterministic ? (
+          <p className="mt-2 text-xs leading-5 text-slate-500" role="status">
+            {t("dashboard.aiUnavailable")}
+          </p>
+        ) : null}
       </div>
 
       <div className="grid md:grid-cols-2 xl:grid-cols-3">
@@ -83,7 +75,8 @@ export function AIInsightPanel({
               className={cn(
                 "p-5 sm:p-6",
                 index === 1 && "border-t border-slate-100 md:border-l md:border-t-0",
-                index === 2 && "border-t border-slate-100 md:col-span-2 xl:col-span-1 xl:border-l xl:border-t-0",
+                index === 2 &&
+                  "border-t border-slate-100 md:col-span-2 xl:col-span-1 xl:border-l xl:border-t-0",
               )}
             >
               <h3 className={cn("inline-flex items-center gap-2 text-sm font-bold", tone)}>

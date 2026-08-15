@@ -1,5 +1,5 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { loadDashboard, loadHistory, loadReading } from "@/lib/api-client";
+import { loadDashboard, loadHistory, loadReading } from "@/lib/firestore-service";
 import { useAuth } from "@/lib/auth-context";
 
 export function useVitals(limit?: number) {

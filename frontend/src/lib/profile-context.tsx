@@ -9,7 +9,7 @@ import {
 } from "react";
 import { useAuth } from "@/lib/auth-context";
 import type { LanguageCode } from "@/i18n/languages";
-import { loadProfile, savePreferredLanguage, saveProfile } from "./api-client";
+import { loadProfile, savePreferredLanguage, saveProfile } from "./firestore-service";
 
 export type ProfileSex = "male" | "female" | "prefer-not-to-say";
 export type BloodType = "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-" | "unknown";

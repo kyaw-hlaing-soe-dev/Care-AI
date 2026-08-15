@@ -1,7 +1,7 @@
 import type { VitalInput, VitalRecord } from "./vitals";
-import { submitVitals } from "./api-client";
+import { submitVitals } from "./firestore-service";
 
-export async function createVitalWithAi(
+export async function createVital(
   input: VitalInput,
   idempotencyKey: string = crypto.randomUUID(),
 ): Promise<VitalRecord> {

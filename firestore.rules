@@ -6,13 +6,153 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == uid;
     }
 
+    function validOptionalProfileFields(data) {
+      return (!('bloodType' in data) ||
+          data.bloodType in ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'unknown']) &&
+        (!('preferredLanguage' in data) ||
+          data.preferredLanguage in ['en', 'my', 'zh-CN']);
+    }
+
+    function validProfile(data) {
+      return data.keys().hasAll([
+          'displayName',
+          'dateOfBirth',
+          'sex',
+          'heightCm',
+          'weightKg',
+          'profileCompleted',
+          'createdAt',
+          'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'displayName',
+          'dateOfBirth',
+          'sex',
+          'heightCm',
+          'weightKg',
+          'bloodType',
+          'preferredLanguage',
+          'profileCompleted',
+          'createdAt',
+          'updatedAt'
+        ]) &&
+        data.displayName is string &&
+        data.displayName.size() >= 2 &&
+        data.displayName.size() <= 50 &&
+        data.dateOfBirth is string &&
+        data.dateOfBirth.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') &&
+        data.sex in ['male', 'female', 'prefer-not-to-say'] &&
+        data.heightCm is number &&
+        data.heightCm >= 50 &&
+        data.heightCm <= 250 &&
+        data.weightKg is number &&
+        data.weightKg >= 2 &&
+        data.weightKg <= 500 &&
+        data.profileCompleted == true &&
+        validOptionalProfileFields(data);
+    }
+
+    function validVitalInput(data) {
+      return data.systolic is number &&
+        data.systolic >= 50 &&
+        data.systolic <= 300 &&
+        data.diastolic is number &&
+        data.diastolic >= 30 &&
+        data.diastolic <= 200 &&
+        data.heartRate is number &&
+        data.heartRate >= 20 &&
+        data.heartRate <= 250 &&
+        data.oxygenSaturation is number &&
+        data.oxygenSaturation >= 50 &&
+        data.oxygenSaturation <= 100 &&
+        data.temperatureC is number &&
+        data.temperatureC >= 30 &&
+        data.temperatureC <= 45;
+    }
+
+    function deviationCount(data) {
+      return (data.temperatureC >= 36.1 && data.temperatureC <= 37.2 ? 0 : 1) +
+        (data.systolic >= 90 && data.systolic <= 120 ? 0 : 1) +
+        (data.diastolic >= 60 && data.diastolic <= 80 ? 0 : 1) +
+        (data.heartRate >= 60 && data.heartRate <= 100 ? 0 : 1) +
+        (data.oxygenSaturation >= 95 && data.oxygenSaturation <= 100 ? 0 : 1);
+    }
+
+    function isEmergency(data) {
+      return data.oxygenSaturation < 90 ||
+        data.temperatureC >= 39.5 ||
+        data.systolic >= 180 ||
+        data.diastolic >= 120 ||
+        data.heartRate >= 130 ||
+        data.heartRate <= 40;
+    }
+
+    function validDeterministicResult(data) {
+      let deviations = deviationCount(data);
+      let emergency = isEmergency(data);
+      return data.healthScore == 100 - (deviations * 12) - (emergency ? 25 : 0) &&
+        data.emergency == emergency &&
+        data.status == (emergency ? 'Urgent' : (deviations == 0 ? 'Good' : 'Attention Needed')) &&
+        data.urgency == (emergency ? 'seek-care' : (deviations == 0 ? 'routine' : 'monitor'));
+    }
+
+    function validVital(data, readingId) {
+      return data.keys().hasAll([
+          'systolic',
+          'diastolic',
+          'heartRate',
+          'oxygenSaturation',
+          'temperatureC',
+          'healthScore',
+          'status',
+          'emergency',
+          'urgency',
+          'algorithmVersion',
+          'analysisStatus',
+          'idempotencyKey',
+          'createdAt'
+        ]) &&
+        data.keys().hasOnly([
+          'systolic',
+          'diastolic',
+          'heartRate',
+          'oxygenSaturation',
+          'temperatureC',
+          'healthScore',
+          'status',
+          'emergency',
+          'urgency',
+          'algorithmVersion',
+          'analysisStatus',
+          'idempotencyKey',
+          'createdAt'
+        ]) &&
+        validVitalInput(data) &&
+        validDeterministicResult(data) &&
+        data.algorithmVersion == 'v1' &&
+        data.analysisStatus == 'unavailable' &&
+        data.idempotencyKey is string &&
+        data.idempotencyKey == readingId &&
+        data.idempotencyKey.matches('^[A-Za-z0-9][A-Za-z0-9._:-]{7,127}$') &&
+        data.createdAt == request.time;
+    }
+
     match /users/{uid} {
       allow read: if isOwner(uid);
-      allow write: if false;
+      allow create: if isOwner(uid) &&
+        validProfile(request.resource.data) &&
+        request.resource.data.createdAt == request.time &&
+        request.resource.data.updatedAt == request.time;
+      allow update: if isOwner(uid) &&
+        validProfile(request.resource.data) &&
+        request.resource.data.createdAt == resource.data.createdAt &&
+        request.resource.data.updatedAt == request.time;
+      allow delete: if false;
 
       match /vitals/{readingId} {
         allow read: if isOwner(uid);
-        allow write: if false;
+        allow create: if isOwner(uid) && validVital(request.resource.data, readingId);
+        allow update, delete: if false;
       }
 
       match /analyses/{analysisId} {
