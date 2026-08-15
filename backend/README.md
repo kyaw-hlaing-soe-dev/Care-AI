@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This folder is the planned Firebase Cloud Functions backend for CareAI. It will become the trusted layer for Firebase token verification, profile writes, vital submission, deterministic health scoring, OpenRouter analysis, Firestore persistence, dashboard data, history data, safe errors, and privacy-safe logging.
+This folder contains the Firebase Cloud Functions backend for CareAI. It is the trusted layer for Firebase token verification, profile writes, vital submission, deterministic health scoring, OpenRouter analysis, Firestore persistence, dashboard data, history data, safe errors, and privacy-safe logging.
 
-No backend business logic is implemented in this scaffold.
+The implementation is ready for local configuration and emulator verification. It has not been deployed; Firebase project aliases, hosted origins, the Google provider, and deployment secrets must be configured first.
 
 ## Architecture
 
@@ -21,7 +21,7 @@ Client
 -> safe response
 ```
 
-The backend root is `functions/` because the specs recommend Firebase Cloud Functions for the MVP and no Express backend exists in the repository.
+The Firebase Functions source is this `backend/` directory. The HTTPS API and private retry task run in `asia-southeast1` on Node.js 22.
 
 ## Main Domains
 
@@ -50,17 +50,26 @@ Do not put OpenRouter keys, Firebase Admin private keys, ID tokens, or other bac
 
 Frontend remains responsible for UI, navigation, forms, local interaction state, language rendering, display formatting, and client-side validation feedback.
 
-Backend will be responsible for Firebase ID token verification, UID derivation, server validation, trusted health-score execution, OpenRouter calls, normalized AI output, owner-scoped Firestore writes and reads, safe errors, and privacy-safe logs.
+Backend is responsible for Firebase ID token verification, UID derivation, server validation, trusted health-score execution, OpenRouter calls, normalized AI output, owner-scoped Firestore writes and reads, safe errors, and privacy-safe logs.
 
-## Future Implementation Order
+## Local setup
 
-1. Firebase project setup, Functions runtime configuration, and Firebase Admin initialization.
-2. Authentication verification helper that derives UID only from a verified Firebase ID token.
-3. Profile create/read/update service and Firestore rules for `users/{uid}`.
-4. Vital request validation using the existing technical limits.
-5. Health-score service ported from the documented deterministic algorithm.
-6. Trusted vital submission flow with Firestore persistence and duplicate-submission protection.
-7. OpenRouter provider with server-only configuration, timeout, safe retry, and sanitized failure handling.
-8. AI analysis normalization and persistence.
-9. Dashboard and history query functions with bounded reads and pagination.
-10. Error contract, privacy-safe logging, unit tests, emulator checks, and deployment configuration.
+1. Use Node.js 22.13 or newer and run `npm ci` in this directory.
+2. Copy `.env.example` to `.env.local`; keep real secrets out of git.
+3. Add Firebase `dev` and `prod` aliases in a local `.firebaserc`, or pass a project ID explicitly.
+4. Set the Functions secret with `firebase functions:secrets:set OPENROUTER_API_KEY --project <project-id>`.
+5. Start local services with `npm run emulators`; configure the frontend from `frontend/.env.example`.
+
+Verification commands are `npm test`, `npm run typecheck`, `npm run build`, and `npm run test:rules`. Rules tests require the Firebase emulator suite to start successfully.
+
+## API
+
+The regional Functions base path ends in `/api`. Every operation requires `Authorization: Bearer <Firebase ID token>`:
+
+- `GET|PUT /profile`
+- `PATCH /profile/preferences`
+- `POST /vitals/analyze` with an `Idempotency-Key` header
+- `POST /vitals/:readingId/retry-analysis`
+- `GET /dashboard`
+- `GET /history?period=all|7d|30d&pageSize=...&cursor=...`
+- `GET /history/:readingId`

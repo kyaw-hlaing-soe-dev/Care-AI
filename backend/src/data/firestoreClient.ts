@@ -1,7 +1,2 @@
-/**
- * Firestore client boundary.
- *
- * TODO:
- * - Provide access to the Firebase Admin Firestore client after Admin initialization exists.
- */
-export {};
+export { firestore as db } from "../config/firebase.js";
+export { FieldValue, Timestamp } from "firebase-admin/firestore";
