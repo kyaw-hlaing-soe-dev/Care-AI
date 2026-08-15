@@ -1,5 +1,7 @@
 # CareAI Backend Requirements & Flow
 
+> **Status note (2026-08-15):** This is the original design/reference document and contains illustrative alternatives. The implemented contract is defined by `backend-architecture.md`, the feature specs, `09-database/*`, `10-security/*`, and `12-api/*`. Where examples here differ, those current specs and the tested implementation take precedence. Deployment and end-to-end verification remain outstanding.
+
 ## 1. Project Overview
 
 **Project Name:** CareAI
@@ -1924,9 +1926,9 @@ Firebase / Google Cloud for backend functions
 Recommended server-side environment configuration:
 
 ```env
-OPENROUTER_API_KEY=your-secret-key
-OPENROUTER_MODEL=your-approved-model-slug
-OPENROUTER_SITE_URL=https://your-careai-domain.com
+OPENROUTER_API_KEY=
+OPENROUTER_MODEL=
+OPENROUTER_SITE_URL=
 OPENROUTER_APP_NAME=CareAI
 ```
 

@@ -9,7 +9,7 @@ Cloud Firestore is the structured database for profiles, vitals, and analyses. F
 
 ## Current state
 
-**NOT IMPLEMENTED.** No Firebase Storage package/configuration or upload UI exists. Current UI can display an auth avatar URL but does not upload it.
+**DENY-BY-DEFAULT RULES IMPLEMENTED, FILE FEATURE NOT IMPLEMENTED.** `storage.rules` denies every read/write and no upload UI exists. The authenticated Google avatar remains a provider URL; no CareAI file persistence is enabled.
 
 ## Target
 

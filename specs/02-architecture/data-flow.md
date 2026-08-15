@@ -5,7 +5,7 @@
 **Last Updated:** 2026-08-10
 **Related:** [Authentication](../03-auth/authentication.md), [Firestore Queries](../09-database/firestore-queries.md)
 
-## Auth and profile — target
+## Auth and profile — implemented in code, not deployed
 
 ```mermaid
 flowchart LR
@@ -16,9 +16,9 @@ flowchart LR
   CP --> W[Trusted profile write] --> D
 ```
 
-Current state: mock user and profile are read from localStorage.
+Current code observes Firebase Auth, loads/saves profiles through the verified backend, and requires `profileCompleted: true` before protected routes unlock.
 
-## Vital and AI — target
+## Vital and AI — implemented in code, not deployed
 
 ```mermaid
 flowchart LR
@@ -31,7 +31,7 @@ flowchart LR
   A --> D[Dashboard and History]
 ```
 
-Current state: `createVitalWithAi()` calls the TanStack server endpoint, which validates, calculates the deterministic score, calls/normalizes OpenRouter, and returns a combined record. The browser then writes that record to `aicare.vitals.v1`; verified auth, Firestore writes, and separate analysis persistence remain outstanding.
+Current code submits five readings with a Firebase ID token and idempotency key. The backend validates, scores, persists the reading, calls/normalizes OpenRouter, and persists a separate linked analysis; provider failure preserves the reading and safe fallback state.
 
 ## Dashboard/history — target
 

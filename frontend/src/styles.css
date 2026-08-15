@@ -60,7 +60,9 @@
   --color-info-bg: var(--info-bg);
   --color-info-text: var(--info-text);
 
-  --font-sans: "Inter", "Noto Sans Myanmar", "Myanmar Text", "Pyidaungsu", "Microsoft YaHei", "PingFang SC", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+  --font-sans:
+    "Inter", "Noto Sans Myanmar", "Myanmar Text", "Pyidaungsu", "Microsoft YaHei", "PingFang SC",
+    "Noto Sans SC", -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
 
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -117,7 +119,9 @@
   }
 
   html:lang(my) body {
-    font-family: "Noto Sans Myanmar", "Inter", "Noto Sans SC", "Myanmar Text", "Pyidaungsu", system-ui, sans-serif;
+    font-family:
+      "Noto Sans Myanmar", "Inter", "Noto Sans SC", "Myanmar Text", "Pyidaungsu", system-ui,
+      sans-serif;
     line-height: 1.65;
   }
 
@@ -278,8 +282,7 @@
   color: #0f172a;
   background:
     radial-gradient(circle at 8% 8%, rgba(59, 130, 246, 0.065), transparent 27rem),
-    radial-gradient(circle at 92% 12%, rgba(34, 211, 238, 0.065), transparent 25rem),
-    #f8fbff;
+    radial-gradient(circle at 92% 12%, rgba(34, 211, 238, 0.065), transparent 25rem), #f8fbff;
 }
 
 .app-shell::before {
@@ -390,7 +393,9 @@
   -webkit-backdrop-filter: blur(var(--glass-blur-lg)) saturate(var(--glass-saturation));
   backdrop-filter: blur(var(--glass-blur-lg)) saturate(var(--glass-saturation));
   border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-ui-sm), inset 0 1px 0 var(--glass-edge);
+  box-shadow:
+    var(--shadow-ui-sm),
+    inset 0 1px 0 var(--glass-edge);
 }
 
 /* thin specular highlight along the top edge */

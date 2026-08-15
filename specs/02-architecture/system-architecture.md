@@ -5,20 +5,21 @@
 **Last Updated:** 2026-08-10
 **Related:** [Frontend](./frontend-architecture.md), [Backend](./backend-architecture.md), [Security](../10-security/security.md)
 
-## Current architecture — PARTIAL
+## Current architecture — IMPLEMENTED IN CODE, NOT DEPLOYED
 
-The repository is a single TanStack Start application. Mock identity, profile state, and final vital persistence remain in browser localStorage. Vital submission now passes through a TanStack server endpoint for repeat validation, deterministic score execution, and optional normalized OpenRouter analysis before the returned record is saved locally.
+The repository contains a TanStack Start frontend plus a Firebase Cloud Functions backend. Firebase Authentication establishes identity; token-bearing API requests reach the regional Functions API; Firebase Admin verifies identity and performs owner-scoped Firestore reads/writes; and OpenRouter remains server-only. A one-time cutover clears legacy mock identity/profile/vital localStorage keys without importing them.
 
 ```mermaid
 flowchart LR
-  UI[React/TanStack Start UI] --> API[TanStack analyze endpoint]
+  UI[React/TanStack Start UI] --> AUTH[Firebase Authentication]
+  UI --> API[Firebase Functions API]
+  API --> ADMIN[Firebase Admin token verification]
   API --> SCORE[Deterministic score]
   API --> OR[OpenRouter]
-  API --> UI
-  UI --> LS[Browser localStorage]
+  API --> DB[Cloud Firestore]
 ```
 
-## Target MVP architecture — PLANNED
+## Target MVP architecture
 
 ```mermaid
 flowchart LR
@@ -34,6 +35,6 @@ flowchart LR
 
 Responsibilities: UI captures/presents data; Firebase Auth establishes identity; Firestore stores structured owner-scoped records; Storage stores files only; the protected backend validates requests, derives the UID, scores vitals, calls OpenRouter, normalizes output, and performs trusted writes. Trusted business and security logic must not live in browser code.
 
-## Gap
+## Remaining gap
 
-Firebase dependencies/configuration, Admin SDK verification, Firestore persistence/rules, and Storage rules remain absent. OpenRouter configuration and server validation exist only in the local TanStack server slice. The missing identity and durable ownership boundary remains a P0 production-readiness gap.
+Firebase project provisioning, Google-provider setup, deployed rules/indexes/functions, secret configuration, rules-emulator acceptance, and end-to-end verification remain outstanding. The repository implementation alone is not a production authorization boundary until those controls are deployed and verified.

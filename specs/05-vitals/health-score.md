@@ -20,4 +20,4 @@ Score is integer-valued with range 0–100; no rounding step is needed. Missing 
 
 ## Target execution
 
-**CARE-SCORE-001 — P0 / PARTIAL:** The TanStack analysis endpoint executes the deterministic algorithm before OpenRouter, supplies the calculated score, and rejects provider urgency conflicts. Boundary coverage and migration to the verified Firebase/Firestore backend remain required before production. OpenRouter must never invent the authoritative numeric score.
+**CARE-SCORE-001 — P0 / IMPLEMENTED IN CODE, NOT DEPLOYED:** The Cloud Functions backend executes the deterministic algorithm before OpenRouter, persists the calculated score/status/urgency, and rejects provider urgency conflicts. Backend boundary/determinism tests pass; live Firebase acceptance remains required. OpenRouter never supplies the authoritative numeric score.

@@ -5,6 +5,7 @@ import { GlassInput } from "@/components/glass/GlassInput";
 import { RANGES, type VitalInput } from "@/lib/vitals";
 import { createVitalWithAi } from "@/lib/vitals-store";
 import { useTranslation } from "react-i18next";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Fields = Record<keyof VitalInput, string>;
 type FieldErrors = Partial<Record<keyof Fields, string>>;
@@ -49,6 +50,7 @@ function validate(fields: Fields, translate: (key: string) => string): FieldErro
 
 export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const [fields, setFields] = useState<Fields>(EMPTY);
   const [touched, setTouched] = useState<Partial<Record<keyof Fields, boolean>>>({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -106,7 +108,9 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
         },
         idempotencyKey.current,
       );
-      const analysisCompleted = record.analysis.aiStatus !== "failed";
+      const analysisCompleted = record.analysis.aiStatus === "completed";
+      await queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+      await queryClient.invalidateQueries({ queryKey: ["history"] });
       setSavedWithAnalysis(analysisCompleted);
       setSavedMessage(record.analysis.summary);
       setSaved(true);

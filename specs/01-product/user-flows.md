@@ -7,14 +7,14 @@
 
 ## Current implementation note
 
-The route sequence below is the target user flow. The current app implements equivalent redirects with mock localStorage identity/profile state, not Firebase.
+The route sequence below is implemented in code with Firebase identity and the protected profile API. Firebase project/provider deployment and browser E2E acceptance remain outstanding.
 
 ## New user flow
 
 ```mermaid
 flowchart TD
   L[Landing] --> LI[Login]
-  LI --> G[Google via Firebase: target]
+  LI --> G[Google via Firebase]
   G --> A[Authenticated user]
   A --> C{Profile exists?}
   C -->|No| CP[/create-profile]
@@ -23,13 +23,13 @@ flowchart TD
   C -->|Yes| D
 ```
 
-Current routes are `/`, `/login`, `/create-profile`, and `/dashboard`. The mock login always resolves to `Thuzar <thuzar@example.com>`.
+Current routes are `/`, `/login`, `/create-profile`, and `/dashboard`. Only an API profile reporting `profileCompleted: true` bypasses onboarding.
 
 ## Existing user flow
 
 ```mermaid
 flowchart LR
-  G[Firebase Google sign-in: target] --> P{Firestore profile}
+  G[Firebase Google sign-in] --> P{Firestore profile complete?}
   P -->|Exists| D[/dashboard]
 ```
 
@@ -40,7 +40,7 @@ flowchart TD
   D[Dashboard] --> V[/add]
   V --> E[Enter five readings]
   E --> FV[Frontend validation]
-  FV --> SV[Server validation: target]
+  FV --> SV[Verified server validation]
   SV --> HS[Deterministic Health Score]
   HS --> WR[Save owner-scoped reading]
   WR --> AI[Protected OpenRouter analysis]
@@ -48,7 +48,7 @@ flowchart TD
   WA --> D
 ```
 
-Current behavior is `client validate → TanStack server validate/score/OpenRouter → normalized or failed analysis → localStorage → dashboard`. Firebase verification, remote reading/analysis writes, and durable ownership remain unimplemented.
+Current behavior is `client validate → verified backend validate/score/write → normalized or failed analysis write → query refresh → dashboard`. Durable idempotency prevents a reused submission key from creating another reading.
 
 ## History flow
 
@@ -59,8 +59,8 @@ flowchart LR
   Q --> R[Expand reading and its analysis]
 ```
 
-The current local implementation supports All, 7 Days, and 30 Days filters plus a local load-more increment of 20.
+The current API implementation supports All, 7 Days, and 30 Days filters plus cursor pages of 20 owner-scoped readings.
 
 ## Logout flow
 
-Target: Firebase `signOut()` clears the session, client cache, and protected UI, then routes to `/login`. Current behavior removes only `aicare.user.v1` from localStorage; local profile and vital records remain on the device.
+Firebase `signOut()` clears the session and React Query cache before protected routing returns to `/login`. Legacy local profile/vital keys are removed during the one-time cutover and on logout.

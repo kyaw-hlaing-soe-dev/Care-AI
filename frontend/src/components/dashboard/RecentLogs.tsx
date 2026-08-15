@@ -12,7 +12,10 @@ export function RecentLogs({ records }: { records: VitalRecord[] }) {
   return (
     <section aria-labelledby="recent-logs-heading">
       <div className="mb-4 flex items-center justify-between gap-4">
-        <h2 id="recent-logs-heading" className="text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]">
+        <h2
+          id="recent-logs-heading"
+          className="text-xl font-extrabold tracking-[-0.03em] text-slate-950 sm:text-[22px]"
+        >
           {t("dashboard.recentLogs")}
         </h2>
         <Link
@@ -37,14 +40,20 @@ export function RecentLogs({ records }: { records: VitalRecord[] }) {
                 {formatRecordedAt(record.recordedAt)}
               </span>
               <span className="mt-1.5 block text-xs leading-5 text-slate-500 sm:text-[13px]">
-                {record.systolic}/{record.diastolic} mmHg <span aria-hidden="true">•</span> {record.heartRate} bpm <span aria-hidden="true">•</span> {record.oxygen}% <span aria-hidden="true">•</span> {record.temperature}°C
+                {record.systolic}/{record.diastolic} mmHg <span aria-hidden="true">•</span>{" "}
+                {record.heartRate} bpm <span aria-hidden="true">•</span> {record.oxygen}%{" "}
+                <span aria-hidden="true">•</span> {record.temperature}°C
               </span>
             </span>
             <span className="flex items-center justify-between gap-3 sm:justify-end">
               <StatusBadge status={record.analysis.status} />
               <span className="text-right">
-                <span className="block text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400">{t("common.score")}</span>
-                <span className="block text-xl font-extrabold tabular-nums text-blue-600">{record.analysis.score}</span>
+                <span className="block text-[10px] font-bold uppercase tracking-[0.1em] text-slate-400">
+                  {t("common.score")}
+                </span>
+                <span className="block text-xl font-extrabold tabular-nums text-blue-600">
+                  {record.analysis.score}
+                </span>
               </span>
             </span>
           </Link>

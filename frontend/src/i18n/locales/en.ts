@@ -339,7 +339,6 @@ const en = {
       proofInsights: "Clear Health Insights",
       proofHistory: "Vital Trend History",
       doctorAlt: "Friendly CareAI health companion",
-
     },
     features: {
       eyebrow: "Features",
@@ -437,7 +436,6 @@ const en = {
       doctorAlt: "CareAI 3D health companion",
     },
     footer: {
-
       body: "Simple vital tracking and AI-powered health insights.",
       privacy: "Privacy",
       about: "About",

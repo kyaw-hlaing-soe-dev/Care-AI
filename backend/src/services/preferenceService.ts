@@ -1,7 +1,1 @@
-/**
- * Preference service.
- *
- * TODO:
- * - Persist supported user preferences such as `preferredLanguage` on the profile document.
- */
-export {};
+export { savePreference as updatePreference } from "./profileService.js";

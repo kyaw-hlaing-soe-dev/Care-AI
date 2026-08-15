@@ -10,7 +10,7 @@ export type VitalInput = {
 
 export type VitalAnalysis = {
   status: VitalStatus;
-  aiStatus?: "completed" | "failed";
+  aiStatus?: "pending" | "completed" | "failed";
   urgency?: "routine" | "monitor" | "seek-care";
   disclaimer?: string;
   provider?: "openrouter";

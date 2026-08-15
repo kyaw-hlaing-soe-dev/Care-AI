@@ -1,13 +1,13 @@
 # CareAI Security Specification
 
-**Status:** Planned  
+**Status:** Implemented in code, deployment pending
 **Version:** 1.0  
 **Last Updated:** 2026-08-08  
 **Related:** [Authorization](../03-auth/authorization.md), [OpenRouter](../06-ai/openrouter.md), [Privacy](./privacy.md)
 
 ## Findings
 
-**CARE-SEC-002 — P0 / NOT IMPLEMENTED:** Current mock auth, email-keyed profile storage, and shared local vital storage have no production identity/ownership boundary. Do not deploy health data on this model.
+**CARE-SEC-002 — P0 / IMPLEMENTED IN CODE, NOT DEPLOYED:** Firebase Auth tokens, Admin verification, owner-derived paths, server-only writes, owner-read rules, deny-by-default Storage rules, safe errors, and privacy-safe logs are implemented. Do not treat these controls as live until the Firebase projects, rules, functions, secrets, and provider are deployed and verified.
 
 Target controls: Firebase Auth session/ID token; backend Firebase Admin verification; Firestore/Storage ownership rules; server validation; server-only OpenRouter/Firebase Admin secrets; sanitized logs/errors; HTTPS deployment; no sensitive data in URLs; no production health/profile data in localStorage.
 

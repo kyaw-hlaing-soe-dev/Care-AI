@@ -77,7 +77,8 @@
 
   /* Elevation */
   --shadow-glass: 0 14px 38px -24px rgba(30, 64, 140, 0.24), 0 2px 8px -6px rgba(30, 64, 140, 0.1);
-  --shadow-glass-lift: 0 20px 48px -26px rgba(30, 64, 140, 0.28), 0 4px 14px -8px rgba(30, 64, 140, 0.14);
+  --shadow-glass-lift:
+    0 20px 48px -26px rgba(30, 64, 140, 0.28), 0 4px 14px -8px rgba(30, 64, 140, 0.14);
   --shadow-float: 0 24px 64px -38px rgba(28, 72, 135, 0.32);
   --shadow-ui-sm: 0 6px 18px rgba(44, 83, 130, 0.065);
   --shadow-ui-md: 0 12px 32px rgba(44, 83, 130, 0.09);
@@ -92,7 +93,12 @@
   --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --brand-gradient: linear-gradient(105deg, var(--brand-blue-700) 0%, var(--brand-blue-500) 50%, var(--brand-cyan-400) 100%);
+  --brand-gradient: linear-gradient(
+    105deg,
+    var(--brand-blue-700) 0%,
+    var(--brand-blue-500) 50%,
+    var(--brand-cyan-400) 100%
+  );
 
   /* Multilingual typography */
   --my-display-size: clamp(2rem, 7.2vw, 2.7rem);
@@ -116,7 +122,8 @@
     --glass-blur-sm: 8px;
     --glass-blur-md: 12px;
     --glass-blur-lg: 16px;
-    --shadow-glass: 0 14px 36px -22px rgba(30, 64, 140, 0.24), 0 2px 8px -5px rgba(30, 64, 140, 0.1);
+    --shadow-glass:
+      0 14px 36px -22px rgba(30, 64, 140, 0.24), 0 2px 8px -5px rgba(30, 64, 140, 0.1);
     --my-display-size: clamp(1.62rem, 7.8vw, 2.05rem);
     --my-section-title-size: clamp(1.55rem, 6vw, 2rem);
     --my-page-title-size: clamp(1.75rem, 8vw, 2.05rem);

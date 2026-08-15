@@ -2,18 +2,18 @@
 
 **Status:** Active  
 **Version:** 1.0  
-**Last Updated:** 2026-08-10
+**Last Updated:** 2026-08-15
 
-CareAI is a responsive health-vital tracking web application. The current repository is a TanStack Start/React/TypeScript frontend using local browser storage. A TanStack server endpoint now validates and scores vital submissions and calls OpenRouter with a normalized safety contract. Firebase, Firestore, Firebase Storage, verified identity, and durable protected persistence remain the intended MVP target and are not implemented.
+CareAI is a responsive health-vital tracking web application. The repository now includes a Firebase Auth frontend cutover and a Firebase Cloud Functions/Firestore backend implementation. Deployment, real Firebase project configuration, Google-provider setup, and full emulator/E2E verification remain outstanding.
 
 ## MVP status
 
-The UI MVP is substantially implemented: landing, profile onboarding, vital entry, dashboard, local history, charts, responsive layouts, and a deterministic score/insight stand-in work in-browser. The production data, identity, AI, and security layers are not implemented.
+The UI MVP and backend code path are substantially implemented. Authenticated profile, vital, dashboard, and history requests now use the protected API; legacy local records are deliberately cleared once rather than silently imported. The system is not production-ready until project provisioning, rules deployment, secret configuration, and the remaining QA checks are completed.
 
 ## Technology summary
 
-- **Current:** TanStack Start, React 19, TypeScript, Vite, Tailwind CSS 4, React Query, Recharts, Motion, Zod, localStorage.
-- **Target:** Firebase Authentication with Google Provider, Cloud Firestore, Firebase Storage for files only, and Firebase Cloud Functions (or another protected server) using Firebase Admin and OpenRouter.
+- **Current implementation:** TanStack Start, React 19, TypeScript, React Query, Firebase Authentication, Cloud Firestore, Firebase Cloud Functions on Node.js 22, Firebase Admin, and server-only OpenRouter.
+- **Deployment target:** separate Firebase development and production projects in `asia-southeast1`; Storage remains deny-by-default until a file feature is approved.
 
 ## Specification index
 
@@ -49,16 +49,16 @@ The UI MVP is substantially implemented: landing, profile onboarding, vital entr
 
 ## Current feature inventory
 
-| Area | Status | Evidence |
-| --- | --- | --- |
-| Local vital tracking, validation, score, and history | IMPLEMENTED | `src/components/VitalForm.tsx`, `src/lib/vitals*.ts` |
-| Profile onboarding and redirects | PARTIAL | `src/lib/profile-context.tsx`; browser-only persistence |
-| Authentication / Google Sign-In | NOT IMPLEMENTED | `src/lib/auth-context.tsx` simulates a fixed user |
-| Firebase / Firestore / Storage | NOT IMPLEMENTED | no Firebase dependency, configuration, or rules found |
-| OpenRouter integration | PARTIAL | server-only TanStack endpoint, validation, timeout/retry, normalization, fallback, and tests; no verified auth or Firestore persistence |
-| Dashboard and local trends | PARTIAL | `src/routes/dashboard.tsx`, local records only |
-| Responsive public and authenticated UI | IMPLEMENTED | Tailwind/Tailwind CSS responsive layouts |
-| Automated tests | PARTIAL | focused AI endpoint/provider/normalization tests; broader unit, integration, component, and E2E coverage remain |
+| Area                                           | Status      | Evidence                                                                                                                                                                        |
+| ---------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Vital tracking, validation, score, and history | PARTIAL     | protected API and Firestore implementation complete; deployment/E2E verification outstanding                                                                                    |
+| Profile onboarding and redirects               | PARTIAL     | Firebase-backed implementation complete; provider configuration and E2E verification outstanding                                                                                |
+| Authentication / Google Sign-In                | PARTIAL     | Firebase Auth implementation complete; project/provider configuration outstanding                                                                                               |
+| Firebase / Firestore / Storage                 | PARTIAL     | Functions, rules, indexes, emulator config, and deny-by-default Storage rules implemented but not deployed                                                                      |
+| OpenRouter integration                         | PARTIAL     | verified-auth Functions path, persistence, durable idempotency, private retry task, normalization, fallback, and focused tests implemented; deployment verification outstanding |
+| Dashboard and trends                           | PARTIAL     | bounded owner-scoped backend queries and frontend loading implemented; E2E verification outstanding                                                                             |
+| Responsive public and authenticated UI         | IMPLEMENTED | Tailwind/Tailwind CSS responsive layouts                                                                                                                                        |
+| Automated tests                                | PARTIAL     | deterministic-score, validation, provider, and Firestore owner-rule suites pass; Storage test exists but its emulator runtime download and broader integration/E2E coverage remain unverified |
 
 ## How AI coding agents must use these specs
 
