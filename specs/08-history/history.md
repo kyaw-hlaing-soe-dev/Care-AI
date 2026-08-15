@@ -5,12 +5,12 @@
 **Last Updated:** 2026-08-08  
 **Related:** [Dashboard](../07-dashboard/dashboard.md), [Firestore Queries](../09-database/firestore-queries.md), [AI Output Schema](../06-ai/ai-output-schema.md)
 
-## Current implementation — IMPLEMENTED locally
+## Current implementation — IMPLEMENTED IN CODE, NOT DEPLOYED
 
-`/history` uses `useVitals()` and sorts newest first through `listVitals()`. It offers All/7 Days/30 Days filtering, summary cards, expandable `HistoryItem`s, empty/filter-empty states, and local “Load More” increments of 20. `/history/$id` exists as a route file and should resolve only an owned record in the target architecture.
+`/history` uses a protected infinite query with All/7 Days/30 Days server filters and cursor pages of 20 newest-first owner records. `/history/$id` uses an owner-scoped detail operation and returns the linked analysis or a safe not-found/failure state.
 
 ## Target behavior
 
-**CARE-HISTORY-001 — P1 / PARTIAL:** Query `users/{uid}/vitals` newest first, limit results, paginate using document cursors, and retrieve only the analysis linked by `readingId`. A not-found/missing analysis state must not expose a different user’s record. Database loading, permission denial, and network failures require user-facing safe error states.
+**CARE-HISTORY-001 — P1 / IMPLEMENTED IN CODE, NOT DEPLOYED:** Query `users/{uid}/vitals` newest first, limit results, paginate using owner-scoped document cursors, and retrieve only the analysis linked by `readingId`. Not-found and failure states do not expose another user’s record.
 
 Default sorting is newest first. Date filtering can be server-query-backed where indexed or safely filtered from an already fetched bounded user dataset; never query all users.

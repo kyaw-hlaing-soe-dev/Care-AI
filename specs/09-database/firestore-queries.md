@@ -1,13 +1,13 @@
 # CareAI Firestore Queries
 
-**Status:** Planned  
+**Status:** Implemented in code, deployment pending
 **Version:** 1.0  
 **Last Updated:** 2026-08-08  
 **Related:** [Dashboard](../07-dashboard/dashboard.md), [History](../08-history/history.md)
 
 ## Current state
 
-**NOT IMPLEMENTED.** Local `listVitals(limit?)` sorts ISO timestamps descending in browser memory.
+**IMPLEMENTED IN CODE, NOT DEPLOYED.** The backend performs bounded newest-first dashboard and cursor-paginated history queries under the UID derived from the verified token, then joins only same-owner analysis documents.
 
 ## Target query patterns
 

@@ -8,7 +8,7 @@
 ## AC-AUTH-001
 
 **Related requirement:** CARE-PROD-003  
-**Status:** NOT IMPLEMENTED
+**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 
 **GIVEN** a visitor is unauthenticated  
 **WHEN** they complete Google authentication through Firebase  
@@ -17,7 +17,7 @@
 ## AC-PROFILE-001
 
 **Related requirement:** CARE-PROD-004  
-**Status:** PARTIAL
+**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 
 **GIVEN** an authenticated user without a profile  
 **WHEN** they submit valid required profile fields  
@@ -26,7 +26,7 @@
 ## AC-VITAL-001
 
 **Related requirement:** CARE-PROD-001  
-**Status:** IMPLEMENTED (client); PARTIAL (server validation/analysis, local persistence)
+**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 
 **GIVEN** a profile-complete user  
 **WHEN** they submit five numeric readings inside technical limits  
@@ -44,18 +44,18 @@
 ## AC-AI-001
 
 **Related requirement:** CARE-PROD-006  
-**Status:** PARTIAL for provider integration
+**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 
 **GIVEN** a validated, saved reading  
 **WHEN** the protected AI provider is available  
 **THEN** only minimal permitted context is sent, its response is normalized to the approved schema, and the UI shows the disclaimer.
 
-The current TanStack endpoint implements minimal context, deterministic authority, normalization, failure fallback, and the disclaimer. Verified authentication and durable owner-scoped reading/analysis persistence are still missing.
+The Cloud Functions implementation verifies Firebase ID tokens, persists owner-scoped readings and analyses, sends minimal context, preserves deterministic authority, normalizes failure output, and supplies the disclaimer. Live provider and deployment acceptance remain outstanding.
 
 ## AC-DASH-001
 
 **Related requirement:** CARE-PROD-007  
-**Status:** PARTIAL
+**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 
 **GIVEN** an authenticated user with readings  
 **WHEN** dashboard data loads  
@@ -64,7 +64,7 @@ The current TanStack endpoint implements minimal context, deterministic authorit
 ## AC-HISTORY-001
 
 **Related requirement:** CARE-PROD-008  
-**Status:** IMPLEMENTED locally; NOT IMPLEMENTED remotely
+**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 
 **GIVEN** a user has saved readings  
 **WHEN** they open history  
@@ -73,7 +73,7 @@ The current TanStack endpoint implements minimal context, deterministic authorit
 ## AC-SEC-001
 
 **Related requirement:** CARE-PROD-005  
-**Status:** NOT IMPLEMENTED
+**Status:** IMPLEMENTED IN CODE; RULES DEPLOYMENT / EMULATOR ACCEPTANCE OUTSTANDING
 
 **GIVEN** User A is authenticated  
 **WHEN** User A requests profile, reading, or analysis data  

@@ -5,9 +5,9 @@
 **Last Updated:** 2026-08-08  
 **Related:** [Authentication](../03-auth/authentication.md), [Firestore Schema](../09-database/firestore-schema.md), [Privacy](../10-security/privacy.md)
 
-## Current state — PARTIAL
+## Current state — IMPLEMENTED IN CODE, NOT DEPLOYED
 
-`CreateProfileExperience` collects data, performs touched/submit validation, prevents repeated submit, shows a short success state, and redirects. `ProfileProvider` persists profiles under lowercased email in `aicare.profiles.v1`; it does not use UID, Firestore, server timestamps, or a backend.
+`CreateProfileExperience` retains its validation and duplicate-submit behavior. `ProfileProvider` now loads and saves through the protected API; the backend derives UID, validates the payload, writes `users/{uid}` with server timestamps and `profileCompleted: true`, and supports preferred-language updates. Live Firebase and E2E acceptance remain outstanding.
 
 | Field              | Type                  | Required | Current validation            | Target Firestore field/source               |
 | ------------------ | --------------------- | -------- | ----------------------------- | ------------------------------------------- |
@@ -36,4 +36,4 @@ The top-right user menu provides View Profile, Settings (`/profile#preferences`)
 
 ## Target behavior
 
-**CARE-PROFILE-001 — P0 / PARTIAL:** Backend derives the UID from the Firebase token and writes `users/{uid}` with `profileCompleted: true`, server timestamps, and only the fields above. Refresh waits for auth/profile resolution; unauthenticated users go to `/login`, completed users bypass onboarding to `/dashboard`, and save failures preserve entered values and show a safe retry message.
+**CARE-PROFILE-001 — P0 / IMPLEMENTED IN CODE, NOT DEPLOYED:** Backend derives the UID from the Firebase token and writes `users/{uid}` with `profileCompleted: true`, server timestamps, and only the fields above. Refresh waits for auth/profile resolution; unauthenticated users go to `/login`, only completed users bypass onboarding, and save failures preserve entered values with safe feedback.

@@ -7,7 +7,7 @@
 
 ## Current state
 
-**PARTIAL.** `npm run test:ai` covers vital request rejection, exact AI schema normalization, unsafe-output fallback, missing configuration, minimal provider context, deterministic urgency authority, 4xx/5xx retry behavior, and warm-instance idempotency. Score boundary suites, auth/Firestore integration, components, E2E, and manual release checks remain outstanding.
+**PARTIAL.** Frontend AI contract tests cover the legacy server boundary retained for regression safety. Backend suites cover deterministic score boundaries/determinism, strict vital/profile/history validation, safe malformed-body errors, minimal provider context, exact normalization/safety fallback, missing configuration, timeout/network behavior, 4xx/5xx retry policy, and urgency conflicts. Firestore owner-rule emulator tests pass. A deny-by-default Storage test exists, but its emulator runtime download, authenticated API integration, components, E2E, and manual release checks remain outstanding.
 
 ## Target priorities
 

@@ -34,50 +34,50 @@ The same five valid inputs must produce the same score and status. The current d
 ### CARE-PROD-003 — Google/Firebase sign-in
 
 **Priority:** P0  
-**Status:** NOT IMPLEMENTED  
+**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 **Acceptance:** [AC-AUTH-001](./acceptance-criteria.md#ac-auth-001)
 
-Target behavior is Firebase Authentication with Google Provider. Current code delays then stores a fixed mock user in localStorage.
+Firebase Authentication observes session state and uses Google popup sign-in with a blocked-popup redirect fallback. Live project/provider setup and E2E acceptance remain outstanding.
 
 ### CARE-PROD-004 — New-user profile onboarding
 
 **Priority:** P0  
-**Status:** PARTIAL  
+**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 **Acceptance:** [AC-PROFILE-001](./acceptance-criteria.md#ac-profile-001)
 
-The UI and route redirects exist, but profiles are keyed by email in localStorage rather than authenticated Firestore ownership.
+The protected API validates and writes profiles under the verified UID with server timestamps and `profileCompleted: true`; only completed profiles unlock protected routes.
 
 ### CARE-PROD-005 — Persist private user data
 
 **Priority:** P0  
-**Status:** NOT IMPLEMENTED  
+**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 **Acceptance:** [AC-SEC-001](./acceptance-criteria.md#ac-sec-001)
 
-Target is owner-scoped Firestore documents and trusted server writes. Browser localStorage must not hold production health/profile records.
+Owner-scoped Firestore paths and trusted Admin writes are implemented. Browser localStorage no longer stores private profile/vital records; deployment and ownership acceptance remain outstanding.
 
 ### CARE-PROD-006 — Informational AI insight
 
 **Priority:** P0  
-**Status:** PARTIAL  
+**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 **Acceptance:** [AC-AI-001](./acceptance-criteria.md#ac-ai-001)
 
-A server-only TanStack endpoint now calls OpenRouter with validated minimal context, normalizes the response, preserves deterministic score/status/urgency, and returns an explicit saved-reading failure state. Verified authentication and owner-scoped Firestore reading/analysis persistence remain absent.
+The Cloud Functions backend verifies Firebase identity, persists the owner-scoped reading, calls OpenRouter with validated minimal context, normalizes output, preserves deterministic authority, and persists completed or failed linked analysis state.
 
 ### CARE-PROD-007 — Dashboard and recent trends
 
 **Priority:** P1  
-**Status:** PARTIAL  
+**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 **Acceptance:** [AC-DASH-001](./acceptance-criteria.md#ac-dash-001)
 
-The dashboard renders from local records with empty/loading states. It does not fetch authenticated remote data or separately persisted analyses.
+The dashboard uses a bounded owner-scoped API query with linked analyses and distinct loading, empty, query-failure, and AI-unavailable states.
 
 ### CARE-PROD-008 — Health history
 
 **Priority:** P1  
-**Status:** IMPLEMENTED  
+**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 **Acceptance:** [AC-HISTORY-001](./acceptance-criteria.md#ac-history-001)
 
-Current local history is newest-first, filterable, expandable, and has a load-more control. Server pagination is not implemented.
+History uses newest-first Firestore queries, 7/30-day server filters, owner-scoped detail lookup, and document-cursor pagination.
 
 ### CARE-PROD-009 — Responsive, accessible interaction
 
