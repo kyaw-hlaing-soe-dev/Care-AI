@@ -3,7 +3,7 @@ import { Check, LoaderCircle, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { GlassInput } from "@/components/glass/GlassInput";
 import { RANGES, type VitalInput } from "@/lib/vitals";
-import { createVitalWithAi } from "@/lib/vitals-store";
+import { createVital } from "@/lib/vitals-store";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -56,7 +56,6 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [savedWithAnalysis, setSavedWithAnalysis] = useState(true);
   const [savedMessage, setSavedMessage] = useState("");
   const submitLock = useRef(false);
   const idempotencyKey = useRef<string | undefined>(undefined);
@@ -98,7 +97,7 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
     setSubmitting(true);
     try {
       idempotencyKey.current ??= crypto.randomUUID();
-      const record = await createVitalWithAi(
+      const record = await createVital(
         {
           temperature: Number(fields.temperature),
           systolic: Number(fields.systolic),
@@ -108,20 +107,17 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
         },
         idempotencyKey.current,
       );
-      const analysisCompleted = record.analysis.aiStatus === "completed";
       await queryClient.invalidateQueries({ queryKey: ["dashboard"] });
       await queryClient.invalidateQueries({ queryKey: ["history"] });
-      setSavedWithAnalysis(analysisCompleted);
       setSavedMessage(record.analysis.summary);
       setSaved(true);
-      if (analysisCompleted) toast.success(t("vitals.analyzed"));
-      else toast.warning(record.analysis.summary);
+      toast.success(t("vitals.saved"));
       await new Promise((resolve) => window.setTimeout(resolve, 650));
       onSaved?.(record.id);
     } catch {
       submitLock.current = false;
       setSubmitting(false);
-      toast.error(t("vitals.analysisFailed"));
+      toast.error(t("vitals.saveFailed"));
     }
   }
 
@@ -136,11 +132,9 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
           <Check className="size-7" strokeWidth={2.5} aria-hidden="true" />
         </span>
         <h2 className="mt-5 text-2xl font-extrabold tracking-[-0.035em] text-slate-950">
-          {savedWithAnalysis ? t("vitals.analyzed") : "Reading saved"}
+          {t("vitals.saved")}
         </h2>
-        <p className="mt-2 max-w-md text-sm text-slate-500">
-          {savedWithAnalysis ? t("dashboard.subtitle") : savedMessage}
-        </p>
+        <p className="mt-2 max-w-md text-sm text-slate-500">{savedMessage}</p>
       </div>
     );
   }
@@ -246,12 +240,12 @@ export function VitalForm({ onSaved }: { onSaved?: (id: string) => void }) {
               className="size-5 animate-spin motion-reduce:animate-none"
               aria-hidden="true"
             />
-            {t("vitals.analyzing")}
+            {t("vitals.saving")}
           </>
         ) : (
           <>
             <Zap className="size-4" aria-hidden="true" />
-            {t("vitals.analyze")}
+            {t("vitals.save")}
           </>
         )}
       </button>

@@ -1,20 +1,20 @@
 # CareAI API Contracts
 
-**Status:** Implemented, deployment pending
-**Version:** 1.0  
+**Status:** Inactive in Spark mode
+**Version:** 1.1
 **Last Updated:** 2026-08-15
-**Related:** [Backend Architecture](../02-architecture/backend-architecture.md), [AI Output Schema](../06-ai/ai-output-schema.md)
+**Related:** [Frontend Architecture](../02-architecture/frontend-architecture.md), [Firestore Rules](../10-security/firestore-rules.md)
 
 ## Current state
 
-**IMPLEMENTED, NOT DEPLOYED.** The Cloud Functions REST API implements verified authentication, trusted persistence, stable safe envelopes, and the operations below. Live Firebase configuration and end-to-end acceptance remain outstanding.
+The active frontend makes no CareAI REST API requests. `VITE_CAREAI_API_BASE_URL` is removed. Firebase Authentication and the modular Firestore SDK provide the active service boundary.
 
-## Target operations
+## Active data operations
 
-- **Create/Update Profile:** authenticated; input fields in [User Profile](../04-profile/user-profile.md); output owner profile; side effect writes `users/{uid}`.
-- **Get Dashboard:** authenticated; output profile, latest reading, latest analysis, bounded trends/recent logs; no cross-user data.
-- **Analyze Vitals:** authenticated; input five numeric values; output `{ reading, healthScore, analysis }`; side effects validate, score, write vital, request/normalize AI, write analysis. AI failure returns saved reading plus analysis status.
-- **Get History:** authenticated; cursor/filter input; output paginated owned readings and safe linked analysis summaries.
-- **Retry Analysis:** authenticated owner-only operation; schedules a bounded private retry and rejects completed or exhausted work safely.
+- **Profile:** owner document get, validated transaction create/replace, validated language update.
+- **Vitals:** transaction create at an idempotency-key document ID; duplicate same-input submission returns the existing record; different input with the same key fails.
+- **Dashboard:** at most 30 newest owner readings.
+- **History:** pages of 20 newest owner readings with optional 7/30-day cutoff and `createdAt`/document-ID cursor.
+- **Detail:** one owner vital document by validated ID.
 
-All requests derive UID from verified token, return stable safe error codes, and never include provider secrets/raw errors.
+The service never accepts a UID parameter. Firestore rules authorize and validate the resulting requests. The old Functions REST code is inactive reference code and must not be described as deployed.

@@ -12,7 +12,7 @@ import { CtaSection } from "@/components/landing/CtaSection";
 import { LandingFooter } from "@/components/landing/LandingFooter";
 
 const DESC =
-  "CareAI helps you track vital signs, understand health trends, and review clear AI-powered informational insights.";
+  "CareAI helps you privately track vital signs, understand health trends, and review deterministic informational insights.";
 
 export const Route = createFileRoute("/")({
   head: () => ({

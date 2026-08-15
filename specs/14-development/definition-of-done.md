@@ -8,7 +8,7 @@
 A feature is not done merely because code exists. Confirm:
 
 - [ ] Requirement and acceptance criteria implemented
-- [ ] Client and server validation where applicable
+- [ ] Client and Firestore-rule validation; server validation when a protected server is active
 - [ ] Loading, empty, success, and safe error states
 - [ ] Authorization/security and secret handling reviewed
 - [ ] Responsive and accessibility checks completed

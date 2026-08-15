@@ -10,10 +10,10 @@ export type VitalInput = {
 
 export type VitalAnalysis = {
   status: VitalStatus;
-  aiStatus?: "pending" | "completed" | "failed";
+  aiStatus?: "pending" | "completed" | "failed" | "unavailable";
   urgency?: "routine" | "monitor" | "seek-care";
   disclaimer?: string;
-  provider?: "openrouter";
+  provider?: "openrouter" | "deterministic";
   model?: string;
   emergency: boolean;
   score: number;
@@ -53,8 +53,7 @@ const LABELS: Record<VitalKey, string> = {
 };
 
 /**
- * Rule-based analysis stand-in for the AI service. Same output shape the
- * API returns, so swapping in a real request later is a drop-in change.
+ * Deterministic range analysis used for score/status and Firestore-only insight views.
  */
 export function analyzeVitals(v: VitalInput): VitalAnalysis {
   const good: string[] = [];

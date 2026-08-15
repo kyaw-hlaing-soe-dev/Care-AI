@@ -7,7 +7,7 @@
 
 ## Current state — IMPLEMENTED IN CODE, NOT DEPLOYED
 
-`CreateProfileExperience` retains its validation and duplicate-submit behavior. `ProfileProvider` now loads and saves through the protected API; the backend derives UID, validates the payload, writes `users/{uid}` with server timestamps and `profileCompleted: true`, and supports preferred-language updates. Live Firebase and E2E acceptance remain outstanding.
+`CreateProfileExperience` retains its validation and duplicate-submit behavior. `ProfileProvider` loads and saves directly through the Firestore service; the service derives UID from Firebase Auth and writes `users/{uid}` with server timestamps and `profileCompleted: true`. Firestore rules repeat field/type/range validation and support validated preferred-language updates. Live rules and E2E acceptance remain outstanding.
 
 | Field              | Type                  | Required | Current validation            | Target Firestore field/source               |
 | ------------------ | --------------------- | -------- | ----------------------------- | ------------------------------------------- |
@@ -36,4 +36,4 @@ The top-right user menu provides View Profile, Settings (`/profile#preferences`)
 
 ## Target behavior
 
-**CARE-PROFILE-001 — P0 / IMPLEMENTED IN CODE, NOT DEPLOYED:** Backend derives the UID from the Firebase token and writes `users/{uid}` with `profileCompleted: true`, server timestamps, and only the fields above. Refresh waits for auth/profile resolution; unauthenticated users go to `/login`, only completed users bypass onboarding, and save failures preserve entered values with safe feedback.
+**CARE-PROFILE-001 — P0 / IMPLEMENTED IN CODE, NOT DEPLOYED:** The service derives UID from the current Firebase session and writes `users/{uid}` with `profileCompleted: true`, server timestamps, and only the fields above. Rules enforce the same owner/field/range constraints. Refresh waits for auth/profile resolution; unauthenticated users go to `/login`, only completed users bypass onboarding, and save failures preserve entered values with safe feedback.

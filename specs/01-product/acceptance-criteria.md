@@ -21,12 +21,12 @@
 
 **GIVEN** an authenticated user without a profile  
 **WHEN** they submit valid required profile fields  
-**THEN** the profile is written under the UID derived from the trusted session and `/dashboard` opens after the success state.
+**THEN** the profile is written under the Firebase-authenticated UID, accepted by strict owner-scoped Firestore rules, and `/dashboard` opens after the success state.
 
 ## AC-VITAL-001
 
 **Related requirement:** CARE-PROD-001  
-**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
+**Status:** DEFERRED IN SPARK MODE
 
 **GIVEN** a profile-complete user  
 **WHEN** they submit five numeric readings inside technical limits  
@@ -44,13 +44,13 @@
 ## AC-AI-001
 
 **Related requirement:** CARE-PROD-006  
-**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
+**Status:** DEFERRED IN SPARK MODE
 
 **GIVEN** a validated, saved reading  
 **WHEN** the protected AI provider is available  
 **THEN** only minimal permitted context is sent, its response is normalized to the approved schema, and the UI shows the disclaimer.
 
-The Cloud Functions implementation verifies Firebase ID tokens, persists owner-scoped readings and analyses, sends minimal context, preserves deterministic authority, normalizes failure output, and supplies the disclaimer. Live provider and deployment acceptance remain outstanding.
+The active Spark-mode frontend does not call OpenRouter. It derives deterministic insight text locally and supplies the disclaimer; protected provider acceptance is deferred until a separate server is approved.
 
 ## AC-DASH-001
 
@@ -68,16 +68,16 @@ The Cloud Functions implementation verifies Firebase ID tokens, persists owner-s
 
 **GIVEN** a user has saved readings  
 **WHEN** they open history  
-**THEN** readings are newest first, date filtering is accurate, and an expanded item shows the linked analysis.
+**THEN** readings are newest first, date filtering is accurate, and an expanded item shows the deterministic range-based insight.
 
 ## AC-SEC-001
 
 **Related requirement:** CARE-PROD-005  
-**Status:** IMPLEMENTED IN CODE; RULES DEPLOYMENT / EMULATOR ACCEPTANCE OUTSTANDING
+**Status:** FIRESTORE RULES DEPLOYED / EMULATOR VERIFIED; BROWSER E2E OUTSTANDING
 
 **GIVEN** User A is authenticated  
 **WHEN** User A requests profile, reading, or analysis data  
-**THEN** data belonging to User B is unavailable by client query, rule evaluation, and backend token verification.
+**THEN** data belonging to User B is unavailable by client query and Firestore rule evaluation.
 
 ## AC-UI-001
 

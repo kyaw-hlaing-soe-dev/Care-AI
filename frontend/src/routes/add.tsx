@@ -15,9 +15,9 @@ export const Route = createFileRoute("/add")({
   head: () => ({
     meta: [
       { title: "Vital Tracker — CareAI" },
-      { name: "description", content: "Log your latest readings for CareAI analysis." },
+      { name: "description", content: "Validate and save your latest vital readings." },
       { property: "og:title", content: "Vital Tracker — CareAI" },
-      { property: "og:description", content: "Log your latest readings for CareAI analysis." },
+      { property: "og:description", content: "Validate and save your latest vital readings." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -49,7 +49,11 @@ function AddVitalPage() {
   const { latest, loading } = useVitals();
   const { t, i18n } = useTranslation();
   const formattedLatest = latest
-    ? formatRecordedAt(latest.recordedAt, localeForLanguage(normalizeLanguage(i18n.resolvedLanguage ?? i18n.language)), t("common.todayAt"))
+    ? formatRecordedAt(
+        latest.recordedAt,
+        localeForLanguage(normalizeLanguage(i18n.resolvedLanguage ?? i18n.language)),
+        t("common.todayAt"),
+      )
     : "";
 
   if (loading) return <LoadingSpinner fullscreen label={t("vitals.preparing")} />;
@@ -69,7 +73,9 @@ function AddVitalPage() {
               <Activity className="size-5" aria-hidden="true" />
             </span>
             <div>
-              <h2 className="app-section-title text-xl font-extrabold tracking-[-0.03em] text-slate-950">{t("vitals.readings")}</h2>
+              <h2 className="app-section-title text-xl font-extrabold tracking-[-0.03em] text-slate-950">
+                {t("vitals.readings")}
+              </h2>
               <p className="mt-1 text-sm leading-6 text-slate-500">{t("vitals.readingsBody")}</p>
             </div>
           </div>
@@ -82,7 +88,10 @@ function AddVitalPage() {
               <span className="inline-flex items-center gap-2">
                 <Lightbulb className="size-4 text-blue-500" aria-hidden="true" /> {t("vitals.tips")}
               </span>
-              <ChevronDown className="size-4 text-slate-400 transition-transform group-open:rotate-180" aria-hidden="true" />
+              <ChevronDown
+                className="size-4 text-slate-400 transition-transform group-open:rotate-180"
+                aria-hidden="true"
+              />
             </summary>
             <TipsList />
           </details>
@@ -96,7 +105,8 @@ function AddVitalPage() {
 
           <GlassCard className="app-card p-5 xl:p-6">
             <h2 className="app-card-title inline-flex items-center gap-2 text-base font-extrabold text-slate-950">
-              <TimerReset className="size-4 text-blue-500" aria-hidden="true" /> {t("vitals.lastReading")}
+              <TimerReset className="size-4 text-blue-500" aria-hidden="true" />{" "}
+              {t("vitals.lastReading")}
             </h2>
             {latest ? (
               <div className="mt-4">
@@ -113,8 +123,13 @@ function AddVitalPage() {
                     [t("dashboard.oxygen"), `${latest.oxygen}%`],
                     [t("dashboard.temperature"), `${latest.temperature}°C`],
                   ].map(([label, value]) => (
-                    <div key={label} className="rounded-[14px] border border-blue-100/70 bg-blue-50/55 p-3">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">{label}</p>
+                    <div
+                      key={label}
+                      className="rounded-[14px] border border-blue-100/70 bg-blue-50/55 p-3"
+                    >
+                      <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">
+                        {label}
+                      </p>
                       <p className="mt-1 text-sm font-extrabold text-slate-950">{value}</p>
                     </div>
                   ))}

@@ -1,14 +1,14 @@
 # CareAI Security Specification
 
-**Status:** Implemented in code, deployment pending
-**Version:** 1.0  
-**Last Updated:** 2026-08-08  
-**Related:** [Authorization](../03-auth/authorization.md), [OpenRouter](../06-ai/openrouter.md), [Privacy](./privacy.md)
+**Status:** Firestore controls deployed; browser E2E pending
+**Version:** 1.1
+**Last Updated:** 2026-08-15
+**Related:** [Authorization](../03-auth/authorization.md), [Firestore Rules](./firestore-rules.md), [Privacy](./privacy.md)
 
 ## Findings
 
-**CARE-SEC-002 — P0 / IMPLEMENTED IN CODE, NOT DEPLOYED:** Firebase Auth tokens, Admin verification, owner-derived paths, server-only writes, owner-read rules, deny-by-default Storage rules, exact hosted-origin CORS allowlisting, safe errors, and privacy-safe logs are implemented. The production Vercel origin and supported local origins are included by default; any preview origin must be added explicitly. Do not treat these controls as live until the Firebase projects, rules, functions, secrets, parameters, and provider are deployed and verified.
+**CARE-SEC-002 — P0 / FIRESTORE RULES DEPLOYED, BROWSER E2E PENDING:** Firebase Auth identity, owner-derived frontend paths, strict owner/shape/range/result Firestore rules, immutable vital records, server timestamps, deny-by-default Storage rules, safe errors, and no private app localStorage persistence are implemented. Firestore rules are deployed and emulator verified; Google Auth/browser ownership checks and Storage rules deployment remain before production use.
 
-Target controls: Firebase Auth session/ID token; backend Firebase Admin verification; Firestore/Storage ownership rules; server validation; server-only OpenRouter/Firebase Admin secrets; sanitized logs/errors; HTTPS deployment; no sensitive data in URLs; no production health/profile data in localStorage.
+The Spark design intentionally has no application backend. Client code is not trusted: Firestore rules repeat authorization and validate all writable document fields. A malicious owner can choose valid raw readings, but cannot write outside technical limits, forge the deterministic result, modify saved readings, or access another UID path.
 
-Secrets must be environment/secret-manager values, never `VITE_*`, client code, git history, screenshots, or logs. Do not log full profiles, readings, raw prompts, ID tokens, or provider bodies. Retain only minimum diagnostic metadata and safe error codes.
+OpenRouter and Firebase Admin configuration must remain absent from browser source, `VITE_*`, bundles, logs, specs, screenshots, and commits. AI stays disabled until a protected server is approved. Do not log full profiles/readings or identity tokens.

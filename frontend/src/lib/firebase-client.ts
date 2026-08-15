@@ -1,5 +1,6 @@
 import { getApp, getApps, initializeApp, type FirebaseApp } from "firebase/app";
 import { connectAuthEmulator, getAuth, type Auth } from "firebase/auth";
+import { connectFirestoreEmulator, getFirestore, type Firestore } from "firebase/firestore";
 
 function publicConfigValue(value: string | undefined, fallback: string) {
   const normalized = value?.trim();
@@ -32,6 +33,7 @@ const config = {
 
 let firebaseApp: FirebaseApp | undefined;
 let firebaseAuth: Auth | undefined;
+let firestoreDatabase: Firestore | undefined;
 
 function getFirebaseApp() {
   firebaseApp ??= getApps().length ? getApp() : initializeApp(config);
@@ -47,9 +49,19 @@ export function getFirebaseAuth() {
   return firebaseAuth;
 }
 
+export function getFirestoreDatabase() {
+  if (typeof window === "undefined") {
+    throw new Error("Cloud Firestore is only available in the browser.");
+  }
+  firestoreDatabase ??= getFirestore(getFirebaseApp());
+  connectToFirestoreEmulator(firestoreDatabase);
+  return firestoreDatabase;
+}
+
 const emulatorMarker = "__careAiAuthEmulatorConnected";
 const emulatorState = globalThis as typeof globalThis & {
   __careAiAuthEmulatorConnected?: boolean;
+  __careAiFirestoreEmulatorConnected?: boolean;
 };
 
 function connectToAuthEmulator(auth: Auth) {
@@ -58,5 +70,15 @@ function connectToAuthEmulator(auth: Auth) {
       disableWarnings: true,
     });
     emulatorState[emulatorMarker] = true;
+  }
+}
+
+function connectToFirestoreEmulator(database: Firestore) {
+  if (
+    import.meta.env["VITE_USE_FIREBASE_EMULATORS"] === "true" &&
+    !emulatorState.__careAiFirestoreEmulatorConnected
+  ) {
+    connectFirestoreEmulator(database, "127.0.0.1", 8080);
+    emulatorState.__careAiFirestoreEmulatorConnected = true;
   }
 }

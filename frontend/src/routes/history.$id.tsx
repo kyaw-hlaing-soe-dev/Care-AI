@@ -19,14 +19,12 @@ export const Route = createFileRoute("/history/$id")({
       { title: "Record Detail — CareAI" },
       {
         name: "description",
-        content:
-          "Full AI analysis for a single vitals record, including concerns and recommendations.",
+        content: "A deterministic range-based insight for one saved vitals record.",
       },
       { property: "og:title", content: "Record Detail — CareAI" },
       {
         property: "og:description",
-        content:
-          "Full AI analysis for a single vitals record, including concerns and recommendations.",
+        content: "A deterministic range-based insight for one saved vitals record.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },

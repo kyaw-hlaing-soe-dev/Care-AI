@@ -4,16 +4,17 @@
 **Version:** 1.0  
 **Last Updated:** 2026-08-15
 
-CareAI is a responsive health-vital tracking web application. The repository now includes a Firebase Auth frontend cutover and a Firebase Cloud Functions/Firestore backend implementation. Deployment, real Firebase project configuration, Google-provider setup, and full emulator/E2E verification remain outstanding.
+CareAI is a responsive health-vital tracking web application. The active Spark-plan architecture uses Firebase Authentication plus direct, owner-scoped Cloud Firestore access from the frontend. The previous Cloud Functions/OpenRouter backend remains in `backend/` as inactive reference code and is not part of the free-plan deployment. Firestore rules/indexes are deployed to `care-ai-4eb8d`; Google-provider and full browser E2E verification remain outstanding.
 
 ## MVP status
 
-The UI MVP and backend code path are substantially implemented. Authenticated profile, vital, dashboard, and history requests now use the protected API; legacy local records are deliberately cleared once rather than silently imported. The system is not production-ready until project provisioning, rules deployment, secret configuration, and the remaining QA checks are completed.
+The UI MVP and Spark-compatible data path are substantially implemented. Authenticated profile, vital, dashboard, and history operations use direct Firestore access under the signed-in UID; legacy local records are deliberately cleared once rather than silently imported. AI/OpenRouter analysis and trusted server validation are unavailable in this mode. The system is not production-ready until Firestore rules deployment and the remaining QA checks are completed.
 
 ## Technology summary
 
-- **Current implementation:** TanStack Start, React 19, TypeScript, React Query, Firebase Authentication, Cloud Firestore, Firebase Cloud Functions on Node.js 22, Firebase Admin, and server-only OpenRouter.
-- **Deployment target:** separate Firebase development and production projects in `asia-southeast1`; Storage remains deny-by-default until a file feature is approved.
+- **Current active implementation:** TanStack Start, React 19, TypeScript, React Query, Firebase Authentication, and direct Cloud Firestore access protected by security rules.
+- **Inactive reference backend:** Firebase Cloud Functions, Firebase Admin, and server-only OpenRouter code under `backend/`; it requires a billing-enabled deployment and is not called by the frontend.
+- **Deployment target:** the Firebase Spark project `care-ai-4eb8d`; Storage remains deny-by-default until a file feature is approved.
 
 ## Specification index
 
@@ -51,12 +52,12 @@ The UI MVP and backend code path are substantially implemented. Authenticated pr
 
 | Area                                           | Status      | Evidence                                                                                                                                                                        |
 | ---------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Vital tracking, validation, score, and history | PARTIAL     | protected API and Firestore implementation complete; deployment/E2E verification outstanding                                                                                    |
-| Profile onboarding and redirects               | PARTIAL     | Firebase-backed implementation complete; provider configuration and E2E verification outstanding                                                                                |
-| Authentication / Google Sign-In                | PARTIAL     | Firebase Auth implementation complete; project/provider configuration outstanding                                                                                               |
-| Firebase / Firestore / Storage                 | PARTIAL     | Functions, rules, indexes, emulator config, and deny-by-default Storage rules implemented but not deployed                                                                      |
-| OpenRouter integration                         | PARTIAL     | verified-auth Functions path, persistence, durable idempotency, private retry task, normalization, fallback, and focused tests implemented; deployment verification outstanding |
-| Dashboard and trends                           | PARTIAL     | bounded owner-scoped backend queries and frontend loading implemented; E2E verification outstanding                                                                             |
+| Vital tracking, validation, score, and history | PARTIAL     | direct Firestore implementation and rule validation complete; deployment/E2E verification outstanding                                                                           |
+| Profile onboarding and redirects               | PARTIAL     | direct Firestore implementation complete; provider configuration and E2E verification outstanding                                                                               |
+| Authentication / Google Sign-In                | PARTIAL     | Firebase Auth implementation complete; project/provider verification outstanding                                                                                                |
+| Firebase / Firestore / Storage                 | PARTIAL     | Spark-compatible Firestore rules/indexes deployed and emulator-tested; Auth browser verification and Storage rules deployment remain                                             |
+| OpenRouter integration                         | DEFERRED    | inactive backend code remains available, but AI is disabled because secrets cannot be held safely in a browser-only Spark architecture                                            |
+| Dashboard and trends                           | PARTIAL     | bounded owner-scoped direct Firestore queries and frontend loading implemented; E2E verification outstanding                                                                    |
 | Responsive public and authenticated UI         | IMPLEMENTED | Tailwind/Tailwind CSS responsive layouts                                                                                                                                        |
 | Automated tests                                | PARTIAL     | deterministic-score, validation, provider, and Firestore owner-rule suites pass; Storage test exists but its emulator runtime download and broader integration/E2E coverage remain unverified |
 

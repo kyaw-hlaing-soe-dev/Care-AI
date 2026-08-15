@@ -20,4 +20,4 @@
 
 `summary`, all arrays, `urgency`, and `disclaimer` are required after normalization. Use zero to three concise strings per array; disallow arbitrary urgency labels. `disclaimer` must state that CareAI offers informational insights and is not a substitute for professional medical advice.
 
-**CARE-AI-003 — P0 / IMPLEMENTED IN CODE, NOT DEPLOYED:** The backend validates exact JSON keys, required types, enum values, non-empty bounded text, zero-to-three-item arrays, and prohibited medical language before persistence. Invalid, overlong, unsafe, or urgency-conflicting output produces a safe fallback rather than raw model content. The UI adapter preserves the existing `VitalAnalysis` view shape.
+**CARE-AI-003 — P0 / DEFERRED IN SPARK MODE:** No model output is accepted or persisted by the active app. The schema and inactive backend validator remain the required contract if a protected server is reintroduced. The active UI adapter builds its `VitalAnalysis` view from deterministic local logic and labels the provider as `deterministic`.
