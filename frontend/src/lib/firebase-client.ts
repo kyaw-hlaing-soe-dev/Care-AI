@@ -1,29 +1,62 @@
-import { getApp, getApps, initializeApp } from "firebase/app";
-import { connectAuthEmulator, getAuth } from "firebase/auth";
+import { getApp, getApps, initializeApp, type FirebaseApp } from "firebase/app";
+import { connectAuthEmulator, getAuth, type Auth } from "firebase/auth";
+
+function publicConfigValue(value: string | undefined, fallback: string) {
+  const normalized = value?.trim();
+  return normalized || fallback;
+}
 
 const config = {
-  apiKey: import.meta.env["VITE_FIREBASE_API_KEY"],
-  authDomain: import.meta.env["VITE_FIREBASE_AUTH_DOMAIN"],
-  projectId: import.meta.env["VITE_FIREBASE_PROJECT_ID"],
-  storageBucket: import.meta.env["VITE_FIREBASE_STORAGE_BUCKET"],
-  messagingSenderId: import.meta.env["VITE_FIREBASE_MESSAGING_SENDER_ID"],
-  appId: import.meta.env["VITE_FIREBASE_APP_ID"],
+  apiKey: publicConfigValue(
+    import.meta.env["VITE_FIREBASE_API_KEY"],
+    "AIzaSyCkPocmvnz3Jcou_xq1FJY1rZJ0dWUcKPA",
+  ),
+  authDomain: publicConfigValue(
+    import.meta.env["VITE_FIREBASE_AUTH_DOMAIN"],
+    "care-ai-4eb8d.firebaseapp.com",
+  ),
+  projectId: publicConfigValue(import.meta.env["VITE_FIREBASE_PROJECT_ID"], "care-ai-4eb8d"),
+  storageBucket: publicConfigValue(
+    import.meta.env["VITE_FIREBASE_STORAGE_BUCKET"],
+    "care-ai-4eb8d.firebasestorage.app",
+  ),
+  messagingSenderId: publicConfigValue(
+    import.meta.env["VITE_FIREBASE_MESSAGING_SENDER_ID"],
+    "701117965257",
+  ),
+  appId: publicConfigValue(
+    import.meta.env["VITE_FIREBASE_APP_ID"],
+    "1:701117965257:web:3729e177034f3285ac3e18",
+  ),
 };
 
-export const firebaseApp = getApps().length ? getApp() : initializeApp(config);
-export const firebaseAuth = getAuth(firebaseApp);
+let firebaseApp: FirebaseApp | undefined;
+let firebaseAuth: Auth | undefined;
+
+function getFirebaseApp() {
+  firebaseApp ??= getApps().length ? getApp() : initializeApp(config);
+  return firebaseApp;
+}
+
+export function getFirebaseAuth() {
+  if (typeof window === "undefined") {
+    throw new Error("Firebase Auth is only available in the browser.");
+  }
+  firebaseAuth ??= getAuth(getFirebaseApp());
+  connectToAuthEmulator(firebaseAuth);
+  return firebaseAuth;
+}
 
 const emulatorMarker = "__careAiAuthEmulatorConnected";
 const emulatorState = globalThis as typeof globalThis & {
   __careAiAuthEmulatorConnected?: boolean;
 };
-if (
-  typeof window !== "undefined" &&
-  import.meta.env["VITE_USE_FIREBASE_EMULATORS"] === "true" &&
-  !emulatorState[emulatorMarker]
-) {
-  connectAuthEmulator(firebaseAuth, "http://127.0.0.1:9099", {
-    disableWarnings: true,
-  });
-  emulatorState[emulatorMarker] = true;
+
+function connectToAuthEmulator(auth: Auth) {
+  if (import.meta.env["VITE_USE_FIREBASE_EMULATORS"] === "true" && !emulatorState[emulatorMarker]) {
+    connectAuthEmulator(auth, "http://127.0.0.1:9099", {
+      disableWarnings: true,
+    });
+    emulatorState[emulatorMarker] = true;
+  }
 }

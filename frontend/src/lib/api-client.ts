@@ -1,4 +1,4 @@
-import { firebaseAuth } from "./firebase-client";
+import { getFirebaseAuth } from "./firebase-client";
 import type { ProfileInput, UserProfile } from "./profile-context";
 import type { VitalInput, VitalRecord } from "./vitals";
 
@@ -21,6 +21,7 @@ export class ApiError extends Error {
 }
 
 export async function apiRequest<T>(path: string, init: RequestInit = {}): Promise<T> {
+  const firebaseAuth = getFirebaseAuth();
   const user = firebaseAuth.currentUser;
   if (!user) throw new ApiError("AUTH_ERROR", "Please sign in again.", 401);
   if (!API_BASE) throw new ApiError("NETWORK_ERROR", "CareAI backend is not configured.", 503);
