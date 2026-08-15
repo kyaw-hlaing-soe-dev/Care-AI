@@ -334,7 +334,6 @@ const zhCN: TranslationSchema = {
       proofInsights: "清晰健康洞察",
       proofHistory: "生命体征趋势历史",
       doctorAlt: "友好的 CareAI 健康伙伴",
-
     },
     features: {
       eyebrow: "功能",

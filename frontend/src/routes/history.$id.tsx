@@ -1,6 +1,5 @@
 import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
-import { useEffect, useState } from "react";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { GlassCard } from "@/components/glass/GlassCard";
 import { GlassButton } from "@/components/glass/GlassButton";
@@ -10,8 +9,7 @@ import { VitalSummaryGrid } from "@/components/VitalSummaryGrid";
 import { EmergencyBanner } from "@/components/EmergencyBanner";
 import { AIInsightPanel } from "@/components/dashboard/AIInsightPanel";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { getVital } from "@/lib/vitals-store";
-import type { VitalRecord } from "@/lib/vitals";
+import { useVital } from "@/hooks/use-vitals";
 import { useTranslation } from "react-i18next";
 import { useLocalizedRecordedAt } from "@/i18n/useLocalizedDate";
 
@@ -19,9 +17,17 @@ export const Route = createFileRoute("/history/$id")({
   head: () => ({
     meta: [
       { title: "Record Detail — CareAI" },
-      { name: "description", content: "Full AI analysis for a single vitals record, including concerns and recommendations." },
+      {
+        name: "description",
+        content:
+          "Full AI analysis for a single vitals record, including concerns and recommendations.",
+      },
       { property: "og:title", content: "Record Detail — CareAI" },
-      { property: "og:description", content: "Full AI analysis for a single vitals record, including concerns and recommendations." },
+      {
+        property: "og:description",
+        content:
+          "Full AI analysis for a single vitals record, including concerns and recommendations.",
+      },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -35,15 +41,9 @@ export const Route = createFileRoute("/history/$id")({
 
 function VitalDetailPage() {
   const { id } = useParams({ from: "/history/$id" });
-  const [record, setRecord] = useState<VitalRecord | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { data: record, isLoading: loading } = useVital(id);
   const { t } = useTranslation();
   const formatRecordedAt = useLocalizedRecordedAt();
-
-  useEffect(() => {
-    setRecord(getVital(id) ?? null);
-    setLoading(false);
-  }, [id]);
 
   if (loading) return <LoadingSpinner fullscreen label={t("history.recordLoading")} />;
 

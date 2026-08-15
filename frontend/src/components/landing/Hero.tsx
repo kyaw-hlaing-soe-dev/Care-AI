@@ -6,7 +6,6 @@ import { GlassButton } from "@/components/glass/GlassButton";
 import doctor from "@/assets/ai-doctor-cutout.png";
 import { useTranslation } from "react-i18next";
 
-
 const PROOF = [
   "landing.hero.proofGoogle",
   "landing.hero.proofInsights",

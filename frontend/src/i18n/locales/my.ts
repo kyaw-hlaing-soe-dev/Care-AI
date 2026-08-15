@@ -343,7 +343,6 @@ const my: TranslationSchema = {
       proofInsights: "ရှင်းလင်းသော ကျန်းမာရေးအမြင်",
       proofHistory: "ပြောင်းလဲမှုမှတ်တမ်း",
       doctorAlt: "ဖော်ရွေသော CareAI ကျန်းမာရေးအဖော်",
-
     },
     features: {
       eyebrow: "လုပ်ဆောင်ချက်များ",
