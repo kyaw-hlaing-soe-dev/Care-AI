@@ -13,7 +13,7 @@ import {
 import { getDashboard } from "./functions/getDashboard.js";
 import { getHistory, getHistoryDetail } from "./functions/getHistory.js";
 import { managePreference, manageProfile } from "./functions/manageProfile.js";
-import { getAllowedOrigins, openRouterApiKey } from "./config/env.js";
+import { isAllowedOrigin, openRouterApiKey } from "./config/env.js";
 import { runAnalysis } from "./services/aiAnalysisService.js";
 import { toAppError } from "./utils/errors.js";
 import { logError, logInfo } from "./utils/logger.js";
@@ -21,10 +21,9 @@ import { logError, logInfo } from "./utils/logger.js";
 const REGION = "asia-southeast1";
 const app = express();
 app.disable("x-powered-by");
-app.use(express.json({ limit: "16kb", strict: true }));
 app.use((request, response, next) => {
   const origin = request.header("origin");
-  const allowed = !origin || getAllowedOrigins().includes(origin);
+  const allowed = !origin || isAllowedOrigin(origin);
   if (!allowed) {
     response
       .status(403)
@@ -55,6 +54,7 @@ app.use((request, response, next) => {
   }
   next();
 });
+app.use(express.json({ limit: "16kb", strict: true }));
 
 app.all("/profile", route(manageProfile));
 app.all("/profile/preferences", route(managePreference));

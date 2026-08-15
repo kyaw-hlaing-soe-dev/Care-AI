@@ -42,7 +42,13 @@ OPENROUTER_API_KEY=
 OPENROUTER_MODEL=
 OPENROUTER_SITE_URL=
 OPENROUTER_APP_NAME=CareAI
+CAREAI_ALLOWED_ORIGINS=https://care-ai-six.vercel.app,http://localhost:3000,http://localhost:5173
 ```
+
+`CAREAI_ALLOWED_ORIGINS` is an exact, comma-separated allowlist. Keep the
+production Vercel origin in the deployed Functions parameter and add preview
+origins explicitly when they need API access; do not use wildcard origins for
+authenticated health data.
 
 Do not put OpenRouter keys, Firebase Admin private keys, ID tokens, or other backend secrets in frontend `VITE_*` variables.
 
@@ -58,7 +64,14 @@ Backend is responsible for Firebase ID token verification, UID derivation, serve
 2. Copy `.env.example` to `.env.local`; keep real secrets out of git.
 3. Add Firebase `dev` and `prod` aliases in a local `.firebaserc`, or pass a project ID explicitly.
 4. Set the Functions secret with `firebase functions:secrets:set OPENROUTER_API_KEY --project <project-id>`.
-5. Start local services with `npm run emulators`; configure the frontend from `frontend/.env.example`.
+5. Set `CAREAI_ALLOWED_ORIGINS` for the target Firebase project when prompted
+   during deployment. The checked-in default includes the production Vercel
+   origin and the two supported local origins.
+6. Deploy the `api` function before pointing Vercel at its regional URL. A
+   platform-level 404 from that URL means the function is absent or is deployed
+   to a different project/region; browsers commonly surface that response as a
+   CORS failure because it has no application CORS headers.
+7. Start local services with `npm run emulators`; configure the frontend from `frontend/.env.example`.
 
 Verification commands are `npm test`, `npm run typecheck`, `npm run build`, and `npm run test:rules`. Rules tests require the Firebase emulator suite to start successfully.
 

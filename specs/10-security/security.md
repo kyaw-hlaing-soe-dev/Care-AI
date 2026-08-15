@@ -7,7 +7,7 @@
 
 ## Findings
 
-**CARE-SEC-002 — P0 / IMPLEMENTED IN CODE, NOT DEPLOYED:** Firebase Auth tokens, Admin verification, owner-derived paths, server-only writes, owner-read rules, deny-by-default Storage rules, safe errors, and privacy-safe logs are implemented. Do not treat these controls as live until the Firebase projects, rules, functions, secrets, and provider are deployed and verified.
+**CARE-SEC-002 — P0 / IMPLEMENTED IN CODE, NOT DEPLOYED:** Firebase Auth tokens, Admin verification, owner-derived paths, server-only writes, owner-read rules, deny-by-default Storage rules, exact hosted-origin CORS allowlisting, safe errors, and privacy-safe logs are implemented. The production Vercel origin and supported local origins are included by default; any preview origin must be added explicitly. Do not treat these controls as live until the Firebase projects, rules, functions, secrets, parameters, and provider are deployed and verified.
 
 Target controls: Firebase Auth session/ID token; backend Firebase Admin verification; Firestore/Storage ownership rules; server validation; server-only OpenRouter/Firebase Admin secrets; sanitized logs/errors; HTTPS deployment; no sensitive data in URLs; no production health/profile data in localStorage.
 
