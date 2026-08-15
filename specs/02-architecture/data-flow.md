@@ -1,8 +1,8 @@
 # CareAI Data Flow
 
 **Status:** Active  
-**Version:** 1.0  
-**Last Updated:** 2026-08-10
+**Version:** 1.1
+**Last Updated:** 2026-08-15
 **Related:** [Authentication](../03-auth/authentication.md), [Firestore Queries](../09-database/firestore-queries.md)
 
 ## Auth and profile — implemented in code, not deployed
@@ -10,29 +10,27 @@
 ```mermaid
 flowchart LR
   G[Google Provider] --> FA[Firebase Auth]
-  FA --> P{users/uid profile?}
+  FA --> P{Owner-readable users/uid profile?}
   P -->|missing| CP[Create Profile]
   P -->|exists| D[Dashboard]
-  CP --> W[Trusted profile write] --> D
+  CP --> R[Owner and field rules] --> W[Firestore profile] --> D
 ```
 
-Current code observes Firebase Auth, loads/saves profiles through the verified backend, and requires `profileCompleted: true` before protected routes unlock.
+The browser observes Firebase Auth and loads/saves only `users/{currentUid}`. Firestore rules require the authenticated UID, permitted fields, validation ranges, and server timestamps.
 
-## Vital and AI — implemented in code, not deployed
+## Vital and insight — implemented in code, not deployed
 
 ```mermaid
 flowchart LR
-  F[Validated form] --> B[Protected backend]
-  B --> S[Deterministic score]
-  S --> R[Firestore vital]
-  R --> O[Minimal OpenRouter context]
-  O --> N[Normalize / validate analysis]
-  N --> A[Firestore analysis]
-  A --> D[Dashboard and History]
+  F[Validated form] --> S[Deterministic score]
+  S --> R[Owner, input, score, timestamp rules]
+  R --> V[Immutable Firestore vital]
+  V --> I[Local deterministic range insight]
+  I --> D[Dashboard and History]
 ```
 
-Current code submits five readings with a Firebase ID token and idempotency key. The backend validates, scores, persists the reading, calls/normalizes OpenRouter, and persists a separate linked analysis; provider failure preserves the reading and safe fallback state.
+The idempotency key is the immutable reading document ID. Rules recompute the documented deviation/emergency score result and reject forged scores or out-of-limit readings. No OpenRouter request or analysis document is created in Spark mode.
 
-## Dashboard/history — target
+## Dashboard/history
 
-The authenticated UID scopes latest/recent/trend readings and linked analysis. The public landing page is a separate flow using static demo data only.
+The authenticated UID scopes bounded newest-first direct Firestore queries. History filters use `createdAt`, and pagination uses `createdAt` plus document ID. The public landing page remains a separate static-demo flow.

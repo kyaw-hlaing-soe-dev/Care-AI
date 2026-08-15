@@ -45,7 +45,7 @@ Firebase Authentication observes session state and uses Google popup sign-in wit
 **Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 **Acceptance:** [AC-PROFILE-001](./acceptance-criteria.md#ac-profile-001)
 
-The protected API validates and writes profiles under the verified UID with server timestamps and `profileCompleted: true`; only completed profiles unlock protected routes.
+The frontend writes profiles directly under the authenticated UID with server timestamps and `profileCompleted: true`; Firestore rules repeat the field/type/range checks and only completed profiles unlock protected routes.
 
 ### CARE-PROD-005 — Persist private user data
 
@@ -53,15 +53,15 @@ The protected API validates and writes profiles under the verified UID with serv
 **Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 **Acceptance:** [AC-SEC-001](./acceptance-criteria.md#ac-sec-001)
 
-Owner-scoped Firestore paths and trusted Admin writes are implemented. Browser localStorage no longer stores private profile/vital records; deployment and ownership acceptance remain outstanding.
+Owner-scoped Firestore paths and authenticated direct writes are implemented. Strict Firestore rules validate permitted fields and deterministic results. Browser localStorage no longer stores private profile/vital records; rules deployment and ownership acceptance remain outstanding.
 
 ### CARE-PROD-006 — Informational AI insight
 
 **Priority:** P0  
-**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
+**Status:** DEFERRED IN SPARK MODE
 **Acceptance:** [AC-AI-001](./acceptance-criteria.md#ac-ai-001)
 
-The Cloud Functions backend verifies Firebase identity, persists the owner-scoped reading, calls OpenRouter with validated minimal context, normalizes output, preserves deterministic authority, and persists completed or failed linked analysis state.
+OpenRouter analysis is disabled in the active Firestore-only Spark architecture because its secret cannot be exposed to the browser. The UI provides clearly labeled deterministic range-based insights and retains the informational disclaimer. The inactive backend implementation remains available for a future protected server deployment.
 
 ### CARE-PROD-007 — Dashboard and recent trends
 
@@ -69,7 +69,7 @@ The Cloud Functions backend verifies Firebase identity, persists the owner-scope
 **Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 **Acceptance:** [AC-DASH-001](./acceptance-criteria.md#ac-dash-001)
 
-The dashboard uses a bounded owner-scoped API query with linked analyses and distinct loading, empty, query-failure, and AI-unavailable states.
+The dashboard uses a bounded owner-scoped Firestore query with distinct loading, empty, query-failure, and deterministic-insight states.
 
 ### CARE-PROD-008 — Health history
 
@@ -77,7 +77,7 @@ The dashboard uses a bounded owner-scoped API query with linked analyses and dis
 **Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 **Acceptance:** [AC-HISTORY-001](./acceptance-criteria.md#ac-history-001)
 
-History uses newest-first Firestore queries, 7/30-day server filters, owner-scoped detail lookup, and document-cursor pagination.
+History uses direct newest-first Firestore queries, 7/30-day filters, owner-scoped detail lookup, and timestamp/document-ID cursor pagination.
 
 ### CARE-PROD-009 — Responsive, accessible interaction
 

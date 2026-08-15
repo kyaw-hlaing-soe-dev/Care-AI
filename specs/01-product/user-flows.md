@@ -7,7 +7,7 @@
 
 ## Current implementation note
 
-The route sequence below is implemented in code with Firebase identity and the protected profile API. Firebase project/provider deployment and browser E2E acceptance remain outstanding.
+The route sequence below is implemented with Firebase identity and direct Firestore profile access. Firestore rules/provider deployment and browser E2E acceptance remain outstanding.
 
 ## New user flow
 
@@ -23,7 +23,7 @@ flowchart TD
   C -->|Yes| D
 ```
 
-Current routes are `/`, `/login`, `/create-profile`, and `/dashboard`. Only an API profile reporting `profileCompleted: true` bypasses onboarding.
+Current routes are `/`, `/login`, `/create-profile`, and `/dashboard`. Only an owner-readable Firestore profile reporting `profileCompleted: true` bypasses onboarding.
 
 ## Existing user flow
 
@@ -40,15 +40,14 @@ flowchart TD
   D[Dashboard] --> V[/add]
   V --> E[Enter five readings]
   E --> FV[Frontend validation]
-  FV --> SV[Verified server validation]
-  SV --> HS[Deterministic Health Score]
-  HS --> WR[Save owner-scoped reading]
-  WR --> AI[Protected OpenRouter analysis]
-  AI --> WA[Normalize and save analysis]
-  WA --> D
+  FV --> HS[Deterministic Health Score]
+  HS --> RV[Firestore rule validation]
+  RV --> WR[Save owner-scoped reading]
+  WR --> DI[Show deterministic range insight]
+  DI --> D
 ```
 
-Current behavior is `client validate → verified backend validate/score/write → normalized or failed analysis write → query refresh → dashboard`. Durable idempotency prevents a reused submission key from creating another reading.
+Current behavior is `client validate/score → Firestore rules validate owner, fields, limits, and exact score → immutable write → query refresh → deterministic insight`. A transaction and immutable idempotency-key document ID prevent duplicate submissions.
 
 ## History flow
 
@@ -56,10 +55,10 @@ Current behavior is `client validate → verified backend validate/score/write �
 flowchart LR
   D[Dashboard] --> H[/history]
   H --> Q[Newest-first readings]
-  Q --> R[Expand reading and its analysis]
+  Q --> R[Expand reading and its deterministic insight]
 ```
 
-The current API implementation supports All, 7 Days, and 30 Days filters plus cursor pages of 20 owner-scoped readings.
+The direct Firestore implementation supports All, 7 Days, and 30 Days filters plus cursor pages of 20 owner-scoped readings.
 
 ## Logout flow
 

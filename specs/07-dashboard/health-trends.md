@@ -7,7 +7,7 @@
 
 ## Current state — IMPLEMENTED IN CODE, NOT DEPLOYED
 
-`TrendPreview` derives chart/summary inputs from bounded owner-scoped records supplied by the protected dashboard API. It represents zero, one, and multiple readings without inventing missing data.
+`TrendPreview` derives chart/summary inputs from bounded owner-scoped records supplied by the direct Firestore dashboard query. It represents zero, one, and multiple readings without inventing missing data.
 
 ## Target behavior
 

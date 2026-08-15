@@ -5,9 +5,9 @@
 **Last Updated:** 2026-08-10
 **Related:** [OpenRouter](./openrouter.md), [AI Safety](./ai-safety.md), [Health Score](../05-vitals/health-score.md)
 
-## Current state — IMPLEMENTED IN CODE, NOT DEPLOYED
+## Current state — DEFERRED IN SPARK MODE
 
-`POST /vitals/analyze` verifies Firebase identity, repeats technical validation, executes the deterministic score/status/urgency, persists the owner-scoped reading, sends minimal context to OpenRouter, normalizes untrusted output, and persists a separate linked analysis. Provider failure keeps the reading, records a safe failed analysis, and can be retried through a bounded private task.
+The active frontend does not register or call an AI endpoint. It saves a rule-validated owner-scoped reading and derives a clearly labeled deterministic range insight. OpenRouter cannot be called safely from a browser-only Spark architecture because its API key would be exposed.
 
 ## Target workflow
 
@@ -18,4 +18,4 @@ Validated vitals → deterministic Health Score → minimal permitted context
 
 Only required context may be sent: five validated readings, deterministic score, and an approved minimal trend summary; optionally age-derived context/sex only when justified by defined rules. Never send email, full name, photo URL, Firebase UID, Google ID, or unrelated profile fields.
 
-**CARE-AI-002 — P0 / IMPLEMENTED IN CODE, NOT DEPLOYED:** AI failure keeps the Firestore reading, marks analysis `failed`, and shows saved-reading unavailable copy. Provider requests receive one internal transient retry; a durable authenticated operation queues a bounded private retry.
+**CARE-AI-002 — P0 / DEFERRED IN SPARK MODE:** No provider request or retry is attempted. The reading is saved independently with `analysisStatus: "unavailable"`, and the UI states that AI is disabled in Firestore-only mode. The retained inactive backend implements the prior protected workflow for possible future use.

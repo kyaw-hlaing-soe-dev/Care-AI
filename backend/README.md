@@ -2,9 +2,9 @@
 
 ## Purpose
 
-This folder contains the Firebase Cloud Functions backend for CareAI. It is the trusted layer for Firebase token verification, profile writes, vital submission, deterministic health scoring, OpenRouter analysis, Firestore persistence, dashboard data, history data, safe errors, and privacy-safe logging.
+This folder contains the inactive Firebase Cloud Functions backend previously built for CareAI. The active Spark-plan frontend does not call it, and `firebase.json` does not deploy it. It remains reference code for a future protected server that can safely hold OpenRouter secrets.
 
-The implementation is ready for local configuration and emulator verification. It has not been deployed; Firebase project aliases, hosted origins, the Google provider, and deployment secrets must be configured first.
+Do not deploy this directory as part of the Spark configuration. Cloud Functions requires a billing-enabled Firebase project. If a protected server is approved later, re-review the architecture/specs, secrets, origins, tests, and deployment configuration first.
 
 ## Architecture
 

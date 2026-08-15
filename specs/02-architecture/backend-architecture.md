@@ -1,28 +1,18 @@
 # CareAI Backend Architecture
 
-**Status:** Implemented, deployment pending
-**Version:** 1.0  
+**Status:** Inactive in Spark mode
+**Version:** 1.1
 **Last Updated:** 2026-08-15
-**Related:** [API Contracts](../12-api/api-contracts.md), [OpenRouter](../06-ai/openrouter.md), [Security](../10-security/security.md)
+**Related:** [System Architecture](./system-architecture.md), [OpenRouter](../06-ai/openrouter.md), [Security](../10-security/security.md)
 
-## Current state — PARTIAL
+## Active deployment
 
-`backend/` implements the regional HTTPS API and private Cloud Tasks retry function. It verifies Firebase ID tokens, derives UID server-side, validates requests, executes the deterministic score, persists owner-scoped readings and separate analyses, uses durable idempotency keys, and normalizes server-only OpenRouter output. The old unauthenticated TanStack analysis route is no longer registered.
+The Spark-plan application has no deployed application backend or Cloud Function. Firebase Authentication establishes identity and Cloud Firestore security rules authorize and validate direct browser operations. `firebase.json` intentionally contains no Functions deployment target.
 
-Deployment and live-environment verification are pending. This status does not claim that Firebase rules, project configuration, secrets, or Google authentication are deployed.
+## Retained reference implementation
 
-## Target
-
-Use Firebase Cloud Functions or an equivalent protected server:
-
-```text
-React → authenticated request → verify Firebase ID token → validate vitals
-→ calculate deterministic score → write reading → OpenRouter → normalize output
-→ write analysis → return safe response
-```
-
-The backend owns token verification, UID derivation, technical input validation, health-score execution, idempotency/duplicate protection, OpenRouter requests/timeouts/retries, schema normalization, trusted Firestore writes, and safe errors. It must never trust a raw UID from request input or expose provider error bodies.
+`backend/` still contains the prior regional HTTPS API, Firebase Admin validation/persistence, OpenRouter normalization, durable idempotency, and retry implementation. It is not imported or called by the frontend and is not eligible for the selected no-billing deployment. Its tests remain useful reference coverage for a future protected server.
 
 ## Requirement
 
-**CARE-ARCH-001 — P0 / IMPLEMENTED, NOT DEPLOYED:** The application code sends vital submissions through a verified-identity Cloud Functions boundary with trusted Firestore persistence. Live deployment and end-to-end acceptance remain required. See [TASK-AI-003](../14-development/implementation-plan.md#task-ai-003).
+**CARE-ARCH-001 — P0 / REPLACED FOR SPARK MODE:** Profile and vital persistence use direct authenticated Firestore access with strict owner/shape/limit/deterministic-result rules. Trusted server-side AI and repeated application validation are deferred. A future AI reactivation must use a protected server and must not expose provider secrets in the browser.
