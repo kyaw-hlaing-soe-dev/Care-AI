@@ -37,6 +37,7 @@ export function AIInsightPanel({
 }) {
   const { t } = useTranslation();
   const deterministic = analysis.provider === "deterministic";
+  const aiFailed = analysis.provider === "openrouter" && analysis.aiStatus === "failed";
   return (
     <GlassCard id={panelId} strong className="app-card scroll-mt-24 overflow-hidden p-0">
       <div className="border-b border-blue-100/80 bg-gradient-to-r from-blue-50/80 via-white/60 to-cyan-50/75 px-5 py-5 sm:px-6">
@@ -59,9 +60,9 @@ export function AIInsightPanel({
         <p className="myanmar-readable mt-3 max-w-4xl text-sm leading-6 text-slate-600">
           {analysis.summary}
         </p>
-        {deterministic ? (
+        {deterministic || aiFailed ? (
           <p className="mt-2 text-xs leading-5 text-slate-500" role="status">
-            {t("dashboard.aiUnavailable")}
+            {aiFailed ? t("dashboard.aiFailed") : t("dashboard.aiUnavailable")}
           </p>
         ) : null}
       </div>

@@ -46,10 +46,7 @@ function aiOutput(overrides: Partial<AiOutput> = {}): AiOutput {
   };
 }
 
-function request(
-  body: unknown = GOOD_VITALS,
-  headers: Record<string, string> = {},
-): Request {
+function request(body: unknown = GOOD_VITALS, headers: Record<string, string> = {}): Request {
   return new Request("https://careai.example/api/vitals/analyze", {
     method: "POST",
     headers: { "content-type": "application/json", ...headers },
@@ -196,7 +193,9 @@ test("retries one 5xx response and does not retry a 4xx response", async () => {
   let calls = 0;
   globalThis.fetch = async () => {
     calls += 1;
-    return calls === 1 ? new Response("unavailable", { status: 503 }) : providerResponse(aiOutput());
+    return calls === 1
+      ? new Response("unavailable", { status: 503 })
+      : providerResponse(aiOutput());
   };
 
   const recovered = await responseBody(await handleAnalyzeVitals(request(), ENV));

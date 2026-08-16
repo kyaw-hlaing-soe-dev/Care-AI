@@ -26,7 +26,7 @@
 ## AC-VITAL-001
 
 **Related requirement:** CARE-PROD-001  
-**Status:** DEFERRED IN SPARK MODE
+**Status:** IMPLEMENTED IN CODE; NOT DEPLOYED / E2E VERIFIED
 
 **GIVEN** a profile-complete user  
 **WHEN** they submit five numeric readings inside technical limits  
@@ -44,13 +44,13 @@
 ## AC-AI-001
 
 **Related requirement:** CARE-PROD-006  
-**Status:** DEFERRED IN SPARK MODE
+**Status:** PARTIAL IN SPARK MODE
 
 **GIVEN** a validated, saved reading  
 **WHEN** the protected AI provider is available  
 **THEN** only minimal permitted context is sent, its response is normalized to the approved schema, and the UI shows the disclaimer.
 
-The active Spark-mode frontend does not call OpenRouter. It derives deterministic insight text locally and supplies the disclaimer; protected provider acceptance is deferred until a separate server is approved.
+The active Spark-mode Firestore path never sends OpenRouter requests directly from the browser and does not persist provider output as trusted Firestore data. When hosted with the protected frontend server route and `VITE_CAREAI_AI_ANALYSIS_ENABLED=true`, the browser may request presentation-only OpenRouter analysis from `POST /api/vitals/analyze`; missing configuration or provider failure returns the saved-reading fallback with the disclaimer.
 
 ## AC-DASH-001
 
