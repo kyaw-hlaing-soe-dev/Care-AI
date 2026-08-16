@@ -58,10 +58,10 @@ Owner-scoped Firestore paths and authenticated direct writes are implemented. St
 ### CARE-PROD-006 — Informational AI insight
 
 **Priority:** P0  
-**Status:** DEFERRED IN SPARK MODE
+**Status:** PARTIAL IN SPARK MODE
 **Acceptance:** [AC-AI-001](./acceptance-criteria.md#ac-ai-001)
 
-OpenRouter analysis is disabled in the active Firestore-only Spark architecture because its secret cannot be exposed to the browser. The UI provides clearly labeled deterministic range-based insights and retains the informational disclaimer. The inactive backend implementation remains available for a future protected server deployment.
+OpenRouter analysis is optional in the active Spark-compatible architecture. Firestore remains the persistence and authorization boundary, while the browser may call the protected frontend server route `POST /api/vitals/analyze` only when `VITE_CAREAI_AI_ANALYSIS_ENABLED=true` is set. That server route may call OpenRouter with server-only `OPENROUTER_API_KEY` and `OPENROUTER_MODEL`; browser-only/static hosting falls back to clearly labeled deterministic range-based insights. The inactive Cloud Functions backend remains available for a future billing-enabled deployment.
 
 ### CARE-PROD-007 — Dashboard and recent trends
 

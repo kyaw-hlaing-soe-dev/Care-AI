@@ -19,7 +19,7 @@ flowchart LR
   RULES --> DB
 ```
 
-This architecture remains compatible with the Firebase Spark plan because it does not deploy Cloud Functions. The frontend never contains or calls OpenRouter with a secret. AI analysis is explicitly unavailable; the UI labels its local result as rule-based.
+This architecture remains compatible with the Firebase Spark plan because it does not deploy Firebase Cloud Functions. The frontend never contains or calls OpenRouter with a secret. Optional OpenRouter analysis requires hosting the frontend with a protected server runtime that owns `OPENROUTER_API_KEY`; otherwise the UI labels its local result as rule-based.
 
 ## Inactive backend
 

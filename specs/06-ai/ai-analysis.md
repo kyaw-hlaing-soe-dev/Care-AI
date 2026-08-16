@@ -5,9 +5,9 @@
 **Last Updated:** 2026-08-10
 **Related:** [OpenRouter](./openrouter.md), [AI Safety](./ai-safety.md), [Health Score](../05-vitals/health-score.md)
 
-## Current state — DEFERRED IN SPARK MODE
+## Current state — OPTIONAL PROTECTED OPENROUTER IN SPARK MODE
 
-The active frontend does not register or call an AI endpoint. It saves a rule-validated owner-scoped reading and derives a clearly labeled deterministic range insight. OpenRouter cannot be called safely from a browser-only Spark architecture because its API key would be exposed.
+The active Firebase data path remains Spark-compatible: the browser saves a rule-validated owner-scoped reading and derives a clearly labeled deterministic range insight. If the frontend is hosted on a protected server runtime and `VITE_CAREAI_AI_ANALYSIS_ENABLED=true` is configured, the latest/detail views may call `POST /api/vitals/analyze`; that server route calls OpenRouter with server-only `OPENROUTER_API_KEY`. OpenRouter must never be called directly from the browser because its API key would be exposed.
 
 ## Target workflow
 
@@ -18,4 +18,4 @@ Validated vitals → deterministic Health Score → minimal permitted context
 
 Only required context may be sent: five validated readings, deterministic score, and an approved minimal trend summary; optionally age-derived context/sex only when justified by defined rules. Never send email, full name, photo URL, Firebase UID, Google ID, or unrelated profile fields.
 
-**CARE-AI-002 — P0 / DEFERRED IN SPARK MODE:** No provider request or retry is attempted. The reading is saved independently with `analysisStatus: "unavailable"`, and the UI states that AI is disabled in Firestore-only mode. The retained inactive backend implements the prior protected workflow for possible future use.
+**CARE-AI-002 — P0 / PARTIAL IN SPARK MODE:** The reading is saved independently with `analysisStatus: "unavailable"` because Firestore cannot trust browser-written analysis documents. When configured, the protected server route may generate presentation-only OpenRouter analysis; output must pass the normalized schema and safety checks, and deterministic score/status/emergency/urgency remain authoritative. Persisted analysis documents remain deferred until a trusted server write path is approved.

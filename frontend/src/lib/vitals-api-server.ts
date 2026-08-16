@@ -59,8 +59,7 @@ export type AnalyzeVitalsResponse = {
 
 type RuntimeEnv = Record<string, unknown>;
 type ProviderResult =
-  | { ok: true; analysis: AiOutput; model: string }
-  | { ok: false; model?: string };
+  { ok: true; analysis: AiOutput; model: string } | { ok: false; model?: string };
 
 type IdempotentEntry = {
   expiresAt: number;
