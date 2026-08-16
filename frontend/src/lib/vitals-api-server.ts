@@ -289,18 +289,18 @@ export function normalizeAiOutput(content: string): AiOutput | undefined {
     return undefined;
   }
 
-  const summary = normalizeText(record.summary, 600);
-  const whatLooksGood = normalizeTextArray(record.whatLooksGood);
-  const areasToWatch = normalizeTextArray(record.areasToWatch);
-  const recommendations = normalizeTextArray(record.recommendations);
-  const urgency = record.urgency;
+  const summary = normalizeText(record["summary"], 600);
+  const whatLooksGood = normalizeTextArray(record["whatLooksGood"]);
+  const areasToWatch = normalizeTextArray(record["areasToWatch"]);
+  const recommendations = normalizeTextArray(record["recommendations"]);
+  const urgency = record["urgency"];
   if (
     summary === undefined ||
     whatLooksGood === undefined ||
     areasToWatch === undefined ||
     recommendations === undefined ||
     (urgency !== "routine" && urgency !== "monitor" && urgency !== "seek-care") ||
-    typeof record.disclaimer !== "string"
+    typeof record["disclaimer"] !== "string"
   ) {
     return undefined;
   }
