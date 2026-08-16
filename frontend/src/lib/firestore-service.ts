@@ -86,32 +86,32 @@ function isPreferredLanguage(
 }
 
 function mapProfile(data: DocumentData | undefined): UserProfile | null {
-  if (!data || data.profileCompleted !== true) return null;
-  const createdAt = dateIso(data.createdAt);
-  const updatedAt = dateIso(data.updatedAt);
+  if (!data || data["profileCompleted"] !== true) return null;
+  const createdAt = dateIso(data["createdAt"]);
+  const updatedAt = dateIso(data["updatedAt"]);
   if (
-    typeof data.displayName !== "string" ||
-    typeof data.dateOfBirth !== "string" ||
-    !isProfileSex(data.sex) ||
-    typeof data.heightCm !== "number" ||
-    typeof data.weightKg !== "number" ||
+    typeof data["displayName"] !== "string" ||
+    typeof data["dateOfBirth"] !== "string" ||
+    !isProfileSex(data["sex"]) ||
+    typeof data["heightCm"] !== "number" ||
+    typeof data["weightKg"] !== "number" ||
     !createdAt ||
     !updatedAt
   ) {
     throw new CareAiDataError("DATABASE_ERROR", "Your profile data could not be read.");
   }
   return {
-    displayName: data.displayName,
-    dateOfBirth: data.dateOfBirth,
-    sex: data.sex,
-    heightCm: data.heightCm,
-    weightKg: data.weightKg,
+    displayName: data["displayName"],
+    dateOfBirth: data["dateOfBirth"],
+    sex: data["sex"],
+    heightCm: data["heightCm"],
+    weightKg: data["weightKg"],
     profileCompleted: true,
     createdAt,
     updatedAt,
-    ...(isBloodType(data.bloodType) ? { bloodType: data.bloodType } : {}),
-    ...(isPreferredLanguage(data.preferredLanguage)
-      ? { preferredLanguage: data.preferredLanguage }
+    ...(isBloodType(data["bloodType"]) ? { bloodType: data["bloodType"] } : {}),
+    ...(isPreferredLanguage(data["preferredLanguage"])
+      ? { preferredLanguage: data["preferredLanguage"] }
       : {}),
   };
 }
@@ -131,7 +131,7 @@ export async function saveProfile(
   await runTransaction(database, async (transaction) => {
     const current = await transaction.get(reference);
     const existing = current.data();
-    const preferredLanguage = input.preferredLanguage ?? existing?.preferredLanguage;
+    const preferredLanguage = input.preferredLanguage ?? existing?.["preferredLanguage"];
     transaction.set(reference, {
       displayName: input.displayName.trim(),
       dateOfBirth: input.dateOfBirth,
@@ -139,7 +139,7 @@ export async function saveProfile(
       heightCm: input.heightCm,
       weightKg: input.weightKg,
       profileCompleted: true,
-      createdAt: current.exists() ? existing?.createdAt : serverTimestamp(),
+      createdAt: current.exists() ? existing?.["createdAt"] : serverTimestamp(),
       updatedAt: serverTimestamp(),
       ...(input.bloodType ? { bloodType: input.bloodType } : {}),
       ...(isPreferredLanguage(preferredLanguage) ? { preferredLanguage } : {}),
@@ -165,11 +165,11 @@ export async function savePreferredLanguage(
 
 function sameVitalInput(data: DocumentData, input: VitalInput) {
   return (
-    data.systolic === input.systolic &&
-    data.diastolic === input.diastolic &&
-    data.heartRate === input.heartRate &&
-    data.oxygenSaturation === input.oxygen &&
-    data.temperatureC === input.temperature
+    data["systolic"] === input.systolic &&
+    data["diastolic"] === input.diastolic &&
+    data["heartRate"] === input.heartRate &&
+    data["oxygenSaturation"] === input.oxygen &&
+    data["temperatureC"] === input.temperature
   );
 }
 
@@ -302,13 +302,13 @@ function parseCursor(cursor: string) {
 }
 
 function mapReading(id: string, data: DocumentData): VitalRecord {
-  const recordedAt = dateIso(data.createdAt);
+  const recordedAt = dateIso(data["createdAt"]);
   const input: VitalInput = {
-    systolic: Number(data.systolic),
-    diastolic: Number(data.diastolic),
-    heartRate: Number(data.heartRate),
-    oxygen: Number(data.oxygenSaturation),
-    temperature: Number(data.temperatureC),
+    systolic: Number(data["systolic"]),
+    diastolic: Number(data["diastolic"]),
+    heartRate: Number(data["heartRate"]),
+    oxygen: Number(data["oxygenSaturation"]),
+    temperature: Number(data["temperatureC"]),
   };
   if (!recordedAt || Object.values(input).some((value) => !Number.isFinite(value))) {
     throw new CareAiDataError("DATABASE_ERROR", "A stored reading could not be read.");

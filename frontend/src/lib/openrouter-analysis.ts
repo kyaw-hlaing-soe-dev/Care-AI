@@ -28,7 +28,7 @@ export async function createOpenRouterAnalysis(
       "idempotency-key": record.id,
     },
     body: JSON.stringify(toVitalInput(record)),
-    signal,
+    signal: signal ?? null,
   });
 
   if (!response.ok) return null;
@@ -45,7 +45,7 @@ export async function createOpenRouterAnalysis(
     status: record.analysis.status,
     emergency: record.analysis.emergency,
     score: record.analysis.score,
-    urgency: record.analysis.urgency,
+    urgency: record.analysis.urgency ?? "monitor",
   };
 }
 
