@@ -361,7 +361,13 @@ function Divider() {
   );
 }
 
-function PhoneMethodButton({ onClick, disabled }: { onClick: () => void; disabled?: boolean }) {
+function PhoneMethodButton({
+  onClick,
+  disabled,
+}: {
+  onClick: () => void;
+  disabled?: boolean | undefined;
+}) {
   const { t } = useTranslation();
   return (
     <button
@@ -376,7 +382,7 @@ function PhoneMethodButton({ onClick, disabled }: { onClick: () => void; disable
   );
 }
 
-function PhoneAuthFlow({ googlePending }: { googlePending?: boolean }) {
+function PhoneAuthFlow({ googlePending }: { googlePending?: boolean | undefined }) {
   const { createPhoneRecaptchaVerifier, sendPhoneVerification } = useAuth();
   const { t, i18n } = useTranslation();
   const [step, setStep] = useState<PhoneStep>("method");
@@ -394,7 +400,7 @@ function PhoneAuthFlow({ googlePending }: { googlePending?: boolean }) {
   const sendLock = useRef(false);
   const verifyLock = useRef(false);
   const country = useMemo(
-    () => PHONE_COUNTRIES.find((item) => item.iso === countryIso) ?? PHONE_COUNTRIES[0],
+    () => PHONE_COUNTRIES.find((item) => item.iso === countryIso) ?? PHONE_COUNTRIES[0]!,
     [countryIso],
   );
 
