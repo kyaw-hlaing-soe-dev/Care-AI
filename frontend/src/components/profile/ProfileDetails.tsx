@@ -1066,7 +1066,8 @@ function EditProfileSection({
             >
               {saving ? (
                 <>
-                  <LoaderCircle className="size-4 animate-spin" aria-hidden="true" /> {t("common.saving")}
+                  <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />{" "}
+                  {t("common.saving")}
                 </>
               ) : (
                 t("common.saveChanges")
@@ -1198,10 +1199,7 @@ function PrivacySection({ user, onBack }: { user: AppUser; onBack: () => void })
         <div className="space-y-7 md:mt-6">
           <DetailList title={t("profile.account")}>
             <DetailRow label={t("profile.connectedAccount")} value={t(providerSummaryKey(user))} />
-            <DetailRow
-              label={t("profile.email")}
-              value={user.email ?? t("common.notProvided")}
-            />
+            <DetailRow label={t("profile.email")} value={user.email ?? t("common.notProvided")} />
             {hasPhone ? (
               <DetailRow
                 label={t("profile.phoneNumber")}

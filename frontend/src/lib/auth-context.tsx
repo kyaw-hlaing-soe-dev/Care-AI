@@ -112,13 +112,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [],
   );
 
-  const sendPhoneVerification = useCallback(
-    (phoneNumber: string, verifier: RecaptchaVerifier) => {
-      const firebaseAuth = getFirebaseAuth();
-      return signInWithPhoneNumber(firebaseAuth, phoneNumber, verifier);
-    },
-    [],
-  );
+  const sendPhoneVerification = useCallback((phoneNumber: string, verifier: RecaptchaVerifier) => {
+    const firebaseAuth = getFirebaseAuth();
+    return signInWithPhoneNumber(firebaseAuth, phoneNumber, verifier);
+  }, []);
 
   const signOut = useCallback(async () => {
     const firebaseAuth = getFirebaseAuth();
@@ -138,14 +135,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       sendPhoneVerification,
       signOut,
     }),
-    [
-      user,
-      loading,
-      signInWithGoogle,
-      createPhoneRecaptchaVerifier,
-      sendPhoneVerification,
-      signOut,
-    ],
+    [user, loading, signInWithGoogle, createPhoneRecaptchaVerifier, sendPhoneVerification, signOut],
   );
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

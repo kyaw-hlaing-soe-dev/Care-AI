@@ -37,7 +37,14 @@ type PhoneCountry = {
 
 const PHONE_COUNTRIES: PhoneCountry[] = [
   { iso: "MM", label: "Myanmar", flag: "MM", callingCode: "+95", minDigits: 7, maxDigits: 11 },
-  { iso: "US", label: "United States", flag: "US", callingCode: "+1", minDigits: 10, maxDigits: 10 },
+  {
+    iso: "US",
+    label: "United States",
+    flag: "US",
+    callingCode: "+1",
+    minDigits: 10,
+    maxDigits: 10,
+  },
   { iso: "CN", label: "China", flag: "CN", callingCode: "+86", minDigits: 11, maxDigits: 11 },
   { iso: "TH", label: "Thailand", flag: "TH", callingCode: "+66", minDigits: 8, maxDigits: 10 },
   { iso: "SG", label: "Singapore", flag: "SG", callingCode: "+65", minDigits: 8, maxDigits: 8 },
@@ -73,10 +80,7 @@ function phoneAuthErrorKey(error: unknown) {
   if (code === "auth/code-expired" || code === "auth/session-expired") {
     return "auth.phoneErrors.expiredCode";
   }
-  if (
-    code === "auth/too-many-requests" ||
-    code === "auth/quota-exceeded"
-  ) {
+  if (code === "auth/too-many-requests" || code === "auth/quota-exceeded") {
     return "auth.phoneErrors.tooMany";
   }
   if (code === "auth/captcha-check-failed" || code === "auth/missing-app-credential") {
@@ -546,7 +550,11 @@ function PhoneAuthFlow({ googlePending }: { googlePending?: boolean }) {
           </label>
         </div>
         {error ? (
-          <p id="phone-auth-error" className="text-sm font-medium leading-5 text-rose-600" role="alert">
+          <p
+            id="phone-auth-error"
+            className="text-sm font-medium leading-5 text-rose-600"
+            role="alert"
+          >
             {error}
           </p>
         ) : (
@@ -624,7 +632,11 @@ function PhoneAuthFlow({ googlePending }: { googlePending?: boolean }) {
         </InputOTP>
       </div>
       {error ? (
-        <p id="phone-auth-error" className="text-sm font-medium leading-5 text-rose-600" role="alert">
+        <p
+          id="phone-auth-error"
+          className="text-sm font-medium leading-5 text-rose-600"
+          role="alert"
+        >
           {error}
         </p>
       ) : null}

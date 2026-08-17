@@ -541,9 +541,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
         </h1>
         <p className="myanmar-readable mt-2.5 max-w-[500px] text-sm leading-6 text-slate-600 sm:text-[15px] lg:mt-1.5">
           <span className="lg:hidden">{t("createProfile.mobileSubtitle")}</span>
-          <span className="hidden lg:inline">
-            {t("createProfile.subtitle")}
-          </span>
+          <span className="hidden lg:inline">{t("createProfile.subtitle")}</span>
         </p>
       </div>
 
@@ -648,9 +646,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
           </button>
           <p className="mt-3.5 flex items-start justify-center gap-2 px-1 text-center text-[11px] leading-[1.55] text-slate-500 sm:text-xs">
             <LockKeyhole className="mt-0.5 size-3.5 shrink-0 text-blue-500" />
-            <span>
-              {t("createProfile.privacy")}
-            </span>
+            <span>{t("createProfile.privacy")}</span>
           </p>
         </div>
       </form>
