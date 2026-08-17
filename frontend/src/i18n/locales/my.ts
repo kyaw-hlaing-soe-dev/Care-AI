@@ -106,6 +106,7 @@ const my: TranslationSchema = {
     sendCode: "ကုဒ်ပို့မည်",
     sendingCode: "ကုဒ်ပို့နေသည်…",
     smsRates: "ပုံမှန် SMS ကျသင့်ငွေ ရှိနိုင်ပါသည်။",
+    phoneRegionNotice: "လက်ရှိတွင် မြန်မာဖုန်းနံပါတ်များကိုသာ ပံ့ပိုးထားသည်။",
     changePhone: "ဖုန်းနံပါတ် ပြောင်းမည်",
     verifyPhone: "ဖုန်းကို အတည်ပြုပါ",
     sentCodeTo: "အတည်ပြုကုဒ် ပို့ထားသော ဖုန်းနံပါတ်",

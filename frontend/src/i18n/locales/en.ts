@@ -104,6 +104,7 @@ const en = {
     sendCode: "Send Code",
     sendingCode: "Sending code…",
     smsRates: "Standard SMS rates may apply.",
+    phoneRegionNotice: "Myanmar phone numbers are currently supported.",
     changePhone: "Change phone number",
     verifyPhone: "Verify your phone",
     sentCodeTo: "We sent a verification code to",

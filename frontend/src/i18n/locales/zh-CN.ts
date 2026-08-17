@@ -102,6 +102,7 @@ const zhCN: TranslationSchema = {
     sendCode: "发送验证码",
     sendingCode: "正在发送验证码…",
     smsRates: "可能会产生标准短信费用。",
+    phoneRegionNotice: "目前支持缅甸手机号。",
     changePhone: "更改手机号",
     verifyPhone: "验证手机号",
     sentCodeTo: "验证码已发送至",

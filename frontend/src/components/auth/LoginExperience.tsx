@@ -37,30 +37,26 @@ type PhoneCountry = {
 
 const PHONE_COUNTRIES: PhoneCountry[] = [
   { iso: "MM", label: "Myanmar", flag: "MM", callingCode: "+95", minDigits: 7, maxDigits: 11 },
-  {
-    iso: "US",
-    label: "United States",
-    flag: "US",
-    callingCode: "+1",
-    minDigits: 10,
-    maxDigits: 10,
-  },
-  { iso: "CN", label: "China", flag: "CN", callingCode: "+86", minDigits: 11, maxDigits: 11 },
-  { iso: "TH", label: "Thailand", flag: "TH", callingCode: "+66", minDigits: 8, maxDigits: 10 },
-  { iso: "SG", label: "Singapore", flag: "SG", callingCode: "+65", minDigits: 8, maxDigits: 8 },
-  { iso: "IN", label: "India", flag: "IN", callingCode: "+91", minDigits: 10, maxDigits: 10 },
 ];
 
 function normalizePhoneNumber(rawValue: string, country: PhoneCountry) {
   const compact = rawValue.replace(/[\s().-]/g, "");
   if (compact.startsWith("+")) {
     if (!/^\+[1-9]\d{7,14}$/.test(compact)) return null;
+    if (!compact.startsWith(country.callingCode)) return null;
+    const national = compact.slice(country.callingCode.length);
+    if (national.length < country.minDigits || national.length > country.maxDigits) return null;
     return compact;
   }
   if (!/^\d+$/.test(compact)) return null;
   const national = compact.replace(/^0+/, "");
   if (national.length < country.minDigits || national.length > country.maxDigits) return null;
   return `${country.callingCode}${national}`;
+}
+
+function logPhoneAuthError(stage: "send" | "verify", error: unknown) {
+  const code = (error as { code?: string }).code ?? "unknown";
+  console.warn("CareAI phone auth failed", { stage, code });
 }
 
 function maskPhoneNumber(phoneNumber: string) {
@@ -454,6 +450,7 @@ function PhoneAuthFlow({ googlePending }: { googlePending?: boolean | undefined 
       setCooldown(30);
     } catch (sendError) {
       resetVerifier();
+      logPhoneAuthError("send", sendError);
       setError(t(phoneAuthErrorKey(sendError)));
     } finally {
       sendLock.current = false;
@@ -475,6 +472,7 @@ function PhoneAuthFlow({ googlePending }: { googlePending?: boolean | undefined 
       await confirmation.confirm(code);
       setVerified(true);
     } catch (verifyError) {
+      logPhoneAuthError("verify", verifyError);
       setError(t(phoneAuthErrorKey(verifyError)));
     } finally {
       verifyLock.current = false;
@@ -568,7 +566,7 @@ function PhoneAuthFlow({ googlePending }: { googlePending?: boolean | undefined 
           </p>
         ) : (
           <p id="phone-auth-helper" className="text-xs leading-5 text-slate-500">
-            {t("auth.smsRates")}
+            {t("auth.phoneRegionNotice")} {t("auth.smsRates")}
           </p>
         )}
         <button
