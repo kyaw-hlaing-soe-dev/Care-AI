@@ -126,6 +126,8 @@ const en = {
       unauthorizedDomain:
         "Phone sign-in is not enabled for this website domain. Contact the CareAI team.",
       providerDisabled: "Phone sign-in is not enabled yet. Contact the CareAI team.",
+      billingNotEnabled:
+        "Phone sign-in needs Firebase billing or a configured test number before SMS codes can be sent.",
       invalidAppCredential:
         "Phone sign-in could not verify this app. Check the Firebase phone auth settings.",
       credentialInUse: "This phone number is already connected to another account.",

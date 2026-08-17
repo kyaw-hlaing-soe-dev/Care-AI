@@ -85,6 +85,7 @@ function phoneAuthErrorKey(error: unknown) {
   if (code === "auth/network-request-failed") return "auth.phoneErrors.network";
   if (code === "auth/unauthorized-domain") return "auth.phoneErrors.unauthorizedDomain";
   if (code === "auth/operation-not-allowed") return "auth.phoneErrors.providerDisabled";
+  if (code === "auth/billing-not-enabled") return "auth.phoneErrors.billingNotEnabled";
   if (code === "auth/invalid-app-credential") return "auth.phoneErrors.invalidAppCredential";
   if (code === "auth/credential-already-in-use" || code === "auth/provider-already-linked") {
     return "auth.phoneErrors.credentialInUse";

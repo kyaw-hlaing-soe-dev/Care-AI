@@ -123,6 +123,7 @@ const zhCN: TranslationSchema = {
       recaptcha: "无法验证此请求。请重试。",
       unauthorizedDomain: "此网站域名尚未启用手机号登录。请联系 CareAI 团队。",
       providerDisabled: "手机号登录尚未启用。请联系 CareAI 团队。",
+      billingNotEnabled: "手机号登录需要启用 Firebase 结算，或先配置测试手机号，才能发送短信验证码。",
       invalidAppCredential: "手机号登录无法验证此应用。请检查 Firebase 手机号登录设置。",
       credentialInUse: "此手机号已连接到另一个账户。",
     },

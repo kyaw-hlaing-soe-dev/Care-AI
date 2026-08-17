@@ -14,6 +14,7 @@ Phone sign-in requires Firebase Console configuration before it can work in a de
 - Authentication -> Sign-in method -> Phone must be enabled for project `care-ai-4eb8d`.
 - Authentication -> Settings -> SMS region policy currently uses an allowlist with `MM`, so the shipped phone sign-in UI accepts Myanmar phone numbers only. Add regions in Firebase before exposing additional countries in the UI. New Firebase projects default to allowing no SMS regions until this policy is configured.
 - Authentication -> Settings -> Authorized domains must include every served CareAI domain, including `care-ai-4eb8d.firebaseapp.com`, localhost domains used for development, and deployed Vercel domains when used, such as `care-ai-six.vercel.app` and `vitals-glass.vercel.app`.
+- Real SMS phone verification requires a Firebase project with billing enabled. On Spark/no-billing environments, Firebase returns `auth/billing-not-enabled`; the UI must keep the user on the phone sign-in step and show a safe setup message.
 - Development and QA should use Firebase Authentication fictional phone numbers configured in the Console instead of repeatedly sending real SMS messages. Test numbers and OTPs must not be hardcoded in production source.
 
 ## Target behavior
