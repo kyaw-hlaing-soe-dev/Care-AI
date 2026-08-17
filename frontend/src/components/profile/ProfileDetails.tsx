@@ -12,6 +12,7 @@ import {
   LockKeyhole,
   LogOut,
   Pencil,
+  Phone,
   ShieldCheck,
   UserRound,
 } from "lucide-react";
@@ -32,6 +33,12 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useAuth, type AppUser } from "@/lib/auth-context";
+import {
+  displayNameFallback,
+  privateAccountValue,
+  providerLabelKey,
+  providerSummaryKey,
+} from "@/lib/auth-display";
 import { useProfile, type UserProfile } from "@/lib/profile-context";
 import {
   BLOOD_TYPES,
@@ -153,12 +160,30 @@ function ProfileAvatar({
   );
 }
 
-function GoogleBadge() {
+function ProviderBadges({ user }: { user: AppUser }) {
   const { t } = useTranslation();
   return (
-    <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-emerald-100 bg-emerald-50/90 px-2.5 py-1 text-[11px] font-bold text-emerald-700">
-      <Check className="size-3.5" aria-hidden="true" /> {t("profile.googleAccount")}
-    </span>
+    <div className="flex flex-wrap gap-1.5">
+      {user.providers.length ? (
+        user.providers.map((provider) => (
+          <span
+            key={provider}
+            className="inline-flex w-fit items-center gap-1.5 rounded-full border border-emerald-100 bg-emerald-50/90 px-2.5 py-1 text-[11px] font-bold text-emerald-700"
+          >
+            {provider === "phone" ? (
+              <Phone className="size-3.5" aria-hidden="true" />
+            ) : (
+              <Check className="size-3.5" aria-hidden="true" />
+            )}
+            {t(providerLabelKey(provider))}
+          </span>
+        ))
+      ) : (
+        <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-bold text-slate-600">
+          {t("profile.connectedAccount")}
+        </span>
+      )}
+    </div>
   );
 }
 
@@ -171,7 +196,9 @@ function Identity({
   profile: UserProfile;
   compact?: boolean;
 }) {
-  const displayName = profile.displayName?.trim() || user.name;
+  const { t } = useTranslation();
+  const displayName = displayNameFallback(user, profile.displayName);
+  const accountValue = privateAccountValue(user) || t("common.notProvided");
   return (
     <div className="flex min-w-0 items-center gap-3.5">
       <ProfileAvatar user={user} name={displayName} size={compact ? "sm" : "md"} />
@@ -179,9 +206,9 @@ function Identity({
         <h2 className="app-card-title break-words text-[20px] font-extrabold leading-6 tracking-[-0.03em] text-slate-950">
           {displayName}
         </h2>
-        <p className="mt-0.5 break-all text-[13px] leading-5 text-slate-500">{user.email}</p>
+        <p className="mt-0.5 break-all text-[13px] leading-5 text-slate-500">{accountValue}</p>
         <div className="mt-2">
-          <GoogleBadge />
+          <ProviderBadges user={user} />
         </div>
       </div>
     </div>
@@ -625,8 +652,8 @@ function MobileProfileHub({
         <SettingsRow
           Icon={ShieldCheck}
           title={t("profile.connectedAccount")}
-          description={user.email}
-          value="Google"
+          description={privateAccountValue(user) || t("common.notProvided")}
+          value={t(providerSummaryKey(user))}
         />
         <div className="p-3">
           <SignOutButton compact />
@@ -661,7 +688,7 @@ function OverviewSection({
       <div className="space-y-7 md:mt-6">
         <DetailList title={t("profile.profileStatus")}>
           <DetailRow label={t("profile.completion")} value={`${completion.percent}%`} />
-          <DetailRow label={t("profile.account")} value="Google" />
+          <DetailRow label={t("profile.account")} value={t(providerSummaryKey(user))} />
           <DetailRow label={t("settings.language")} value={language} />
         </DetailList>
         <DetailList
@@ -1154,6 +1181,8 @@ function LanguageSection({ onBack }: { onBack: () => void }) {
 function PrivacySection({ user, onBack }: { user: AppUser; onBack: () => void }) {
   const { t } = useTranslation();
   const [modal, setModal] = useState<"data" | "disclaimer" | null>(null);
+  const hasGoogle = user.providers.includes("google");
+  const hasPhone = user.providers.includes("phone");
   return (
     <>
       <MobileNestedHeader
@@ -1168,8 +1197,23 @@ function PrivacySection({ user, onBack }: { user: AppUser; onBack: () => void })
         />
         <div className="space-y-7 md:mt-6">
           <DetailList title={t("profile.account")}>
-            <DetailRow label={t("profile.connectedAccount")} value="Google" />
-            <DetailRow label={t("profile.email")} value={user.email} />
+            <DetailRow label={t("profile.connectedAccount")} value={t(providerSummaryKey(user))} />
+            <DetailRow
+              label={t("profile.email")}
+              value={user.email ?? t("common.notProvided")}
+            />
+            {hasPhone ? (
+              <DetailRow
+                label={t("profile.phoneNumber")}
+                value={user.phoneNumber ?? t("common.notProvided")}
+              />
+            ) : null}
+            {hasGoogle ? (
+              <DetailRow
+                label={t("profile.google")}
+                value={user.email ?? t("common.notProvided")}
+              />
+            ) : null}
           </DetailList>
           <SettingsGroup title={t("profile.privacyLabel")}>
             <SettingsRow

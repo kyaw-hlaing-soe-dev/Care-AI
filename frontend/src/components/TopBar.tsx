@@ -19,6 +19,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/lib/auth-context";
+import { displayNameFallback, privateAccountValue } from "@/lib/auth-display";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -64,6 +65,8 @@ export function TopBar({ hideMobileNavigation = false }: { hideMobileNavigation?
   const { user, signOut } = useAuth();
   const { t } = useTranslation();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const displayName = user ? displayNameFallback(user) : "";
+  const accountValue = user ? privateAccountValue(user) || t("common.notProvided") : "";
 
   return (
     <>
@@ -112,8 +115,8 @@ export function TopBar({ hideMobileNavigation = false }: { hideMobileNavigation?
                     className="inline-flex min-h-11 items-center gap-2 rounded-[15px] px-1.5 text-sm font-semibold text-slate-800 transition-colors hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-cyan-200 sm:px-2.5"
                     aria-label={t("nav.openProfileMenu")}
                   >
-                    <UserAvatar name={user.name} avatar={user.avatar} />
-                    <span className="hidden max-w-32 truncate lg:block">{user.name}</span>
+                    <UserAvatar name={displayName} avatar={user.avatar} />
+                    <span className="hidden max-w-32 truncate lg:block">{displayName}</span>
                     <ChevronDown
                       className="hidden size-4 text-slate-400 lg:block"
                       aria-hidden="true"
@@ -130,10 +133,10 @@ export function TopBar({ hideMobileNavigation = false }: { hideMobileNavigation?
                       <UserRound className="size-3.5" /> {t("common.profile")}
                     </span>
                     <span className="mt-2 block break-words text-sm font-bold text-slate-900">
-                      {user.name}
+                      {displayName}
                     </span>
                     <span className="mt-0.5 block break-all text-xs font-normal text-slate-500">
-                      {user.email}
+                      {accountValue}
                     </span>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-slate-100" />

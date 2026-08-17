@@ -5,13 +5,21 @@ import {
   Check,
   CheckCircle2,
   ChevronDown,
+  CircleUserRound,
   LockKeyhole,
   LoaderCircle,
+  Phone,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
 import { CareAILogo } from "@/components/auth/CareAILogo";
 import { useAuth, type AppUser } from "@/lib/auth-context";
+import {
+  displayNameFallback,
+  primaryAccountValue,
+  privateAccountValue,
+  providerSummaryKey,
+} from "@/lib/auth-display";
 import { useProfile, type BloodType, type ProfileSex } from "@/lib/profile-context";
 import {
   BLOOD_TYPES,
@@ -225,17 +233,21 @@ function BloodTypeSelector({
   );
 }
 
-function GoogleAccountPreview({ user }: { user: AppUser }) {
+function AccountPreview({ user }: { user: AppUser }) {
   const { t } = useTranslation();
+  const accountValue = primaryAccountValue(user);
+  const privateValue = privateAccountValue(user) || t("common.notProvided");
+  const providerKey = providerSummaryKey(user);
+  const isPhoneOnly = user.providers.includes("phone") && !user.providers.includes("google");
   const initials = useMemo(
     () =>
-      user.name
+      displayNameFallback(user)
         .split(/\s+/)
         .filter(Boolean)
         .slice(0, 2)
         .map((part) => part[0]?.toUpperCase())
         .join("") || "AI",
-    [user.name],
+    [user],
   );
 
   return (
@@ -250,23 +262,25 @@ function GoogleAccountPreview({ user }: { user: AppUser }) {
           />
         ) : (
           <span className="grid size-11 place-items-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-sm font-bold text-white shadow-sm">
-            {initials}
+            {accountValue ? initials : <CircleUserRound className="size-5" aria-hidden="true" />}
           </span>
         )}
         <span className="absolute -bottom-0.5 -right-0.5 grid size-[18px] place-items-center rounded-full border-2 border-white bg-white text-[10px] font-extrabold text-blue-600 shadow-sm">
-          G
+          {isPhoneOnly ? <Phone className="size-3" aria-hidden="true" /> : "G"}
         </span>
       </div>
       <div className="min-w-0 flex-1 leading-tight">
-        <p className="break-words text-sm font-bold leading-snug text-slate-900">{user.name}</p>
-        <p className="mt-1 break-all text-xs leading-snug text-slate-500">{user.email}</p>
+        <p className="break-words text-sm font-bold leading-snug text-slate-900">
+          {isPhoneOnly ? t("createProfile.phoneAccount") : displayNameFallback(user)}
+        </p>
+        <p className="mt-1 break-all text-xs leading-snug text-slate-500">{privateValue}</p>
       </div>
       <span className="hidden shrink-0 items-center gap-1.5 rounded-full border border-emerald-100 bg-white px-2.5 py-1.5 text-[11px] font-semibold text-emerald-700 sm:flex">
-        <Check className="size-3.5" /> {t("createProfile.googleAccount")}
+        <Check className="size-3.5" /> {t(providerKey)}
       </span>
       <CheckCircle2
         className="size-5 shrink-0 text-emerald-500 sm:hidden"
-        aria-label={t("createProfile.googleVerified")}
+        aria-label={t(providerKey)}
       />
     </div>
   );
@@ -453,7 +467,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
   const { t } = useTranslation();
   const reducedMotion = Boolean(useReducedMotion());
   const [draft, setDraft] = useState<ProfileDraft>({
-    displayName: user.name,
+    displayName: user.name === "CareAI user" ? "" : user.name,
     dateOfBirth: "",
     sex: "",
     heightCm: "",
@@ -536,7 +550,7 @@ function ProfileForm({ user, onSuccess }: { user: AppUser; onSuccess: () => void
       <MobileWelcomeVisual />
 
       <div className="mt-4 lg:mt-3">
-        <GoogleAccountPreview user={user} />
+        <AccountPreview user={user} />
       </div>
 
       <form
