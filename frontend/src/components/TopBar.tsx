@@ -143,6 +143,7 @@ export function TopBar({ hideMobileNavigation = false }: { hideMobileNavigation?
                   <DropdownMenuItem asChild>
                     <Link
                       to="/profile"
+                      search={{ view: "overview" }}
                       className="min-h-11 cursor-pointer rounded-[12px] px-3 text-sm font-semibold text-slate-700 focus:bg-blue-50 focus:text-blue-700"
                     >
                       <UserRound className="size-4" />

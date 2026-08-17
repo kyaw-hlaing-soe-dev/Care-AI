@@ -199,7 +199,10 @@ const en = {
     insightTitle: "CareAI Health Insight",
     aiAnalysis: "AI analysis",
     ruleBasedInsight: "Rule-based insight",
-    aiUnavailable: "AI analysis is disabled in Firestore-only Spark mode.",
+    aiUnavailable:
+      "Using the rule-based fallback. OpenRouter analysis appears here when server AI configuration is available.",
+    aiFailed:
+      "Your reading was saved. OpenRouter analysis is temporarily unavailable, so this fallback is shown.",
     whatLooksGood: "What looks good",
     areasToWatch: "Areas to watch",
     recommendations: "Recommendations",

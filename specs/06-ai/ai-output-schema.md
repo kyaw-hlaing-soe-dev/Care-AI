@@ -20,4 +20,4 @@
 
 `summary`, all arrays, `urgency`, and `disclaimer` are required after normalization. Use zero to three concise strings per array; disallow arbitrary urgency labels. `disclaimer` must state that CareAI offers informational insights and is not a substitute for professional medical advice.
 
-**CARE-AI-003 — P0 / DEFERRED IN SPARK MODE:** No model output is accepted or persisted by the active app. The schema and inactive backend validator remain the required contract if a protected server is reintroduced. The active UI adapter builds its `VitalAnalysis` view from deterministic local logic and labels the provider as `deterministic`.
+**CARE-AI-003 — P0 / PARTIAL IN SPARK MODE:** The protected frontend server route accepts model output only after exact-key schema normalization, list bounds, urgency validation, deterministic urgency matching, and safety checks. Accepted output is presentation-only and is merged into the UI view; it is not persisted as trusted Firestore data. Browser-only/static hosting builds its `VitalAnalysis` view from deterministic local logic and labels the provider as `deterministic`.

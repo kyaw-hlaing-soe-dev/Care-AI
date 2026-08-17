@@ -8,6 +8,7 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
+    "typecheck": "tsc --noEmit --pretty",
     "lint": "eslint .",
     "test:ai": "npx --yes tsx@4.20.3 --test src/lib/vitals-api-server.test.ts",
     "format": "prettier --write ."

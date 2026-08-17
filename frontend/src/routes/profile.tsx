@@ -17,8 +17,8 @@ import { useTranslation } from "react-i18next";
 export const Route = createFileRoute("/profile")({
   validateSearch: (search: Record<string, unknown>): { view: ProfileView } => ({
     view:
-      typeof search.view === "string" && PROFILE_VIEWS.includes(search.view as ProfileView)
-        ? (search.view as ProfileView)
+      typeof search["view"] === "string" && PROFILE_VIEWS.includes(search["view"] as ProfileView)
+        ? (search["view"] as ProfileView)
         : "overview",
   }),
   head: () => ({

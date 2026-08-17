@@ -11,4 +11,4 @@
 
 The Spark design intentionally has no application backend. Client code is not trusted: Firestore rules repeat authorization and validate all writable document fields. A malicious owner can choose valid raw readings, but cannot write outside technical limits, forge the deterministic result, modify saved readings, or access another UID path.
 
-OpenRouter and Firebase Admin configuration must remain absent from browser source, `VITE_*`, bundles, logs, specs, screenshots, and commits. AI stays disabled until a protected server is approved. Do not log full profiles/readings or identity tokens.
+OpenRouter and Firebase Admin configuration must remain absent from browser source, `VITE_*`, bundles, logs, specs, screenshots, and commits. Spark-compatible AI may call OpenRouter only through a protected server runtime with `OPENROUTER_API_KEY` in the host secret store. Do not log full profiles/readings or identity tokens.

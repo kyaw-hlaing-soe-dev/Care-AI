@@ -1,6 +1,7 @@
 [run]
-install = "cd frontend && bun install"
-dev = "cd frontend && bun dev"
-build = "cd frontend && bun run build"
-lint = "cd frontend && bun run lint"
-format = "cd frontend && bun run format"
+install = "bun install --cwd frontend"
+dev = "bun run --cwd frontend dev"
+typecheck = "bun run --cwd frontend typecheck"
+build = "bun run --cwd frontend typecheck && bun run --cwd frontend build"
+lint = "bun run --cwd frontend lint"
+format = "bun run --cwd frontend format"

@@ -202,7 +202,10 @@ const my: TranslationSchema = {
     insightTitle: "CareAI ကျန်းမာရေးအမြင်",
     aiAnalysis: "AI ခွဲခြမ်းစိတ်ဖြာမှု",
     ruleBasedInsight: "စည်းမျဉ်းအခြေပြု အမြင်",
-    aiUnavailable: "Firestore-only Spark ပုံစံတွင် AI ခွဲခြမ်းစိတ်ဖြာမှုကို ပိတ်ထားသည်။",
+    aiUnavailable:
+      "စည်းမျဉ်းအခြေပြု fallback ကို အသုံးပြုနေသည်။ Server AI configuration ရှိပါက OpenRouter ခွဲခြမ်းစိတ်ဖြာမှုကို ဤနေရာတွင် ပြပါမည်။",
+    aiFailed:
+      "တိုင်းတာချက်ကို သိမ်းထားပြီးပါပြီ။ OpenRouter ခွဲခြမ်းစိတ်ဖြာမှုကို ယာယီမရနိုင်သောကြောင့် ဤ fallback ကို ပြထားသည်။",
     whatLooksGood: "ကောင်းမွန်နေသောအချက်များ",
     areasToWatch: "စောင့်ကြည့်ရန်အချက်များ",
     recommendations: "အကြံပြုချက်များ",

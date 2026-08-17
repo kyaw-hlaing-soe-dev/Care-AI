@@ -18,7 +18,7 @@ const WIDGETS = [
     label: "Heart Rate",
     value: "72 BPM",
     tint: "from-rose-400/80 to-rose-500/80",
-    pos: "left-[30%] top-[0%] sm:left-[16%] sm:top-[10%] lg:left-[1%] lg:top-[23%]",
+    pos: "left-[12%] top-[2%] sm:left-[22%] sm:top-[8%] md:left-[18%] md:top-[10%] lg:left-[16%] lg:top-[14%]",
     show: "flex",
     delay: 0,
     rotate: -7,
@@ -28,8 +28,8 @@ const WIDGETS = [
     label: "Blood Pressure",
     value: "120 / 76",
     tint: "from-primary/85 to-sky/85",
-    pos: "left-[0%] bottom-[10%] sm:left-[4%] sm:bottom-[16%] md:left-auto md:right-[1%] md:top-[28%] md:bottom-auto lg:top-[13%]",
-    show: "flex max-[389px]:hidden md:flex",
+    pos: "left-[10%] bottom-[8%] sm:left-[16%] sm:bottom-[14%] md:left-auto md:right-[14%] md:top-[26%] md:bottom-auto lg:right-[16%] lg:top-[10%]",
+    show: "flex",
     delay: 0.8,
     rotate: 6,
   },
@@ -38,7 +38,7 @@ const WIDGETS = [
     label: "Temperature",
     value: "36.7°C",
     tint: "from-amber-400/85 to-orange-400/85",
-    pos: "left-[0%] bottom-[20%]",
+    pos: "left-[8%] bottom-[26%]",
     show: "hidden lg:flex",
     delay: 1.4,
     rotate: 5,
@@ -48,7 +48,7 @@ const WIDGETS = [
     label: "Oxygen",
     value: "98%",
     tint: "from-teal/90 to-cyan/90",
-    pos: "right-[0%] bottom-[10%] sm:right-[3%] sm:bottom-[16%] lg:right-[0%] lg:bottom-[34%]",
+    pos: "right-[10%] bottom-[8%] sm:right-[16%] sm:bottom-[14%] md:right-[14%] md:bottom-[18%] lg:right-[14%] lg:bottom-[28%]",
     show: "flex",
     delay: 0.4,
     rotate: -5,
@@ -152,7 +152,7 @@ export function Hero() {
           mx.set(0);
           my.set(0);
         }}
-        className="relative mx-auto h-[210px] w-full max-w-[390px] min-[400px]:h-[230px] sm:h-[330px] sm:max-w-[540px] md:h-[390px] md:max-w-[620px] lg:h-[clamp(430px,61dvh,560px)] lg:max-w-[560px] [perspective:1400px] [@media(max-height:700px)]:h-[205px] lg:[@media(max-height:700px)]:h-[430px]"
+        className="relative mx-auto h-[260px] w-full max-w-[390px] min-[400px]:h-[280px] sm:h-[330px] sm:max-w-[540px] md:h-[390px] md:max-w-[620px] lg:h-[clamp(430px,61dvh,560px)] lg:max-w-[560px] [perspective:1400px] [@media(max-height:700px)]:h-[205px] lg:[@media(max-height:700px)]:h-[430px]"
       >
         <motion.div
           initial={reducedMotion ? false : { opacity: 0, scale: 0.985 }}
@@ -176,7 +176,7 @@ export function Hero() {
             loading="eager"
             {...(!reducedMotion ? { animate: { y: [0, -4, 0] } } : {})}
             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-x-[14%] bottom-[5%] top-auto m-auto h-[175px] w-auto object-contain drop-shadow-[0_24px_30px_rgba(30,64,140,0.18)] min-[400px]:h-[195px] sm:h-[280px] md:h-[320px] lg:bottom-[3%] lg:top-[2%] lg:h-[96%] lg:drop-shadow-[0_34px_44px_rgba(30,64,140,0.22)] [@media(max-height:700px)]:h-[168px] lg:[@media(max-height:700px)]:h-[96%]"
+            className="absolute inset-x-[14%] bottom-[2%] top-auto m-auto h-[165px] w-auto object-contain drop-shadow-[0_24px_30px_rgba(30,64,140,0.18)] min-[400px]:h-[185px] sm:h-[280px] md:h-[320px] lg:bottom-[3%] lg:top-[2%] lg:h-[96%] lg:drop-shadow-[0_34px_44px_rgba(30,64,140,0.22)] [@media(max-height:700px)]:h-[168px] lg:[@media(max-height:700px)]:h-[96%]"
             style={{ transform: "translateZ(60px)" }}
           />
 
@@ -193,7 +193,7 @@ export function Hero() {
                 y: { duration: 7 + w.delay, repeat: Infinity, ease: "easeInOut", delay: w.delay },
               }}
               style={{ rotate: w.rotate, transform: "translateZ(90px)" }}
-              className={`glass-surface glass-glare glass-strong absolute ${w.pos} ${w.show} w-[106px] items-center gap-1.5 rounded-[14px] px-1.5 py-1.5 shadow-[0_12px_28px_rgba(30,64,140,0.12)] sm:w-auto sm:gap-3 sm:rounded-[18px] sm:px-3 sm:py-2.5`}
+              className={`glass-surface glass-glare glass-strong absolute ${w.pos} ${w.show} w-[124px] max-[340px]:w-[110px] items-center gap-1.5 rounded-[14px] px-1.5 py-1.5 shadow-[0_12px_28px_rgba(30,64,140,0.12)] sm:w-auto sm:gap-3 sm:rounded-[18px] sm:px-3 sm:py-2.5`}
             >
               <span
                 className={`grid size-7 shrink-0 place-items-center rounded-[10px] bg-gradient-to-br ${w.tint} text-white shadow-md sm:size-9 sm:rounded-xl sm:shadow-lg`}
