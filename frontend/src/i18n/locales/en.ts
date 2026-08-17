@@ -122,6 +122,11 @@ const en = {
       sendFailed: "We couldn't send the verification code. Please try again.",
       network: "Check your internet connection and try again.",
       recaptcha: "We couldn't verify this request. Please try again.",
+      unauthorizedDomain:
+        "Phone sign-in is not enabled for this website domain. Contact the CareAI team.",
+      providerDisabled: "Phone sign-in is not enabled yet. Contact the CareAI team.",
+      invalidAppCredential:
+        "Phone sign-in could not verify this app. Check the Firebase phone auth settings.",
       credentialInUse: "This phone number is already connected to another account.",
     },
     secureSignIn: "Secure sign-in • Your health data stays private",

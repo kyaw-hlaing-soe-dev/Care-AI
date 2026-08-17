@@ -87,6 +87,9 @@ function phoneAuthErrorKey(error: unknown) {
     return "auth.phoneErrors.recaptcha";
   }
   if (code === "auth/network-request-failed") return "auth.phoneErrors.network";
+  if (code === "auth/unauthorized-domain") return "auth.phoneErrors.unauthorizedDomain";
+  if (code === "auth/operation-not-allowed") return "auth.phoneErrors.providerDisabled";
+  if (code === "auth/invalid-app-credential") return "auth.phoneErrors.invalidAppCredential";
   if (code === "auth/credential-already-in-use" || code === "auth/provider-already-linked") {
     return "auth.phoneErrors.credentialInUse";
   }
@@ -424,7 +427,7 @@ function PhoneAuthFlow({ googlePending }: { googlePending?: boolean | undefined 
 
   function verifier() {
     verifierRef.current ??= createPhoneRecaptchaVerifier(
-      "careai-phone-recaptcha",
+      "careai-phone-send-button",
       normalizeLanguage(i18n.resolvedLanguage ?? i18n.language),
     );
     return verifierRef.current;
