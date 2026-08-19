@@ -2,27 +2,21 @@
 
 **Status:** Active  
 **Version:** 1.0  
-**Last Updated:** 2026-08-08  
+**Last Updated:** 2026-08-19  
 **Related:** [Authorization](./authorization.md), [User Profile](../04-profile/user-profile.md)
 
 ## Current state — IMPLEMENTED IN CODE, NOT DEPLOYED
 
-`AuthProvider` initializes Firebase Auth only in the browser, observes the session, uses the Google popup flow with a blocked-popup redirect fallback, supports Firebase phone-number sign-in with `RecaptchaVerifier` and SMS verification codes, supplies identity to owner-scoped Firestore operations, clears user-scoped query state on logout, and performs a one-time removal of legacy mock local data. Keeping Auth/Firestore initialization out of server-side rendering prevents a frontend deployment configuration error from turning every SSR request into an HTTP 500. Firebase provider configuration and browser E2E acceptance remain outstanding.
+`AuthProvider` initializes Firebase Auth only in the browser, observes the session, uses the Google popup flow with a blocked-popup redirect fallback, supplies identity to owner-scoped Firestore operations, clears user-scoped query state on logout, and performs a one-time removal of legacy mock local data. Keeping Auth/Firestore initialization out of server-side rendering prevents a frontend deployment configuration error from turning every SSR request into an HTTP 500. Firebase provider configuration and browser E2E acceptance remain outstanding.
 
-Phone sign-in requires Firebase Console configuration before it can work in a deployed environment:
+CareAI no longer exposes Firebase phone-number sign-in, SMS OTP verification, reCAPTCHA setup, resend timers, or phone-provider account linking in the application code. Existing Firestore profile and vital documents are not migrated or deleted by this removal.
 
-- Authentication -> Sign-in method -> Phone must be enabled for project `care-ai-4eb8d`.
-- Authentication -> Settings -> SMS region policy currently uses an allowlist with `MM`, so the shipped phone sign-in UI accepts Myanmar phone numbers only. Add regions in Firebase before exposing additional countries in the UI. New Firebase projects default to allowing no SMS regions until this policy is configured.
-- Authentication -> Settings -> Authorized domains must include every served CareAI domain, including `care-ai-4eb8d.firebaseapp.com`, localhost domains used for development, and deployed Vercel domains when used, such as `care-ai-six.vercel.app` and `vitals-glass.vercel.app`.
-- Real SMS phone verification requires a Firebase project with billing enabled. On Spark/no-billing environments, Firebase returns `auth/billing-not-enabled`; the UI must keep the user on the phone sign-in step and show a safe setup message.
-- Development and QA should use Firebase Authentication fictional phone numbers configured in the Console instead of repeatedly sending real SMS messages. Test numbers and OTPs must not be hardcoded in production source.
+Phone Authentication can be disabled separately in Firebase Console at Authentication -> Sign-in method / Providers -> Phone. Before disabling that provider, export or inspect Firebase Auth users for accounts whose only provider is Phone. Those users will not have a usable sign-in method after Phone Authentication is disabled unless another provider is linked first. This repository does not contain enough production Auth user data to prove whether such accounts exist.
 
 ## Target behavior
 
-**CARE-AUTH-001 — P0 / IMPLEMENTED IN CODE, NOT DEPLOYED:** Firebase manages session persistence and client code observes auth/profile loading before redirects. Successful Google or phone sign-in routes only users whose owner-readable Firestore profile reports `profileCompleted: true` to `/dashboard`; all others go to `/create-profile`.
+**CARE-AUTH-001 — P0 / IMPLEMENTED IN CODE, NOT DEPLOYED:** Firebase manages session persistence and client code observes auth/profile loading before redirects. Successful Google sign-in routes only users whose owner-readable Firestore profile reports `profileCompleted: true` to `/dashboard`; all others go to `/create-profile`.
 
 On cancellation, popup-blocking, network, or provider errors, retain the login page, show a plain user-facing message, and never show raw provider data. Logout calls Firebase `signOut()`, clears in-memory/user-scoped caches, and routes to `/login`.
 
-**CARE-AUTH-002 — P1 / IMPLEMENTED IN CODE, NOT DEPLOYED:** The login page offers Google and phone as Firebase Authentication providers for the same CareAI account flow. Phone sign-in normalizes selected-country national numbers to E.164 before calling Firebase, keeps OTP values out of Firestore/localStorage/URLs, uses an invisible Firebase `RecaptchaVerifier`, prevents duplicate send/verify submissions, applies a resend cooldown, maps common Firebase errors to safe localized messages, and relies on the existing UID-based profile lookup after successful verification.
-
-Account linking is not implemented in this phase. A signed-in Google user cannot add a phone provider from Profile yet; if Firebase reports that a phone credential is already in use or already linked, the UI shows a safe stop message and does not merge, delete, or copy Firestore data.
+**CARE-AUTH-002 — P1 / REMOVED:** Phone-number sign-in and OTP verification were removed from the CareAI application. Google Sign-In via Firebase Authentication is the only supported sign-in method in the current product flow.
