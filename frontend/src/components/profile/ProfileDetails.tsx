@@ -12,7 +12,6 @@ import {
   LockKeyhole,
   LogOut,
   Pencil,
-  Phone,
   ShieldCheck,
   UserRound,
 } from "lucide-react";
@@ -170,11 +169,7 @@ function ProviderBadges({ user }: { user: AppUser }) {
             key={provider}
             className="inline-flex w-fit items-center gap-1.5 rounded-full border border-emerald-100 bg-emerald-50/90 px-2.5 py-1 text-[11px] font-bold text-emerald-700"
           >
-            {provider === "phone" ? (
-              <Phone className="size-3.5" aria-hidden="true" />
-            ) : (
-              <Check className="size-3.5" aria-hidden="true" />
-            )}
+            <Check className="size-3.5" aria-hidden="true" />
             {t(providerLabelKey(provider))}
           </span>
         ))
@@ -1182,8 +1177,6 @@ function LanguageSection({ onBack }: { onBack: () => void }) {
 function PrivacySection({ user, onBack }: { user: AppUser; onBack: () => void }) {
   const { t } = useTranslation();
   const [modal, setModal] = useState<"data" | "disclaimer" | null>(null);
-  const hasGoogle = user.providers.includes("google");
-  const hasPhone = user.providers.includes("phone");
   return (
     <>
       <MobileNestedHeader
@@ -1200,18 +1193,7 @@ function PrivacySection({ user, onBack }: { user: AppUser; onBack: () => void })
           <DetailList title={t("profile.account")}>
             <DetailRow label={t("profile.connectedAccount")} value={t(providerSummaryKey(user))} />
             <DetailRow label={t("profile.email")} value={user.email ?? t("common.notProvided")} />
-            {hasPhone ? (
-              <DetailRow
-                label={t("profile.phoneNumber")}
-                value={user.phoneNumber ?? t("common.notProvided")}
-              />
-            ) : null}
-            {hasGoogle ? (
-              <DetailRow
-                label={t("profile.google")}
-                value={user.email ?? t("common.notProvided")}
-              />
-            ) : null}
+            <DetailRow label={t("profile.google")} value={user.email ?? t("common.notProvided")} />
           </DetailList>
           <SettingsGroup title={t("profile.privacyLabel")}>
             <SettingsRow

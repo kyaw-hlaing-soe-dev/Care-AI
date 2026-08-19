@@ -7,7 +7,7 @@
 
 ## Current technical validation — IMPLEMENTED client-side
 
-Every vital field is required. `VitalForm` trims the submitted string, converts it with `Number`, rejects non-finite values and values outside its technical limits, marks errors only after touch or submit, and focuses the first invalid input after submit. HTML numeric input modes provide appropriate phone keyboards.
+Every vital field is required. `VitalForm` trims the submitted string, converts it with `Number`, rejects non-finite values and values outside its technical limits, marks errors only after touch or submit, and focuses the first invalid input after submit. HTML numeric input modes provide appropriate mobile numeric keyboards.
 
 ## Firestore rule validation — IMPLEMENTED IN CODE, NOT DEPLOYED
 

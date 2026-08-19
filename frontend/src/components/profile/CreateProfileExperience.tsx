@@ -8,7 +8,6 @@ import {
   CircleUserRound,
   LockKeyhole,
   LoaderCircle,
-  Phone,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
@@ -238,7 +237,6 @@ function AccountPreview({ user }: { user: AppUser }) {
   const accountValue = primaryAccountValue(user);
   const privateValue = privateAccountValue(user) || t("common.notProvided");
   const providerKey = providerSummaryKey(user);
-  const isPhoneOnly = user.providers.includes("phone") && !user.providers.includes("google");
   const initials = useMemo(
     () =>
       displayNameFallback(user)
@@ -266,12 +264,12 @@ function AccountPreview({ user }: { user: AppUser }) {
           </span>
         )}
         <span className="absolute -bottom-0.5 -right-0.5 grid size-[18px] place-items-center rounded-full border-2 border-white bg-white text-[10px] font-extrabold text-blue-600 shadow-sm">
-          {isPhoneOnly ? <Phone className="size-3" aria-hidden="true" /> : "G"}
+          G
         </span>
       </div>
       <div className="min-w-0 flex-1 leading-tight">
         <p className="break-words text-sm font-bold leading-snug text-slate-900">
-          {isPhoneOnly ? t("createProfile.phoneAccount") : displayNameFallback(user)}
+          {displayNameFallback(user)}
         </p>
         <p className="mt-1 break-all text-xs leading-snug text-slate-500">{privateValue}</p>
       </div>
