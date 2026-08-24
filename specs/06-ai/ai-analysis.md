@@ -16,6 +16,6 @@ Validated vitals → deterministic Health Score → minimal permitted context
 → protected OpenRouter request → normalize/validate response → save analysis → UI
 ```
 
-Only required context may be sent: five validated readings, deterministic score, and an approved minimal trend summary; optionally age-derived context/sex only when justified by defined rules. Never send email, full name, photo URL, Firebase UID, Google ID, or unrelated profile fields.
+Only required context may be sent: five validated readings, deterministic score, and an approved minimal trend summary; optionally age-derived context/sex only when justified by defined rules. Optional server-only provider settings may control reasoning token budget, but reasoning traces must be excluded from provider responses and must not be rendered, logged, or persisted. Never send email, full name, photo URL, Firebase UID, Google ID, or unrelated profile fields.
 
 **CARE-AI-002 — P0 / PARTIAL IN SPARK MODE:** The reading is saved independently with `analysisStatus: "unavailable"` because Firestore cannot trust browser-written analysis documents. When configured, the protected server route may generate presentation-only OpenRouter analysis; output must pass the normalized schema and safety checks, and deterministic score/status/emergency/urgency remain authoritative. Persisted analysis documents remain deferred until a trusted server write path is approved.

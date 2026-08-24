@@ -6,12 +6,14 @@ import {
 
 const URL = "https://openrouter.ai/api/v1/chat/completions";
 const MAX_BYTES = 128 * 1024;
+const MAX_REASONING_TOKENS = 24_576;
 
 export type OpenRouterConfig = {
   apiKey: string;
   model: string;
   siteUrl?: string;
   appName: string;
+  reasoningMaxTokens?: number;
 };
 export type ProviderResult =
   | { ok: true; output: AiOutput; model: string }
@@ -32,7 +34,7 @@ export async function requestOpenRouter(
     "x-title": config.appName,
   });
   if (config.siteUrl) headers.set("http-referer", config.siteUrl);
-  const body = JSON.stringify({
+  const payload: Record<string, unknown> = {
     model: config.model,
     messages: [
       { role: "system", content: systemPrompt() },
@@ -48,7 +50,11 @@ export async function requestOpenRouter(
     response_format: { type: "json_object" },
     temperature: 0.1,
     max_tokens: 700,
-  });
+  };
+  if (isReasoningMaxTokens(config.reasoningMaxTokens)) {
+    payload.reasoning = { max_tokens: config.reasoningMaxTokens, exclude: true };
+  }
+  const body = JSON.stringify(payload);
 
   for (let attempt = 0; attempt < 2; attempt += 1) {
     let response: Response;
@@ -123,4 +129,19 @@ async function withTimeout(
   } finally {
     clearTimeout(timeout);
   }
+}
+
+export function parseReasoningMaxTokens(value: string): number | undefined {
+  const normalized = value.trim();
+  if (!normalized || !/^-?\d+$/.test(normalized)) return undefined;
+  const parsed = Number(normalized);
+  return isReasoningMaxTokens(parsed) ? parsed : undefined;
+}
+
+function isReasoningMaxTokens(value: unknown): value is number {
+  return (
+    typeof value === "number" &&
+    Number.isSafeInteger(value) &&
+    (value === -1 || (value >= 0 && value <= MAX_REASONING_TOKENS))
+  );
 }

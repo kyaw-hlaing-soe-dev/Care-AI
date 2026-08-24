@@ -2,6 +2,12 @@ import { defineSecret, defineString } from "firebase-functions/params";
 
 export const openRouterApiKey = defineSecret("OPENROUTER_API_KEY");
 export const openRouterModel = defineString("OPENROUTER_MODEL");
+export const openRouterReasoningMaxTokens = defineString(
+  "OPENROUTER_REASONING_MAX_TOKENS",
+  {
+    default: "",
+  },
+);
 export const openRouterSiteUrl = defineString("OPENROUTER_SITE_URL", {
   default: "",
 });

@@ -26,4 +26,4 @@ The service never accepts a UID parameter. Firestore rules authorize and validat
 - **Header:** optional `idempotency-key`, 8 to 128 permitted characters, used for warm-instance response reuse only.
 - **Success:** returns deterministic `healthScore`, an analysis object, and `analysisStatus: "completed"` when provider output passes normalization.
 - **Fallback:** returns `analysisStatus: "failed"` and `AI_ERROR` with safe unavailable copy when server config is missing, the provider fails, output is malformed/unsafe/oversized, urgency conflicts, or a timeout occurs.
-- **Privacy:** the provider request contains only the five validated readings, deterministic score, and deterministic application urgency.
+- **Privacy:** the provider request contains only the five validated readings, deterministic score, deterministic application urgency, and optional server-only provider controls such as `reasoning.max_tokens`. Reasoning traces are excluded from responses and are not exposed to the browser.

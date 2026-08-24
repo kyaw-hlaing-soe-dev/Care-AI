@@ -5,6 +5,7 @@ import {
   openRouterApiKey,
   openRouterAppName,
   openRouterModel,
+  openRouterReasoningMaxTokens,
   openRouterSiteUrl,
 } from "../config/env.js";
 import {
@@ -13,6 +14,7 @@ import {
   validateIdempotencyKey,
 } from "../services/vitalService.js";
 import { runAnalysis } from "../services/aiAnalysisService.js";
+import { parseReasoningMaxTokens } from "../providers/openRouterProvider.js";
 import { validateVitalInput } from "../validators/vitalValidator.js";
 import { AppError } from "../utils/errors.js";
 
@@ -22,6 +24,9 @@ function providerConfig() {
     model: readParameter(() => openRouterModel.value()),
     siteUrl: readParameter(() => openRouterSiteUrl.value()) || undefined,
     appName: readParameter(() => openRouterAppName.value()) || "CareAI",
+    reasoningMaxTokens: parseReasoningMaxTokens(
+      readParameter(() => openRouterReasoningMaxTokens.value()),
+    ),
   };
 }
 

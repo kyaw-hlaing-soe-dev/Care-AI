@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { requestOpenRouter } from "../src/providers/openRouterProvider.js";
+import {
+  parseReasoningMaxTokens,
+  requestOpenRouter,
+} from "../src/providers/openRouterProvider.js";
 import { analyzeVitals } from "../src/services/healthScoreService.js";
 import {
   CAREAI_DISCLAIMER,
@@ -26,6 +29,7 @@ const config = {
   apiKey: "test-only",
   model: "test/model",
   appName: "CareAI Test",
+  reasoningMaxTokens: -1,
 };
 
 test("normalizer enforces exact safe schema", () => {
@@ -72,6 +76,9 @@ test("provider sends minimal context and preserves urgency", async () => {
   const context = JSON.parse(
     JSON.parse(requestBody).messages[1].content,
   ) as Record<string, unknown>;
+  const providerBody = JSON.parse(requestBody) as {
+    reasoning?: { max_tokens?: number; exclude?: boolean };
+  };
   assert.deepEqual(Object.keys(context).sort(), [
     "applicationUrgency",
     "diastolic",
@@ -81,7 +88,16 @@ test("provider sends minimal context and preserves urgency", async () => {
     "systolic",
     "temperatureC",
   ]);
+  assert.deepEqual(providerBody.reasoning, { max_tokens: -1, exclude: true });
   assert.equal(requestBody.includes("test-only"), false);
+});
+
+test("reasoning budget parser accepts Gemini dynamic and bounded token budgets", () => {
+  assert.equal(parseReasoningMaxTokens("-1"), -1);
+  assert.equal(parseReasoningMaxTokens("0"), 0);
+  assert.equal(parseReasoningMaxTokens("24576"), 24576);
+  assert.equal(parseReasoningMaxTokens("24577"), undefined);
+  assert.equal(parseReasoningMaxTokens("high"), undefined);
 });
 
 test("provider retries 5xx once and rejects urgency conflicts", async () => {
