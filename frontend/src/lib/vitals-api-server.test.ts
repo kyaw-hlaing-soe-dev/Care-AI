@@ -19,6 +19,7 @@ if (!globalThis.crypto) {
 const ENV = {
   OPENROUTER_API_KEY: "test-key-not-a-secret",
   OPENROUTER_MODEL: "test/provider-model",
+  OPENROUTER_REASONING_MAX_TOKENS: "-1",
   OPENROUTER_SITE_URL: "https://careai.example",
   OPENROUTER_APP_NAME: "CareAI Test",
 };
@@ -156,6 +157,7 @@ test("sends only minimal health context and keeps deterministic results authorit
   const body = await responseBody(response);
   const providerBody = JSON.parse(String(providerRequest?.body)) as {
     messages: Array<{ content: string }>;
+    reasoning?: { max_tokens?: number; exclude?: boolean };
   };
   const context = JSON.parse(providerBody.messages[1]?.content ?? "{}") as Record<string, unknown>;
 
@@ -175,6 +177,7 @@ test("sends only minimal health context and keeps deterministic results authorit
     "systolic",
     "temperatureC",
   ]);
+  assert.deepEqual(providerBody.reasoning, { max_tokens: -1, exclude: true });
   assert.equal(JSON.stringify(body).includes(ENV.OPENROUTER_API_KEY), false);
 });
 

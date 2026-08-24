@@ -13,6 +13,6 @@ The Spark-plan frontend never calls OpenRouter directly and contains no OpenRout
 
 Provider: OpenRouter. Endpoint: `POST https://openrouter.ai/api/v1/chat/completions`. The protected backend, never the browser, holds and sends `Authorization: Bearer <OPENROUTER_API_KEY>`.
 
-Required server-only configuration: `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`. Optional: `OPENROUTER_SITE_URL`, `OPENROUTER_APP_NAME`. The browser gate `VITE_CAREAI_AI_ANALYSIS_ENABLED=true` may be public, but it must not contain a provider secret. Do not document, commit, bundle, log, or expose actual secret values.
+Required server-only configuration: `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`. Optional: `OPENROUTER_REASONING_MAX_TOKENS`, `OPENROUTER_SITE_URL`, `OPENROUTER_APP_NAME`. `OPENROUTER_REASONING_MAX_TOKENS` is sent only from the protected server route as OpenRouter `reasoning.max_tokens`; supported values are `-1` for dynamic model-selected reasoning, `0` to disable reasoning, or `1` through `24576` for a fixed token budget. Reasoning traces are excluded from provider responses and are never rendered or persisted. The browser gate `VITE_CAREAI_AI_ANALYSIS_ENABLED=true` may be public, but it must not contain a provider secret. Do not document, commit, bundle, log, or expose actual secret values.
 
 **CARE-AI-001 — P0 / PARTIAL IN SPARK MODE:** Browser code must never receive `OPENROUTER_API_KEY`. OpenRouter may be called only by the protected frontend server route or a future backend. Missing configuration returns the safe unavailable fallback.

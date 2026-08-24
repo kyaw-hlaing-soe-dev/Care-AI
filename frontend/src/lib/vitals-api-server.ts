@@ -3,6 +3,7 @@ import { analyzeVitals, type VitalAnalysis, type VitalInput, type VitalRecord } 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const REQUEST_TIMEOUT_MS = 10_000;
 const MAX_PROVIDER_RESPONSE_BYTES = 128 * 1024;
+const MAX_REASONING_TOKENS = 24_576;
 const MAX_IDEMPOTENCY_ENTRIES = 500;
 const IDEMPOTENCY_TTL_MS = 10 * 60 * 1000;
 
@@ -10,6 +11,11 @@ export const CAREAI_DISCLAIMER =
   "CareAI provides informational health insights and is not a substitute for professional medical advice.";
 export const AI_UNAVAILABLE_MESSAGE =
   "Your reading was saved, but CareAI analysis is temporarily unavailable.";
+
+const CHAT_URL = "https://openrouter.ai/api/v1/chat/completions";
+const CHAT_TIMEOUT_MS = 10_000;
+const CHAT_MAX_MESSAGE_LENGTH = 2_000;
+const CHAT_LANGUAGES = new Set(["en", "my", "zh"]);
 
 const LIMITS = {
   systolic: { min: 50, max: 300 },
@@ -67,6 +73,62 @@ type IdempotentEntry = {
 };
 
 const idempotentResponses = new Map<string, IdempotentEntry>();
+
+export async function handleCareAiChat(request: Request, env: unknown): Promise<Response> {
+  if (request.method !== "POST") return json({ message: "Unsupported method." }, 405, { allow: "POST" });
+  if (!isAllowedOrigin(request)) return json({ message: "Request origin is not allowed." }, 403);
+  if (!request.headers.get("content-type")?.toLowerCase().includes("application/json")) {
+    return json({ message: "Expected a JSON request." }, 415);
+  }
+
+  let payload: unknown;
+  try {
+    payload = await request.json();
+  } catch {
+    return json({ message: "Invalid request." }, 400);
+  }
+  if (payload == null || typeof payload !== "object" || Array.isArray(payload)) {
+    return json({ message: "Invalid request." }, 400);
+  }
+  const body = payload as Record<string, unknown>;
+  const message = typeof body.message === "string" ? body.message.trim() : "";
+  const language = typeof body.language === "string" ? body.language : "";
+  if (!message || message.length > CHAT_MAX_MESSAGE_LENGTH || !CHAT_LANGUAGES.has(language)) {
+    return json({ message: "Check the message and selected language." }, 400);
+  }
+
+  const apiKey = getConfig(env, "OPENROUTER_API_KEY");
+  const model = getConfig(env, "OPENROUTER_MODEL");
+  if (!apiKey || !model) return json({ reply: chatFallback(language) });
+  const languageInstruction = language === "my" ? "Burmese" : language === "zh" ? "Simplified Chinese" : "English";
+  const providerRequest = {
+    model,
+    messages: [
+      {
+        role: "system",
+        content: `You are CareAI, an informational healthcare assistant. Respond strictly in ${languageInstruction}. Be warm, concise, and clear. Do not diagnose, prescribe, or advise medication changes. For possible emergencies, advise contacting local emergency services or a medical professional. Keep the answer under 120 words.`,
+      },
+      { role: "user", content: message },
+    ],
+    temperature: 0.2,
+    max_tokens: 280,
+  };
+  try {
+    const response = await fetchWithTimeout(CHAT_URL, { method: "POST", headers: { authorization: `Bearer ${apiKey}`, "content-type": "application/json" }, body: JSON.stringify(providerRequest) }, CHAT_TIMEOUT_MS);
+    if (!response.ok) return json({ reply: chatFallback(language) });
+    const raw = (await response.json()) as { choices?: Array<{ message?: { content?: unknown } }> };
+    const reply = raw.choices?.[0]?.message?.content;
+    return json({ reply: typeof reply === "string" && reply.trim() ? reply.trim().slice(0, 2_000) : chatFallback(language) });
+  } catch {
+    return json({ reply: chatFallback(language) });
+  }
+}
+
+function chatFallback(language: string): string {
+  if (language === "my") return "လောလောဆယ် CareAI ခွဲခြမ်းစိတ်ဖြာမှု မရရှိနိုင်သေးပါ။ အရေးပေါ်အခြေအနေဖြစ်ပါက ဒေသခံ အရေးပေါ်ဝန်ဆောင်မှု သို့မဟုတ် ကျန်းမာရေးပညာရှင်ထံ ချက်ချင်း ဆက်သွယ်ပါ။";
+  if (language === "zh") return "CareAI 暂时无法提供分析。如果这是紧急情况，请立即联系当地急救服务或医疗专业人员。";
+  return "CareAI analysis is temporarily unavailable. If this may be an emergency, contact local emergency services or a medical professional now.";
+}
 
 export async function handleAnalyzeVitals(request: Request, env: unknown): Promise<Response> {
   if (request.method !== "POST") {
@@ -175,6 +237,7 @@ async function requestAiAnalysis(
   const deterministicUrgency = getDeterministicUrgency(baseline);
   const siteUrl = getConfig(env, "OPENROUTER_SITE_URL");
   const appName = getConfig(env, "OPENROUTER_APP_NAME") ?? "CareAI";
+  const reasoningMaxTokens = getReasoningMaxTokens(env);
   const headers = new Headers({
     authorization: `Bearer ${apiKey}`,
     "content-type": "application/json",
@@ -182,7 +245,7 @@ async function requestAiAnalysis(
   });
   if (siteUrl) headers.set("http-referer", siteUrl);
 
-  const body = JSON.stringify({
+  const payload: Record<string, unknown> = {
     model,
     messages: [
       {
@@ -205,7 +268,11 @@ async function requestAiAnalysis(
     response_format: { type: "json_object" },
     temperature: 0.1,
     max_tokens: 700,
-  });
+  };
+  if (reasoningMaxTokens !== undefined) {
+    payload.reasoning = { max_tokens: reasoningMaxTokens, exclude: true };
+  }
+  const body = JSON.stringify(payload);
 
   for (let attempt = 0; attempt < 2; attempt += 1) {
     let response: Response;
@@ -447,6 +514,14 @@ function getConfig(env: unknown, key: string): string | undefined {
   if (typeof fromEnv === "string" && fromEnv.trim()) return fromEnv.trim();
   const fromProcess = typeof process !== "undefined" ? process.env[key] : undefined;
   return fromProcess?.trim() || undefined;
+}
+
+function getReasoningMaxTokens(env: unknown): number | undefined {
+  const raw = getConfig(env, "OPENROUTER_REASONING_MAX_TOKENS");
+  if (!raw || !/^-?\d+$/.test(raw)) return undefined;
+  const value = Number(raw);
+  if (!Number.isSafeInteger(value)) return undefined;
+  return value === -1 || (value >= 0 && value <= MAX_REASONING_TOKENS) ? value : undefined;
 }
 
 function json(body: unknown, status = 200, headers?: HeadersInit): Response {

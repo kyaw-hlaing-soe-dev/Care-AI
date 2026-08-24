@@ -16,6 +16,7 @@ import { ProfileProvider } from "@/lib/profile-context";
 import { Toaster } from "@/components/ui/sonner";
 import { LanguageProvider } from "@/i18n/LanguageProvider";
 import { useTranslation } from "react-i18next";
+import { CareAIChatbot } from "@/components/CareAIChatbot";
 
 function NotFoundComponent() {
   const { t } = useTranslation();
@@ -138,6 +139,7 @@ function RootComponent() {
           <LanguageProvider>
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
             <Outlet />
+            <CareAIChatbot />
             <Toaster position="top-center" richColors closeButton />
           </LanguageProvider>
         </ProfileProvider>
