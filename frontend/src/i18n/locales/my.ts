@@ -35,6 +35,8 @@ const my: TranslationSchema = {
     dashboardShort: "အနှစ်ချုပ်",
     vitalTracker: "တိုင်းတာချက်",
     track: "မှတ်တမ်းတင်",
+    symptomCheck: "လက္ခဏာစစ်ဆေးမှု",
+    symptomCheckShort: "စစ်မည်",
     history: "မှတ်တမ်း",
     viewProfile: "ကိုယ်ရေးအချက်အလက် ကြည့်မည်",
     settings: "ဆက်တင်များ",

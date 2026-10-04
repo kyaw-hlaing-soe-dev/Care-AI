@@ -33,6 +33,8 @@ const en = {
     dashboardShort: "Overview",
     vitalTracker: "Vital Tracker",
     track: "Track",
+    symptomCheck: "Symptom Check",
+    symptomCheckShort: "Check",
     history: "History",
     viewProfile: "View Profile",
     settings: "Settings",

@@ -35,6 +35,8 @@ const zhCN: TranslationSchema = {
     dashboardShort: "概览",
     vitalTracker: "生命体征记录",
     track: "记录",
+    symptomCheck: "症状检查",
+    symptomCheckShort: "检查",
     history: "历史记录",
     viewProfile: "查看个人资料",
     settings: "设置",
