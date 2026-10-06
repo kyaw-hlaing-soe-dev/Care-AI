@@ -12,3 +12,5 @@
 ## Target priorities
 
 Unit-test score boundaries/determinism, vital validation, cursor/date filters, and mapping. Integration-test Firebase auth redirects, Firestore ownership/validation rules, profile writes, vital submission, immutable duplicate prevention, and Spark-mode insight behavior. Component-test errors, loading/empty states, accessible selectors, and charts. End-to-end-test Google auth (test environment), onboarding, dashboard, history, logout, and failure cases. Run manual viewport, keyboard, screen-reader, reduced-motion, and console checks for each release.
+
+The senior symptom feature additionally requires tests for Pydantic request/response bounds and urgency-color mapping, Gemini success/missing-key/provider-error/malformed/unsafe output, proxy origin and payload validation, accessible questionnaire completion, loading and error dialog states, result dismissal without scroll/input loss, and reduced-motion behavior. Gemini and browser E2E checks remain outstanding until a safe test provider configuration is available.

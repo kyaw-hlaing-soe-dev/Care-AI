@@ -6,6 +6,7 @@ import {
   LayoutDashboard,
   LogOut,
   Settings2,
+  Stethoscope,
   UserRound,
 } from "lucide-react";
 import { CareAILogo } from "@/components/auth/CareAILogo";
@@ -30,6 +31,7 @@ const NAV = [
     Icon: LayoutDashboard,
   },
   { to: "/add", labelKey: "nav.vitalTracker", shortLabelKey: "nav.track", Icon: Activity },
+  { to: "/symptoms", labelKey: "nav.symptomCheck", shortLabelKey: "nav.symptomCheckShort", Icon: Stethoscope },
   { to: "/history", labelKey: "nav.history", shortLabelKey: "nav.history", Icon: History },
 ] as const;
 
@@ -176,7 +178,7 @@ export function TopBar({ hideMobileNavigation = false }: { hideMobileNavigation?
 
       <nav
         className={cn(
-          "glass-control glass-glare fixed inset-x-3 bottom-[max(.65rem,env(safe-area-inset-bottom))] z-50 min-h-[68px] grid-cols-3 rounded-[22px] px-1.5 py-1 shadow-[0_18px_46px_rgba(31,72,116,0.18)] md:hidden",
+          "glass-control glass-glare fixed inset-x-3 bottom-[max(.65rem,env(safe-area-inset-bottom))] z-50 min-h-[68px] grid-cols-4 rounded-[22px] px-1.5 py-1 shadow-[0_18px_46px_rgba(31,72,116,0.18)] md:hidden",
           hideMobileNavigation ? "hidden" : "grid",
         )}
         aria-label={t("nav.mobile")}

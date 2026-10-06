@@ -95,6 +95,14 @@ The project uses responsive Tailwind classes, labels, focus states, live status,
 
 The landing page’s previews are static demo content and must never load an authenticated user’s health data.
 
+### CARE-PROD-011 — Senior-friendly symptom checker
+
+**Priority:** P1
+**Status:** IMPLEMENTED IN CODE; PROVIDER / PRIVACY REVIEW PENDING
+**Acceptance:** [AC-SYMPTOM-001](./acceptance-criteria.md#ac-symptom-001)
+
+An authenticated user can complete an accessible, single-page symptom questionnaire and receive a structured informational summary from the separate FastAPI/Gemini service. The UI preserves answers and scroll position when the result dialog closes, enforces the urgency-to-color mapping, displays red-flag guidance, and repeats the medical disclaimer. The Gemini-backed service and its frontend server proxy are not deployed or clinically reviewed by this requirement.
+
 ## Non-functional requirements
 
 - Protect identifiers, profile data, vital readings, and AI outputs from other users.

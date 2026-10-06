@@ -25,3 +25,7 @@
 - [ ] Firestore/Storage rules deployed and tested
 - [ ] Requested responsive viewport matrix, keyboard, focus, contrast, reduced motion
 - [ ] Loading, empty, permission, network, and AI-error states; no console errors
+- [ ] Senior symptom form validation, 52px targets, keyboard selection, and mobile sticky action bar
+- [ ] Senior result dialog loading/error/success, focus behavior, edit preserving answers and scroll position
+- [ ] Gemini missing key, timeout/provider failure, malformed schema, urgency-color mismatch, and unsafe language rejection
+- [ ] Senior symptom privacy/clinical review complete before enabling the Gemini service for real users

@@ -96,3 +96,12 @@ The active Spark-mode Firestore path never sends OpenRouter requests directly fr
 **GIVEN** a visitor loads `/`  
 **WHEN** they view product previews  
 **THEN** only illustrative demo values are rendered and no authenticated local or remote record is read.
+
+## AC-SYMPTOM-001
+
+**Related requirement:** CARE-PROD-011
+**Status:** IMPLEMENTED IN CODE; PROVIDER / PRIVACY REVIEW AND E2E OUTSTANDING
+
+**GIVEN** a signed-in user completes the required symptom questionnaire
+**WHEN** they request an analysis
+**THEN** the app opens an accessible loading/result dialog without navigating, sends only the selected symptom answers to the server-side FastAPI proxy, validates the structured response and urgency-color pairing, shows red flags and the informational disclaimer, and preserves their answers when they choose to edit. Incomplete forms cannot be submitted, and provider errors use safe, actionable copy.
